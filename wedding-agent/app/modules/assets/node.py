@@ -1,9 +1,12 @@
 """资产库。
 
-save_image / load_image / get_template 是唯一允许其他模块直接调用的函数。
+save_image / load_image / search_assets 是唯一允许其他模块直接调用的函数。
 demo 阶段图片存在本地 storage/，以后换对象存储只改这个文件。
+物料（风格示例、婚纱、妆容、姿势骨架、背景、版式）登记在 templates/catalog.json，
+妆造师和摄影师用 search_assets 来找。
 """
 
+import json
 import time
 import uuid
 from pathlib import Path
@@ -12,7 +15,9 @@ from app.common.config import settings
 from app.state import Brief, WeddingState
 
 TEMPLATES_DIR = Path(__file__).parent / "templates"
+CATALOG = TEMPLATES_DIR / "catalog.json"
 KINDS = {"upload", "candidate", "preview", "deliverable"}
+ASSET_KINDS = {"style", "outfit", "makeup", "pose", "background", "layout"}
 # 物料与版式比例；moments 是从主视觉裁出来的朋友圈图
 LAYOUTS = {"invitation": "4:5", "welcome_poster": "2:3", "led_screen": "16:9", "moments": "1:1"}
 
@@ -52,12 +57,32 @@ def load_image(url: str) -> bytes:
     return _path_from_url(url).read_bytes()
 
 
-def get_template(name: str) -> str | None:
-    """取模板地址，name 例如 "poses/medium_a.png"；模板文件不存在时返回 None。"""
-    path = TEMPLATES_DIR / name
-    if not path.is_file():
-        return None
-    return f"{settings.public_base_url}/templates/{name}"
+def search_assets(kind: str, tags: list[str] | None = None) -> list[dict]:
+    """按种类和标签找物料。kind：style / outfit / makeup / pose / background / layout。
+
+    tags 为空时返回这一类的全部物料；不为空时返回至少带一个标签的物料。
+    每项含 asset_id、kind、name、tags、url；文件还没放进来的物料不会返回。
+    """
+    if kind not in ASSET_KINDS:
+        raise ValueError(f"kind 只能是 {sorted(ASSET_KINDS)}，收到 {kind!r}")
+    entries = json.loads(CATALOG.read_text(encoding="utf-8")) if CATALOG.is_file() else []
+    wanted = set(tags or [])
+    found = []
+    for entry in entries:
+        if entry["kind"] != kind or (wanted and not wanted & set(entry.get("tags", []))):
+            continue
+        if not (TEMPLATES_DIR / entry["file"]).is_file():
+            continue
+        found.append(
+            {
+                "asset_id": entry["asset_id"],
+                "kind": entry["kind"],
+                "name": entry.get("name", ""),
+                "tags": entry.get("tags", []),
+                "url": f"{settings.public_base_url}/templates/{entry['file']}",
+            }
+        )
+    return found
 
 
 def make_previews(state: WeddingState) -> dict:

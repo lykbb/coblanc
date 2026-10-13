@@ -6,7 +6,8 @@ from dataclasses import dataclass, field
 STEP_TEXT = {
     "intake": "小囍正在看你们的照片",
     "styling": "妆造师在设计造型",
-    "framing": "摄影师在安排构图和姿势",
+    "framing": "摄影师在设计镜头",
+    "composing": "小囍在把方案写成拍摄指令",
     "generating": "正在拍摄 4 张候选",
     "checking": "修图师在逐张质检",
     "retouching": "修图师在调整不满意的地方",

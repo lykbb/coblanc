@@ -2,14 +2,17 @@ import pytest
 
 from app.common.config import settings
 from app.common.errors import ModuleError
-from app.modules.generation import build_prompt, generate
+from app.modules.generation import generate
 
 
 def test_fake_returns_four_candidates(load_state):
     update = generate(load_state("after_generation") | {"generation": {}})
     assert [c["image_id"] for c in update["candidates"]] == ["img_1", "img_2", "img_3", "img_4"]
     assert update["generation"]["total_images"] == 4
-    assert update["prompt"].startswith("保持图中两人")
+
+
+def test_does_not_rewrite_prompt(load_state):
+    assert "prompt" not in generate(load_state("after_generation"))
 
 
 def test_image_ids_continue_across_rounds(load_state):
@@ -23,12 +26,3 @@ def test_stops_at_image_limit(load_state, monkeypatch):
     with pytest.raises(ModuleError) as error:
         generate(load_state("after_generation"))
     assert error.value.code == "GENERATION_FAILED"
-
-
-def test_prompt_includes_look_shot_and_patch(load_state):
-    state = load_state("after_generation")
-    state["retouch_plan"] = {"target": "generate", "patch": "新娘的脸更像原图", "image_id": None}
-    prompt = build_prompt(state)
-    assert "韩式婚纱照造型" in prompt
-    assert "简洁的室内影棚" in prompt
-    assert "新娘的脸更像原图" in prompt

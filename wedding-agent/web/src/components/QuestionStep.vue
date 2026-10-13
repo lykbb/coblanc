@@ -3,8 +3,16 @@ import { reactive } from 'vue'
 import { showToast } from 'vant'
 import { api } from '../api.js'
 
-const props = defineProps({ questions: Array, busy: Boolean })
+const props = defineProps({ questions: Array, busy: Boolean, step: String, text: String })
 const emit = defineEmits(['submit'])
+
+// 等用户回答时，step 表示是谁在问，text 是他说的话
+const SPEAKERS = {
+  intake: { mark: '囍', name: '小囍', role: '项目经理' },
+  styling: { mark: '妆', name: '妆造师', role: '负责妆容、发型、服饰' },
+  framing: { mark: '摄', name: '摄影师', role: '负责互动、场景、灯光' },
+}
+const speaker = SPEAKERS[props.step] ?? SPEAKERS.intake
 
 // 单选默认选中推荐项；跳过的题由后端用推荐值或默认值补齐
 const values = reactive({})
@@ -42,7 +50,13 @@ function submit(useRecommended) {
 
 <template>
   <section class="card">
-    <h2>小囍想再确认几件事</h2>
+    <div class="speaker">
+      <div class="avatar">{{ speaker.mark }}</div>
+      <div>
+        <p class="speaker-name">{{ speaker.name }}<span>{{ speaker.role }}</span></p>
+        <p class="speech">{{ text || '想再确认几件事' }}</p>
+      </div>
+    </div>
     <div v-for="q in questions" :key="q.question_id" class="question">
       <p class="question-title">{{ q.title }}</p>
 

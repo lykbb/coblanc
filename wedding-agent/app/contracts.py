@@ -15,15 +15,21 @@ class _Strict(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
+class Reference(_Strict):
+    url: str
+    role: Literal["style", "outfit", "makeup", "pose", "background"]
+
+
 class Look(_Strict):
     text: str
     style: str
+    references: list[Reference] = Field(default_factory=list)
 
 
 class Shot(_Strict):
     text: str
     pose: str
-    pose_ref_url: str | None = None
+    references: list[Reference] = Field(default_factory=list)
 
 
 class Candidate(_Strict):
@@ -49,7 +55,7 @@ class Score(_Strict):
 
 
 class RetouchPlan(_Strict):
-    target: Literal["look", "shot", "generate", "none"]
+    target: Literal["look", "shot", "prompt", "generate", "none"]
     patch: str
     image_id: str | None = None
 
@@ -88,6 +94,7 @@ FIELD_TYPES = {
     "look": Look,
     "shot": Shot,
     "prompt": str,
+    "references": list[Reference],
     "candidates": list[Candidate],
     "generation": Generation,
     "scores": list[Score],
@@ -102,10 +109,26 @@ FIELD_TYPES = {
 # 对外函数名 → 允许写的工单字段（step_text 任何模块都可以写）
 MODULE_WRITES = {
     "intake": {"brief", "questions"},
+    "compose": {"prompt", "references"},
+    "reveal": {"message"},
+    "style": {"look", "questions"},
+    "frame": {"shot", "questions"},
+    "generate": {"candidates", "generation"},
+    "check": {"scores", "best_image_id", "passed"},
+    "retouch": {"retouch_plan"},
+    "make_previews": {"previews"},
+    "package": {"deliverables"},
+}
+
+# 每次调用都必须返回的字段（问用户的 questions 是可选的；问问题时也要先给出一版主要输出，
+# 这样用户不回答或轮数用完时，流程照样能往下走）
+MODULE_REQUIRES = {
+    "intake": {"brief"},
+    "compose": {"prompt", "references"},
     "reveal": {"message"},
     "style": {"look"},
     "frame": {"shot"},
-    "generate": {"prompt", "candidates", "generation"},
+    "generate": {"candidates", "generation"},
     "check": {"scores", "best_image_id", "passed"},
     "retouch": {"retouch_plan"},
     "make_previews": {"previews"},
@@ -126,6 +149,9 @@ def validate_update(function: str, update: dict) -> None:
     extra = sorted(set(update) - allowed)
     if extra:
         raise ContractError(f"{function} 返回了不允许写的字段 {extra}，允许的是 {sorted(allowed)}")
+    missing = sorted(MODULE_REQUIRES[function] - set(update))
+    if missing:
+        raise ContractError(f"{function} 少返回了必须有的字段 {missing}")
     for key, value in update.items():
         try:
             _ADAPTERS[key].validate_python(value)

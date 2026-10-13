@@ -1,4 +1,5 @@
-from app.modules.intake import intake, reveal
+from app.common.config import settings
+from app.modules.intake import compose, intake, reveal
 
 
 def test_first_round_asks_questions(load_state):
@@ -21,6 +22,12 @@ def test_answers_complete_the_brief(load_state):
     assert update["brief"]["missing"] == []
 
 
+def test_ignores_answers_given_to_other_agents(load_state):
+    state = load_state("new_task")
+    state["answers"] = [{"question_id": "q_makeup", "value": "retro", "asker": "styling", "round": 1}]
+    assert [q["question_id"] for q in intake(state)["questions"]] == ["q_style", "q_height"]
+
+
 def test_skipped_answers_use_recommended(load_state):
     state = load_state("new_task")
     state["answers"] = [
@@ -30,6 +37,29 @@ def test_skipped_answers_use_recommended(load_state):
     brief = intake(state)["brief"]
     assert brief["style"] == "korean_studio"
     assert brief["heights_cm"] == []
+
+
+def test_compose_merges_look_and_shot(load_state):
+    update = compose(load_state("after_generation"))
+    assert update["prompt"].startswith("保持图中两人")
+    assert "韩式婚纱照造型" in update["prompt"]
+    assert "简洁的室内影棚" in update["prompt"]
+    assert update["references"] == []
+
+
+def test_compose_puts_pose_first_and_caps_references(load_state, monkeypatch):
+    monkeypatch.setattr(settings, "max_reference_images", 2)
+    state = load_state("after_generation")
+    state["look"]["references"] = [{"url": "u/outfit", "role": "outfit"}, {"url": "u/makeup", "role": "makeup"}]
+    state["shot"]["references"] = [{"url": "u/pose", "role": "pose"}]
+    references = compose(state)["references"]
+    assert [ref["role"] for ref in references] == ["pose", "outfit"]
+
+
+def test_compose_applies_prompt_patch(load_state):
+    state = load_state("after_generation")
+    state["retouch_plan"] = {"target": "prompt", "patch": "两人靠得更近", "image_id": None}
+    assert "两人靠得更近" in compose(state)["prompt"]
 
 
 def test_reveal_message_is_short(load_state):

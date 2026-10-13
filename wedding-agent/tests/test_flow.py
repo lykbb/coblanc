@@ -5,21 +5,22 @@ import time
 import pytest
 from fastapi.testclient import TestClient
 
+from app import runner
 from app.api import app
 from app.common.config import settings
 
 client = TestClient(app)
 
 
-def wait_for(task_id: str, status: str, timeout: float = 10) -> dict:
+def wait_for(task_id: str, *statuses: str, timeout: float = 10) -> dict:
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         data = client.get(f"/api/tasks/{task_id}").json()
-        if data["status"] == status:
+        if data["status"] in statuses:
             return data
         assert data["status"] != "failed", data["error"]
         time.sleep(0.05)
-    raise AssertionError(f"等了 {timeout} 秒还没到 {status}，现在是 {data['status']}")
+    raise AssertionError(f"等了 {timeout} 秒还没到 {statuses}，现在是 {data['status']}")
 
 
 def start_task(png_bytes: bytes) -> str:
@@ -30,17 +31,25 @@ def start_task(png_bytes: bytes) -> str:
     return created.json()["task_id"]
 
 
-def answer_questions(task_id: str) -> dict:
-    data = wait_for(task_id, "waiting_user")
-    assert [q["question_id"] for q in data["questions"]] == ["q_style", "q_height"]
-    answers = [{"question_id": "q_style", "value": "korean_studio"}, {"question_id": "q_height", "value": "175 / 162"}]
-    assert client.post(f"/api/tasks/{task_id}/answers", json={"answers": answers}).json() == {"status": "running"}
-    return wait_for(task_id, "preview_ready")
+def answer_questions(task_id: str) -> tuple[dict, list[str]]:
+    """依次回答小囍、妆造师、摄影师的提问，直到出预览；返回预览数据和提问人的顺序。"""
+    speakers = []
+    while True:
+        data = wait_for(task_id, "waiting_user", "preview_ready")
+        if data["status"] == "preview_ready":
+            return data, speakers
+        speakers.append(data["step"])
+        assert data["step_text"] and data["questions"]
+        answers = [
+            {"question_id": q["question_id"], "value": q.get("recommended") or "175 / 162"} for q in data["questions"]
+        ]
+        assert client.post(f"/api/tasks/{task_id}/answers", json={"answers": answers}).json() == {"status": "running"}
 
 
 def test_full_flow_with_one_redo(png_bytes):
     task_id = start_task(png_bytes)
-    data = answer_questions(task_id)
+    data, speakers = answer_questions(task_id)
+    assert speakers == ["intake", "styling", "framing"]  # 小囍、妆造师、摄影师依次和用户对话
     assert len(data["previews"]) == 4
     assert data["previews"][0]["is_best"]
 
@@ -59,12 +68,49 @@ def test_full_flow_with_one_redo(png_bytes):
     assert data["message"]
     assert client.get(data["deliverables"]["invitation"].replace(settings.public_base_url, "")).status_code == 200
 
+    values = runner.values(task_id)  # 小囍把妆造师和摄影师跟用户确认的结果写进了提示词
+    assert "清透韩妆" in values["prompt"] or "自然淡妆" in values["prompt"]
+    assert values["look"]["text"] in values["prompt"]
+    assert values["shot"]["text"] in values["prompt"]
+    assert {item["asker"] for item in values["answers"]} == {"intake", "styling", "framing"}
+
+
+@pytest.mark.parametrize("reason", ["face", "body", "style", "other"])
+def test_redo_goes_back_to_the_right_module_without_asking_again(png_bytes, reason):
+    task_id = start_task(png_bytes)
+    data, _ = answer_questions(task_id)
+    redo = {"action": "redo", "image_id": data["previews"][0]["image_id"], "reason": reason, "note": "再改改"}
+    client.post(f"/api/tasks/{task_id}/review", json=redo)
+    data = wait_for(task_id, "preview_ready", "waiting_user")
+    assert data["status"] == "preview_ready"  # 修图阶段不会再问用户
+    assert data["previews"][0]["image_id"] == "img_5"
+    values = runner.values(task_id)
+    if reason == "style":
+        assert "再改改" in values["look"]["text"] and "再改改" in values["prompt"]
+    if reason == "body":
+        assert "再改改" in values["shot"]["text"] and "再改改" in values["prompt"]
+    if reason == "other":
+        assert "再改改" in values["prompt"]
+
 
 def test_failed_check_goes_through_retouch(png_bytes, monkeypatch):
     monkeypatch.setattr(settings, "fake_fail_first_check", True)
     task_id = start_task(png_bytes)
-    data = answer_questions(task_id)
-    assert [p["image_id"] for p in data["previews"]][0] == "img_5"
+    data, _ = answer_questions(task_id)
+    assert data["previews"][0]["image_id"] == "img_5"
+
+
+def test_each_agent_asks_at_most_max_rounds(png_bytes):
+    task_id = start_task(png_bytes)
+    asked = []
+    while True:
+        data = wait_for(task_id, "waiting_user", "preview_ready")
+        if data["status"] == "preview_ready":
+            break
+        asked.append(data["step"])
+        client.post(f"/api/tasks/{task_id}/answers", json={"answers": []})  # 什么都不答
+    rounds = settings.max_question_rounds
+    assert asked == ["intake"] * rounds + ["styling"] * rounds + ["framing"] * rounds
 
 
 def test_wrong_status_and_unknown_task(png_bytes):
@@ -81,7 +127,7 @@ def test_wrong_status_and_unknown_task(png_bytes):
 def test_redo_limit(png_bytes, monkeypatch):
     monkeypatch.setattr(settings, "max_user_redo", 0)
     task_id = start_task(png_bytes)
-    data = answer_questions(task_id)
+    data, _ = answer_questions(task_id)
     redo = {"action": "redo", "image_id": data["previews"][0]["image_id"], "reason": "style"}
     response = client.post(f"/api/tasks/{task_id}/review", json=redo)
     assert response.status_code == 409

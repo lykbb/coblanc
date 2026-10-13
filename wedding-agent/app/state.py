@@ -40,24 +40,28 @@ class WeddingState(TypedDict, total=False):
     task_id: str
     photo_urls: list[str]
     description: str
-    answers: list[dict]  # 每条含 question_id、value 或 skipped，以及第几轮 round
+    answers: list[dict]  # 每条含 question_id、value 或 skipped，以及是谁问的 asker、第几轮 round
+    question_rounds: dict  # 每位 agent 已经问了几轮，例如 {"intake": 1, "styling": 1}
     retry_count: int
     user_feedback: dict | None  # 用户要求重做时的 image_id、reason、note
-    step_text: str  # 任何模块都可以写，给用户看的进度文案
+    # 另外，任何模块都可以在返回值里带 step_text（给用户看的进度文案），框架转给前端，不写进工单
+
+    # 小囍、妆造师、摄影师都可以写：要问用户的问题，框架负责暂停、收集回答
+    questions: list[dict]
 
     # 主 agent（小囍）写
-    questions: list[dict]
     brief: dict
-    message: str
+    prompt: str  # 汇总妆造师和摄影师的方案后写的最终提示词
+    references: list[dict]  # 生图时带上的参考图，每张含 url、role
+    message: str  # 揭幕寄语
 
-    # 妆造师写
-    look: dict  # {"text": 造型描述, "style": 风格编号}
+    # 妆造师写（先和用户确认妆容、发型、服饰、配饰）
+    look: dict  # {"text": 造型描述, "style": 风格编号, "references": [从资产库挑的参考图]}
 
-    # 摄影师写
-    shot: dict  # {"text": 构图光线姿势描述, "pose": 姿势编号, "pose_ref_url": 地址或 None}
+    # 摄影师写（在妆造师之后，和用户确认互动、场景、季节、灯光）
+    shot: dict  # {"text": 构图光线姿势描述, "pose": 姿势编号, "references": [从资产库挑的参考图]}
 
     # 生图 agent 写
-    prompt: str
     candidates: list[dict]  # 每张含 image_id、url、seed
     generation: dict  # engine、workflow、seconds、total_images
 
@@ -65,7 +69,7 @@ class WeddingState(TypedDict, total=False):
     scores: list[dict]
     best_image_id: str | None
     passed: bool
-    retouch_plan: dict | None  # {"target": look/shot/generate/none, "patch": 修改说明, "image_id": 换用的候选}
+    retouch_plan: dict | None  # {"target": look/shot/prompt/generate/none, "patch": 修改说明, "image_id": 换用的候选}
 
     # 资产库写
     previews: list[dict]

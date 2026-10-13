@@ -104,8 +104,10 @@ onBeforeUnmount(stopPolling)
     <ProgressStep v-else-if="status === 'running' || status === 'delivering'" :step="task.step" :text="task.step_text" />
     <QuestionStep
       v-else-if="status === 'waiting_user'"
-      :key="task.questions.map((q) => q.question_id).join()"
+      :key="task.step + task.questions.map((q) => q.question_id).join()"
       :questions="task.questions"
+      :step="task.step"
+      :text="task.step_text"
       :busy="busy"
       @submit="onAnswer"
     />

@@ -44,6 +44,7 @@ class Settings:
     fake: bool
     real_modules: list[str]
     fake_fail_first_check: bool
+    fake_delay_seconds: float
     # 服务
     public_base_url: str
     cors_origins: list[str]
@@ -53,6 +54,8 @@ class Settings:
     max_question_rounds: int
     max_retouch: int
     max_user_redo: int
+    max_agent_steps: int
+    max_reference_images: int
     candidates_per_round: int
     max_images_per_task: int
     image_timeout_seconds: int
@@ -80,6 +83,7 @@ def load_settings() -> Settings:
         fake=_bool("FAKE", True),
         real_modules=_list("REAL_MODULES"),
         fake_fail_first_check=_bool("FAKE_FAIL_FIRST_CHECK", False),
+        fake_delay_seconds=_float("FAKE_DELAY_SECONDS", 0),
         public_base_url=_str("PUBLIC_BASE_URL", "http://127.0.0.1:8000").rstrip("/"),
         cors_origins=_list("CORS_ORIGINS") or ["http://localhost:5173"],
         storage_dir=Path(storage) if storage else ROOT / "storage",
@@ -87,6 +91,8 @@ def load_settings() -> Settings:
         max_question_rounds=_int("MAX_QUESTION_ROUNDS", 2),
         max_retouch=_int("MAX_RETOUCH", 2),
         max_user_redo=_int("MAX_USER_REDO", 2),
+        max_agent_steps=_int("MAX_AGENT_STEPS", 6),
+        max_reference_images=_int("MAX_REFERENCE_IMAGES", 2),
         candidates_per_round=_int("CANDIDATES_PER_ROUND", 4),
         max_images_per_task=_int("MAX_IMAGES_PER_TASK", 16),
         image_timeout_seconds=_int("IMAGE_TIMEOUT_SECONDS", 120),

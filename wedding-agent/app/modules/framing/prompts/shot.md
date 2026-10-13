@@ -1,1 +1,1 @@
-{background}；{height}；{pose}。
+{background}；{height}；{pose}，{interaction}，{light}。

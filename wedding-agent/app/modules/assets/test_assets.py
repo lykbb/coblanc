@@ -1,6 +1,6 @@
 import pytest
 
-from app.modules.assets import get_template, load_image, make_previews, package, save_image
+from app.modules.assets import load_image, make_previews, package, save_image, search_assets
 
 
 def test_save_and_load_roundtrip(png_bytes):
@@ -32,5 +32,18 @@ def test_package_outputs_all_materials(load_state):
     assert set(deliverables) == {"photo", "invitation", "welcome_poster", "led_screen", "moments"}
 
 
-def test_missing_template_returns_none():
-    assert get_template("poses/no_such_pose.png") is None
+def test_search_by_kind_and_tags(asset_catalog):
+    poses = search_assets("pose")
+    assert [item["asset_id"] for item in poses] == ["pose_medium_a"]  # 文件缺失的那条不返回
+    assert poses[0]["url"].endswith("/templates/poses/medium_a.png")
+    assert search_assets("outfit", ["korean_studio"])[0]["asset_id"] == "outfit_korean_satin"
+    assert search_assets("outfit", ["chinese_red"]) == []
+
+
+def test_search_rejects_unknown_kind():
+    with pytest.raises(ValueError):
+        search_assets("shoes")
+
+
+def test_empty_catalog_returns_nothing():
+    assert search_assets("pose") == []

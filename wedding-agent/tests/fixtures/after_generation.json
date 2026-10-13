@@ -1,6 +1,8 @@
 {
   "task_id": "t_fixture",
-  "photo_urls": ["（测试时自动换成真实测试图）"],
+  "photo_urls": [
+    "（测试时自动换成真实测试图）"
+  ],
   "description": "想要韩式影棚风，婚礼在 12 月",
   "answers": [],
   "retry_count": 0,
@@ -8,19 +10,60 @@
   "brief": {
     "style": "korean_studio",
     "background": "studio",
-    "heights_cm": [175, 162],
-    "materials": ["invitation", "welcome_poster", "led_screen"],
-    "invitation": {"names": "小林 & 小周", "date": "2026-12-20", "place": "示例酒店"}
+    "heights_cm": [
+      175,
+      162
+    ],
+    "materials": [
+      "invitation",
+      "welcome_poster",
+      "led_screen"
+    ],
+    "invitation": {
+      "names": "小林 & 小周",
+      "date": "2026-12-20",
+      "place": "示例酒店"
+    }
   },
-  "look": {"text": "韩式婚纱照造型。", "style": "korean_studio"},
-  "shot": {"text": "简洁的室内影棚。", "pose": "keep_original", "pose_ref_url": null},
+  "look": {
+    "text": "韩式婚纱照造型。",
+    "style": "korean_studio",
+    "references": []
+  },
+  "shot": {
+    "text": "简洁的室内影棚。",
+    "pose": "keep_original",
+    "references": []
+  },
   "prompt": "保持图中两人的脸、五官、发型、身高差和体型完全不变。",
   "candidates": [
-    {"image_id": "img_1", "url": "（测试时自动换成真实测试图）", "seed": 1000},
-    {"image_id": "img_2", "url": "（测试时自动换成真实测试图）", "seed": 1001},
-    {"image_id": "img_3", "url": "（测试时自动换成真实测试图）", "seed": 1002},
-    {"image_id": "img_4", "url": "（测试时自动换成真实测试图）", "seed": 1003}
+    {
+      "image_id": "img_1",
+      "url": "（测试时自动换成真实测试图）",
+      "seed": 1000
+    },
+    {
+      "image_id": "img_2",
+      "url": "（测试时自动换成真实测试图）",
+      "seed": 1001
+    },
+    {
+      "image_id": "img_3",
+      "url": "（测试时自动换成真实测试图）",
+      "seed": 1002
+    },
+    {
+      "image_id": "img_4",
+      "url": "（测试时自动换成真实测试图）",
+      "seed": 1003
+    }
   ],
-  "generation": {"engine": "fake", "workflow": "fake", "seconds": 0.01, "total_images": 4},
-  "best_image_id": "img_1"
+  "generation": {
+    "engine": "fake",
+    "workflow": "fake",
+    "seconds": 0.01,
+    "total_images": 4
+  },
+  "best_image_id": "img_1",
+  "references": []
 }

@@ -7,8 +7,8 @@ retouch（agent）：根据质检问题或用户的重做原因，决定退回�
 from app.common.config import settings
 from app.state import WeddingState
 
-# 用户重做原因 → 退回哪一块
-REASON_TARGET = {"face": "generate", "hands": "generate", "body": "shot", "style": "look", "other": "generate"}
+# 用户重做原因 → 退回哪一块：generate 生图重拍，shot 摄影师，look 妆造师，prompt 小囍改提示词
+REASON_TARGET = {"face": "generate", "hands": "generate", "body": "shot", "style": "look", "other": "prompt"}
 
 
 def check(state: WeddingState) -> dict:
@@ -41,7 +41,8 @@ def retouch(state: WeddingState) -> dict:
             target, patch = "generate", "加强两人五官与原图的一致性"
         return {"retouch_plan": {"target": target, "patch": patch, "image_id": None}}
     # TODO(评测修图师)：用 get_llm("agent") 根据 scores 里的 issues 或 user_feedback 决定 target：
-    #   脸不像、手部问题 → generate；身材比例 → shot；风格不对 → look；已有另一张合格 → none + image_id
+    #   脸不像、手部问题 → generate；身材比例 → shot；风格不对 → look；提示词没写清楚 → prompt；
+    #   已有另一张合格 → none + image_id。最多调用 settings.max_agent_steps 次工具
     raise NotImplementedError("修图方案的真实实现还没写，见《小囍模块接入规范》模块卡片 6")
 
 

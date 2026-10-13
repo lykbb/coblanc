@@ -52,6 +52,7 @@ uv run pytest
 - `.env` 里 `FAKE=1`：所有模块返回示例数据，整条流程不花钱就能跑通。
 - 某个模块写好了真实实现，在 `REAL_MODULES` 里写上它的名字（例如 `REAL_MODULES=styling,generation`），其他模块继续用示例数据。
 - `FAKE_FAIL_FIRST_CHECK=1`：第一次质检故意不合格，用来演示修图流程。
+- `FAKE_DELAY_SECONDS=2`：每个模块停 2 秒，演示时能看清网页上的专家接力动画。
 
 ## 目录
 

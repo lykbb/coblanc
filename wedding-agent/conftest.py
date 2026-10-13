@@ -50,6 +50,26 @@ def load_state():
     return load
 
 
+@pytest.fixture
+def asset_catalog(tmp_path, monkeypatch):
+    """临时物料库：一张姿势骨架、一张韩式婚纱参考，另有一条文件缺失的登记。"""
+    from app.modules.assets import node
+
+    (tmp_path / "poses").mkdir()
+    (tmp_path / "outfits").mkdir()
+    (tmp_path / "poses" / "medium_a.png").write_bytes(make_png())
+    (tmp_path / "outfits" / "korean_satin.png").write_bytes(make_png())
+    entries = [
+        {"asset_id": "pose_medium_a", "kind": "pose", "name": "并肩牵手", "tags": ["medium"], "file": "poses/medium_a.png"},
+        {"asset_id": "outfit_korean_satin", "kind": "outfit", "name": "缎面婚纱", "tags": ["korean_studio"], "file": "outfits/korean_satin.png"},
+        {"asset_id": "pose_large_a", "kind": "pose", "name": "文件还没放", "tags": ["large"], "file": "poses/large_a.png"},
+    ]
+    (tmp_path / "catalog.json").write_text(json.dumps(entries, ensure_ascii=False), encoding="utf-8")
+    monkeypatch.setattr(node, "TEMPLATES_DIR", tmp_path)
+    monkeypatch.setattr(node, "CATALOG", tmp_path / "catalog.json")
+    return entries
+
+
 @pytest.fixture(scope="session", autouse=True)
 def _cleanup_tmp():
     yield

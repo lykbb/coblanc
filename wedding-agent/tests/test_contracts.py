@@ -15,6 +15,7 @@ from app.contracts import MODULE_WRITES, ContractError, validate_update
 # (模块文件夹, 对外函数, 用哪份示例工单)
 ENTRY_POINTS = [
     ("intake", "intake", "new_task"),
+    ("intake", "compose", "after_generation"),
     ("intake", "reveal", "after_generation"),
     ("styling", "style", "after_intake"),
     ("framing", "frame", "after_intake"),
@@ -40,19 +41,21 @@ def test_entry_point_follows_contract(module, name, fixture, load_state):
     validate_update(name, function(load_state(fixture)))
 
 
-def test_assets_helpers_follow_contract(png_bytes):
-    from app.modules.assets import get_template, load_image, save_image
+def test_assets_helpers_follow_contract(png_bytes, asset_catalog):
+    from app.modules.assets import load_image, save_image, search_assets
 
     url = save_image(png_bytes, "candidate")
     assert isinstance(url, str) and url.startswith(settings.public_base_url)
     assert load_image(url) == png_bytes
-    assert list(inspect.signature(get_template).parameters) == ["name"]
+    assert list(inspect.signature(search_assets).parameters) == ["kind", "tags"]
+    for item in search_assets("pose"):
+        assert set(item) == {"asset_id", "kind", "name", "tags", "url"}
 
 
 def test_generation_client_signature():
     from app.modules.generation.client import generate_image
 
-    assert list(inspect.signature(generate_image).parameters) == ["photo_urls", "prompt", "seed", "pose_ref_url"]
+    assert list(inspect.signature(generate_image).parameters) == ["photo_urls", "prompt", "seed", "references"]
     assert not inspect.iscoroutinefunction(generate_image)
 
 
@@ -62,9 +65,13 @@ def test_generation_client_signature():
         ("style", {"look": {"text": "造型"}}),  # 少了 style
         ("style", {"look": {"text": "造型", "style": "x", "color": "red"}}),  # 多了字段
         ("frame", {"shot": {"text": "镜头", "pose": "keep_original"}, "prompt": "越权"}),  # 写了别人的字段
+        ("generate", {"prompt": "提示词归小囍写", "candidates": []}),
+        ("frame", {"shot": {"text": "镜头", "pose": "keep_original", "references": [{"url": "u", "role": "shoes"}]}}),
         ("check", {"scores": [{"image_id": "img_1", "face_sim": [0.9], "body_ok": True, "hands_ok": True, "issues": [], "total": 0.9}]}),
         ("retouch", {"retouch_plan": {"target": "everything", "patch": "x"}}),
         ("intake", {"brief": {"style": "korean_studio", "mood": "开心"}}),  # 需求单里没有的字段
+        ("style", {"questions": []}),  # 问问题时也必须先给一版 look
+        ("compose", {"prompt": "只写了提示词"}),  # 少了 references
         ("generate", None),
     ],
 )

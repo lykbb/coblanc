@@ -26,6 +26,7 @@ def start(photo_urls: list[str], description: str) -> str:
         "photo_urls": photo_urls,
         "description": description,
         "answers": [],
+        "question_rounds": {},
         "retry_count": 0,
         "user_feedback": None,
     }
