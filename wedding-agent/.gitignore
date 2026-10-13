@@ -1,0 +1,11 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+storage/
+tests/photos/*
+!tests/photos/README.md
+web/node_modules/
+web/dist/
+web/.env
+.DS_Store

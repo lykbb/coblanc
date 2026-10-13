@@ -1,0 +1,1 @@
+{background}；{height}；{pose}。

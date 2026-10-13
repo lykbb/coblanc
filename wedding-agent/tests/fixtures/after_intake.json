@@ -1,0 +1,29 @@
+{
+  "task_id": "t_fixture",
+  "photo_urls": ["（测试时自动换成真实测试图）"],
+  "description": "想要韩式影棚风，婚礼在 12 月",
+  "answers": [
+    {"question_id": "q_style", "value": "korean_studio", "skipped": false, "round": 1},
+    {"question_id": "q_height", "value": "175 / 162", "skipped": false, "round": 1}
+  ],
+  "retry_count": 0,
+  "user_feedback": null,
+  "questions": [],
+  "brief": {
+    "intent": "photo_and_materials",
+    "style": "korean_studio",
+    "background": "studio",
+    "makeup": "自然淡妆",
+    "outfit_bride": "抹胸缎面婚纱，长头纱",
+    "outfit_groom": "黑色西装，白衬衫",
+    "expression": "自然微笑",
+    "pose": "keep_original",
+    "heights_cm": [175, 162],
+    "body_types": ["标准", "偏瘦"],
+    "keep_features": ["女生的眼镜", "男生右眉的痣"],
+    "beautify": "none",
+    "materials": ["invitation", "welcome_poster", "led_screen"],
+    "invitation": {"names": "小林 & 小周", "date": "2026-12-20", "place": "示例酒店"},
+    "missing": []
+  }
+}
