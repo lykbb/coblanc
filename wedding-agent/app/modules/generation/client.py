@@ -140,6 +140,9 @@ def _seedream_image(photo_urls: list[str], prompt: str, seed: int, references: l
     payload = {
         "model": settings.seedream_model, "prompt": prompt, "image": images,
         "response_format": "b64_json",
+        # 方舟默认会在图角加"AI 生成"标；预览水印由前端叠加，这里关掉服务端水印。
+        "watermark": False,
+        "size": "2K",  # 默认 2K；scope.parameters 里有 size（如修图方案指定）时以它为准
     }
     if scope:
         payload.update(scope.parameters)
