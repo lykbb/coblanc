@@ -9,16 +9,16 @@ def answered(state, **choices):
 
 def test_first_call_asks_user_and_gives_draft(load_state):
     update = frame(load_state("after_intake"))
-    assert [q["question_id"] for q in update["questions"]] == ["q_interaction", "q_light"]
+    assert [q["question_id"] for q in update["questions"]] == ["q_interaction", "q_scene", "q_season", "q_light"]
     assert update["shot"]["pose"] == "keep_original"
     assert update["step_text"].startswith("我是摄影师")
 
 
 def test_answers_shape_the_shot_and_stop_asking(load_state):
-    update = frame(answered(load_state("after_intake"), q_interaction="hug", q_light="backlight"))
+    update = frame(answered(load_state("after_intake"), q_interaction="hug", q_scene="garden", q_season="autumn", q_light="backlight"))
     assert "questions" not in update
     shot = update["shot"]
-    assert "相拥微笑" in shot["text"] and "傍晚逆光" in shot["text"]
+    assert "相拥微笑" in shot["text"] and "自然花园草地" in shot["text"] and "秋日暖色" in shot["text"] and "傍晚逆光" in shot["text"]
     assert "175cm" in shot["text"] and "162cm" in shot["text"]
     assert shot["references"] == []
 

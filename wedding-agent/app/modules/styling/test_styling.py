@@ -44,10 +44,12 @@ def test_keeps_features(load_state):
     assert "女生的眼镜" in style(load_state("after_intake"))["look"]["text"]
 
 
-def test_unknown_style_falls_back_to_default(load_state):
+def test_supported_style_keeps_requested_style_and_template(load_state):
     state = load_state("after_intake")
-    state["brief"]["style"] = "no_such_style"
-    assert style(state)["look"]["style"] == "keep_original"
+    state["brief"]["style"] = "french_editorial"
+    update = style(state)
+    assert update["look"]["style"] == "french_editorial"
+    assert "法式 editorial" in update["look"]["text"]
 
 
 def test_asset_options_carry_pictures_and_become_references(load_state, asset_catalog):
@@ -61,3 +63,22 @@ def test_asset_options_carry_pictures_and_become_references(load_state, asset_ca
 
 def test_no_reference_when_assets_empty(load_state):
     assert style(load_state("after_intake"))["look"]["references"] == []
+
+
+def test_grouped_photo_mode_also_confirms_hair_and_accessories(load_state):
+    state = load_state("after_intake")
+    state["groom_photo_urls"] = [state["photo_urls"][0]]
+    state["bride_photo_urls"] = [state["photo_urls"][0]]
+    update = style(state)
+    assert [q["question_id"] for q in update["questions"]] == ["q_makeup", "q_outfit", "q_hair", "q_accessories"]
+    assert "发型：低盘发" in update["look"]["text"]
+    assert "配饰：珍珠耳饰" in update["look"]["text"]
+
+
+def test_grouped_multi_choice_keeps_all_accessories(load_state):
+    state = load_state("after_intake")
+    state["groom_photo_urls"] = [state["photo_urls"][0]]
+    state["bride_photo_urls"] = [state["photo_urls"][0]]
+    state = answered(state, q_accessories=["pearl", "veil"])
+    text = style(state)["look"]["text"]
+    assert "珍珠耳饰" in text and "长头纱与简洁头饰" in text

@@ -1,5 +1,7 @@
 """任务进度登记（框架内部用）：节点开始时登记 step，接口查询时从这里读状态。"""
 
+from __future__ import annotations
+
 import threading
 from dataclasses import dataclass, field
 
@@ -8,7 +10,7 @@ STEP_TEXT = {
     "styling": "妆造师在设计造型",
     "framing": "摄影师在设计镜头",
     "composing": "小囍在把方案写成拍摄指令",
-    "generating": "正在拍摄 4 张候选",
+    "generating": "正在生成样片 / 套图",
     "checking": "修图师在逐张质检",
     "retouching": "修图师在调整不满意的地方",
     "packaging": "正在制作请柬和婚礼物料",

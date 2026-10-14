@@ -1,5 +1,7 @@
 """在后台线程里跑流程（框架维护）：开始、在等用户的地方暂停、收到用户输入后继续。"""
 
+from __future__ import annotations
+
 import threading
 import uuid
 
@@ -18,9 +20,18 @@ def _config(task_id: str) -> dict:
     return {"configurable": {"thread_id": task_id}}
 
 
-def start(photo_urls: list[str], description: str) -> str:
+def start(
+    photo_urls: list[str],
+    description: str,
+    *,
+    groom_photo_urls: list[str] | None = None,
+    bride_photo_urls: list[str] | None = None,
+    consent: dict | None = None,
+) -> str:
     task_id = f"t_{uuid.uuid4().hex[:8]}"
     store.create(task_id)
+    groom = list(groom_photo_urls or [])
+    bride = list(bride_photo_urls or [])
     initial = {
         "task_id": task_id,
         "photo_urls": photo_urls,
@@ -30,6 +41,11 @@ def start(photo_urls: list[str], description: str) -> str:
         "retry_count": 0,
         "user_feedback": None,
     }
+    if groom or bride:
+        initial["groom_photo_urls"] = groom
+        initial["bride_photo_urls"] = bride
+    if consent is not None:
+        initial["consent"] = consent
     _spawn(task_id, initial)
     return task_id
 
