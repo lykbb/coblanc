@@ -1,0 +1,211 @@
+{
+  "dataset_version": "synthetic_diagnostic_v1",
+  "samples": [
+    {
+      "sample_id": "synthetic_review_01",
+      "consent": {
+        "both_people_authorized": false,
+        "evidence_reference": "",
+        "approved_services": []
+      },
+      "state": {
+        "photo_urls": [
+          "http://127.0.0.1:8000/files/upload/mock_couple.png"
+        ],
+        "brief": {
+          "style": "korean_studio",
+          "background": "studio",
+          "heights_cm": [
+            175,
+            162
+          ],
+          "materials": [
+            "invitation",
+            "welcome_poster",
+            "led_screen"
+          ],
+          "invitation": {
+            "names": "小林 & 小周",
+            "date": "2026-12-20",
+            "place": "示例酒店"
+          }
+        },
+        "retry_count": 0,
+        "user_feedback": null,
+        "candidates": [
+          {
+            "image_id": "img_1",
+            "url": "http://127.0.0.1:8000/files/candidate/mock_img_1.png",
+            "seed": 1000
+          },
+          {
+            "image_id": "img_2",
+            "url": "http://127.0.0.1:8000/files/candidate/mock_img_2.png",
+            "seed": 1001
+          },
+          {
+            "image_id": "img_3",
+            "url": "http://127.0.0.1:8000/files/candidate/mock_img_3.png",
+            "seed": 1002
+          },
+          {
+            "image_id": "img_4",
+            "url": "http://127.0.0.1:8000/files/candidate/mock_img_4.png",
+            "seed": 1003
+          }
+        ],
+        "scores": [
+          {
+            "image_id": "img_1",
+            "face_sim": [
+              0.9,
+              0.88
+            ],
+            "body_ok": true,
+            "hands_ok": true,
+            "issues": [],
+            "total": 0.89
+          },
+          {
+            "image_id": "img_2",
+            "face_sim": [
+              0.9,
+              0.88
+            ],
+            "body_ok": true,
+            "hands_ok": true,
+            "issues": [],
+            "total": 0.89
+          },
+          {
+            "image_id": "img_3",
+            "face_sim": [
+              0.9,
+              0.88
+            ],
+            "body_ok": true,
+            "hands_ok": true,
+            "issues": [],
+            "total": 0.89
+          },
+          {
+            "image_id": "img_4",
+            "face_sim": [
+              0.9,
+              0.88
+            ],
+            "body_ok": true,
+            "hands_ok": true,
+            "issues": [],
+            "total": 0.89
+          }
+        ]
+      }
+    },
+    {
+      "sample_id": "synthetic_review_02",
+      "consent": {
+        "both_people_authorized": false,
+        "evidence_reference": "",
+        "approved_services": []
+      },
+      "state": {
+        "photo_urls": [
+          "http://127.0.0.1:8000/files/upload/mock_couple.png"
+        ],
+        "brief": {
+          "style": "korean_studio",
+          "background": "studio",
+          "heights_cm": [
+            175,
+            162
+          ],
+          "materials": [
+            "invitation",
+            "welcome_poster",
+            "led_screen"
+          ],
+          "invitation": {
+            "names": "小林 & 小周",
+            "date": "2026-12-20",
+            "place": "示例酒店"
+          }
+        },
+        "retry_count": 0,
+        "user_feedback": {
+          "image_id": "img_1",
+          "reason": "hands",
+          "note": "模拟：修正手部"
+        },
+        "candidates": [
+          {
+            "image_id": "img_1",
+            "url": "http://127.0.0.1:8000/files/candidate/mock_img_1.png",
+            "seed": 1000
+          },
+          {
+            "image_id": "img_2",
+            "url": "http://127.0.0.1:8000/files/candidate/mock_img_2.png",
+            "seed": 1001
+          },
+          {
+            "image_id": "img_3",
+            "url": "http://127.0.0.1:8000/files/candidate/mock_img_3.png",
+            "seed": 1002
+          },
+          {
+            "image_id": "img_4",
+            "url": "http://127.0.0.1:8000/files/candidate/mock_img_4.png",
+            "seed": 1003
+          }
+        ],
+        "scores": [
+          {
+            "image_id": "img_1",
+            "face_sim": [
+              0.9,
+              0.88
+            ],
+            "body_ok": true,
+            "hands_ok": true,
+            "issues": [],
+            "total": 0.89
+          },
+          {
+            "image_id": "img_2",
+            "face_sim": [
+              0.9,
+              0.88
+            ],
+            "body_ok": true,
+            "hands_ok": true,
+            "issues": [],
+            "total": 0.89
+          },
+          {
+            "image_id": "img_3",
+            "face_sim": [
+              0.9,
+              0.88
+            ],
+            "body_ok": true,
+            "hands_ok": true,
+            "issues": [],
+            "total": 0.89
+          },
+          {
+            "image_id": "img_4",
+            "face_sim": [
+              0.9,
+              0.88
+            ],
+            "body_ok": true,
+            "hands_ok": true,
+            "issues": [],
+            "total": 0.89
+          }
+        ]
+      }
+    }
+  ]
+}

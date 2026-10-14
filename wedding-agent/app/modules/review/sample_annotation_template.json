@@ -1,0 +1,50 @@
+{
+  "template_version": "1.0",
+  "purpose": "离线人工标注模板，不是 WeddingState；所有空值待人工填写",
+  "sample_id": "",
+  "person_group_id": "",
+  "person_ids": [],
+  "consent": {
+    "both_people_authorized": null,
+    "evidence_reference": "",
+    "allowed_use": "",
+    "approved_services": [],
+    "retention_deadline": null
+  },
+  "split": null,
+  "expected_round_target": null,
+  "source_asset_id": "",
+  "person_mapping": {
+    "person_a_source_position": "",
+    "person_b_source_position": "",
+    "confirmed_by": ""
+  },
+  "brief_reference": "",
+  "candidates": [
+    {
+      "image_id": "",
+      "candidate_asset_id": "",
+      "generation_record_reference": "",
+      "labels": {
+        "person_a_identity": null,
+        "person_b_identity": null,
+        "body_ok": null,
+        "hands_ok": null,
+        "subject_count_ok": null,
+        "text_ok": null,
+        "requirements_ok": null,
+        "issues": [],
+        "human_passed": null,
+        "expected_target": null,
+        "unable_to_judge_reason": ""
+      },
+      "review": {
+        "annotator_reference": "",
+        "reviewer_reference": "",
+        "status": "pending",
+        "disagreement_note": ""
+      },
+      "model_result_reference": ""
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+[
+  {
+    "sample_id": "synthetic_1",
+    "person_group_id": "synthetic_group_1",
+    "person_ids": [
+      "synthetic_1_a",
+      "synthetic_1_b"
+    ],
+    "split": "calibration",
+    "source": "程序构造的测试标签，无真人、无人工验收",
+    "expected_round_target": null,
+    "candidates": [
+      {
+        "image_id": "img_1",
+        "labels": {
+          "human_passed": false,
+          "person_a_identity": "不像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      },
+      {
+        "image_id": "img_2",
+        "labels": {
+          "human_passed": false,
+          "person_a_identity": "不像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      },
+      {
+        "image_id": "img_3",
+        "labels": {
+          "human_passed": false,
+          "person_a_identity": "不像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      },
+      {
+        "image_id": "img_4",
+        "labels": {
+          "human_passed": false,
+          "person_a_identity": "不像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      }
+    ]
+  },
+  {
+    "sample_id": "synthetic_2",
+    "person_group_id": "synthetic_group_2",
+    "person_ids": [
+      "synthetic_2_a",
+      "synthetic_2_b"
+    ],
+    "split": "calibration",
+    "source": "程序构造的测试标签，无真人、无人工验收",
+    "expected_round_target": null,
+    "candidates": [
+      {
+        "image_id": "img_1",
+        "labels": {
+          "human_passed": true,
+          "person_a_identity": "像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      },
+      {
+        "image_id": "img_2",
+        "labels": {
+          "human_passed": true,
+          "person_a_identity": "像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      },
+      {
+        "image_id": "img_3",
+        "labels": {
+          "human_passed": true,
+          "person_a_identity": "像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      },
+      {
+        "image_id": "img_4",
+        "labels": {
+          "human_passed": true,
+          "person_a_identity": "像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      }
+    ]
+  },
+  {
+    "sample_id": "synthetic_3",
+    "person_group_id": "synthetic_group_3",
+    "person_ids": [
+      "synthetic_3_a",
+      "synthetic_3_b"
+    ],
+    "split": "validation",
+    "source": "程序构造的测试标签，无真人、无人工验收",
+    "expected_round_target": null,
+    "candidates": [
+      {
+        "image_id": "img_1",
+        "labels": {
+          "human_passed": true,
+          "person_a_identity": "像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      },
+      {
+        "image_id": "img_2",
+        "labels": {
+          "human_passed": true,
+          "person_a_identity": "像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      },
+      {
+        "image_id": "img_3",
+        "labels": {
+          "human_passed": true,
+          "person_a_identity": "像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      },
+      {
+        "image_id": "img_4",
+        "labels": {
+          "human_passed": true,
+          "person_a_identity": "像本人",
+          "person_b_identity": "像本人",
+          "body_ok": true,
+          "hands_ok": true,
+          "subject_count_ok": true,
+          "text_ok": true,
+          "requirements_ok": true
+        },
+        "review": {
+          "status": "reviewed",
+          "reviewer_reference": "synthetic_fixture"
+        }
+      }
+    ]
+  }
+]
