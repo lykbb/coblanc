@@ -17,7 +17,7 @@ def test_mock_smoke_never_calls_model(monkeypatch):
 
     monkeypatch.setattr(model_calls, "get_llm", forbidden)
     report = run_smoke()
-    assert len(report["visual_findings"]) == 4
+    assert len(report["visual_findings"]) == settings.candidates_per_round
     assert report["retouch_plan"]["target"] == "generate"
     assert report["timing"]["model_invocations"] == 0
     assert report["timing"]["simulated_invocations"] == 2

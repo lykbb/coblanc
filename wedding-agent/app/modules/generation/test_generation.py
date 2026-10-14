@@ -5,10 +5,12 @@ from app.common.errors import ModuleError
 from app.modules.generation import generate
 
 
-def test_legacy_contract_returns_four_candidates(load_state):
-    update = generate(load_state("after_generation") | {"generation": {}})
-    assert [c["image_id"] for c in update["candidates"]] == ["img_1", "img_2", "img_3", "img_4"]
-    assert update["generation"]["total_images"] == 4
+def test_first_call_makes_one_sample(load_state):
+    state = {key: value for key, value in load_state("after_generation").items() if key != "generation"}
+    update = generate(state)
+    assert [c["image_id"] for c in update["candidates"]] == ["img_1"]
+    assert update["generation"]["stage"] == "sample"
+    assert update["generation"]["total_images"] == 1
 
 
 def test_does_not_rewrite_prompt(load_state):
@@ -17,8 +19,8 @@ def test_does_not_rewrite_prompt(load_state):
 
 def test_image_ids_continue_across_rounds(load_state):
     update = generate(load_state("after_generation"))
-    assert [c["image_id"] for c in update["candidates"]] == ["img_5", "img_6", "img_7", "img_8"]
-    assert update["generation"]["total_images"] == 8
+    assert [c["image_id"] for c in update["candidates"]] == ["img_5"]
+    assert update["generation"]["total_images"] == 5
 
 
 def test_stops_at_image_limit(load_state, monkeypatch):

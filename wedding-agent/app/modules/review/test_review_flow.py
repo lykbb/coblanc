@@ -88,6 +88,11 @@ def _upload_and_answer(client: TestClient, image: bytes) -> tuple[str, dict]:
 
 
 def _deliver(client: TestClient, task_id: str, previews: dict) -> None:
+    # 先确认 1 张样片，等 9 张套图出来后再确认。
+    response = client.post(f"/api/tasks/{task_id}/review", json={"action": "confirm", "image_id": previews["previews"][0]["image_id"]})
+    assert response.json() == {"status": "running"}
+    previews = _wait(client, task_id, "preview_ready")
+    assert len(previews["previews"]) == settings.set_candidates
     # 故意确认第二张，验证最终交付遵从用户选择，而非默认推荐。
     selected = previews["previews"][1]["image_id"]
     response = client.post(f"/api/tasks/{task_id}/review", json={"action": "confirm", "image_id": selected})
@@ -96,9 +101,11 @@ def _deliver(client: TestClient, task_id: str, previews: dict) -> None:
     assert client.post(f"/api/tasks/{task_id}/pay", json={"method": "mock"}).status_code == 200
     done = _wait(client, task_id, "done")
     assert runner.values(task_id)["best_image_id"] == selected
-    assert set(done["deliverables"]) == {"photo", "invitation", "welcome_poster", "led_screen", "moments"}
+    assert set(done["deliverables"]) == {"photo", "photos", "invitation", "welcome_poster", "led_screen", "moments"}
+    assert len(done["deliverables"]["photos"]) == settings.set_candidates
     assert done["message"] and len(done["message"]) <= 50
-    for url in done["deliverables"].values():
+    photos = done["deliverables"].pop("photos")
+    for url in [*photos, *done["deliverables"].values()]:
         image = client.get(url.replace(settings.public_base_url, "", 1))
         assert image.status_code == 200
         assert image.content.startswith(b"\x89PNG\r\n\x1a\n")
@@ -108,7 +115,7 @@ def _deliver(client: TestClient, task_id: str, previews: dict) -> None:
 def test_upload_redo_and_deliver(api_client, couple_png, reason, target):
     task_id, preview = _upload_and_answer(api_client, couple_png)
     assert preview["status"] == "preview_ready"
-    assert len(preview["previews"]) == 4
+    assert len(preview["previews"]) == settings.sample_candidates
     before = runner.values(task_id)
     original_photos = list(before["photo_urls"])
     original_answers = list(before["answers"])

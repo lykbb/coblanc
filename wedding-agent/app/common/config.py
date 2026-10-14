@@ -56,10 +56,10 @@ class Settings:
     max_user_redo: int
     max_agent_steps: int
     max_reference_images: int
-    candidates_per_round: int
-    sample_candidates: int
-    set_candidates: int
-    max_images_per_task: int
+    sample_candidates: int  # 第一轮只出 1 张样片
+    set_candidates: int  # 样片确认后出 9 张套图
+    candidates_per_round: int  # 一轮最多几张，等于样片和套图里较大的那个，修图师用它检查候选数量
+    max_images_per_task: int  # 每个任务最多生成几张（含重做），到上限就失败，防止费用失控
     image_timeout_seconds: int
     face_sim_threshold: float
     # 大模型
@@ -95,10 +95,10 @@ def load_settings() -> Settings:
         max_user_redo=_int("MAX_USER_REDO", 2),
         max_agent_steps=_int("MAX_AGENT_STEPS", 6),
         max_reference_images=_int("MAX_REFERENCE_IMAGES", 2),
-        candidates_per_round=_int("CANDIDATES_PER_ROUND", 4),
         sample_candidates=_int("SAMPLE_CANDIDATES", 1),
         set_candidates=_int("SET_CANDIDATES", 9),
-        max_images_per_task=_int("MAX_IMAGES_PER_TASK", 16),
+        candidates_per_round=max(_int("SAMPLE_CANDIDATES", 1), _int("SET_CANDIDATES", 9)),
+        max_images_per_task=_int("MAX_IMAGES_PER_TASK", 30),
         image_timeout_seconds=_int("IMAGE_TIMEOUT_SECONDS", 120),
         face_sim_threshold=_float("FACE_SIM_THRESHOLD", 0.5),
         llm_base_url=_str("LLM_BASE_URL", "https://ark.cn-beijing.volces.com/api/v3"),

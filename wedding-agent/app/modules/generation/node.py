@@ -14,31 +14,19 @@ from app.state import WeddingState
 from .client import generate_image
 
 
-# 一次完整任务由两个阶段组成：先生成一张样片，用户确认后再生成九张套图。
-# 旧工单仍然受 settings.max_images_per_task 限制；新流程的阶段数量固定，
-# 这样用户在样片或套图阶段重做时仍会得到完整的 1 张或 9 张结果。
-GENERATION_STAGES = {"sample", "set"}
+# 一次任务分两个阶段：先出 1 张样片（sample），用户确认后再出 9 张套图（set）。
+# 重做时沿用当前阶段的张数；累计张数到 settings.max_images_per_task 就停。
+STAGE_COUNTS = {"sample": "sample_candidates", "set": "set_candidates"}
 
 
 def generate(state: WeddingState) -> dict:
     prompt = state["prompt"]
     references = state.get("references", [])
     previous = state.get("generation") or {}
-    # 没有 stage 的工单是旧契约，继续遵循 candidates_per_round，便于存量工单重放。
-    # 新流程的首个生图调用没有 generation，默认走 sample；graph 在用户确认后写入 set。
-    stage = previous.get("stage")
-    if stage not in GENERATION_STAGES:
-        stage = "sample" if "generation" not in state else None
-    target = (
-        settings.sample_candidates
-        if stage == "sample"
-        else settings.set_candidates
-        if stage == "set"
-        else settings.candidates_per_round
-    )
+    stage = previous.get("stage") if previous.get("stage") in STAGE_COUNTS else "sample"  # 套图阶段由框架在样片确认后写入
+    count = getattr(settings, STAGE_COUNTS[stage])
     used = previous.get("total_images", 0)
-    count = target if stage else min(target, settings.max_images_per_task - used)
-    if count <= 0:
+    if used + count > settings.max_images_per_task:
         raise ModuleError("GENERATION_FAILED", "这次的生成次数用完了，请稍后重新开始")
     seeds = [1000 + used + i for i in range(count)]
     workflow = "with_references" if references else "keep_original"
@@ -52,7 +40,7 @@ def generate(state: WeddingState) -> dict:
     else:
         # TODO(生图 agent)：套图阶段 9 张并行（在函数内部用 concurrent.futures.ThreadPoolExecutor）；
         # 单张超时 settings.image_timeout_seconds；失败换种子重试；主力服务失败时切到备用；
-        # retouch_plan 的 target 为 generate 时按 patch 调整参数（比如加强人脸参考）；旧工单到 max_images_per_task 就停
+        # retouch_plan 的 target 为 generate 时按 patch 调整参数（比如加强人脸参考）
         images = [generate_image(state["photo_urls"], prompt, seed, references) for seed in seeds]
         engine = "main"
 
@@ -65,11 +53,7 @@ def generate(state: WeddingState) -> dict:
         "workflow": workflow,
         "seconds": round(time.monotonic() - started, 2),
         "total_images": used + len(candidates),
+        "stage": stage,
     }
-    if stage:
-        generation["stage"] = stage
-    step_text = "正在生成 1 张样片" if stage == "sample" else "正在生成 9 张婚礼套图" if stage == "set" else None
-    update = {"candidates": candidates, "generation": generation}
-    if step_text:
-        update["step_text"] = step_text
-    return update
+    step_text = f"正在生成 {count} 张样片" if stage == "sample" else f"正在生成 {count} 张婚礼套图"
+    return {"candidates": candidates, "generation": generation, "step_text": step_text}
