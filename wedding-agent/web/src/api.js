@@ -1,9 +1,21 @@
 // 和后端通信的唯一出口，6 个接口对应《小囍接口约定》。
 // VITE_USE_MOCK=true 时改用 src/mock 里的假数据，不需要启动后端。
+// 每个接口最近一次的请求和返回记在 apiLog 里，给页面上的「接口调试」面板看。
+import { reactive } from 'vue'
 import * as mock from './mock/index.js'
 
 const BASE = import.meta.env.VITE_API_BASE || ''
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true'
+
+export const ENDPOINTS = {
+  uploadImage: 'POST /api/uploads',
+  createTask: 'POST /api/tasks',
+  getTask: 'GET /api/tasks/{task_id}',
+  submitAnswers: 'POST /api/tasks/{task_id}/answers',
+  review: 'POST /api/tasks/{task_id}/review',
+  pay: 'POST /api/tasks/{task_id}/pay',
+}
+export const apiLog = reactive({})
 
 async function request(path, options = {}) {
   let res
@@ -16,6 +28,8 @@ async function request(path, options = {}) {
   if (!res.ok) {
     const error = new Error(data?.error?.message || '出了点问题，请稍后再试')
     error.code = data?.error?.code
+    error.httpStatus = res.status
+    error.body = data
     throw error
   }
   return data
@@ -35,12 +49,8 @@ const real = {
     form.append('file', file)
     return request('/api/uploads', { method: 'POST', body: form })
   },
-  // 新流程传 { groomFileIds, brideFileIds }；旧调用直接传 photo_file_ids 数组仍然可用。
-  createTask(photos, description) {
-    const body = Array.isArray(photos)
-      ? { photo_file_ids: photos }
-      : { groom_photo_file_ids: photos.groomFileIds, bride_photo_file_ids: photos.brideFileIds }
-    return post('/api/tasks', { ...body, description })
+  createTask(body) {
+    return post('/api/tasks', body)
   },
   getTask(taskId) {
     return request(`/api/tasks/${taskId}`)
@@ -51,10 +61,39 @@ const real = {
   review(taskId, payload) {
     return post(`/api/tasks/${taskId}/review`, payload)
   },
-  pay(taskId) {
-    return post(`/api/tasks/${taskId}/pay`, { method: 'mock' })
+  pay(taskId, method = 'mock') {
+    return post(`/api/tasks/${taskId}/pay`, { method })
   },
 }
 
-export const api = USE_MOCK ? mock : real
+const impl = USE_MOCK ? mock : real
+
+// 调试面板里展示的请求体（上传只记文件名和大小）
+function describe(name, args) {
+  if (name === 'uploadImage') return { file: args[0]?.name, size: args[0]?.size, type: args[0]?.type }
+  if (name === 'createTask') return args[0]
+  if (name === 'getTask') return { task_id: args[0] }
+  if (name === 'submitAnswers') return { task_id: args[0], body: { answers: args[1] } }
+  if (name === 'review') return { task_id: args[0], body: args[1] }
+  if (name === 'pay') return { task_id: args[0], body: { method: args[1] || 'mock' } }
+  return args
+}
+
+export const api = Object.fromEntries(
+  Object.keys(ENDPOINTS).map((name) => [
+    name,
+    async (...args) => {
+      const entry = { at: new Date().toLocaleTimeString(), request: describe(name, args), response: null, error: null }
+      try {
+        entry.response = await impl[name](...args)
+        return entry.response
+      } catch (error) {
+        entry.error = { http_status: error.httpStatus ?? null, code: error.code ?? null, message: error.message, body: error.body ?? null }
+        throw error
+      } finally {
+        apiLog[name] = entry
+      }
+    },
+  ]),
+)
 export const usingMock = USE_MOCK
