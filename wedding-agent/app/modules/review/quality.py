@@ -85,3 +85,32 @@ def route_for_score(score: dict) -> str:
     if any(term in "；".join(score["issues"]) for term in ("风格", "婚纱", "妆容", "妆造", "服饰")):
         return "look"
     return "prompt"
+
+
+REASON_TARGET = {"face": "generate", "hands": "generate", "body": "shot", "style": "look", "other": "prompt"}
+
+
+def default_patch(target: str) -> str:
+    return {
+        "generate": "加强两人五官与原图的一致性，修正手部并保持只有两位主体",
+        "shot": "修正身材比例，保持原图身高差和体型，必要时恢复原图姿势",
+        "look": "按已确认的风格调整婚纱和妆造，保留用户要求保留的特征",
+        "prompt": "澄清拍摄指令，保持人物特征和已确认的需求，避免乱码文字",
+        "none": "使用已通过质检的候选图",
+    }[target]
+
+
+def rule_plan(scores: list[dict], feedback: dict) -> dict:
+    if feedback:
+        target = REASON_TARGET[feedback.get("reason") or "other"]
+        return {"target": target, "patch": (feedback.get("note") or "").strip() or default_patch(target), "image_id": None}
+    passing = [score for score in scores if passes(score)]
+    if passing:
+        best = max(passing, key=lambda score: score["total"])
+        return {"target": "none", "patch": default_patch("none"), "image_id": best["image_id"]}
+    score = max(scores, key=lambda item: item["total"]) if scores else None
+    target = route_for_score(score) if score else "generate"
+    patch = default_patch(target)
+    if score and score["issues"]:
+        patch += "；需修正：" + "；".join(score["issues"])
+    return {"target": target, "patch": patch, "image_id": None}

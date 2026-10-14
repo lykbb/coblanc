@@ -207,22 +207,24 @@ def test_real_review_branch_retouches_and_delivers_with_test_services(api_client
     _deliver(api_client, task_id, preview)
 
 
-def test_incomplete_visual_batch_fails_whole_round(api_client, couple_png, monkeypatch):
+def test_incomplete_visual_batch_blocks_only_missing_candidate(api_client, couple_png, monkeypatch):
     _real_models(monkeypatch, broken_vision=True)
-    _, data = _upload_and_answer(api_client, couple_png)
-    assert data["status"] == "failed"
-    assert data["error"]["code"] == "GENERATION_FAILED"
-    assert not data["previews"] and data["deliverables"] is None
+    task_id, data = _upload_and_answer(api_client, couple_png)
+    assert data["status"] == "preview_ready"
+    scores = runner.values(task_id)["scores"]
+    assert "无法质检" in "；".join(scores[-1]["issues"])
+    assert runner.values(task_id)["best_image_id"] != scores[-1]["image_id"]
+    _deliver(api_client, task_id, data)
 
 
-def test_invalid_agent_switch_cannot_reach_delivery(api_client, couple_png, monkeypatch):
+def test_invalid_agent_switch_is_corrected_and_delivers(api_client, couple_png, monkeypatch):
     _real_models(monkeypatch, broken_agent=True)
     task_id, preview = _upload_and_answer(api_client, couple_png)
     response = api_client.post(f"/api/tasks/{task_id}/review", json={"action": "redo", "image_id": preview["previews"][0]["image_id"], "reason": "hands"})
     assert response.status_code == 200
-    failed = _wait(api_client, task_id, "failed")
-    assert failed["error"]["code"] == "GENERATION_FAILED"
-    assert failed["deliverables"] is None
+    preview = _wait(api_client, task_id, "preview_ready")
+    assert runner.values(task_id)["retouch_plan"]["target"] == "generate"
+    _deliver(api_client, task_id, preview)
 
 
 def test_parallel_tasks_do_not_share_photos_or_delivery(api_client, couple_png):
