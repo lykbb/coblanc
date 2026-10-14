@@ -32,6 +32,17 @@ def test_package_outputs_all_materials(load_state):
     assert set(deliverables) == {"photo", "invitation", "welcome_poster", "led_screen", "moments"}
 
 
+def test_package_deletes_grouped_originals_when_consent_allows(load_state):
+    state = load_state("after_generation")
+    original = state["photo_urls"][0]
+    state["groom_photo_urls"] = [original]
+    state["bride_photo_urls"] = [original]
+    state["consent"] = {"confirmed": True, "delete_original": True}
+    package(state)
+    with pytest.raises(FileNotFoundError):
+        load_image(original)
+
+
 def test_search_by_kind_and_tags(asset_catalog):
     poses = search_assets("pose")
     assert [item["asset_id"] for item in poses] == ["pose_medium_a"]  # 文件缺失的那条不返回
@@ -47,3 +58,13 @@ def test_search_rejects_unknown_kind():
 
 def test_empty_catalog_returns_nothing():
     assert search_assets("pose") == []
+
+def test_load_template_reference(asset_catalog):
+    from app.common.config import settings
+    from app.modules.assets import load_image, search_assets
+
+    reference = search_assets("pose", ["medium"])[0]
+    assert load_image(reference["url"]).startswith(b"\x89PNG")
+    import pytest
+    with pytest.raises(ValueError):
+        load_image(settings.public_base_url + "/templates/../../private.txt")

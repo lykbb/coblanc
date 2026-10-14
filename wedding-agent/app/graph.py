@@ -4,7 +4,8 @@
 → 妆造师 ⇄ 用户（展示资产库里的参考图，确认妆容、发型、服饰、配饰）
 → 摄影师 ⇄ 用户（确认两人关系、互动、场景、季节、灯光）
 → 小囍汇总写最终提示词 → 生图 agent → 质检
-质检 →（合格）出预览 → 等用户确认 →（确认）等支付 → 套版 → 小囍揭幕
+质检 →（合格）出预览；样片确认后生成 9 张套图并再次出预览，
+套图确认 → 等支付 → 套版 → 小囍揭幕
      →（不合格，未超次数）修图师 → 按修图方案退回妆造师 / 摄影师 / 小囍改提示词 / 生图，或换用另一张
      →（超过次数）失败
 用户要求重做 → 修图师 → 同上
@@ -44,7 +45,7 @@ def _module_node(module: str, step: str, fn, status: str = "running"):
         if settings.fake_delay_seconds and settings.fake_for(module):
             time.sleep(settings.fake_delay_seconds)  # 演示用：让 fake 模式下的进度动画看得见
         update = fn(state)
-        validate_update(fn.__name__, update)
+        validate_update(fn.__name__, update, state)
         if fn.__name__ in ASKERS:
             update.setdefault("questions", [])  # 没问问题时清掉上一位留下的问题
         step_text = update.pop("step_text", None)
@@ -100,6 +101,19 @@ def await_payment(state: WeddingState) -> dict:
 # ---- 框架自己的小节点 ----
 
 
+def prepare_set(state: WeddingState) -> dict:
+    """样片确认后切换到套图阶段。
+
+    ``generate`` 仍是唯一负责调用生图服务的模块节点；这里仅在工单上
+    标记阶段，下一次调用因此生成 9 张套图。保留累计 total_images，便于
+    任务级生图上限和重试计数继续生效。
+    """
+
+    generation = dict(state.get("generation") or {})
+    generation["stage"] = "set"
+    return {"generation": generation}
+
+
 def count_retry(state: WeddingState) -> dict:
     return {"retry_count": state.get("retry_count", 0) + 1, "user_feedback": None}
 
@@ -143,7 +157,12 @@ def after_check(state: WeddingState) -> str:
 
 
 def after_review(state: WeddingState) -> str:
-    return "retouch" if state.get("user_feedback") else "await_payment"
+    if state.get("user_feedback"):
+        return "retouch"
+    # 样片确认后先生成套图；套图预览确认才进入原有支付链路。
+    if (state.get("generation") or {}).get("stage") == "sample":
+        return "prepare_set"
+    return "await_payment"
 
 
 def after_retouch(state: WeddingState) -> str:
@@ -170,6 +189,7 @@ def build_graph():
     g.add_node("use_other", use_other)
     g.add_node("make_previews", _module_node("assets", "checking", make_previews))
     g.add_node("await_review", await_review)
+    g.add_node("prepare_set", prepare_set)
     g.add_node("await_payment", await_payment)
     g.add_node("package", _module_node("assets", "packaging", package, status="delivering"))
     g.add_node("reveal", _module_node("intake", "packaging", reveal, status="delivering"))
@@ -189,7 +209,8 @@ def build_graph():
     g.add_conditional_edges("retouch", after_retouch, ["styling", "framing", "compose", "generate", "use_other", "fail"])
     g.add_edge("use_other", "make_previews")
     g.add_edge("make_previews", "await_review")
-    g.add_conditional_edges("await_review", after_review, ["retouch", "await_payment"])
+    g.add_conditional_edges("await_review", after_review, ["retouch", "prepare_set", "await_payment"])
+    g.add_edge("prepare_set", "generate")
     g.add_edge("await_payment", "package")
     g.add_edge("package", "reveal")
     g.add_edge("reveal", END)

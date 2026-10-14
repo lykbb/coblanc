@@ -12,11 +12,7 @@ from app.contracts import Candidate
 from app.state import WeddingState
 
 from .real import check_real, propose_retouch
-from .quality import passes as _passes, validate_scores as _scores, route_for_score as _target, face_threshold, validate_feedback
-
-# 用户重做原因 → 退回哪一块：generate 生图重拍，shot 摄影师，look 妆造师，prompt 小囍改提示词
-REASON_TARGET = {"face": "generate", "hands": "generate", "body": "shot", "style": "look", "other": "prompt"}
-
+from .quality import passes as _passes, validate_scores as _scores, route_for_score as _target, face_threshold, validate_feedback, rule_plan, default_patch as _default_patch, REASON_TARGET
 
 def check(state: WeddingState) -> dict:
     face_threshold()
@@ -37,23 +33,7 @@ def retouch(state: WeddingState) -> dict:
     scores = _scores(state.get("scores") or [], candidates)
     feedback = validate_feedback(state.get("user_feedback"), candidates)
     if settings.fake_for("review"):
-        if feedback:
-            reason = feedback.get("reason") or "other"
-            target = REASON_TARGET[reason]
-            patch = feedback.get("note") or _default_patch(target)
-            return {"retouch_plan": {"target": target, "patch": patch, "image_id": None}}
-        else:
-            passing = [score for score in scores if _passes(score)]
-            if passing:
-                best = max(passing, key=lambda score: score["total"])
-                return {"retouch_plan": {"target": "none", "patch": "使用已通过质检的候选图", "image_id": best["image_id"]}}
-            # 从最有希望的候选的问题制定下一步；没有评分时保持骨架的生图回退。
-            score = max(scores, key=lambda item: item["total"]) if scores else None
-            target = _target(score) if score else "generate"
-            patch = _default_patch(target)
-            if score and score["issues"]:
-                patch += "；需修正：" + "；".join(score["issues"])
-        return {"retouch_plan": {"target": target, "patch": patch, "image_id": None}}
+        return {"retouch_plan": rule_plan(scores, feedback)}
     scores = _scores(scores, candidates, complete=True)
     return {"retouch_plan": propose_retouch(state, scores, feedback, {score["image_id"] for score in scores if _passes(score)})}
 
@@ -67,15 +47,6 @@ def _candidates(state: WeddingState) -> list[dict]:
     except (ValidationError, TypeError, ValueError):
         raise ModuleError("GENERATION_FAILED", "候选图片缺失或格式不正确，请重新生成") from None
     return candidates
-
-
-def _default_patch(target: str) -> str:
-    return {
-        "generate": "加强两人五官与原图的一致性，修正手部并保持只有两位主体",
-        "shot": "修正身材比例，保持原图身高差和体型，必要时恢复原图姿势",
-        "look": "按已确认的风格调整婚纱和妆造，保留用户要求保留的特征",
-        "prompt": "澄清拍摄指令，保持人物特征和已确认的需求，避免乱码文字",
-    }[target]
 
 
 def _fake_scores(state: WeddingState, candidates: list[dict]) -> list[dict]:

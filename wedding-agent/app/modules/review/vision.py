@@ -57,14 +57,21 @@ def inspect_candidates(source: bytes, candidates: list[tuple[str, bytes]], brief
         content.extend([{"type": "text", "text": f"候选 image_id={image_id}"}, image_block(data)])
     result = caller("vision", VisualBatch, [("system", read_prompt("vision.md")), ("human", content)], stats=stats)
     ids = [finding.image_id for finding in result.findings]
-    if len(set(ids)) != len(ids) or set(ids) != {image_id for image_id, _ in candidates}:
-        raise ModuleError("GENERATION_FAILED", "视觉质检未完整返回当前候选的结果，请重新质检")
+    current = {image_id for image_id, _ in candidates}
+    if len(set(ids)) != len(ids) or not set(ids) <= current:
+        raise ModuleError("GENERATION_FAILED", "视觉质检返回了重复或非当前候选的结果，请重新质检")
+    findings = {}
     for finding in result.findings:
         issues = "；".join(finding.issues)
-        for flag, terms in [(finding.body_ok, ISSUE_TERMS["body"]), (finding.hands_ok, ISSUE_TERMS["hands"]), (finding.subject_count_ok, ISSUE_TERMS["subjects"]), (finding.text_ok, ISSUE_TERMS["text"])]:
-            if flag and any(term in issues for term in terms):
-                raise ModuleError("GENERATION_FAILED", "视觉质检的通过标记与问题描述矛盾，请重新质检")
-    return {finding.image_id: finding for finding in result.findings}
+        updates = {}
+        for field, category in [("body_ok", "body"), ("hands_ok", "hands"), ("subject_count_ok", "subjects"), ("text_ok", "text"), ("requirements_ok", "requirements")]:
+            if any(term in issues for term in ISSUE_TERMS[category]):
+                updates[field] = False
+        findings[finding.image_id] = finding.model_copy(update=updates)
+    for image_id, _ in candidates:
+        if image_id not in findings:
+            findings[image_id] = VisualFinding(image_id=image_id, body_ok=False, hands_ok=False, subject_count_ok=False, text_ok=False, requirements_ok=False, assessable=False, issues=["视觉模型漏返候选，无法质检"])
+    return findings
 
 
 def finding_issues(finding: VisualFinding) -> list[str]:

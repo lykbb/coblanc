@@ -4,6 +4,8 @@
 接口说明页：http://127.0.0.1:8000/docs
 """
 
+from __future__ import annotations
+
 from contextlib import asynccontextmanager
 from typing import Any, Literal
 
@@ -11,7 +13,7 @@ from fastapi import FastAPI, File, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from app import runner
 from app.common.config import settings
@@ -20,6 +22,7 @@ from app.common.log import get_logger
 from app.common.progress import store
 from app.modules.assets import purge_expired, save_image
 from app.modules.assets.node import TEMPLATES_DIR
+from app.state import Consent
 
 log = get_logger("api")
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024
@@ -97,18 +100,39 @@ async def upload_image(file: UploadFile = File(...)):
 
 
 class CreateTaskBody(BaseModel):
-    photo_file_ids: list[str]
+    # 旧客户端继续传 photo_file_ids；新客户端传男女分组照片。
+    photo_file_ids: list[str] = Field(default_factory=list)
+    groom_photo_file_ids: list[str] = Field(default_factory=list)
+    bride_photo_file_ids: list[str] = Field(default_factory=list)
     description: str = ""
+    consent: Consent | None = None
 
 
 @app.post("/api/tasks")
 def create_task(body: CreateTaskBody):
-    if not body.photo_file_ids:
-        raise ApiError("PHOTO_INVALID", "请先上传一张合照")
-    missing = [file_id for file_id in body.photo_file_ids if file_id not in uploads]
+    grouped = bool(body.groom_photo_file_ids or body.bride_photo_file_ids)
+    if grouped and (not body.groom_photo_file_ids or not body.bride_photo_file_ids):
+        raise ApiError("PHOTO_INVALID", "请分别上传新郎和新娘各 1～10 张正面生活照")
+    if grouped and (
+        not 1 <= len(body.groom_photo_file_ids) <= 10
+        or not 1 <= len(body.bride_photo_file_ids) <= 10
+    ):
+        raise ApiError("PHOTO_INVALID", "新郎和新娘的照片数量都必须是 1～10 张")
+    if not grouped and not body.photo_file_ids:
+        raise ApiError("PHOTO_INVALID", "请先上传照片；新契约可分别传 groom_photo_file_ids 和 bride_photo_file_ids")
+    file_ids = body.groom_photo_file_ids + body.bride_photo_file_ids if grouped else body.photo_file_ids
+    missing = [file_id for file_id in file_ids if file_id not in uploads]
     if missing:
         raise ApiError("FILE_INVALID", "找不到上传的照片，请重新上传")
-    task_id = runner.start([uploads[file_id] for file_id in body.photo_file_ids], body.description)
+    groom_urls = [uploads[file_id] for file_id in body.groom_photo_file_ids]
+    bride_urls = [uploads[file_id] for file_id in body.bride_photo_file_ids]
+    task_id = runner.start(
+        [uploads[file_id] for file_id in file_ids],
+        body.description,
+        groom_photo_urls=groom_urls or None,
+        bride_photo_urls=bride_urls or None,
+        consent=body.consent.model_dump() if body.consent else None,
+    )
     return {"task_id": task_id, "status": "running"}
 
 
@@ -126,6 +150,14 @@ def get_task(task_id: str):
         "step": info.step,
         "step_text": info.step_text,
         "questions": values.get("questions", []) if status == "waiting_user" else [],
+        "consent": values.get("consent"),
+        # 生图阶段和累计数量让前端能区分 1 张样片与 9 张套图。
+        "generation": values.get("generation"),
+        "photo_counts": {
+            "groom": len(values.get("groom_photo_urls", [])),
+            "bride": len(values.get("bride_photo_urls", [])),
+            "legacy": len(values.get("photo_urls", [])) if not values.get("groom_photo_urls") else 0,
+        },
         "previews": values.get("previews", []) if status == "preview_ready" else [],
         "deliverables": values.get("deliverables") if status == "done" else None,
         "message": values.get("message") if status == "done" else None,
@@ -146,10 +178,33 @@ class AnswersBody(BaseModel):
     answers: list[Answer]
 
 
+def _attach_upload_urls(task_id: str, answers: list[dict]) -> list[dict]:
+    """补传照片题（type 为 upload）：value 是上传编号（一个或一组），框架换成地址放进 urls。
+
+    value 原样保留；跳过的回答不附 urls。要不要用这些地址、换哪几张，由提问的模块自己决定。
+    """
+    _task(task_id)
+    upload_ids = {q["question_id"] for q in runner.values(task_id).get("questions") or [] if q.get("type") == "upload"}
+    result = []
+    for answer in answers:
+        if answer["question_id"] in upload_ids and not answer.get("skipped"):
+            value = answer.get("value")
+            file_ids = [value] if isinstance(value, str) else value
+            if not isinstance(file_ids, list) or not file_ids or not all(isinstance(item, str) for item in file_ids):
+                raise ApiError("PHOTO_INVALID", "请上传照片后再提交")
+            missing = [file_id for file_id in file_ids if file_id not in uploads]
+            if missing:
+                raise ApiError("FILE_INVALID", "找不到上传的照片，请重新上传")
+            answer = {**answer, "urls": [uploads[file_id] for file_id in file_ids]}
+        result.append(answer)
+    return result
+
+
 @app.post("/api/tasks/{task_id}/answers")
 def submit_answers(task_id: str, body: AnswersBody):
+    answers = _attach_upload_urls(task_id, [answer.model_dump() for answer in body.answers])
     _take(task_id, "waiting_user")
-    runner.resume(task_id, [answer.model_dump() for answer in body.answers])
+    runner.resume(task_id, answers)
     return {"status": "running"}
 
 
@@ -166,7 +221,8 @@ class ReviewBody(BaseModel):
 @app.post("/api/tasks/{task_id}/review")
 def review(task_id: str, body: ReviewBody):
     info = _task(task_id)
-    previews = runner.values(task_id).get("previews", [])
+    values = runner.values(task_id)
+    previews = values.get("previews", [])
     if body.image_id not in {item["image_id"] for item in previews}:
         raise ApiError("WRONG_STATUS", "找不到这张预览图，请刷新一下")
     if body.action == "redo" and info.user_redo_count >= settings.max_user_redo:
@@ -175,7 +231,9 @@ def review(task_id: str, body: ReviewBody):
     if body.action == "redo":
         store.update(task_id, user_redo_count=info.user_redo_count + 1)
     runner.resume(task_id, body.model_dump())
-    return {"status": "awaiting_payment" if body.action == "confirm" else "running"}
+    # 样片确认会继续跑套图；套图确认才进入支付。
+    sample_confirmed = body.action == "confirm" and (values.get("generation") or {}).get("stage") == "sample"
+    return {"status": "running" if sample_confirmed or body.action == "redo" else "awaiting_payment"}
 
 
 # ---- 6. 模拟支付 ----

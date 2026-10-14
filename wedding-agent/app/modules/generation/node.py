@@ -1,50 +1,144 @@
-"""生图 agent：拿小囍写好的最终提示词和参考图，调用生图服务出 4 张候选。
+"""生图 Agent：先出样片、确认后出套图；Pi 运行计划，线程池执行有限次数的生图调用。"""
 
-提示词由小囍负责，这里不改写。agent 只在三件事上自己判断：用哪条工作流（原图复刻或带参考图）、
-主力服务失败时是否切到备用、某张失败时换种子重试。其余按规则走，所有上限从 settings 读。
-"""
-
+import copy
+import re
+import secrets
+import threading
 import time
+from pathlib import Path
 
 from app.common.config import settings
 from app.common.errors import ModuleError
+from app.common.log import current_task
 from app.modules.assets import load_image, save_image
 from app.state import WeddingState
 
-from .client import generate_image
+from .client import ImageCallFailure, _Budget, _Scope, _call_scope, generate_image
+from .pi_bridge import run_pi
+
+
+def _parameters(patch: str) -> dict:
+    parameters = {"optimize_prompt_options": {"mode": "standard"}}
+    match = re.search(r"size\s*=\s*(1K|1\.5K|2K|[1-9]\d*x[1-9]\d*)", patch)
+    if match:
+        size = match.group(1)
+        if "x" in size:
+            width, height = map(int, size.split("x"))
+            if not 921600 <= width * height <= 4624220 or not 1 / 16 <= width / height <= 16:
+                raise ModuleError("GENERATION_FAILED", "修图尺寸超出生图模型支持范围")
+        parameters["size"] = size
+    return parameters
+
+
+# 一次任务分两个阶段：先出 1 张样片（sample），用户确认后再出 9 张套图（set）。
+# 重做时沿用当前阶段的张数；累计张数到 settings.max_images_per_task 就停。
+STAGE_COUNTS = {"sample": "sample_candidates", "set": "set_candidates"}
 
 
 def generate(state: WeddingState) -> dict:
-    prompt = state["prompt"]
-    references = state.get("references", [])
-    used = (state.get("generation") or {}).get("total_images", 0)
-    count = min(settings.candidates_per_round, settings.max_images_per_task - used)
-    if count <= 0:
+    prompt = state.get("prompt", "")
+    photos = list(state.get("photo_urls", []))
+    references = copy.deepcopy(state.get("references", []))
+    previous = state.get("generation") or {}
+    stage = previous.get("stage") if previous.get("stage") in STAGE_COUNTS else "sample"  # 套图阶段由框架在样片确认后写入
+    count = getattr(settings, STAGE_COUNTS[stage])
+    used = previous.get("total_images", 0)
+    remaining = settings.max_images_per_task - used
+    if count <= 0 or remaining < count:
         raise ModuleError("GENERATION_FAILED", "这次的生成次数用完了，请稍后重新开始")
-    seeds = [1000 + used + i for i in range(count)]
-    workflow = "with_references" if references else "keep_original"
+    if not photos or not prompt.strip():
+        raise ModuleError("GENERATION_FAILED", "需要合照和完整的拍摄指令")
     started = time.monotonic()
+    workflow = "with_references" if references else "keep_original"
+    results: dict[int, dict] = {}
 
     if settings.fake_for("generation"):
-        # 示例数据：直接用用户上传的照片当候选图
-        photo = load_image(state["photo_urls"][0])
-        images = [photo for _ in seeds]
+        try:
+            image = load_image(photos[0])
+        except Exception:
+            raise ModuleError("FILE_INVALID", "合照无法读取，请重新上传") from None
+        for slot in range(count):
+            results[slot] = {"image": image, "seed": 1000 + used + slot, "engine": "fake"}
         engine, workflow = "fake", "fake"
     else:
-        # TODO(生图 agent)：4 张并行（在函数内部用 concurrent.futures.ThreadPoolExecutor）；
-        # 单张超时 settings.image_timeout_seconds；失败换种子重试；主力服务失败时切到备用；
-        # retouch_plan 的 target 为 generate 时按 patch 调整参数（比如加强人脸参考）；到 max_images_per_task 就停
-        images = [generate_image(state["photo_urls"], prompt, seed, references) for seed in seeds]
-        engine = "main"
+        if count > settings.max_agent_steps:
+            raise ModuleError("GENERATION_FAILED", "生成数量超过 Agent 工具调用上限")
+        deadline = started + settings.image_timeout_seconds
+        budget = _Budget(remaining)
+        lock = threading.Lock()
+        seen: set[int] = set()
+        errors: list[Exception] = []
+        plan = state.get("retouch_plan") or {}
+        parameters = _parameters(plan.get("patch", "") if plan.get("target") == "generate" else "")
+        seeds = [secrets.randbelow(2**31) for _ in range(count)]
+        task_id = state.get("task_id", "")
 
-    candidates = [
-        {"image_id": f"img_{used + i + 1}", "url": save_image(image, "candidate"), "seed": seed}
-        for i, (image, seed) in enumerate(zip(images, seeds))
-    ]
-    generation = {
-        "engine": engine,
-        "workflow": workflow,
-        "seconds": round(time.monotonic() - started, 2),
-        "total_images": used + len(candidates),
+        def execute(name: str, arguments: dict) -> dict:
+            slot = arguments.get("slot")
+            if name != "generate_candidate" or not isinstance(slot, int) or not 0 <= slot < count:
+                raise ValueError("无效的生成计划")
+            with lock:
+                if slot in seen or arguments.get("seed") != seeds[slot]:
+                    raise ValueError("重复或无效的生成计划")
+                seen.add(slot)
+            seed = seeds[slot]
+            scope = _Scope(budget, deadline, parameters=parameters)
+            token = current_task.set(task_id)
+            try:
+                with _call_scope(scope):
+                    for attempt in range(settings.max_retouch + 1):
+                        try:
+                            image = generate_image(photos, prompt, seed, references)
+                            value = {"image": image, "seed": scope.effective_seed, "engine": scope.engine}
+                            with lock:
+                                results[slot] = value
+                            return {"slot": slot, "seed": value["seed"], "engine": value["engine"]}
+                        except ImageCallFailure as error:
+                            if not error.retryable or attempt >= settings.max_retouch:
+                                raise
+                            seed = secrets.randbelow(2**31)
+                raise ImageCallFailure("生成未完成")
+            except Exception as error:
+                with lock:
+                    errors.append(error)
+                raise
+            finally:
+                current_task.reset(token)
+
+        system = Path(__file__).with_name("prompts").joinpath("agent.md").read_text("utf-8")
+        try:
+            run_pi({
+                "system": system, "model": settings.seedream_model,
+                "max_steps": settings.max_agent_steps, "parallelism": count,
+                "jobs": [{"slot": slot, "seed": seeds[slot]} for slot in range(count)],
+            }, None, execute, timeout=settings.image_timeout_seconds)
+        except ModuleError:
+            if errors and isinstance(errors[0], ModuleError):
+                raise errors[0]
+            raise
+        if len(results) != count:
+            raise ModuleError("GENERATION_FAILED", "部分候选图未生成成功，请稍后重试")
+        engine = "+".join(sorted({item["engine"] for item in results.values()}))
+
+    candidates = []
+    try:
+        for slot in range(count):
+            item = results[slot]
+            candidates.append({
+                "image_id": f"img_{used + slot + 1}",
+                "url": save_image(item["image"], "candidate"), "seed": item["seed"],
+            })
+    except Exception:
+        raise ModuleError("GENERATION_FAILED", "候选图保存失败，请稍后重试") from None
+    step_text = f"正在生成 {count} 张样片" if stage == "sample" else f"正在生成 {count} 张婚礼套图"
+    return {
+        "candidates": candidates,
+        "generation": {
+            "engine": engine, "workflow": workflow,
+            "seconds": round(time.monotonic() - started, 2),
+            "total_images": used + len(candidates),
+            "stage": stage,
+        },
+        "step_text": step_text,
     }
-    return {"candidates": candidates, "generation": generation}
+

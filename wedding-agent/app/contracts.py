@@ -4,11 +4,13 @@
 uv run pytest tests/test_contracts.py，全部通过就能直接接入。
 """
 
-from typing import Annotated, Any, Literal
+from __future__ import annotations
+
+from typing import Annotated, Any, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, TypeAdapter
 
-from app.state import Brief
+from app.state import PHOTO_GROUP_MAX, PHOTO_GROUP_MIN, Brief, Consent
 
 
 class _Strict(BaseModel):
@@ -43,6 +45,9 @@ class Generation(_Strict):
     workflow: str
     seconds: float
     total_images: int
+    # 新流程：sample 为 1 张样片，set 为用户确认后的 9 张套图。
+    # 可选是为了让历史工单（没有 stage 字段）继续通过契约校验。
+    stage: Literal["sample", "set"] | None = None
 
 
 class Score(_Strict):
@@ -85,10 +90,16 @@ class Preview(_Strict):
 class Deliverables(BaseModel):
     model_config = ConfigDict(extra="allow")  # 其余键是物料名，值是地址
     photo: str
+    # 套图阶段交付的 9 张高清婚纱照；旧任务仍会返回只有一项的列表。
+    photos: list[str] = Field(default_factory=list)
 
 
 FIELD_TYPES = {
     "brief": Brief,
+    "consent": Consent,
+    "groom_photo_urls": list[str],
+    "bride_photo_urls": list[str],
+    "photo_urls": list[str],
     "questions": list[Question],
     "message": str,
     "look": Look,
@@ -98,7 +109,7 @@ FIELD_TYPES = {
     "candidates": list[Candidate],
     "generation": Generation,
     "scores": list[Score],
-    "best_image_id": str | None,
+    "best_image_id": Optional[str],
     "passed": bool,
     "retouch_plan": RetouchPlan,
     "previews": list[Preview],
@@ -108,7 +119,7 @@ FIELD_TYPES = {
 
 # 对外函数名 → 允许写的工单字段（step_text 任何模块都可以写）
 MODULE_WRITES = {
-    "intake": {"brief", "questions"},
+    "intake": {"brief", "questions", "consent", "groom_photo_urls", "bride_photo_urls", "photo_urls"},
     "compose": {"prompt", "references"},
     "reveal": {"message"},
     "style": {"look", "questions"},
@@ -142,7 +153,33 @@ class ContractError(Exception):
     """模块的返回值不符合契约。"""
 
 
-def validate_update(function: str, update: dict) -> None:
+PHOTO_FIELDS = ("groom_photo_urls", "bride_photo_urls", "photo_urls")
+
+
+def _check_photos(function: str, update: dict, state: dict | None) -> None:
+    """照片字段：每个地址是非空字符串；分组任务每组 1～10 张，photo_urls 必须等于新郎 + 新娘。
+
+    state 是模块运行前的工单，用来补齐本次没返回的照片字段；不传时只按本次返回的字段检查。
+    """
+    if not any(key in update for key in PHOTO_FIELDS):
+        return
+    merged = {key: (state or {}).get(key) for key in PHOTO_FIELDS}
+    merged.update({key: update[key] for key in PHOTO_FIELDS if key in update})
+    for key, urls in merged.items():
+        if urls is not None and any(not isinstance(url, str) or not url.strip() for url in urls):
+            raise ContractError(f"{function} 写的 {key} 里每一项都必须是非空的地址字符串")
+    groom, bride, photos = merged["groom_photo_urls"], merged["bride_photo_urls"], merged["photo_urls"]
+    if groom or bride:
+        for key, urls in (("groom_photo_urls", groom), ("bride_photo_urls", bride)):
+            if not urls or not PHOTO_GROUP_MIN <= len(urls) <= PHOTO_GROUP_MAX:
+                raise ContractError(f"{function} 写的 {key} 必须有 {PHOTO_GROUP_MIN}～{PHOTO_GROUP_MAX} 张")
+        if photos is None or list(photos) != list(groom) + list(bride):
+            raise ContractError(f"{function} 写的照片字段不一致：分组任务的 photo_urls 必须等于新郎照片加新娘照片")
+    elif photos is not None and not photos:
+        raise ContractError(f"{function} 写的 photo_urls 不能为空")
+
+
+def validate_update(function: str, update: dict, state: dict | None = None) -> None:
     if not isinstance(update, dict):
         raise ContractError(f"{function} 必须返回 dict，实际返回了 {type(update).__name__}")
     allowed = MODULE_WRITES[function] | {"step_text"}
@@ -157,5 +194,10 @@ def validate_update(function: str, update: dict) -> None:
             _ADAPTERS[key].validate_python(value)
         except Exception as error:
             raise ContractError(f"{function} 写的 {key} 格式不对：{error}") from error
-        if key == "deliverables" and not all(isinstance(url, str) for url in value.values()):
-            raise ContractError(f"{function} 写的 deliverables 里每个值都必须是地址字符串")
+        if key == "deliverables":
+            invalid = [name for name, item in value.items() if not isinstance(item, str) and not (
+                name == "photos" and isinstance(item, list) and all(isinstance(url, str) for url in item)
+            )]
+            if invalid:
+                raise ContractError(f"{function} 写的 deliverables 中 {invalid} 必须是地址字符串或 photos 地址列表")
+    _check_photos(function, update, state)

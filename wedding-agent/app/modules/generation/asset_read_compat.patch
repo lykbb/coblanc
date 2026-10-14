@@ -1,0 +1,21 @@
+diff --git a/app/modules/assets/node.py b/app/modules/assets/node.py
+--- a/app/modules/assets/node.py
++++ b/app/modules/assets/node.py
+@@ -44,8 +44,14 @@ def _path_from_url(url: str) -> Path:
+-    prefix = f"{settings.public_base_url}/files/"
+-    if not url.startswith(prefix):
++    allowed = [
++        (f"{settings.public_base_url}/files/", settings.storage_dir),
++        (f"{settings.public_base_url}/templates/", TEMPLATES_DIR),
++    ]
++    match = next(((prefix, directory) for prefix, directory in allowed
++                  if url.startswith(prefix)), None)
++    if match is None:
+         raise ValueError(f"不是资产库的地址：{url}")
+-    root = settings.storage_dir.resolve()
++    prefix, directory = match
++    root = directory.resolve()
+     path = (root / url[len(prefix):]).resolve()
+     if root not in path.parents:
+         raise ValueError(f"不是资产库的地址：{url}")
+     return path

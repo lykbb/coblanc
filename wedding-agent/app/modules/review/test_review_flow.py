@@ -74,7 +74,7 @@ def _upload_and_answer(client: TestClient, image: bytes) -> tuple[str, dict]:
     for _ in range(3 * settings.max_question_rounds + 1):
         data = _wait(client, task_id, "waiting_user", "preview_ready", "failed")
         if data["status"] != "waiting_user":
-            assert speakers == ["intake", "styling", "framing"]
+            assert list(dict.fromkeys(speakers)) == ["intake", "styling", "framing"]  # 按出场顺序去重
             return task_id, data
         speakers.append(data["step"])
         assert data["step_text"] and data["questions"]
@@ -88,6 +88,11 @@ def _upload_and_answer(client: TestClient, image: bytes) -> tuple[str, dict]:
 
 
 def _deliver(client: TestClient, task_id: str, previews: dict) -> None:
+    # 先确认 1 张样片，等 9 张套图出来后再确认。
+    response = client.post(f"/api/tasks/{task_id}/review", json={"action": "confirm", "image_id": previews["previews"][0]["image_id"]})
+    assert response.json() == {"status": "running"}
+    previews = _wait(client, task_id, "preview_ready")
+    assert len(previews["previews"]) == settings.set_candidates
     # 故意确认第二张，验证最终交付遵从用户选择，而非默认推荐。
     selected = previews["previews"][1]["image_id"]
     response = client.post(f"/api/tasks/{task_id}/review", json={"action": "confirm", "image_id": selected})
@@ -96,9 +101,11 @@ def _deliver(client: TestClient, task_id: str, previews: dict) -> None:
     assert client.post(f"/api/tasks/{task_id}/pay", json={"method": "mock"}).status_code == 200
     done = _wait(client, task_id, "done")
     assert runner.values(task_id)["best_image_id"] == selected
-    assert set(done["deliverables"]) == {"photo", "invitation", "welcome_poster", "led_screen", "moments"}
+    assert set(done["deliverables"]) == {"photo", "photos", "invitation", "welcome_poster", "led_screen", "moments"}
+    assert len(done["deliverables"]["photos"]) == settings.set_candidates
     assert done["message"] and len(done["message"]) <= 50
-    for url in done["deliverables"].values():
+    photos = done["deliverables"].pop("photos")
+    for url in [*photos, *done["deliverables"].values()]:
         image = client.get(url.replace(settings.public_base_url, "", 1))
         assert image.status_code == 200
         assert image.content.startswith(b"\x89PNG\r\n\x1a\n")
@@ -108,7 +115,7 @@ def _deliver(client: TestClient, task_id: str, previews: dict) -> None:
 def test_upload_redo_and_deliver(api_client, couple_png, reason, target):
     task_id, preview = _upload_and_answer(api_client, couple_png)
     assert preview["status"] == "preview_ready"
-    assert len(preview["previews"]) == 4
+    assert len(preview["previews"]) == settings.sample_candidates
     before = runner.values(task_id)
     original_photos = list(before["photo_urls"])
     original_answers = list(before["answers"])
@@ -200,22 +207,26 @@ def test_real_review_branch_retouches_and_delivers_with_test_services(api_client
     _deliver(api_client, task_id, preview)
 
 
-def test_incomplete_visual_batch_fails_whole_round(api_client, couple_png, monkeypatch):
+def test_incomplete_visual_batch_blocks_only_missing_candidate(api_client, couple_png, monkeypatch):
+    # 样片默认 1 张时"漏返最后一张"会整轮不合格；临时改成 9 张（与 candidates_per_round 一致），验证只挡漏返的那一张。
+    monkeypatch.setattr(settings, "sample_candidates", 9)
     _real_models(monkeypatch, broken_vision=True)
-    _, data = _upload_and_answer(api_client, couple_png)
-    assert data["status"] == "failed"
-    assert data["error"]["code"] == "GENERATION_FAILED"
-    assert not data["previews"] and data["deliverables"] is None
+    task_id, data = _upload_and_answer(api_client, couple_png)
+    assert data["status"] == "preview_ready"
+    scores = runner.values(task_id)["scores"]
+    assert "无法质检" in "；".join(scores[-1]["issues"])
+    assert runner.values(task_id)["best_image_id"] != scores[-1]["image_id"]
+    _deliver(api_client, task_id, data)
 
 
-def test_invalid_agent_switch_cannot_reach_delivery(api_client, couple_png, monkeypatch):
+def test_invalid_agent_switch_is_corrected_and_delivers(api_client, couple_png, monkeypatch):
     _real_models(monkeypatch, broken_agent=True)
     task_id, preview = _upload_and_answer(api_client, couple_png)
     response = api_client.post(f"/api/tasks/{task_id}/review", json={"action": "redo", "image_id": preview["previews"][0]["image_id"], "reason": "hands"})
     assert response.status_code == 200
-    failed = _wait(api_client, task_id, "failed")
-    assert failed["error"]["code"] == "GENERATION_FAILED"
-    assert failed["deliverables"] is None
+    preview = _wait(api_client, task_id, "preview_ready")
+    assert runner.values(task_id)["retouch_plan"]["target"] == "generate"
+    _deliver(api_client, task_id, preview)
 
 
 def test_parallel_tasks_do_not_share_photos_or_delivery(api_client, couple_png):

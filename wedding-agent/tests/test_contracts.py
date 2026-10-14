@@ -78,3 +78,47 @@ def test_generation_client_signature():
 def test_contract_rejects_bad_output(name, update):
     with pytest.raises(ContractError):
         validate_update(name, update)
+
+
+# ---- 小囍更新照片字段（补传照片后） ----
+
+_G = ["http://x/g1.png"]
+_B = ["http://x/b1.png", "http://x/b2.png"]
+
+
+@pytest.mark.parametrize(
+    "update, state",
+    [
+        ({"brief": {}, "groom_photo_urls": _G, "bride_photo_urls": _B, "photo_urls": _G + _B}, None),
+        ({"brief": {}, "bride_photo_urls": ["http://x/b9.png"], "photo_urls": _G + ["http://x/b9.png"]}, {"groom_photo_urls": _G, "bride_photo_urls": _B, "photo_urls": _G + _B}),
+        ({"brief": {}, "photo_urls": ["http://x/new.png"]}, {"photo_urls": ["http://x/old.png"]}),  # 旧的合照任务
+    ],
+)
+def test_intake_may_update_photos(update, state):
+    validate_update("intake", update, state)
+
+
+@pytest.mark.parametrize(
+    "update, state",
+    [
+        ({"brief": {}, "groom_photo_urls": _G, "bride_photo_urls": _B, "photo_urls": _B + _G}, None),  # 顺序不对
+        ({"brief": {}, "groom_photo_urls": _G, "bride_photo_urls": _B}, None),  # 没给 photo_urls
+        ({"brief": {}, "groom_photo_urls": [], "bride_photo_urls": _B, "photo_urls": _B}, None),  # 一组为空
+        ({"brief": {}, "groom_photo_urls": [f"http://x/g{i}.png" for i in range(11)], "bride_photo_urls": _B, "photo_urls": [f"http://x/g{i}.png" for i in range(11)] + _B}, None),  # 超过 10 张
+        ({"brief": {}, "groom_photo_urls": [""], "bride_photo_urls": _B, "photo_urls": [""] + _B}, None),  # 空地址
+        ({"brief": {}, "groom_photo_urls": "http://x/g1.png"}, None),  # 不是列表
+        ({"brief": {}, "bride_photo_urls": ["http://x/b9.png"]}, {"groom_photo_urls": _G, "bride_photo_urls": _B, "photo_urls": _G + _B}),  # 换了新娘照片但没更新 photo_urls
+        ({"brief": {}, "photo_urls": []}, None),
+    ],
+)
+def test_intake_photo_fields_are_checked(update, state):
+    with pytest.raises(ContractError):
+        validate_update("intake", update, state)
+
+
+def test_brief_style_fields_default_to_undecided():
+    from app.state import DEPRECATED_BRIEF_FIELDS, UNDECIDED, Brief
+
+    brief = Brief()
+    assert all(getattr(brief, key) == UNDECIDED for key in DEPRECATED_BRIEF_FIELDS)
+    validate_update("intake", {"brief": Brief(heights_cm=[175, 162]).model_dump()})
