@@ -122,3 +122,18 @@ def test_brief_style_fields_default_to_undecided():
     brief = Brief()
     assert all(getattr(brief, key) == UNDECIDED for key in DEPRECATED_BRIEF_FIELDS)
     validate_update("intake", {"brief": Brief(heights_cm=[175, 162]).model_dump()})
+
+
+def test_shots_and_shot_prompts_contract():
+    from app.contracts import ContractError, validate_update
+    shot = {"text": "t", "pose": "keep_original", "references": []}
+    shots = [{"slot": i, "pose": "keep_original", "framing": "全身", "scene": "影棚", "text": f"镜头{i}"} for i in range(9)]
+    validate_update("frame", {"shot": shot, "shots": shots})
+    validate_update("compose", {"prompt": "p", "references": [], "shot_prompts": [{"slot": 0, "prompt": "p0"}]})
+    validate_update("compose", {"prompt": "p", "references": []})  # 分镜是可选的
+    with pytest.raises(ContractError):
+        validate_update("frame", {"shot": shot, "shots": shots + [shots[0]]})
+    with pytest.raises(ContractError):
+        validate_update("compose", {"prompt": "p", "references": [], "shot_prompts": [{"slot": 0}]})
+    with pytest.raises(ContractError):
+        validate_update("generate", {"candidates": [], "generation": {"engine": "x", "workflow": "x", "seconds": 0, "total_images": 0}, "shots": shots})

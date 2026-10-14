@@ -69,6 +69,7 @@ class WeddingState(TypedDict, total=False):
     question_rounds: dict  # 每位 agent 已经问了几轮，例如 {"intake": 1, "styling": 1}
     retry_count: int
     user_feedback: Optional[dict]  # 用户要求重做时的 image_id、reason、note
+    sample_only: bool  # 用户在样片页选了"只要这一张"：跳过套图，直接用样片交付
     # 另外，任何模块都可以在返回值里带 step_text（给用户看的进度文案），框架转给前端，不写进工单
 
     # 小囍、妆造师、摄影师都可以写：要问用户的问题，框架负责暂停、收集回答
@@ -76,7 +77,8 @@ class WeddingState(TypedDict, total=False):
 
     # 主 agent（小囍）写
     brief: dict
-    prompt: str  # 汇总妆造师和摄影师的方案后写的最终提示词
+    prompt: str  # 汇总妆造师和摄影师的方案后写的最终提示词（所有镜头共用的部分；没有 shot_prompts 时每张都用它）
+    shot_prompts: list[dict]  # 可选：每个镜头的最终提示词，每项 {"slot": 0~8, "prompt": ...}；生图按 slot 取
     references: list[dict]  # 生图时带上的参考图，每张含 url、role
     message: str  # 揭幕寄语
 
@@ -85,6 +87,9 @@ class WeddingState(TypedDict, total=False):
 
     # 摄影师写（在妆造师之后，和用户确认互动、场景、季节、灯光）
     shot: dict  # {"text": 构图光线姿势描述, "pose": 姿势编号, "references": [从资产库挑的参考图]}
+    # 可选：分镜表，每张套图一个镜头 {"slot", "pose", "framing"(景别), "scene", "text"}。
+    # slot 0 同时用于样片；套图阶段 slot 0~8 各画一张。
+    shots: list[dict]
 
     # 生图 agent 写
     candidates: list[dict]  # 每张含 image_id、url、seed

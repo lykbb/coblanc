@@ -38,6 +38,18 @@ def test_seedream_payload_and_unsupported_seed(real_settings, load_state, png_by
     assert payload["prompt"] == state["prompt"]
     assert payload["image"][0].startswith("data:image/png;base64,")
     assert "seed" not in payload and "n" not in payload and "sequential_image_generation" not in payload
+    assert payload["watermark"] is False  # 不要方舟角标水印
+    assert payload["size"] == "2K"
+
+
+def test_seedream_size_from_scope_wins(real_settings, load_state, png_bytes, monkeypatch):
+    calls = []
+    monkeypatch.setattr(client, "_post_json", lambda url, payload, key: calls.append(payload) or _response(png_bytes))
+    state = load_state("after_generation")
+    scope = client._Scope(client._Budget(2), time.monotonic() + 30, parameters={"size": "1K"})
+    with client._call_scope(scope):
+        client.generate_image(state["photo_urls"], state["prompt"], 1, [])
+    assert calls[0]["size"] == "1K" and calls[0]["watermark"] is False
 
 
 def test_seedream_uses_asset_reference_bytes(real_settings, load_state, asset_catalog, png_bytes, monkeypatch):
@@ -192,3 +204,24 @@ def test_two_tasks_keep_their_pi_results_separate(real_settings, load_state, png
     second_urls = {item["url"] for item in results[1]["candidates"]}
     assert len(first_urls) == len(second_urls) == 1
     assert not first_urls & second_urls
+
+
+@pytest.mark.skipif(shutil.which("node") is None, reason="Pi 集成测试需要 Node.js")
+def test_set_uses_each_slot_prompt(real_settings, load_state, png_bytes, monkeypatch):
+    """有分镜提示词时，套图每张用自己 slot 的提示词。"""
+    state = load_state("after_generation")
+    state["generation"] = {"stage": "set", "total_images": 1, "engine": "seedream", "workflow": "x", "seconds": 1}
+    state["shot_prompts"] = [{"slot": slot, "prompt": f"镜头{slot}"} for slot in range(9)]
+    prompts, lock = [], threading.Lock()
+
+    def post(url, payload, key):
+        with lock:
+            prompts.append(payload["prompt"])
+        return _response(png_bytes)
+
+    monkeypatch.setattr(client, "_post_json", post)
+    monkeypatch.setattr(settings, "max_agent_steps", 9)
+    monkeypatch.setattr(settings, "image_timeout_seconds", 60)
+    suite = node.generate(state)
+    assert len(suite["candidates"]) == 9
+    assert sorted(prompts) == sorted(f"镜头{slot}" for slot in range(9))

@@ -78,7 +78,9 @@ def compose(state: WeddingState) -> dict:
         parts = [opening, str(look.get("text", "")), str(shot.get("text", ""))]
         if plan.get("target") == "prompt" and plan.get("patch"):
             parts.append(str(plan["patch"]))
-        return {"prompt": "".join(part for part in parts if part), "references": _look_shot_refs(look, shot)}
+        prompt = "".join(part for part in parts if part)
+        return {"prompt": prompt, "references": _look_shot_refs(look, shot),
+                "shot_prompts": _shot_prompts(prompt, state)}
     fields = {
         "brief": json.dumps(brief.model_dump(), ensure_ascii=False),
         "heights": json.dumps(brief.heights_cm, ensure_ascii=False),
@@ -97,7 +99,18 @@ def compose(state: WeddingState) -> dict:
         raise ModuleError("GENERATION_FAILED", "小囍没有得到有效的生图提示词，请稍后再试")
     if body.startswith(opening):
         body = body[len(opening):].lstrip()
-    return {"prompt": opening + body, "references": _safe_references(raw.get("references"), look, shot)}
+    prompt = opening + body
+    return {"prompt": prompt, "references": _safe_references(raw.get("references"), look, shot),
+            "shot_prompts": _shot_prompts(prompt, state)}
+
+
+def _shot_prompts(prompt: str, state: WeddingState) -> list[dict]:
+    """每个镜头的最终提示词 = 共用提示词 + 这个镜头的景别、场景和动作。"""
+    return [
+        {"slot": item["slot"],
+         "prompt": f"{prompt}本张镜头：{item['framing']}，场景{item['scene']}，{item['text']}。"}
+        for item in state.get("shots") or []
+    ]
 
 
 def reveal(state: WeddingState) -> dict:

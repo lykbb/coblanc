@@ -48,6 +48,9 @@ def generate(state: WeddingState) -> dict:
         raise ModuleError("GENERATION_FAILED", "这次的生成次数用完了，请稍后重新开始")
     if not photos or not prompt.strip():
         raise ModuleError("GENERATION_FAILED", "需要合照和完整的拍摄指令")
+    # 每张用自己镜头的提示词：样片用 slot 0，套图用 slot 0~8；没有分镜时都用统一 prompt。
+    by_slot = {item["slot"]: item["prompt"] for item in state.get("shot_prompts") or []}
+    slot_prompts = [by_slot.get(slot, prompt) for slot in range(count)]
     started = time.monotonic()
     workflow = "with_references" if references else "keep_original"
     results: dict[int, dict] = {}
@@ -88,7 +91,7 @@ def generate(state: WeddingState) -> dict:
                 with _call_scope(scope):
                     for attempt in range(settings.max_retouch + 1):
                         try:
-                            image = generate_image(photos, prompt, seed, references)
+                            image = generate_image(photos, slot_prompts[slot], seed, references)
                             value = {"image": image, "seed": scope.effective_seed, "engine": scope.engine}
                             with lock:
                                 results[slot] = value

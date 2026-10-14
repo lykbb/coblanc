@@ -34,6 +34,23 @@ class Shot(_Strict):
     references: list[Reference] = Field(default_factory=list)
 
 
+class ShotPlan(_Strict):
+    """分镜表里的一个镜头（摄影师写）。slot 从 0 开始，0 号同时用于样片。"""
+
+    slot: int = Field(ge=0)
+    pose: str
+    framing: str  # 景别，例如 全身 / 半身 / 特写
+    scene: str
+    text: str  # 这个镜头的构图、姿势、互动描述，会拼进这一张的提示词
+
+
+class ShotPrompt(_Strict):
+    """某个镜头的最终提示词（小囍 compose 写）。"""
+
+    slot: int = Field(ge=0)
+    prompt: str = Field(min_length=1)
+
+
 class Candidate(_Strict):
     image_id: str
     url: str
@@ -104,7 +121,9 @@ FIELD_TYPES = {
     "message": str,
     "look": Look,
     "shot": Shot,
+    "shots": list[ShotPlan],
     "prompt": str,
+    "shot_prompts": list[ShotPrompt],
     "references": list[Reference],
     "candidates": list[Candidate],
     "generation": Generation,
@@ -120,10 +139,10 @@ FIELD_TYPES = {
 # 对外函数名 → 允许写的工单字段（step_text 任何模块都可以写）
 MODULE_WRITES = {
     "intake": {"brief", "questions", "consent", "groom_photo_urls", "bride_photo_urls", "photo_urls"},
-    "compose": {"prompt", "references"},
+    "compose": {"prompt", "references", "shot_prompts"},
     "reveal": {"message"},
     "style": {"look", "questions"},
-    "frame": {"shot", "questions"},
+    "frame": {"shot", "shots", "questions"},
     "generate": {"candidates", "generation"},
     "check": {"scores", "best_image_id", "passed"},
     "retouch": {"retouch_plan"},
@@ -200,4 +219,8 @@ def validate_update(function: str, update: dict, state: dict | None = None) -> N
             )]
             if invalid:
                 raise ContractError(f"{function} 写的 deliverables 中 {invalid} 必须是地址字符串或 photos 地址列表")
+    for key in ("shots", "shot_prompts"):
+        slots = [item["slot"] for item in update.get(key) or []]
+        if len(slots) != len(set(slots)):
+            raise ContractError(f"{function} 写的 {key} 里 slot 不能重复")
     _check_photos(function, update, state)

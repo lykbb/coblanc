@@ -83,6 +83,34 @@ QUESTIONS = [
 ]
 
 
+# 分镜表模板：9 个镜头的景别和动作各不相同，避免套图 9 张一个样。slot 0 同时用于样片。
+SHOT_PLANS = [
+    ("全身", "牵手并肩走向镜头"),
+    ("半身", "相拥对视微笑"),
+    ("特写", "额头相抵，闭眼微笑"),
+    ("全身", "新郎单膝跪地牵起新娘的手"),
+    ("半身", "新娘挽着新郎手臂，一起看镜头"),
+    ("远景", "两人背影，并肩望向远方"),
+    ("半身", "新郎从身后环抱新娘"),
+    ("特写", "两人十指相扣的手和戒指"),
+    ("全身", "新郎抱起新娘转圈，裙摆飞扬"),
+]
+
+
+def plan_shots(shot: dict, scene: str) -> list[dict]:
+    """按 shot 的整体方案拆出 settings.set_candidates 个不同镜头。"""
+    count = max(settings.set_candidates, 1)
+    shots = []
+    for slot in range(count):
+        framing, action = SHOT_PLANS[slot % len(SHOT_PLANS)]
+        shots.append({
+            "slot": slot, "pose": shot["pose"],
+            "framing": framing, "scene": scene,
+            "text": f"{framing}构图，{action}",
+        })
+    return shots
+
+
 def height_band(heights_cm: list[int]) -> str | None:
     if len(heights_cm) != 2:
         return None
@@ -170,7 +198,7 @@ def frame(state: WeddingState) -> dict:
             shot["text"] += f"保留：{'、'.join(brief.keep_features)}。"
         if context["look"].get("text"):
             shot["text"] += f"构图与既定造型协调：{context['look']['text']}。"
-        update = {"shot": shot}
+        update = {"shot": shot, "shots": plan_shots(shot, "沿用既定场景")}
         questions = _pending_questions(state, answers)
         if questions:
             update.update(questions=questions, step_text="我是摄影师，想确认你们的互动和光线偏好。")
@@ -259,8 +287,9 @@ def _rule_shot(state: WeddingState) -> dict:
         text += f"调整：{plan['patch']}。"
 
     shot = {"text": text, "pose": pose, "references": references}
+    shots = plan_shots(shot, scene["label"])
     if (answers or state.get("candidates") or plan.get("target") == "shot"
             or (state.get("question_rounds") or {}).get("framing", 0) >= settings.max_question_rounds):
-        return {"shot": shot}
-    return {"shot": shot, "questions": copy.deepcopy(QUESTIONS), "step_text": "我是摄影师，想再了解一下你们平时怎么相处，喜欢什么样的光线。"}
+        return {"shot": shot, "shots": shots}
+    return {"shot": shot, "shots": shots, "questions": copy.deepcopy(QUESTIONS), "step_text": "我是摄影师，想再了解一下你们平时怎么相处，喜欢什么样的光线。"}
 
