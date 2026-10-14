@@ -7,6 +7,8 @@
 fake 模式用下面的规则版；真实实现是一个 agent，按 TODO 补。
 """
 
+from __future__ import annotations
+
 from pathlib import Path
 
 from app.common.config import settings
@@ -30,6 +32,31 @@ QUESTIONS = [
             {"value": "side", "label": "并肩看镜头", "image": None},
         ],
         "recommended": "gaze",
+        "allow_skip": True,
+    },
+    {
+        "question_id": "q_scene",
+        "type": "single_choice",
+        "title": "想在哪种场景拍？",
+        "options": [
+            {"value": "studio", "label": "简洁室内影棚", "image": None},
+            {"value": "garden", "label": "自然花园草地", "image": None},
+            {"value": "city", "label": "城市夜景街头", "image": None},
+        ],
+        "recommended": "studio",
+        "allow_skip": True,
+    },
+    {
+        "question_id": "q_season",
+        "type": "single_choice",
+        "title": "想要哪个季节的氛围？",
+        "options": [
+            {"value": "spring", "label": "春日花意", "image": None},
+            {"value": "summer", "label": "夏日明亮", "image": None},
+            {"value": "autumn", "label": "秋日暖色", "image": None},
+            {"value": "winter", "label": "冬日清透", "image": None},
+        ],
+        "recommended": "winter",
         "allow_skip": True,
     },
     {
@@ -81,7 +108,7 @@ def _rule_shot(state: WeddingState) -> dict:
     brief = Brief(**state.get("brief", {}))
     plan = state.get("retouch_plan") or {}
     answers = {item["question_id"]: item for item in state.get("answers", []) if item.get("asker") == "framing"}
-    interaction, light = (_choose(question, answers.get(question["question_id"])) for question in QUESTIONS)
+    interaction, scene, season, light = (_choose(question, answers.get(question["question_id"])) for question in QUESTIONS)
 
     pose = brief.pose
     if plan.get("target") == "shot":  # 修图方案指向镜头（比如身材比例不对）：先改回原图姿势
@@ -106,6 +133,8 @@ def _rule_shot(state: WeddingState) -> dict:
         height=height,
         pose=pose_text,
         interaction=interaction["label"],
+        scene=scene["label"],
+        season=season["label"],
         light=light["label"],
     )
     if plan.get("target") == "shot" and plan.get("patch"):

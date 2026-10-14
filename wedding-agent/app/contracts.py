@@ -4,11 +4,13 @@
 uv run pytest tests/test_contracts.py，全部通过就能直接接入。
 """
 
-from typing import Annotated, Any, Literal
+from __future__ import annotations
+
+from typing import Annotated, Any, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, TypeAdapter
 
-from app.state import Brief
+from app.state import Brief, Consent
 
 
 class _Strict(BaseModel):
@@ -43,6 +45,9 @@ class Generation(_Strict):
     workflow: str
     seconds: float
     total_images: int
+    # 新流程：sample 为 1 张样片，set 为用户确认后的 9 张套图。
+    # 可选是为了让历史工单（没有 stage 字段）继续通过契约校验。
+    stage: Literal["sample", "set"] | None = None
 
 
 class Score(_Strict):
@@ -85,10 +90,13 @@ class Preview(_Strict):
 class Deliverables(BaseModel):
     model_config = ConfigDict(extra="allow")  # 其余键是物料名，值是地址
     photo: str
+    # 套图阶段交付的 9 张高清婚纱照；旧任务仍会返回只有一项的列表。
+    photos: list[str] = Field(default_factory=list)
 
 
 FIELD_TYPES = {
     "brief": Brief,
+    "consent": Consent,
     "questions": list[Question],
     "message": str,
     "look": Look,
@@ -98,7 +106,7 @@ FIELD_TYPES = {
     "candidates": list[Candidate],
     "generation": Generation,
     "scores": list[Score],
-    "best_image_id": str | None,
+    "best_image_id": Optional[str],
     "passed": bool,
     "retouch_plan": RetouchPlan,
     "previews": list[Preview],
@@ -108,7 +116,7 @@ FIELD_TYPES = {
 
 # 对外函数名 → 允许写的工单字段（step_text 任何模块都可以写）
 MODULE_WRITES = {
-    "intake": {"brief", "questions"},
+    "intake": {"brief", "questions", "consent"},
     "compose": {"prompt", "references"},
     "reveal": {"message"},
     "style": {"look", "questions"},
@@ -157,5 +165,9 @@ def validate_update(function: str, update: dict) -> None:
             _ADAPTERS[key].validate_python(value)
         except Exception as error:
             raise ContractError(f"{function} 写的 {key} 格式不对：{error}") from error
-        if key == "deliverables" and not all(isinstance(url, str) for url in value.values()):
-            raise ContractError(f"{function} 写的 deliverables 里每个值都必须是地址字符串")
+        if key == "deliverables":
+            invalid = [name for name, item in value.items() if not isinstance(item, str) and not (
+                name == "photos" and isinstance(item, list) and all(isinstance(url, str) for url in item)
+            )]
+            if invalid:
+                raise ContractError(f"{function} 写的 deliverables 中 {invalid} 必须是地址字符串或 photos 地址列表")

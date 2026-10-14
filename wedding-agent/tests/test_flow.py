@@ -31,6 +31,24 @@ def start_task(png_bytes: bytes) -> str:
     return created.json()["task_id"]
 
 
+def start_grouped_task(png_bytes: bytes) -> str:
+    uploads_for_roles = []
+    for name in ("groom.png", "bride.png"):
+        upload = client.post("/api/uploads", files={"file": (name, png_bytes, "image/png")})
+        assert upload.status_code == 200
+        uploads_for_roles.append(upload.json()["file_id"])
+    created = client.post(
+        "/api/tasks",
+        json={
+            "groom_photo_file_ids": [uploads_for_roles[0]],
+            "bride_photo_file_ids": [uploads_for_roles[1]],
+            "description": "想要法式 editorial 风格",
+        },
+    )
+    assert created.json()["status"] == "running"
+    return created.json()["task_id"]
+
+
 def answer_questions(task_id: str) -> tuple[dict, list[str]]:
     """依次回答小囍、妆造师、摄影师的提问，直到出预览；返回预览数据和提问人的顺序。"""
     speakers = []
@@ -50,21 +68,28 @@ def test_full_flow_with_one_redo(png_bytes):
     task_id = start_task(png_bytes)
     data, speakers = answer_questions(task_id)
     assert speakers == ["intake", "styling", "framing"]  # 小囍、妆造师、摄影师依次和用户对话
-    assert len(data["previews"]) == 4
+    assert len(data["previews"]) == 1
+    assert data["generation"]["stage"] == "sample"
     assert data["previews"][0]["is_best"]
 
-    redo = {"action": "redo", "image_id": data["previews"][1]["image_id"], "reason": "face", "note": "男生不太像"}
+    redo = {"action": "redo", "image_id": data["previews"][0]["image_id"], "reason": "face", "note": "男生不太像"}
     assert client.post(f"/api/tasks/{task_id}/review", json=redo).json() == {"status": "running"}
     data = wait_for(task_id, "preview_ready")
-    assert data["previews"][0]["image_id"] == "img_5"
+    assert data["previews"][0]["image_id"] == "img_2"
 
+    confirm = {"action": "confirm", "image_id": data["previews"][0]["image_id"]}
+    assert client.post(f"/api/tasks/{task_id}/review", json=confirm).json() == {"status": "running"}
+    data = wait_for(task_id, "preview_ready")
+    assert len(data["previews"]) == 9
+    assert data["generation"]["stage"] == "set"
     confirm = {"action": "confirm", "image_id": data["previews"][0]["image_id"]}
     assert client.post(f"/api/tasks/{task_id}/review", json=confirm).json() == {"status": "awaiting_payment"}
     wait_for(task_id, "awaiting_payment")
     assert client.post(f"/api/tasks/{task_id}/pay", json={"method": "mock"}).json() == {"status": "delivering"}
 
     data = wait_for(task_id, "done")
-    assert set(data["deliverables"]) == {"photo", "invitation", "welcome_poster", "led_screen", "moments"}
+    assert set(data["deliverables"]) == {"photo", "photos", "invitation", "welcome_poster", "led_screen", "moments"}
+    assert len(data["deliverables"]["photos"]) == 9
     assert data["message"]
     assert client.get(data["deliverables"]["invitation"].replace(settings.public_base_url, "")).status_code == 200
 
@@ -75,6 +100,17 @@ def test_full_flow_with_one_redo(png_bytes):
     assert {item["asker"] for item in values["answers"]} == {"intake", "styling", "framing"}
 
 
+def test_grouped_photo_flow_records_counts_and_consent(png_bytes):
+    task_id = start_grouped_task(png_bytes)
+    data, speakers = answer_questions(task_id)
+    assert speakers == ["intake", "styling", "framing"]
+    status = client.get(f"/api/tasks/{task_id}").json()
+    assert status["photo_counts"] == {"groom": 1, "bride": 1, "legacy": 0}
+    values = runner.values(task_id)
+    assert values["consent"]["confirmed"] is True
+    assert values["brief"]["style"] == "korean_studio"
+
+
 @pytest.mark.parametrize("reason", ["face", "body", "style", "other"])
 def test_redo_goes_back_to_the_right_module_without_asking_again(png_bytes, reason):
     task_id = start_task(png_bytes)
@@ -83,7 +119,7 @@ def test_redo_goes_back_to_the_right_module_without_asking_again(png_bytes, reas
     client.post(f"/api/tasks/{task_id}/review", json=redo)
     data = wait_for(task_id, "preview_ready", "waiting_user")
     assert data["status"] == "preview_ready"  # 修图阶段不会再问用户
-    assert data["previews"][0]["image_id"] == "img_5"
+    assert data["previews"][0]["image_id"] == "img_2"
     values = runner.values(task_id)
     if reason == "style":
         assert "再改改" in values["look"]["text"] and "再改改" in values["prompt"]
@@ -97,7 +133,7 @@ def test_failed_check_goes_through_retouch(png_bytes, monkeypatch):
     monkeypatch.setattr(settings, "fake_fail_first_check", True)
     task_id = start_task(png_bytes)
     data, _ = answer_questions(task_id)
-    assert data["previews"][0]["image_id"] == "img_5"
+    assert data["previews"][0]["image_id"] == "img_2"
 
 
 def test_each_agent_asks_at_most_max_rounds(png_bytes):

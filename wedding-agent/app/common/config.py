@@ -57,6 +57,8 @@ class Settings:
     max_agent_steps: int
     max_reference_images: int
     candidates_per_round: int
+    sample_candidates: int
+    set_candidates: int
     max_images_per_task: int
     image_timeout_seconds: int
     face_sim_threshold: float
@@ -94,6 +96,8 @@ def load_settings() -> Settings:
         max_agent_steps=_int("MAX_AGENT_STEPS", 6),
         max_reference_images=_int("MAX_REFERENCE_IMAGES", 2),
         candidates_per_round=_int("CANDIDATES_PER_ROUND", 4),
+        sample_candidates=_int("SAMPLE_CANDIDATES", 1),
+        set_candidates=_int("SET_CANDIDATES", 9),
         max_images_per_task=_int("MAX_IMAGES_PER_TASK", 16),
         image_timeout_seconds=_int("IMAGE_TIMEOUT_SECONDS", 120),
         face_sim_threshold=_float("FACE_SIM_THRESHOLD", 0.5),

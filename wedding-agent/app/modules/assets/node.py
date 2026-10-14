@@ -6,6 +6,8 @@ demo 阶段图片存在本地 storage/，以后换对象存储只改这个文件
 妆造师和摄影师用 search_assets 来找。
 """
 
+from __future__ import annotations
+
 import json
 import time
 import uuid
@@ -97,16 +99,48 @@ def make_previews(state: WeddingState) -> dict:
 
 
 def package(state: WeddingState) -> dict:
-    best = next(c for c in state["candidates"] if c["image_id"] == state["best_image_id"])
+    candidates = state["candidates"]
+    best = next(c for c in candidates if c["image_id"] == state["best_image_id"])
     data = load_image(best["url"])
+    # 套图阶段交付全部 9 张；photo 保留为主视觉，兼容旧客户端和婚礼物料排版。
+    stage = (state.get("generation") or {}).get("stage")
+    ordered = [best, *[candidate for candidate in candidates if candidate["image_id"] != best["image_id"]]]
+    if stage == "set":
+        photos = [save_image(load_image(candidate["url"]), "deliverable") for candidate in ordered]
+    else:
+        photos = [save_image(data, "deliverable")]
     brief = Brief(**state.get("brief", {}))
-    deliverables = {"photo": save_image(data, "deliverable")}
+    deliverables = {"photo": photos[0]}
+    # 仅新套图流程暴露 photos 列表；旧工单保持原有 deliverables 键集合。
+    if stage == "set":
+        deliverables["photos"] = photos
     for key in [*brief.materials, "moments"]:
         if key in LAYOUTS:
             # TODO(资产库)：按 templates/layouts/ 的版式裁成 LAYOUTS[key] 的比例，排上名字、日期、地点，
             # 人脸和文字都在安全区内。现在直接复制高清图。
             deliverables[key] = save_image(data, "deliverable")
+    _delete_originals_if_requested(state)
     return {"deliverables": deliverables}
+
+
+def _delete_originals_if_requested(state: WeddingState) -> None:
+    """按已确认的任务授权删除原始照片，忽略外部或已不存在的地址。"""
+
+    consent = state.get("consent") or {}
+    if not consent.get("confirmed") or not consent.get("delete_original"):
+        return
+    urls = (
+        set(state.get("groom_photo_urls", []))
+        | set(state.get("bride_photo_urls", []))
+        | set(state.get("photo_urls", []))
+    )
+    for url in urls:
+        try:
+            path = _path_from_url(url)
+            if path.is_file():
+                path.unlink()
+        except (OSError, ValueError):
+            continue
 
 
 def purge_expired() -> int:

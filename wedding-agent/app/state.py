@@ -4,7 +4,9 @@
 「工单字段」里「谁写」一栏是自己的字段。要改字段，先改文档，再由框架同学改这里。
 """
 
-from typing import TypedDict
+from __future__ import annotations
+
+from typing import Optional, TypedDict
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -35,15 +37,31 @@ class Brief(BaseModel):
     missing: list[str] = Field(default_factory=list)  # 还缺的字段；空列表表示资料齐了
 
 
+class Consent(BaseModel):
+    """任务级照片授权记录，不会被拼进生图提示词。"""
+
+    model_config = ConfigDict(extra="forbid")
+
+    authorization_scope: str = "generation_only"
+    retention_days: int = Field(default=7, ge=0)
+    allow_training: bool = False
+    watermark: bool = True
+    delete_original: bool = True
+    confirmed: bool = False
+
+
 class WeddingState(TypedDict, total=False):
     # 框架写
     task_id: str
     photo_urls: list[str]
+    groom_photo_urls: list[str]
+    bride_photo_urls: list[str]
     description: str
+    consent: Optional[dict]
     answers: list[dict]  # 每条含 question_id、value 或 skipped，以及是谁问的 asker、第几轮 round
     question_rounds: dict  # 每位 agent 已经问了几轮，例如 {"intake": 1, "styling": 1}
     retry_count: int
-    user_feedback: dict | None  # 用户要求重做时的 image_id、reason、note
+    user_feedback: Optional[dict]  # 用户要求重做时的 image_id、reason、note
     # 另外，任何模块都可以在返回值里带 step_text（给用户看的进度文案），框架转给前端，不写进工单
 
     # 小囍、妆造师、摄影师都可以写：要问用户的问题，框架负责暂停、收集回答
@@ -63,13 +81,13 @@ class WeddingState(TypedDict, total=False):
 
     # 生图 agent 写
     candidates: list[dict]  # 每张含 image_id、url、seed
-    generation: dict  # engine、workflow、seconds、total_images
+    generation: dict  # engine、workflow、seconds、total_images；stage 为 sample / set
 
     # 评测修图师写
     scores: list[dict]
-    best_image_id: str | None
+    best_image_id: Optional[str]
     passed: bool
-    retouch_plan: dict | None  # {"target": look/shot/prompt/generate/none, "patch": 修改说明, "image_id": 换用的候选}
+    retouch_plan: Optional[dict]  # {"target": look/shot/prompt/generate/none, "patch": 修改说明, "image_id": 换用的候选}
 
     # 资产库写
     previews: list[dict]

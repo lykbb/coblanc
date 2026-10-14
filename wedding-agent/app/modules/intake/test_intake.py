@@ -65,3 +65,56 @@ def test_compose_applies_prompt_patch(load_state):
 def test_reveal_message_is_short(load_state):
     message = reveal(load_state("after_generation"))["message"]
     assert 0 < len(message) <= 50
+
+
+def test_grouped_photos_ask_for_style_materials_and_consent(load_state):
+    state = load_state("new_task")
+    state["groom_photo_urls"] = [state["photo_urls"][0]]
+    state["bride_photo_urls"] = [state["photo_urls"][0]]
+    update = intake(state)
+    assert [q["question_id"] for q in update["questions"]] == ["q_style", "q_materials", "q_consent"]
+    assert update["brief"]["missing"] == ["style", "materials"]
+
+
+def test_grouped_answers_store_consent_and_materials(load_state):
+    state = load_state("new_task")
+    state["groom_photo_urls"] = [state["photo_urls"][0]]
+    state["bride_photo_urls"] = [state["photo_urls"][0]]
+    state["answers"] = [
+        {"question_id": "q_style", "value": "french_editorial", "asker": "intake", "round": 1},
+        {"question_id": "q_materials", "value": ["invitation", "moments"], "asker": "intake", "round": 1},
+        {"question_id": "q_consent", "value": "standard", "asker": "intake", "round": 1},
+    ]
+    update = intake(state)
+    assert update["questions"] == []
+    assert update["brief"]["style"] == "french_editorial"
+    assert update["brief"]["materials"] == ["invitation", "moments"]
+    assert update["consent"]["confirmed"] is True
+
+
+def test_grouped_skipped_style_uses_recommended(load_state):
+    state = load_state("new_task")
+    state["groom_photo_urls"] = [state["photo_urls"][0]]
+    state["bride_photo_urls"] = [state["photo_urls"][0]]
+    state["answers"] = [
+        {"question_id": "q_style", "skipped": True, "asker": "intake", "round": 1},
+        {"question_id": "q_materials", "skipped": True, "asker": "intake", "round": 1},
+        {"question_id": "q_consent", "value": "standard", "asker": "intake", "round": 1},
+    ]
+    update = intake(state)
+    assert update["brief"]["style"] == "korean_studio"
+    assert update["brief"]["missing"] == []
+
+
+def test_grouped_custom_consent_has_a_conservative_completion_path(load_state):
+    state = load_state("new_task")
+    state["groom_photo_urls"] = [state["photo_urls"][0]]
+    state["bride_photo_urls"] = [state["photo_urls"][0]]
+    state["answers"] = [
+        {"question_id": "q_style", "value": "korean_studio", "asker": "intake", "round": 1},
+        {"question_id": "q_materials", "value": ["invitation"], "asker": "intake", "round": 1},
+        {"question_id": "q_consent", "value": "custom", "asker": "intake", "round": 1},
+    ]
+    update = intake(state)
+    assert update["consent"]["confirmed"] is True
+    assert update["consent"]["delete_original"] is False
