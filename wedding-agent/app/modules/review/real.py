@@ -16,7 +16,7 @@ from .face_compare import compare_faces
 from .model_calls import read_prompt, structured_call
 from .vision import finding_issues, inspect_candidates
 from .asset_inputs import read_images
-from .quality import face_threshold, passes, route_for_score, validate_scores
+from .quality import face_threshold, passes, route_for_score, validate_scores, rule_plan, default_patch
 
 
 def check_real(state: WeddingState, candidates: list[dict], *, caller=None, comparator=None, loader=None, stats=None, simulated: bool = False) -> list[dict]:
@@ -70,17 +70,12 @@ def propose_retouch(state: WeddingState, scores: list[dict], feedback: dict, qua
         raise ModuleError("GENERATION_FAILED", "修图需求单格式不正确") from None
     brief = {key: value for key, value in brief.items() if key not in {"invitation", "materials", "missing", "intent"}}
     payload = {"brief": brief, "scores": scores, "user_feedback": feedback, "qualified_image_ids": sorted(qualified_ids), "required_target_without_feedback": required_target, "retry_count": state.get("retry_count", 0)}
-    plan = caller("agent", RetouchPlan, [("system", read_prompt("retouch.md")), ("human", json.dumps(payload, ensure_ascii=False))], stats=stats).model_dump()
-    if not plan["patch"].strip():
-        raise ModuleError("GENERATION_FAILED", "修图方案缺少具体修改说明")
-    if plan["target"] == "none":
-        if feedback or plan["image_id"] not in qualified_ids:
-            raise ModuleError("GENERATION_FAILED", "修图方案选中了未通过质检的图片或忽略了用户重做意见")
-    elif plan["image_id"] is not None:
-        raise ModuleError("GENERATION_FAILED", "返工方案不能同时指定换用候选图")
-    expected = {"face": "generate", "hands": "generate", "body": "shot", "style": "look", "other": "prompt"}
-    if feedback and plan["target"] != expected[feedback.get("reason") or "other"]:
-        raise ModuleError("GENERATION_FAILED", "修图方案与用户选择的重做原因不一致")
-    if not feedback and plan["target"] != required_target:
-        raise ModuleError("GENERATION_FAILED", "修图方向与候选质检问题不一致，请重新制定方案")
-    return plan
+    fallback = rule_plan(scores, feedback)
+    try:
+        plan = caller("agent", RetouchPlan, [("system", read_prompt("retouch.md")), ("human", json.dumps(payload, ensure_ascii=False))], stats=stats).model_dump()
+    except Exception:
+        # 输入校验在调用前完成；模型或提示词失败仅影响说明，不改变规则方向。
+        return fallback
+    target = fallback["target"]
+    image_id = plan.get("image_id") if target == "none" and plan.get("image_id") in qualified_ids else fallback["image_id"]
+    return {"target": target, "patch": plan["patch"].strip() or default_patch(target), "image_id": image_id}

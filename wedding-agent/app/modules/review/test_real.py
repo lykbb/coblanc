@@ -99,7 +99,7 @@ def test_one_bad_face_blocks_and_reports_person(real_state, monkeypatch):
     assert "人物 B" in result["scores"][0]["issues"][0]
 
 
-@pytest.mark.parametrize("kind", ["missing", "duplicate", "stale", "wrong_type"])
+@pytest.mark.parametrize("kind", ["duplicate", "stale", "wrong_type"])
 def test_invalid_visual_results_raise_module_error(real_state, monkeypatch, kind):
     monkeypatch.setattr(real, "compare_faces", lambda *_: [0.9, 0.9])
     output = visual_output(real_state)
@@ -146,10 +146,12 @@ def test_real_retouch_uses_structured_agent(real_state, monkeypatch, reason, tar
     {"target": "generate", "patch": " ", "image_id": None},
     {"target": "invalid", "patch": "修手", "image_id": None},
 ])
-def test_invalid_agent_plan_is_rejected(real_state, monkeypatch, plan):
+def test_invalid_agent_plan_uses_rule_direction(real_state, monkeypatch, plan):
     stub_model(monkeypatch, plan)
-    with pytest.raises(ModuleError):
-        retouch(real_state)
+    plan = retouch(real_state)["retouch_plan"]
+    assert plan["target"] == "none"
+    assert plan["image_id"] == "img_1"
+    assert plan["patch"].strip()
 
 
 def test_agent_can_choose_current_qualified_candidate(real_state, monkeypatch):
@@ -160,26 +162,23 @@ def test_agent_can_choose_current_qualified_candidate(real_state, monkeypatch):
 def test_agent_cannot_override_feedback(real_state, monkeypatch):
     real_state["user_feedback"] = {"image_id": "img_1", "reason": "body"}
     stub_model(monkeypatch, {"target": "look", "patch": "换婚纱", "image_id": None})
-    with pytest.raises(ModuleError):
-        retouch(real_state)
+    plan = retouch(real_state)["retouch_plan"]
+    assert plan == {"target": "shot", "patch": "换婚纱", "image_id": None}
 
 
 @pytest.mark.parametrize("limit", [0, 1])
 def test_call_budget_is_checked_before_invoke(real_state, monkeypatch, limit):
     monkeypatch.setattr(settings, "max_agent_steps", limit)
     calls = stub_model(monkeypatch, {"target": "none", "patch": "换图", "image_id": "img_1"})
-    with pytest.raises(ModuleError):
-        retouch(real_state)
+    assert retouch(real_state)["retouch_plan"]["target"] == "none"
     assert calls == []
 
 
 def test_model_error_is_sanitized_and_not_retried(real_state, monkeypatch):
     calls = stub_model(monkeypatch, error=TimeoutError("secret payload"))
-    with pytest.raises(ModuleError) as caught:
-        retouch(real_state)
+    plan = retouch(real_state)["retouch_plan"]
     assert len(calls) == 1
-    assert "secret" not in str(caught.value)
-    assert caught.value.__suppress_context__
+    assert plan == {"target": "none", "patch": "使用已通过质检的候选图", "image_id": "img_1"}
 
 
 def test_image_mime_detection(png_bytes):
@@ -199,16 +198,24 @@ def test_automatic_retouch_cannot_ignore_quality_gate(real_state, monkeypatch, c
     for score in real_state["scores"]:
         score.update(changes)
     stub_model(monkeypatch, {"target": wrong_target, "patch": "错误的修改建议", "image_id": None})
-    with pytest.raises(ModuleError, match="方向"):
-        retouch(real_state)
+    from .quality import route_for_score
+    plan = retouch(real_state)["retouch_plan"]
+    assert plan["target"] == route_for_score(real_state["scores"][0])
+    assert plan["patch"] == "错误的修改建议"
+    assert plan["image_id"] is None
 
 
 @pytest.mark.parametrize("issue", ["手部结构异常", "身材比例错误", "存在乱码", "主体人数不正确"])
-def test_contradictory_vision_flags_fail_closed(real_state, monkeypatch, issue):
+def test_contradictory_vision_flags_mark_candidates_failed(real_state, monkeypatch, issue):
     monkeypatch.setattr(real, "compare_faces", lambda *_: [0.9, 0.9])
     stub_model(monkeypatch, visual_output(real_state, issues=[issue]))
-    with pytest.raises(ModuleError, match="矛盾"):
-        check(real_state)
+    result = check(real_state)
+    assert not result["passed"]
+    assert all(issue in score["issues"] for score in result["scores"])
+    if "手部" in issue:
+        assert all(not score["hands_ok"] for score in result["scores"])
+    if "比例" in issue:
+        assert all(not score["body_ok"] for score in result["scores"])
 
 
 def test_concurrent_retouch_isolates_user_opinions(load_state, monkeypatch):
@@ -243,3 +250,114 @@ def test_concurrent_retouch_isolates_user_opinions(load_state, monkeypatch):
         results = list(executor.map(retouch, states))
     assert [result["retouch_plan"]["patch"] for result in results] == [state["user_feedback"]["note"] for state in states]
     assert states == original
+
+
+@pytest.mark.parametrize("limit,retries,outputs,expected_calls,ok", [
+    (4, 1, [{}, {"findings": []}], 2, True),
+    (3, 1, [{}, {"findings": []}], 1, False),
+    (1, 0, [{}, {"findings": []}], 1, False),
+    (2, 0, [{}, {}], 2, False),
+])
+def test_structured_format_retry_budget(monkeypatch, limit, retries, outputs, expected_calls, ok):
+    from .vision import VisualBatch
+    monkeypatch.setattr(settings, "max_agent_steps", limit)
+    calls = []
+    class Model:
+        max_retries = retries
+        def with_structured_output(self, *_args, **_kwargs):
+            return self
+        def invoke(self, messages):
+            calls.append(messages)
+            return outputs[len(calls)-1]
+    monkeypatch.setattr(model_calls, "get_llm", lambda _: Model())
+    stats = model_calls.CallStats()
+    if ok:
+        assert model_calls.structured_call("vision", VisualBatch, [], stats).findings == []
+    else:
+        with pytest.raises(ModuleError):
+            model_calls.structured_call("vision", VisualBatch, [], stats)
+    assert len(calls) == expected_calls
+    assert stats.summary()["request_budget_upper_bound"] <= limit
+    assert stats.summary()["model_invocations"] == expected_calls
+
+
+def test_parser_error_is_retried_once(monkeypatch):
+    from langchain_core.exceptions import OutputParserException
+    from .vision import VisualBatch
+    monkeypatch.setattr(settings, "max_agent_steps", 4)
+    calls = []
+    class Model:
+        max_retries = 1
+        def with_structured_output(self, *_args, **_kwargs):
+            return self
+        def invoke(self, messages):
+            calls.append(messages)
+            if len(calls) == 1:
+                raise OutputParserException("private response")
+            return {"findings": []}
+    monkeypatch.setattr(model_calls, "get_llm", lambda _: Model())
+    assert model_calls.structured_call("vision", VisualBatch, []).findings == []
+    assert len(calls) == 2
+
+
+def test_missing_visual_candidate_is_unassessable(real_state, monkeypatch):
+    monkeypatch.setattr(real, "compare_faces", lambda *_: [0.9, 0.9])
+    output = visual_output(real_state)
+    missing_id = output["findings"].pop()["image_id"]
+    stub_model(monkeypatch, output)
+    result = check(real_state)
+    assert result["passed"]
+    assert result["best_image_id"] != missing_id
+    assert len(result["scores"]) == len(real_state["candidates"])
+    missing = next(score for score in result["scores"] if score["image_id"] == missing_id)
+    assert "无法质检" in "；".join(missing["issues"])
+
+
+def test_all_missing_visual_candidates_are_not_passed(real_state, monkeypatch):
+    monkeypatch.setattr(real, "compare_faces", lambda *_: [0.9, 0.9])
+    stub_model(monkeypatch, {"findings": []})
+    result = check(real_state)
+    assert not result["passed"] and result["best_image_id"] is None
+
+
+@pytest.mark.parametrize("reason", ["face", "hands", "body", "style", "other"])
+def test_failed_retouch_model_matches_fake_rules(real_state, monkeypatch, reason):
+    from .quality import rule_plan
+    real_state["user_feedback"] = {"image_id": "img_1", "reason": reason, "note": "保留原图特点"}
+    calls = stub_model(monkeypatch, error=TimeoutError("private response"))
+    assert retouch(real_state)["retouch_plan"] == rule_plan(real_state["scores"], real_state["user_feedback"])
+    assert len(calls) == 1
+
+
+def test_blank_agent_patch_uses_direction_default(real_state, monkeypatch):
+    from .quality import default_patch
+    real_state["user_feedback"] = {"image_id": "img_1", "reason": "body"}
+    stub_model(monkeypatch, {"target": "look", "patch": "  ", "image_id": "old"})
+    assert retouch(real_state)["retouch_plan"] == {"target": "shot", "patch": default_patch("shot"), "image_id": None}
+
+
+def test_extra_photos_are_not_loaded(real_state, monkeypatch, png_bytes):
+    from .asset_inputs import read_images
+    real_state["photo_urls"] = ["main", "extra", None]
+    calls = []
+    def loader(url):
+        calls.append(url)
+        return png_bytes
+    read_images(real_state, real_state["candidates"], loader=loader)
+    assert calls == ["main", *[item["url"] for item in real_state["candidates"]]]
+
+
+def test_structured_timeout_is_not_retried_or_exposed(monkeypatch):
+    from .vision import VisualBatch
+    calls = stub_model(monkeypatch, error=TimeoutError("private photo secret"))
+    with pytest.raises(ModuleError) as caught:
+        model_calls.structured_call("vision", VisualBatch, [])
+    assert len(calls) == 1
+    assert "secret" not in str(caught.value)
+
+
+def test_empty_main_photo_still_fails(real_state):
+    from .asset_inputs import read_images
+    real_state["photo_urls"] = []
+    with pytest.raises(ModuleError):
+        read_images(real_state, real_state["candidates"])
