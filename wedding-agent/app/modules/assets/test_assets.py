@@ -47,3 +47,13 @@ def test_search_rejects_unknown_kind():
 
 def test_empty_catalog_returns_nothing():
     assert search_assets("pose") == []
+
+def test_load_template_reference(asset_catalog):
+    from app.common.config import settings
+    from app.modules.assets import load_image, search_assets
+
+    reference = search_assets("pose", ["medium"])[0]
+    assert load_image(reference["url"]).startswith(b"\x89PNG")
+    import pytest
+    with pytest.raises(ValueError):
+        load_image(settings.public_base_url + "/templates/../../private.txt")

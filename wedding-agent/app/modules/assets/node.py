@@ -42,10 +42,16 @@ def save_image(data: bytes, kind: str) -> str:
 
 
 def _path_from_url(url: str) -> Path:
-    prefix = f"{settings.public_base_url}/files/"
-    if not url.startswith(prefix):
+    allowed = [
+        (f"{settings.public_base_url}/files/", settings.storage_dir),
+        (f"{settings.public_base_url}/templates/", TEMPLATES_DIR),
+    ]
+    match = next(((prefix, directory) for prefix, directory in allowed
+                  if url.startswith(prefix)), None)
+    if match is None:
         raise ValueError(f"不是资产库的地址：{url}")
-    root = settings.storage_dir.resolve()
+    prefix, directory = match
+    root = directory.resolve()
     path = (root / url[len(prefix):]).resolve()
     if root not in path.parents:
         raise ValueError(f"不是资产库的地址：{url}")
@@ -120,3 +126,4 @@ def purge_expired() -> int:
             path.unlink()
             removed += 1
     return removed
+
