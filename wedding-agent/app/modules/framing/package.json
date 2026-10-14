@@ -1,0 +1,8 @@
+{
+  "name": "wedding-framing-pi-source-entry",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}

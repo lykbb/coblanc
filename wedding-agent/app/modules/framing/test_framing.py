@@ -54,3 +54,4 @@ def test_retouch_applies_patch_without_asking(load_state):
     assert "questions" not in update
     assert update["shot"]["pose"] == "keep_original"
     assert "两人站近一些" in update["shot"]["text"]
+
