@@ -88,8 +88,9 @@ def _ask_node(asker: str):
 
 def await_review(state: WeddingState) -> dict:
     decision = interrupt({"kind": "review"})
-    if decision["action"] == "confirm":
-        return {"best_image_id": decision["image_id"], "user_feedback": None}
+    if decision["action"] in ("confirm", "sample_only"):
+        return {"best_image_id": decision["image_id"], "user_feedback": None,
+                "sample_only": decision["action"] == "sample_only"}
     return {"user_feedback": {key: decision.get(key) for key in ("image_id", "reason", "note")}}
 
 
@@ -160,7 +161,8 @@ def after_review(state: WeddingState) -> str:
     if state.get("user_feedback"):
         return "retouch"
     # 样片确认后先生成套图；套图预览确认才进入原有支付链路。
-    if (state.get("generation") or {}).get("stage") == "sample":
+    # 用户选"只要这一张"时跳过套图，直接用样片去支付和交付。
+    if (state.get("generation") or {}).get("stage") == "sample" and not state.get("sample_only"):
         return "prepare_set"
     return "await_payment"
 

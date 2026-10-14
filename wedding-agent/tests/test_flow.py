@@ -195,3 +195,46 @@ def test_upload_answer_gets_urls(png_bytes, monkeypatch):
     assert single[0]["urls"] == [api.uploads[upload]]
     with pytest.raises(api.ApiError):
         api._attach_upload_urls("t_x", [{"question_id": "q_groom_photos", "value": ["f_missing"], "skipped": False}])
+
+
+def test_sample_only_skips_set_and_delivers_sample(png_bytes):
+    task_id = start_grouped_task(png_bytes)
+    data, _ = answer_questions(task_id)
+    assert data["generation"]["stage"] == "sample"
+    choice = {"action": "sample_only", "image_id": data["previews"][0]["image_id"]}
+    assert client.post(f"/api/tasks/{task_id}/review", json=choice).json() == {"status": "awaiting_payment"}
+    wait_for(task_id, "awaiting_payment")
+    assert client.post(f"/api/tasks/{task_id}/pay", json={"method": "mock"}).json() == {"status": "delivering"}
+    data = wait_for(task_id, "done")
+    assert data["generation"]["stage"] == "sample" and data["generation"]["total_images"] == 1
+    assert {"photo", "invitation", "welcome_poster", "led_screen", "moments"} <= set(data["deliverables"])
+
+
+def test_sample_only_rejected_in_set_stage(png_bytes):
+    task_id = start_grouped_task(png_bytes)
+    data, _ = answer_questions(task_id)
+    confirm = {"action": "confirm", "image_id": data["previews"][0]["image_id"]}
+    client.post(f"/api/tasks/{task_id}/review", json=confirm)
+    data = wait_for(task_id, "preview_ready")
+    assert data["generation"]["stage"] == "set"
+    choice = {"action": "sample_only", "image_id": data["previews"][0]["image_id"]}
+    response = client.post(f"/api/tasks/{task_id}/review", json=choice)
+    assert response.status_code == 409 and response.json()["error"]["code"] == "WRONG_STATUS"
+
+
+def test_set_shots_have_distinct_prompts(png_bytes):
+    task_id = start_grouped_task(png_bytes)
+    answer_questions(task_id)
+    values = runner.values(task_id)
+    shots, prompts = values["shots"], values["shot_prompts"]
+    assert [item["slot"] for item in shots] == list(range(settings.set_candidates))
+    assert len({item["text"] for item in shots}) == len(shots)
+    assert len({item["prompt"] for item in prompts}) == len(prompts) == len(shots)
+    assert all(item["prompt"].startswith(values["prompt"]) for item in prompts)
+
+
+def test_grouped_create_rejects_more_than_ten(png_bytes):
+    ids = [client.post("/api/uploads", files={"file": ("p.png", png_bytes, "image/png")}).json()["file_id"]
+           for _ in range(11)]
+    response = client.post("/api/tasks", json={"groom_photo_file_ids": ids, "bride_photo_file_ids": ids[:1]})
+    assert response.status_code == 400 and response.json()["error"]["code"] == "PHOTO_INVALID"

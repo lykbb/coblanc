@@ -212,7 +212,9 @@ def submit_answers(task_id: str, body: AnswersBody):
 
 
 class ReviewBody(BaseModel):
-    action: Literal["confirm", "redo"]
+    # confirm：样片阶段 → 出 9 张套图；套图阶段 → 去支付。
+    # sample_only：只在样片阶段可用，跳过套图，直接用这张样片去支付和交付。
+    action: Literal["confirm", "redo", "sample_only"]
     image_id: str
     reason: Literal["face", "body", "hands", "style", "other"] | None = None
     note: str | None = None
@@ -225,6 +227,9 @@ def review(task_id: str, body: ReviewBody):
     previews = values.get("previews", [])
     if body.image_id not in {item["image_id"] for item in previews}:
         raise ApiError("WRONG_STATUS", "找不到这张预览图，请刷新一下")
+    stage = (values.get("generation") or {}).get("stage")
+    if body.action == "sample_only" and stage != "sample":
+        raise ApiError("WRONG_STATUS", "只有样片阶段可以选择只要这一张")
     if body.action == "redo" and info.user_redo_count >= settings.max_user_redo:
         raise ApiError("REDO_LIMIT", f"已经重做 {settings.max_user_redo} 次了，请联系人工帮你调整")
     _take(task_id, "preview_ready")
@@ -232,7 +237,7 @@ def review(task_id: str, body: ReviewBody):
         store.update(task_id, user_redo_count=info.user_redo_count + 1)
     runner.resume(task_id, body.model_dump())
     # 样片确认会继续跑套图；套图确认才进入支付。
-    sample_confirmed = body.action == "confirm" and (values.get("generation") or {}).get("stage") == "sample"
+    sample_confirmed = body.action == "confirm" and stage == "sample"
     return {"status": "running" if sample_confirmed or body.action == "redo" else "awaiting_payment"}
 
 
