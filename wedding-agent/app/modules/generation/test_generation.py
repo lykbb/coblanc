@@ -26,3 +26,4 @@ def test_stops_at_image_limit(load_state, monkeypatch):
     with pytest.raises(ModuleError) as error:
         generate(load_state("after_generation"))
     assert error.value.code == "GENERATION_FAILED"
+
