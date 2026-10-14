@@ -6,7 +6,9 @@ defineProps({ busy: Boolean })
 const emit = defineEmits(['start'])
 
 const MAX_BYTES = 10 * 1024 * 1024
-const files = ref([])
+const MAX_COUNT = 10
+const groomFiles = ref([])
+const brideFiles = ref([])
 const description = ref('')
 
 function beforeRead(file) {
@@ -22,17 +24,27 @@ function beforeRead(file) {
 }
 
 function start() {
-  if (!files.value.length) return showToast('请先上传一张合照')
-  emit('start', { file: files.value[0].file, description: description.value.trim() })
+  if (!groomFiles.value.length) return showToast('请上传至少 1 张新郎照片')
+  if (!brideFiles.value.length) return showToast('请上传至少 1 张新娘照片')
+  emit('start', {
+    groomFiles: groomFiles.value.map((item) => item.file),
+    brideFiles: brideFiles.value.map((item) => item.file),
+    description: description.value.trim(),
+  })
 }
 </script>
 
 <template>
   <section class="card">
-    <h2>上传你们的合照</h2>
-    <p class="hint">一张就够：两个人都在、正脸、清晰，最好拍到腰部以上。</p>
+    <h2>上传你们俩的照片</h2>
+    <p class="hint">新郎、新娘分开传，各 1～10 张：正脸、清晰，多几个角度会更像。</p>
+    <h3 class="group-title">新郎照片（{{ groomFiles.length }}/{{ MAX_COUNT }}）</h3>
     <div class="uploader">
-      <van-uploader v-model="files" :max-count="1" :before-read="beforeRead" accept="image/jpeg,image/png" preview-size="160" />
+      <van-uploader v-model="groomFiles" multiple :max-count="MAX_COUNT" :before-read="beforeRead" accept="image/jpeg,image/png" preview-size="90" />
+    </div>
+    <h3 class="group-title">新娘照片（{{ brideFiles.length }}/{{ MAX_COUNT }}）</h3>
+    <div class="uploader">
+      <van-uploader v-model="brideFiles" multiple :max-count="MAX_COUNT" :before-read="beforeRead" accept="image/jpeg,image/png" preview-size="90" />
     </div>
     <van-field
       v-model="description"

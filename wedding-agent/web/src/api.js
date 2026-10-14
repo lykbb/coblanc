@@ -35,8 +35,12 @@ const real = {
     form.append('file', file)
     return request('/api/uploads', { method: 'POST', body: form })
   },
-  createTask(photoFileIds, description) {
-    return post('/api/tasks', { photo_file_ids: photoFileIds, description })
+  // 新流程传 { groomFileIds, brideFileIds }；旧调用直接传 photo_file_ids 数组仍然可用。
+  createTask(photos, description) {
+    const body = Array.isArray(photos)
+      ? { photo_file_ids: photos }
+      : { groom_photo_file_ids: photos.groomFileIds, bride_photo_file_ids: photos.brideFileIds }
+    return post('/api/tasks', { ...body, description })
   },
   getTask(taskId) {
     return request(`/api/tasks/${taskId}`)

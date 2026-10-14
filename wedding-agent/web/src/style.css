@@ -337,3 +337,8 @@ body {
   margin: 0 0 12px;
   text-align: left;
 }
+
+.group-title {
+  font-size: 14px;
+  margin: 12px 0 6px;
+}

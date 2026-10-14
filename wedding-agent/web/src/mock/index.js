@@ -146,7 +146,7 @@ export async function submitAnswers(taskId) {
 
 export async function review(taskId, payload) {
   const task = need(taskId, 'preview_ready')
-  if (payload.action === 'confirm') {
+  if (payload.action === 'confirm' || payload.action === 'sample_only') {
     task.status = 'awaiting_payment'
     return { status: 'awaiting_payment' }
   }

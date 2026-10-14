@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const props = defineProps({ previews: Array, busy: Boolean })
+const props = defineProps({ previews: Array, busy: Boolean, stage: String })
 const emit = defineEmits(['review'])
 
 const REASONS = [
@@ -19,6 +19,11 @@ const note = ref('')
 
 function confirm() {
   emit('review', { action: 'confirm', image_id: selected.value })
+}
+
+// 样片阶段可以只要这一张：跳过 9 张套图，直接进入交付。
+function sampleOnly() {
+  emit('review', { action: 'sample_only', image_id: selected.value })
 }
 
 function redo() {
@@ -45,7 +50,8 @@ function redo() {
         <van-tag v-if="preview.is_best" type="primary" class="best-tag">修图师推荐</van-tag>
       </button>
     </div>
-    <van-button type="primary" block round :loading="busy" @click="confirm">就要这张</van-button>
+    <van-button type="primary" block round :loading="busy" @click="confirm">{{ stage === 'set' ? '就要这组' : '就要这张，继续出 9 张套图' }}</van-button>
+    <van-button v-if="stage !== 'set'" block round plain type="primary" class="secondary" :disabled="busy" @click="sampleOnly">只要这一张</van-button>
     <van-button block round plain class="secondary" :disabled="busy" @click="showRedo = true">不满意，重做</van-button>
 
     <van-popup v-model:show="showRedo" position="bottom" round class="redo-popup">

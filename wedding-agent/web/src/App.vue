@@ -67,10 +67,12 @@ async function act(action) {
   }
 }
 
-function onStart({ file, description }) {
+function onStart({ groomFiles, brideFiles, description }) {
   act(async () => {
-    const upload = await api.uploadImage(file)
-    const created = await api.createTask([upload.file_id], description)
+    const upload = async (files) => (await Promise.all(files.map((file) => api.uploadImage(file)))).map((item) => item.file_id)
+    const groomFileIds = await upload(groomFiles)
+    const brideFileIds = await upload(brideFiles)
+    const created = await api.createTask({ groomFileIds, brideFileIds }, description)
     taskId.value = created.task_id
     task.value = { status: created.status }
   })
@@ -95,7 +97,7 @@ onBeforeUnmount(stopPolling)
       <div class="logo">囍</div>
       <div>
         <h1>小囍</h1>
-        <p>上传一张合照，来得及的婚纱照</p>
+        <p>传上你们俩的照片，来得及的婚纱照</p>
       </div>
       <van-tag v-if="usingMock" type="warning" class="mock-tag">假数据</van-tag>
     </header>
@@ -111,7 +113,7 @@ onBeforeUnmount(stopPolling)
       :busy="busy"
       @submit="onAnswer"
     />
-    <PreviewStep v-else-if="status === 'preview_ready'" :key="task.previews[0]?.image_id" :previews="task.previews" :busy="busy" @review="onReview" />
+    <PreviewStep v-else-if="status === 'preview_ready'" :key="task.previews[0]?.image_id" :previews="task.previews" :stage="task.generation?.stage" :busy="busy" @review="onReview" />
     <PayStep v-else-if="status === 'awaiting_payment'" :busy="busy" @pay="onPay" />
     <RevealStep v-else-if="status === 'done'" :message="task.message" :deliverables="task.deliverables" @restart="restart" />
     <section v-else-if="status === 'failed'" class="card">
