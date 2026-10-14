@@ -330,7 +330,7 @@ def _invoke_agent(prompt: str) -> Any:
     for _ in range(settings.max_agent_steps):
         response = llm.bind_tools([tool]).invoke(messages)
         messages.append(response)
-        calls = (getattr(response, "tool_calls", []) or [])[:1]
+        calls = getattr(response, "tool_calls", []) or []
         if not calls:
             break
         for call in calls:
