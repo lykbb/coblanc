@@ -1,0 +1,191 @@
+[
+  {
+    "sample_id": "synthetic_1",
+    "result": {
+      "scores": [
+        {
+          "image_id": "img_1",
+          "face_sim": [
+            0.6,
+            0.6
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.6
+        },
+        {
+          "image_id": "img_2",
+          "face_sim": [
+            0.6,
+            0.6
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.6
+        },
+        {
+          "image_id": "img_3",
+          "face_sim": [
+            0.6,
+            0.6
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.6
+        },
+        {
+          "image_id": "img_4",
+          "face_sim": [
+            0.6,
+            0.6
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.6
+        }
+      ],
+      "best_image_id": "img_1",
+      "passed": true
+    },
+    "metadata": {
+      "mode": "synthetic_fixture",
+      "face_model": "synthetic_vectors",
+      "score_scale": "cosine_clipped_0_1",
+      "vision_model": "mock",
+      "agent_model": "mock",
+      "prompt_version": "synthetic_v1",
+      "dataset_version": "synthetic_v1",
+      "face_sim_threshold": 0.5
+    }
+  },
+  {
+    "sample_id": "synthetic_2",
+    "result": {
+      "scores": [
+        {
+          "image_id": "img_1",
+          "face_sim": [
+            0.8,
+            0.8
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.8
+        },
+        {
+          "image_id": "img_2",
+          "face_sim": [
+            0.8,
+            0.8
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.8
+        },
+        {
+          "image_id": "img_3",
+          "face_sim": [
+            0.8,
+            0.8
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.8
+        },
+        {
+          "image_id": "img_4",
+          "face_sim": [
+            0.8,
+            0.8
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.8
+        }
+      ],
+      "best_image_id": "img_1",
+      "passed": true
+    },
+    "metadata": {
+      "mode": "synthetic_fixture",
+      "face_model": "synthetic_vectors",
+      "score_scale": "cosine_clipped_0_1",
+      "vision_model": "mock",
+      "agent_model": "mock",
+      "prompt_version": "synthetic_v1",
+      "dataset_version": "synthetic_v1",
+      "face_sim_threshold": 0.5
+    }
+  },
+  {
+    "sample_id": "synthetic_3",
+    "result": {
+      "scores": [
+        {
+          "image_id": "img_1",
+          "face_sim": [
+            0.6,
+            0.6
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.6
+        },
+        {
+          "image_id": "img_2",
+          "face_sim": [
+            0.6,
+            0.6
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.6
+        },
+        {
+          "image_id": "img_3",
+          "face_sim": [
+            0.6,
+            0.6
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.6
+        },
+        {
+          "image_id": "img_4",
+          "face_sim": [
+            0.6,
+            0.6
+          ],
+          "body_ok": true,
+          "hands_ok": true,
+          "issues": [],
+          "total": 0.6
+        }
+      ],
+      "best_image_id": "img_1",
+      "passed": true
+    },
+    "metadata": {
+      "mode": "synthetic_fixture",
+      "face_model": "synthetic_vectors",
+      "score_scale": "cosine_clipped_0_1",
+      "vision_model": "mock",
+      "agent_model": "mock",
+      "prompt_version": "synthetic_v1",
+      "dataset_version": "synthetic_v1",
+      "face_sim_threshold": 0.5
+    }
+  }
+]
