@@ -208,6 +208,8 @@ def test_real_review_branch_retouches_and_delivers_with_test_services(api_client
 
 
 def test_incomplete_visual_batch_blocks_only_missing_candidate(api_client, couple_png, monkeypatch):
+    # 样片默认 1 张时"漏返最后一张"会整轮不合格；临时改成 9 张（与 candidates_per_round 一致），验证只挡漏返的那一张。
+    monkeypatch.setattr(settings, "sample_candidates", 9)
     _real_models(monkeypatch, broken_vision=True)
     task_id, data = _upload_and_answer(api_client, couple_png)
     assert data["status"] == "preview_ready"

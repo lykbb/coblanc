@@ -89,29 +89,49 @@ def test_does_not_resubmit_rejected_or_unknown_calls(real_settings, monkeypatch,
 
 
 @pytest.mark.skipif(shutil.which("node") is None, reason="Pi 集成测试需要 Node.js")
-def test_actual_pi_runs_four_parallel_calls(real_settings, load_state, png_bytes, monkeypatch):
-    barrier = threading.Barrier(4)
-    prompts = []
-    threads = set()
-    lock = threading.Lock()
-    def post(url, payload, key):
-        with lock:
-            prompts.append(payload["prompt"])
-            threads.add(threading.get_ident())
-        barrier.wait(timeout=5)  # 串行实现会失败，不能仅靠耗时推测是否并行。
-        return _response(png_bytes)
-    monkeypatch.setattr(client, "_post_json", post)
+def test_actual_pi_runs_sample_then_set(real_settings, load_state, png_bytes, monkeypatch):
+    """样片 1 张、套图 9 张；套图阶段用屏障确认并行。"""
     state = load_state("after_generation")
     state["generation"] = {}
     before = copy.deepcopy(state)
-    result = node.generate(state)
-    validate_update("generate", result)
-    assert len(result["candidates"]) == 4 and len(threads) == 4
-    assert all(item["seed"] == -1 for item in result["candidates"])
-    assert prompts == [state["prompt"]] * 4
-    assert result["generation"]["total_images"] == 4
-    assert result["generation"]["engine"] == "seedream"
+
+    def post_sample(url, payload, key):
+        return _response(png_bytes)
+
+    monkeypatch.setattr(client, "_post_json", post_sample)
+    sample = node.generate(state)
+    validate_update("generate", sample)
+    assert len(sample["candidates"]) == 1
+    assert sample["generation"]["stage"] == "sample"
+    assert sample["generation"]["total_images"] == 1
+    assert sample["candidates"][0]["seed"] == -1
+    assert sample["generation"]["engine"] == "seedream"
     assert state == before
+
+    prompts = []
+    threads = set()
+    lock = threading.Lock()
+    barrier = threading.Barrier(9)
+
+    def post_set(url, payload, key):
+        with lock:
+            prompts.append(payload["prompt"])
+            threads.add(threading.get_ident())
+        barrier.wait(timeout=5)  # 串行实现会失败
+        return _response(png_bytes)
+
+    monkeypatch.setattr(client, "_post_json", post_set)
+    monkeypatch.setattr(settings, "max_agent_steps", 9)  # 套图 9 张各一次工具调用
+    monkeypatch.setattr(settings, "image_timeout_seconds", 60)
+    set_state = copy.deepcopy(state)
+    set_state["generation"] = {**sample["generation"], "stage": "set"}
+    suite = node.generate(set_state)
+    validate_update("generate", suite)
+    assert len(suite["candidates"]) == 9 and len(threads) == 9
+    assert suite["generation"]["stage"] == "set"
+    assert suite["generation"]["total_images"] == 10
+    assert all(item["seed"] == -1 for item in suite["candidates"])
+    assert prompts == [state["prompt"]] * 9
 
 
 @pytest.mark.skipif(shutil.which("node") is None, reason="Pi 集成测试需要 Node.js")
@@ -148,10 +168,12 @@ def test_attempt_logs_do_not_contain_key_or_photos(real_settings, load_state, pn
     assert "base64" not in serialized
     assert events[0]["seed_supported"] is False
 def test_insufficient_budget_never_reduces_target(load_state, monkeypatch):
-    monkeypatch.setattr(settings, "max_images_per_task", 7)
+    # 样片已累计 4 张，套图还要 9 张；上限 10 时剩余不够，不能偷偷少交。
+    monkeypatch.setattr(settings, "max_images_per_task", 10)
     state = load_state("after_generation")
+    state["generation"] = {**(state.get("generation") or {}), "stage": "set", "total_images": 4}
     with pytest.raises(ModuleError):
-        node.generate(state)  # 已生成 4 张，剩 3 张；不能偷偷交付 3 张。
+        node.generate(state)
 
 
 @pytest.mark.skipif(shutil.which("node") is None, reason="Pi 集成测试需要 Node.js")
@@ -164,8 +186,9 @@ def test_two_tasks_keep_their_pi_results_separate(real_settings, load_state, png
     second.update(task_id="t_second", generation={})
     with ThreadPoolExecutor(max_workers=2) as pool:
         results = list(pool.map(node.generate, [first, second]))
-    assert all(result["generation"]["total_images"] == 4 for result in results)
+    assert all(result["generation"]["stage"] == "sample" for result in results)
+    assert all(result["generation"]["total_images"] == 1 for result in results)
     first_urls = {item["url"] for item in results[0]["candidates"]}
     second_urls = {item["url"] for item in results[1]["candidates"]}
-    assert len(first_urls) == len(second_urls) == 4
+    assert len(first_urls) == len(second_urls) == 1
     assert not first_urls & second_urls
