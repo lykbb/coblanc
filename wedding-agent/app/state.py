@@ -11,6 +11,11 @@ from typing import Optional, TypedDict
 from pydantic import BaseModel, ConfigDict, Field
 
 
+UNDECIDED = "undecided"  # 需求单里造型／镜头字段的"还没定"
+DEPRECATED_BRIEF_FIELDS = ("style", "background", "makeup", "outfit_bride", "outfit_groom", "expression", "pose")
+PHOTO_GROUP_MIN, PHOTO_GROUP_MAX = 1, 10
+
+
 class Brief(BaseModel):
     """需求单，由小囍生成。
 
@@ -21,13 +26,15 @@ class Brief(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     intent: str = "photo_and_materials"
-    style: str = "keep_original"  # 风格编号，对应妆造师 prompts/ 里的模板文件名
-    background: str = "keep_original"  # keep_original 保留原图场景；studio 室内影棚
-    makeup: str = "自然淡妆"
-    outfit_bride: str = "白色缎面婚纱"
-    outfit_groom: str = "黑色西装，白衬衫"
-    expression: str = "自然微笑"
-    pose: str = "keep_original"  # keep_original 或姿势模板编号
+    # 下面 7 个造型／镜头字段暂时保留（修图师还在读），小囍不再填写，妆造师、摄影师也不要读。
+    # 默认值是 UNDECIDED（"还没定"）；修图师改完后由框架删除。
+    style: str = UNDECIDED
+    background: str = UNDECIDED
+    makeup: str = UNDECIDED
+    outfit_bride: str = UNDECIDED
+    outfit_groom: str = UNDECIDED
+    expression: str = UNDECIDED
+    pose: str = UNDECIDED
     heights_cm: list[int] = Field(default_factory=list)  # 两人身高，例如 [175, 162]
     body_types: list[str] = Field(default_factory=list)
     keep_features: list[str] = Field(default_factory=list)  # 必须保留的特征，例如 "女生的眼镜"

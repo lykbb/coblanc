@@ -178,10 +178,33 @@ class AnswersBody(BaseModel):
     answers: list[Answer]
 
 
+def _attach_upload_urls(task_id: str, answers: list[dict]) -> list[dict]:
+    """补传照片题（type 为 upload）：value 是上传编号（一个或一组），框架换成地址放进 urls。
+
+    value 原样保留；跳过的回答不附 urls。要不要用这些地址、换哪几张，由提问的模块自己决定。
+    """
+    _task(task_id)
+    upload_ids = {q["question_id"] for q in runner.values(task_id).get("questions") or [] if q.get("type") == "upload"}
+    result = []
+    for answer in answers:
+        if answer["question_id"] in upload_ids and not answer.get("skipped"):
+            value = answer.get("value")
+            file_ids = [value] if isinstance(value, str) else value
+            if not isinstance(file_ids, list) or not file_ids or not all(isinstance(item, str) for item in file_ids):
+                raise ApiError("PHOTO_INVALID", "请上传照片后再提交")
+            missing = [file_id for file_id in file_ids if file_id not in uploads]
+            if missing:
+                raise ApiError("FILE_INVALID", "找不到上传的照片，请重新上传")
+            answer = {**answer, "urls": [uploads[file_id] for file_id in file_ids]}
+        result.append(answer)
+    return result
+
+
 @app.post("/api/tasks/{task_id}/answers")
 def submit_answers(task_id: str, body: AnswersBody):
+    answers = _attach_upload_urls(task_id, [answer.model_dump() for answer in body.answers])
     _take(task_id, "waiting_user")
-    runner.resume(task_id, [answer.model_dump() for answer in body.answers])
+    runner.resume(task_id, answers)
     return {"status": "running"}
 
 

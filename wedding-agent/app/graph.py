@@ -45,7 +45,7 @@ def _module_node(module: str, step: str, fn, status: str = "running"):
         if settings.fake_delay_seconds and settings.fake_for(module):
             time.sleep(settings.fake_delay_seconds)  # 演示用：让 fake 模式下的进度动画看得见
         update = fn(state)
-        validate_update(fn.__name__, update)
+        validate_update(fn.__name__, update, state)
         if fn.__name__ in ASKERS:
             update.setdefault("questions", [])  # 没问问题时清掉上一位留下的问题
         step_text = update.pop("step_text", None)

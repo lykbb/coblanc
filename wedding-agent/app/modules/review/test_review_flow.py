@@ -74,7 +74,7 @@ def _upload_and_answer(client: TestClient, image: bytes) -> tuple[str, dict]:
     for _ in range(3 * settings.max_question_rounds + 1):
         data = _wait(client, task_id, "waiting_user", "preview_ready", "failed")
         if data["status"] != "waiting_user":
-            assert speakers == ["intake", "styling", "framing"]
+            assert list(dict.fromkeys(speakers)) == ["intake", "styling", "framing"]  # 按出场顺序去重
             return task_id, data
         speakers.append(data["step"])
         assert data["step_text"] and data["questions"]

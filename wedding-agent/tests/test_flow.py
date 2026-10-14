@@ -67,7 +67,8 @@ def answer_questions(task_id: str) -> tuple[dict, list[str]]:
 def test_full_flow_with_one_redo(png_bytes):
     task_id = start_task(png_bytes)
     data, speakers = answer_questions(task_id)
-    assert speakers == ["intake", "styling", "framing"]  # 小囍、妆造师、摄影师依次和用户对话
+    # 按出场顺序去重：每位 agent 可以问多轮（例如妆造师先问风格、再问套系）
+    assert list(dict.fromkeys(speakers)) == ["intake", "styling", "framing"]  # 小囍、妆造师、摄影师依次和用户对话
     assert len(data["previews"]) == 1
     assert data["generation"]["stage"] == "sample"
     assert data["previews"][0]["is_best"]
@@ -103,12 +104,11 @@ def test_full_flow_with_one_redo(png_bytes):
 def test_grouped_photo_flow_records_counts_and_consent(png_bytes):
     task_id = start_grouped_task(png_bytes)
     data, speakers = answer_questions(task_id)
-    assert speakers == ["intake", "styling", "framing"]
+    assert list(dict.fromkeys(speakers)) == ["intake", "styling", "framing"]
     status = client.get(f"/api/tasks/{task_id}").json()
     assert status["photo_counts"] == {"groom": 1, "bride": 1, "legacy": 0}
     values = runner.values(task_id)
     assert values["consent"]["confirmed"] is True
-    assert values["brief"]["style"] == "korean_studio"
 
 
 @pytest.mark.parametrize("reason", ["face", "body", "style", "other"])
@@ -175,3 +175,23 @@ def test_bad_uploads_are_rejected(content):
     response = client.post("/api/uploads", files={"file": ("bad.png", content, "image/png")})
     assert response.status_code == 400
     assert response.json()["error"]["code"] == "FILE_INVALID"
+
+
+def test_upload_answer_gets_urls(png_bytes, monkeypatch):
+    """回答补传题时，框架把上传编号换成地址，附在这条回答的 urls 里。"""
+    from app import api
+
+    upload = client.post("/api/uploads", files={"file": ("new.png", png_bytes, "image/png")}).json()["file_id"]
+    question = {"question_id": "q_groom_photos", "type": "upload", "title": "补传", "allow_skip": False}
+    monkeypatch.setattr(api.runner, "values", lambda task_id: {"questions": [question, {"question_id": "q_height", "type": "text", "title": "身高"}]})
+    monkeypatch.setattr(api, "_task", lambda task_id: None)
+    answers = api._attach_upload_urls("t_x", [
+        {"question_id": "q_groom_photos", "value": [upload], "skipped": False},
+        {"question_id": "q_height", "value": "175 / 162", "skipped": False},
+    ])
+    assert answers[0]["urls"] == [api.uploads[upload]] and answers[0]["value"] == [upload]
+    assert "urls" not in answers[1]
+    single = api._attach_upload_urls("t_x", [{"question_id": "q_groom_photos", "value": upload, "skipped": False}])
+    assert single[0]["urls"] == [api.uploads[upload]]
+    with pytest.raises(api.ApiError):
+        api._attach_upload_urls("t_x", [{"question_id": "q_groom_photos", "value": ["f_missing"], "skipped": False}])

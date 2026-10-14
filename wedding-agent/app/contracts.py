@@ -10,7 +10,7 @@ from typing import Annotated, Any, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, TypeAdapter
 
-from app.state import Brief, Consent
+from app.state import PHOTO_GROUP_MAX, PHOTO_GROUP_MIN, Brief, Consent
 
 
 class _Strict(BaseModel):
@@ -97,6 +97,9 @@ class Deliverables(BaseModel):
 FIELD_TYPES = {
     "brief": Brief,
     "consent": Consent,
+    "groom_photo_urls": list[str],
+    "bride_photo_urls": list[str],
+    "photo_urls": list[str],
     "questions": list[Question],
     "message": str,
     "look": Look,
@@ -116,7 +119,7 @@ FIELD_TYPES = {
 
 # 对外函数名 → 允许写的工单字段（step_text 任何模块都可以写）
 MODULE_WRITES = {
-    "intake": {"brief", "questions", "consent"},
+    "intake": {"brief", "questions", "consent", "groom_photo_urls", "bride_photo_urls", "photo_urls"},
     "compose": {"prompt", "references"},
     "reveal": {"message"},
     "style": {"look", "questions"},
@@ -150,7 +153,33 @@ class ContractError(Exception):
     """模块的返回值不符合契约。"""
 
 
-def validate_update(function: str, update: dict) -> None:
+PHOTO_FIELDS = ("groom_photo_urls", "bride_photo_urls", "photo_urls")
+
+
+def _check_photos(function: str, update: dict, state: dict | None) -> None:
+    """照片字段：每个地址是非空字符串；分组任务每组 1～10 张，photo_urls 必须等于新郎 + 新娘。
+
+    state 是模块运行前的工单，用来补齐本次没返回的照片字段；不传时只按本次返回的字段检查。
+    """
+    if not any(key in update for key in PHOTO_FIELDS):
+        return
+    merged = {key: (state or {}).get(key) for key in PHOTO_FIELDS}
+    merged.update({key: update[key] for key in PHOTO_FIELDS if key in update})
+    for key, urls in merged.items():
+        if urls is not None and any(not isinstance(url, str) or not url.strip() for url in urls):
+            raise ContractError(f"{function} 写的 {key} 里每一项都必须是非空的地址字符串")
+    groom, bride, photos = merged["groom_photo_urls"], merged["bride_photo_urls"], merged["photo_urls"]
+    if groom or bride:
+        for key, urls in (("groom_photo_urls", groom), ("bride_photo_urls", bride)):
+            if not urls or not PHOTO_GROUP_MIN <= len(urls) <= PHOTO_GROUP_MAX:
+                raise ContractError(f"{function} 写的 {key} 必须有 {PHOTO_GROUP_MIN}～{PHOTO_GROUP_MAX} 张")
+        if photos is None or list(photos) != list(groom) + list(bride):
+            raise ContractError(f"{function} 写的照片字段不一致：分组任务的 photo_urls 必须等于新郎照片加新娘照片")
+    elif photos is not None and not photos:
+        raise ContractError(f"{function} 写的 photo_urls 不能为空")
+
+
+def validate_update(function: str, update: dict, state: dict | None = None) -> None:
     if not isinstance(update, dict):
         raise ContractError(f"{function} 必须返回 dict，实际返回了 {type(update).__name__}")
     allowed = MODULE_WRITES[function] | {"step_text"}
@@ -171,3 +200,4 @@ def validate_update(function: str, update: dict) -> None:
             )]
             if invalid:
                 raise ContractError(f"{function} 写的 deliverables 中 {invalid} 必须是地址字符串或 photos 地址列表")
+    _check_photos(function, update, state)
