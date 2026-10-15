@@ -5,8 +5,8 @@
 快速启动（两个终端）：
 
 ```bash
-cd wedding-agent && uv run uvicorn app.api:app --reload --port 8000
-cd wedding-agent/web && npm run dev
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent "&& uv run uvicorn app.api:app --reload --port 8000
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/web "&& npm run dev
 ```
 
 然后打开 http://localhost:5173/ 或 http://localhost:5173/coblanc-film/ 。

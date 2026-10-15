@@ -8,6 +8,8 @@
 
 ## 运行
 
+> 下面的路径是 jing 本机的仓库路径（`ai-wedding-test`），其他人换成自己 clone 下来的仓库路径即可。
+
 下面的命令只在项目文件夹里安装依赖，不装全局包（uv 和 Node 本身除外）。
 
 ### 1. 准备工具（只需一次）
@@ -25,7 +27,7 @@ brew install uv node
 仓库根目录 `ai-wedding/` 里有 `wedding-agent/` 和 `pi-wedding/` 两个文件夹：
 
 ```bash
-cd ai-wedding/wedding-agent
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent"
 uv sync                      # Python 依赖，装进 wedding-agent/.venv
 cd web && npm ci && cd ..    # 前端依赖，装进 web/node_modules
 cd ../pi-wedding && npm ci   # Pi 运行时依赖（没有它，8 个 Pi 相关测试会失败）
@@ -34,7 +36,7 @@ cd ../pi-wedding && npm ci   # Pi 运行时依赖（没有它，8 个 Pi 相关�
 ### 3. 配置 .env
 
 ```bash
-cd ai-wedding/wedding-agent
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent"
 cp .env.example .env
 ```
 
@@ -53,14 +55,14 @@ cp .env.example .env
 终端 1，后端：
 
 ```bash
-cd ai-wedding/wedding-agent
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent"
 uv run uvicorn app.api:app --reload --port 8000
 ```
 
 终端 2，前端：
 
 ```bash
-cd ai-wedding/wedding-agent/web
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/web"
 npm run dev
 ```
 
@@ -75,7 +77,7 @@ npm run dev
 终端 1 改用下面的命令启动。所有模块都用示例数据，不调用 Seedream：
 
 ```bash
-cd ai-wedding/wedding-agent
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent"
 REAL_MODULES=none uv run uvicorn app.api:app --reload --port 8000
 ```
 
@@ -84,7 +86,7 @@ REAL_MODULES=none uv run uvicorn app.api:app --reload --port 8000
 ### 6. 跑测试
 
 ```bash
-cd ai-wedding/wedding-agent
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent"
 uv run pytest                          # 全部后端测试
 uv run pytest app/modules/styling      # 只跑某个模块
 uv run pytest tests/test_contracts.py  # 检查替换后的模块能不能直接接入

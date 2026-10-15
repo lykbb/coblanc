@@ -9,7 +9,7 @@
 终端 1，后端：
 
 ```bash
-cd ai-wedding/wedding-agent
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent"
 uv run uvicorn app.api:app --reload --port 8000
 # 不花钱测试：REAL_MODULES=none uv run uvicorn app.api:app --reload --port 8000
 ```
@@ -17,7 +17,7 @@ uv run uvicorn app.api:app --reload --port 8000
 终端 2，前端：
 
 ```bash
-cd ai-wedding/wedding-agent/web
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/web"
 npm run dev
 ```
 
