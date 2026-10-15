@@ -23,19 +23,19 @@ const materials = computed(() => Object.entries(d.value || {}).filter(([key, val
 
     <template v-else>
       <div class="delivery-message">
-        <img :src="AMIE.avatar" alt="" />
+        <img loading="lazy" decoding="async" :src="AMIE.avatar" alt="" />
         <p><b>Amie 的寄语</b>{{ state.task.message }}</p>
       </div>
 
       <div class="delivery-grid">
         <button type="button" class="delivery-hero" aria-label="放大主视觉" @click="state.lightbox = d.photo">
-          <img :src="d.photo" alt="主视觉" />
+          <img loading="lazy" decoding="async" :src="d.photo" alt="主视觉" />
           <span class="tag">主视觉</span>
         </button>
         <div class="delivery-photos">
           <div v-for="(url, i) in photos" :key="url" class="delivery-photo">
             <button type="button" class="thumb-btn" :aria-label="`放大第 ${i + 1} 张`" @click="state.lightbox = url">
-              <img :src="url" :alt="`高清图 ${i + 1}`" />
+              <img loading="lazy" decoding="async" :src="url" :alt="`高清图 ${i + 1}`" />
             </button>
             <a :href="url" target="_blank" rel="noopener" class="link-btn"><Icon name="download" :size="14" />第 {{ i + 1 }} 张</a>
           </div>
@@ -46,7 +46,7 @@ const materials = computed(() => Object.entries(d.value || {}).filter(([key, val
       <div class="material-list">
         <div v-for="[key, url] in materials" :key="key" class="material-item">
           <button type="button" class="thumb-btn" :aria-label="`放大${MATERIAL_LABELS[key] || key}`" @click="state.lightbox = url">
-            <img :src="url" :alt="MATERIAL_LABELS[key] || key" />
+            <img loading="lazy" decoding="async" :src="url" :alt="MATERIAL_LABELS[key] || key" />
           </button>
           <span>{{ MATERIAL_LABELS[key] || key }}</span>
           <a :href="url" target="_blank" rel="noopener" class="link-btn"><Icon name="download" :size="14" />下载</a>

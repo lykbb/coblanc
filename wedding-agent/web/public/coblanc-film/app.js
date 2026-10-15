@@ -287,7 +287,7 @@
     const current = getPath(path);
     return `<div class="option-group"><h3>${title}</h3><div class="visual-options ${extraClass}">${items.map((item) => `
       <button type="button" class="visual-option${current === item.value ? ' selected' : ''}" data-path="${path}" data-value="${escapeHTML(item.value)}">
-        <img src="${item.image}" alt="${escapeHTML(item.value)}参考图">
+        <img loading="lazy" decoding="async" src="${item.image}" alt="${escapeHTML(item.value)}参考图">
         <span class="visual-option-copy"><b>${escapeHTML(item.value)}</b><small>${escapeHTML(item.copy)}</small></span>
       </button>`).join('')}</div></div>`;
   }
@@ -301,7 +301,7 @@
     return `<section class="upload-card">
       <div class="upload-card-head"><div><h3>${title}</h3><small>${subtitle}</small></div><span class="upload-count">${photos.filter((photo) => photo.fileId).length} / 10</span></div>
       <label class="upload-drop"><input type="file" accept="image/*" multiple data-upload="${role}"><b>＋ 选择照片</b><span>支持一次多选，至少 1 张、最多 10 张</span></label>
-      <div class="thumbs">${photos.map((photo, index) => `<div class="thumb"><img src="${photo.url}" alt="${escapeHTML(title)}参考照 ${index + 1}">${photo.status === 'done' ? '' : `<small style="position:absolute;left:4px;bottom:4px;background:#fff;padding:0 4px">${photo.status === 'failed' ? '上传失败' : '上传中'}</small>`}<button type="button" data-remove-upload="${role}" data-index="${index}" aria-label="移除照片">×</button></div>`).join('')}</div>
+      <div class="thumbs">${photos.map((photo, index) => `<div class="thumb"><img loading="lazy" decoding="async" src="${photo.url}" alt="${escapeHTML(title)}参考照 ${index + 1}">${photo.status === 'done' ? '' : `<small style="position:absolute;left:4px;bottom:4px;background:#fff;padding:0 4px">${photo.status === 'failed' ? '上传失败' : '上传中'}</small>`}<button type="button" data-remove-upload="${role}" data-index="${index}" aria-label="移除照片">×</button></div>`).join('')}</div>
       <div class="stage-error">${escapeHTML(project.uploadError[role])}</div>
     </section>`;
   }
@@ -313,43 +313,43 @@
   function renderStyle() {
     const heightDiff = Number(project.groomHeight) - Number(project.brideHeight);
     return `${agent('Amie 与造型组正在判断比例', 'A', '身高信息会同步给服装师与摄影师')}<span class="prototype-badge">STEP 02 · STYLE & HEIGHT</span><h2>先选一个故事的方向。</h2><p class="stage-desc">这是首轮测试的四套方向，后续可以继续替换。婚纱与中式均保留为核心品类。</p>${visualGroup('婚纱照风格（4 选 1）', 'style', [
-      { value: '晴日胶片婚纱', copy: '草坪、直闪与自然互动', image: 'assets/style-film.png' },
-      { value: '东方中式喜嫁', copy: '中式礼服、东方色彩与礼序', image: 'assets/style-chinese.png' },
-      { value: '法式庄园婚纱', copy: '古典建筑、优雅与松弛感', image: 'assets/style-french.png' },
-      { value: '韩式极简婚纱', copy: '干净柔光、克制而耐看', image: 'assets/style-korean.png' }
+      { value: '晴日胶片婚纱', copy: '草坪、直闪与自然互动', image: 'assets/style-film.webp' },
+      { value: '东方中式喜嫁', copy: '中式礼服、东方色彩与礼序', image: 'assets/style-chinese.webp' },
+      { value: '法式庄园婚纱', copy: '古典建筑、优雅与松弛感', image: 'assets/style-french.webp' },
+      { value: '韩式极简婚纱', copy: '干净柔光、克制而耐看', image: 'assets/style-korean.webp' }
     ], 'style-options')}<div class="height-grid"><div class="height-card"><label for="brideHeight">女生身高</label><div class="height-input"><input id="brideHeight" type="number" min="140" max="210" value="${escapeHTML(project.brideHeight)}" data-height="brideHeight"><span>cm</span></div></div><div class="height-card"><label for="groomHeight">男生身高</label><div class="height-input"><input id="groomHeight" type="number" min="140" max="210" value="${escapeHTML(project.groomHeight)}" data-height="groomHeight"><span>cm</span></div></div></div><div class="height-note">当前身高差约 ${Number.isFinite(heightDiff) ? Math.abs(heightDiff) : '--'} cm，摄影师会据此调整站位、镜头高度与服装比例。</div>${promptBox('补充你们喜欢或不喜欢的方向（可选）', 'styleNote', '例如喜欢自然互动，不想要过度摆拍；中式希望更现代一些')}${actions('返回照片', '请造型组为女生搭配')}`;
   }
 
   function renderBride() {
     return `${agent('造型组 · 妆造师与服装师', '造', 'Amie 已把风格与身高信息交给造型组')}<span class="prototype-badge">STEP 03 · BRIDE STYLING</span><h2>先为女生完成整套造型。</h2><p class="stage-desc">妆容、发型和服装各提供两个图像方向。三个维度可以自由组合，不必被整套模板限制。</p>${visualGroup('妆容（2 选 1）', 'bride.makeup', [
-      { value: '清透原生妆', copy: '保留皮肤质感，轻柔提亮轮廓', image: 'assets/style-korean.png' },
-      { value: '复古柔焦妆', copy: '强化眉眼与唇色，更有胶片张力', image: 'assets/style-french.png' }
+      { value: '清透原生妆', copy: '保留皮肤质感，轻柔提亮轮廓', image: 'assets/style-korean.webp' },
+      { value: '复古柔焦妆', copy: '强化眉眼与唇色，更有胶片张力', image: 'assets/style-french.webp' }
     ])}${visualGroup('发型（2 选 1）', 'bride.hair', [
-      { value: '松弛低盘发', copy: '露出颈肩线条，适配头纱', image: 'assets/coblanc-film-couple.png' },
-      { value: '自然波纹披发', copy: '空气感更强，适合户外互动', image: 'assets/style-film.png' }
+      { value: '松弛低盘发', copy: '露出颈肩线条，适配头纱', image: 'assets/coblanc-film-couple.webp' },
+      { value: '自然波纹披发', copy: '空气感更强，适合户外互动', image: 'assets/style-film.webp' }
     ])}${visualGroup('服装（2 选 1）', 'bride.outfit', [
-      { value: '缎面极简白纱', copy: '线条干净，适合近景与全身构图', image: 'assets/style-minimal.png' },
-      { value: '东方礼服', copy: '适配中式喜嫁与现代东方场景', image: 'assets/style-chinese.png' }
+      { value: '缎面极简白纱', copy: '线条干净，适合近景与全身构图', image: 'assets/style-minimal.webp' },
+      { value: '东方礼服', copy: '适配中式喜嫁与现代东方场景', image: 'assets/style-chinese.webp' }
     ])}${promptBox('补充女生造型偏好（可选）', 'bride.note', '例如保留单眼皮、不要大红唇、希望袖子遮住手臂')}${actions('返回风格', '继续男生造型')}`;
   }
 
   function renderGroom() {
     return `${agent('造型组 · 妆造师与服装师', '造', '女生方案已保存，现在单独处理男生')}<span class="prototype-badge">STEP 04 · GROOM STYLING</span><h2>再让男生自然地进入同一个画面。</h2><p class="stage-desc">男生不直接套用女生方案。造型组会单独处理肤色、发型和服装，再检查双人搭配关系。</p>${visualGroup('妆容（2 选 1）', 'groom.makeup', [
-      { value: '自然控油修饰', copy: '弱化瑕疵与油光，保留本人轮廓', image: 'assets/style-minimal.png' },
-      { value: '立体轮廓修饰', copy: '加强眉眼与下颌，更适合电影光线', image: 'assets/style-cinema.png' }
+      { value: '自然控油修饰', copy: '弱化瑕疵与油光，保留本人轮廓', image: 'assets/style-minimal.webp' },
+      { value: '立体轮廓修饰', copy: '加强眉眼与下颌，更适合电影光线', image: 'assets/style-cinema.webp' }
     ])}${visualGroup('发型（2 选 1）', 'groom.hair', [
-      { value: '自然纹理短发', copy: '松弛年轻，适合户外胶片', image: 'assets/style-film.png' },
-      { value: '利落侧分', copy: '轮廓明确，适配经典礼服', image: 'assets/style-korean.png' }
+      { value: '自然纹理短发', copy: '松弛年轻，适合户外胶片', image: 'assets/style-film.webp' },
+      { value: '利落侧分', copy: '轮廓明确，适配经典礼服', image: 'assets/style-korean.webp' }
     ])}${visualGroup('服装（2 选 1）', 'groom.outfit', [
-      { value: '经典黑色礼服', copy: '稳定耐看，与白纱形成清晰对比', image: 'assets/style-minimal.png' },
-      { value: '东方立领礼服', copy: '与中式造型形成统一礼序', image: 'assets/style-chinese.png' }
+      { value: '经典黑色礼服', copy: '稳定耐看，与白纱形成清晰对比', image: 'assets/style-minimal.webp' },
+      { value: '东方立领礼服', copy: '与中式造型形成统一礼序', image: 'assets/style-chinese.webp' }
     ])}${promptBox('补充男生造型偏好（可选）', 'groom.note', '例如不要背头、保留眼镜、肩膀希望更自然')}${actions('返回女生造型', '请摄影师选场景')}`;
   }
 
   function renderScene() {
     return `${agent('摄影师正在匹配户外场景', '摄', `Amie 已交接「${escapeHTML(project.style || '已选风格')}」与双方造型`)}<span class="prototype-badge">STEP 05 · LOCATION</span><h2>两个户外场景，选一个更像你们的。</h2><p class="stage-desc">摄影师只推荐与当前风格、服装和身高差匹配的场景，并提前规划远、中、近景与特写。</p>${visualGroup('户外场景（2 选 1）', 'scene', [
-      { value: '晴日庄园草坪', copy: '开阔远景、自然行走与直闪近景', image: 'assets/coblanc-film-hero.png' },
-      { value: '梧桐老街与洋房', copy: '纪实街景、建筑纵深与电影侧光', image: 'assets/style-french.png' }
+      { value: '晴日庄园草坪', copy: '开阔远景、自然行走与直闪近景', image: 'assets/coblanc-film-hero.webp' },
+      { value: '梧桐老街与洋房', copy: '纪实街景、建筑纵深与电影侧光', image: 'assets/style-french.webp' }
     ], 'scene-options')}${promptBox('补充摄影偏好（可选）', 'sceneNote', '例如希望多一些对视和行走，避开过度亲密动作，想要日落光线')}${actions('返回男生造型', '请 Amie 汇总')}`;
   }
 
@@ -383,7 +383,7 @@
       if (q.type === 'single_choice' || q.type === 'multi_choice') {
         body = `<div class="rework-grid">${(q.options || []).map((o) => {
           const on = q.type === 'multi_choice' ? (value || []).includes(o.value) : value === o.value;
-          return `<button type="button" class="${on ? 'selected' : ''}" style="${on ? 'outline:2px solid currentColor' : ''}" data-q="${escapeHTML(q.question_id)}" data-qtype="${q.type}" data-v="${escapeHTML(o.value)}">${o.image ? `<img src="${escapeHTML(o.image)}" alt="" style="width:100%;display:block">` : ''}${on ? '✓ ' : ''}${escapeHTML(o.label)}</button>`;
+          return `<button type="button" class="${on ? 'selected' : ''}" style="${on ? 'outline:2px solid currentColor' : ''}" data-q="${escapeHTML(q.question_id)}" data-qtype="${q.type}" data-v="${escapeHTML(o.value)}">${o.image ? `<img loading="lazy" decoding="async" src="${escapeHTML(o.image)}" alt="" style="width:100%;display:block">` : ''}${on ? '✓ ' : ''}${escapeHTML(o.label)}</button>`;
         }).join('')}</div>`;
       } else if (q.type === 'upload') {
         body = `<label class="upload-drop"><input type="file" accept="image/*" multiple data-qupload="${escapeHTML(q.question_id)}"><b>＋ 选择照片</b><span>已上传 ${(value || []).length} 张</span></label>`;
@@ -409,7 +409,7 @@
     }
     if (t.status === 'preview_ready' && t.generation?.stage !== 'set') {
       const gen = t.generation || {};
-      return `${head}<h2>这张像你们，也像想要的婚纱照吗？</h2><div class="sample-layout"><div class="sample-image"><img src="${escapeHTML(project.sampleUrl)}" alt="样片"></div><div><div class="score-row"><span class="score">引擎 ${escapeHTML(gen.engine || '-')}</span><span class="score">耗时 ${escapeHTML(gen.seconds ?? '-')}s</span><span class="score">累计 ${escapeHTML(gen.total_images ?? '-')} 张</span></div>${promptBox('告诉 Amie 哪里还不对（重做时作为备注）', 'sampleNote', '例如女生发型不对、男生不像、希望动作更自然')}<div class="review-actions"><button class="approve" id="approveSample" type="button" ${busy}>符合预期，生成 9 张成片 →</button><button id="sampleOnly" type="button" ${busy}>只要这一张，直接交付</button><button id="toggleRework" type="button" ${busy}>不符合，重新生成</button></div>${reworkPanel()}</div></div><div class="stage-actions"><button class="back" type="button" data-back>返回方案</button></div>`;
+      return `${head}<h2>这张像你们，也像想要的婚纱照吗？</h2><div class="sample-layout"><div class="sample-image"><img loading="lazy" decoding="async" src="${escapeHTML(project.sampleUrl)}" alt="样片"></div><div><div class="score-row"><span class="score">引擎 ${escapeHTML(gen.engine || '-')}</span><span class="score">耗时 ${escapeHTML(gen.seconds ?? '-')}s</span><span class="score">累计 ${escapeHTML(gen.total_images ?? '-')} 张</span></div>${promptBox('告诉 Amie 哪里还不对（重做时作为备注）', 'sampleNote', '例如女生发型不对、男生不像、希望动作更自然')}<div class="review-actions"><button class="approve" id="approveSample" type="button" ${busy}>符合预期，生成 9 张成片 →</button><button id="sampleOnly" type="button" ${busy}>只要这一张，直接交付</button><button id="toggleRework" type="button" ${busy}>不符合，重新生成</button></div>${reworkPanel()}</div></div><div class="stage-actions"><button class="back" type="button" data-back>返回方案</button></div>`;
     }
     return `${head}<h2>正在制作中…</h2><p class="stage-desc">每 ${POLL_MS / 1000} 秒查询一次 GET /api/tasks/{id}。</p>${taskProgress(t)}<div class="stage-actions"><button class="back" type="button" data-back>返回方案</button></div>`;
   }
@@ -421,7 +421,7 @@
     if (!t) return `${head}<h2>还没有任务</h2><div class="stage-actions"><button class="back" type="button" data-back>返回样片</button></div>`;
     if (t.status === 'failed') return head + taskFailed(t);
     if (t.status === 'preview_ready' && t.generation?.stage === 'set') {
-      return `${head}<h2>九张成片已生成，点一张作为主图。</h2><div class="final-nine">${project.finalPreviews.map((p, index) => `<figure class="final-frame" data-pick="${escapeHTML(p.image_id)}" style="cursor:pointer;${p.image_id === project.selectedImage ? 'outline:3px solid currentColor' : ''}"><img src="${escapeHTML(p.url)}" alt="成片 ${index + 1}"><span>0${index + 1}${p.is_best ? ' · 推荐' : ''}${p.image_id === project.selectedImage ? ' · 已选' : ''}</span></figure>`).join('')}</div>${promptBox('不满意的地方（重做时作为备注）', 'sampleNote', '例如第 3 张手部不对')}<div class="review-actions"><button class="approve" id="confirmSet" type="button" ${busy}>满意，去支付 →</button><button id="toggleRework" type="button" ${busy}>不满意，重新生成</button></div>${reworkPanel()}`;
+      return `${head}<h2>九张成片已生成，点一张作为主图。</h2><div class="final-nine">${project.finalPreviews.map((p, index) => `<figure class="final-frame" data-pick="${escapeHTML(p.image_id)}" style="cursor:pointer;${p.image_id === project.selectedImage ? 'outline:3px solid currentColor' : ''}"><img loading="lazy" decoding="async" src="${escapeHTML(p.url)}" alt="成片 ${index + 1}"><span>0${index + 1}${p.is_best ? ' · 推荐' : ''}${p.image_id === project.selectedImage ? ' · 已选' : ''}</span></figure>`).join('')}</div>${promptBox('不满意的地方（重做时作为备注）', 'sampleNote', '例如第 3 张手部不对')}<div class="review-actions"><button class="approve" id="confirmSet" type="button" ${busy}>满意，去支付 →</button><button id="toggleRework" type="button" ${busy}>不满意，重新生成</button></div>${reworkPanel()}`;
     }
     if (t.status === 'awaiting_payment') {
       return `${head}<h2>确认完成，去支付</h2><p class="stage-desc">演示支付（method=mock），不会真实扣款。</p><div class="stage-actions"><button class="back" type="button" data-back>返回样片</button><button class="next" id="payTask" type="button" ${busy}>模拟支付 →</button></div>`;
@@ -430,7 +430,7 @@
       const d = t.deliverables || {};
       const photos = d.photos?.length ? d.photos : (d.photo ? [d.photo] : []);
       const materials = Object.entries(d).filter(([key]) => key !== 'photos' && key !== 'photo');
-      return `${agent('Amie 为你们揭晓完整作品', 'A')}<span class="prototype-badge">FINAL REVEAL · ${photos.length} FRAMES</span><h2>这是属于你们的${photos.length > 1 ? '九个瞬间' : '那一张'}。</h2>${t.message ? `<p class="stage-desc">${escapeHTML(t.message)}</p>` : ''}<div class="final-nine">${photos.map((url, index) => `<figure class="final-frame"><a href="${escapeHTML(url)}" target="_blank" download><img src="${escapeHTML(url)}" alt="成片 ${index + 1}"></a><span>0${index + 1} · 点击下载</span></figure>`).join('')}</div>${materials.length ? `<div class="summary-grid">${materials.map(([key, url]) => `<div class="summary-item"><small>${escapeHTML(key)}</small><strong><a href="${escapeHTML(url)}" target="_blank" download>下载</a></strong></div>`).join('')}</div>` : ''}<div class="stage-actions"><button class="back" type="button" data-restart>再做一套</button></div>`;
+      return `${agent('Amie 为你们揭晓完整作品', 'A')}<span class="prototype-badge">FINAL REVEAL · ${photos.length} FRAMES</span><h2>这是属于你们的${photos.length > 1 ? '九个瞬间' : '那一张'}。</h2>${t.message ? `<p class="stage-desc">${escapeHTML(t.message)}</p>` : ''}<div class="final-nine">${photos.map((url, index) => `<figure class="final-frame"><a href="${escapeHTML(url)}" target="_blank" download><img loading="lazy" decoding="async" src="${escapeHTML(url)}" alt="成片 ${index + 1}"></a><span>0${index + 1} · 点击下载</span></figure>`).join('')}</div>${materials.length ? `<div class="summary-grid">${materials.map(([key, url]) => `<div class="summary-item"><small>${escapeHTML(key)}</small><strong><a href="${escapeHTML(url)}" target="_blank" download>下载</a></strong></div>`).join('')}</div>` : ''}<div class="stage-actions"><button class="back" type="button" data-restart>再做一套</button></div>`;
     }
     return `${head}<h2>正在制作中…</h2>${taskProgress(t)}`;
   }
@@ -452,7 +452,7 @@
       ['交给对应专家', project.stage < 2 ? '等待中' : '已同步'],
       ['记录可返工节点', project.stage < 5 ? '持续记录' : '已建立']
     ];
-    chatPanel.innerHTML = `<div class="chat-message-head"><span class="chat-avatar"><img src="assets/amie-portrait.png" alt="Amie"></span><b>AMIE 艾蜜</b><small>始终在线</small></div><div class="chat-message">${escapeHTML(message)}</div><div class="chat-thinking"><button type="button"><span>✦ 展开 Amie 的思考过程</span><b>${project.stage + 1} / ${stages.length}</b></button>${thinking.map(([label, state], index) => `<div class="thinking-step"><i>${index + 1}</i><span>${label}</span><em>${state}</em></div>`).join('')}</div><div class="chat-task-card"><b>${escapeHTML(task)}</b><span>${escapeHTML(status)}</span></div><div class="chat-status-row"><span>Amie 主理</span><span>${project.stage === 2 || project.stage === 3 ? '已请造型组加入' : project.stage === 4 ? '已请摄影师加入' : project.stage >= 6 ? '已请修图师加入' : '专家由 Amie 按需邀请'}</span></div>`;
+    chatPanel.innerHTML = `<div class="chat-message-head"><span class="chat-avatar"><img loading="lazy" decoding="async" src="assets/amie-portrait.webp" alt="Amie"></span><b>AMIE 艾蜜</b><small>始终在线</small></div><div class="chat-message">${escapeHTML(message)}</div><div class="chat-thinking"><button type="button"><span>✦ 展开 Amie 的思考过程</span><b>${project.stage + 1} / ${stages.length}</b></button>${thinking.map(([label, state], index) => `<div class="thinking-step"><i>${index + 1}</i><span>${label}</span><em>${state}</em></div>`).join('')}</div><div class="chat-task-card"><b>${escapeHTML(task)}</b><span>${escapeHTML(status)}</span></div><div class="chat-status-row"><span>Amie 主理</span><span>${project.stage === 2 || project.stage === 3 ? '已请造型组加入' : project.stage === 4 ? '已请摄影师加入' : project.stage >= 6 ? '已请修图师加入' : '专家由 Amie 按需邀请'}</span></div>`;
   }
 
   function nodeSummary(index) {
@@ -485,14 +485,14 @@
   }
 
   const selectionAssets = {
-    '晴日胶片婚纱': 'assets/style-film.png', '东方中式喜嫁': 'assets/style-chinese.png', '法式庄园婚纱': 'assets/style-french.png', '韩式极简婚纱': 'assets/style-korean.png',
-    '清透原生妆': 'assets/style-korean.png', '复古柔焦妆': 'assets/style-french.png', '松弛低盘发': 'assets/coblanc-film-couple.png', '自然波纹披发': 'assets/style-film.png', '缎面极简白纱': 'assets/style-minimal.png', '东方礼服': 'assets/style-chinese.png',
-    '自然控油修饰': 'assets/style-minimal.png', '立体轮廓修饰': 'assets/style-cinema.png', '自然纹理短发': 'assets/style-film.png', '利落侧分': 'assets/style-korean.png', '经典黑色礼服': 'assets/style-minimal.png', '东方立领礼服': 'assets/style-chinese.png',
-    '晴日庄园草坪': 'assets/coblanc-film-hero.png', '梧桐老街与洋房': 'assets/style-french.png'
+    '晴日胶片婚纱': 'assets/style-film.webp', '东方中式喜嫁': 'assets/style-chinese.webp', '法式庄园婚纱': 'assets/style-french.webp', '韩式极简婚纱': 'assets/style-korean.webp',
+    '清透原生妆': 'assets/style-korean.webp', '复古柔焦妆': 'assets/style-french.webp', '松弛低盘发': 'assets/coblanc-film-couple.webp', '自然波纹披发': 'assets/style-film.webp', '缎面极简白纱': 'assets/style-minimal.webp', '东方礼服': 'assets/style-chinese.webp',
+    '自然控油修饰': 'assets/style-minimal.webp', '立体轮廓修饰': 'assets/style-cinema.webp', '自然纹理短发': 'assets/style-film.webp', '利落侧分': 'assets/style-korean.webp', '经典黑色礼服': 'assets/style-minimal.webp', '东方立领礼服': 'assets/style-chinese.webp',
+    '晴日庄园草坪': 'assets/coblanc-film-hero.webp', '梧桐老街与洋房': 'assets/style-french.webp'
   };
 
   function resultVisual(src, label, kind = '') {
-    return src ? `<figure class="result-visual ${kind}"><img src="${src}" alt="${escapeHTML(label)}"><figcaption>${escapeHTML(label)}</figcaption></figure>` : `<div class="result-placeholder ${kind}"><span>+</span>${escapeHTML(label)}</div>`;
+    return src ? `<figure class="result-visual ${kind}"><img loading="lazy" decoding="async" src="${src}" alt="${escapeHTML(label)}"><figcaption>${escapeHTML(label)}</figcaption></figure>` : `<div class="result-placeholder ${kind}"><span>+</span>${escapeHTML(label)}</div>`;
   }
 
   function renderNodeResult(index, state) {

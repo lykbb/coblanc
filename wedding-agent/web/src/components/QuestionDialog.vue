@@ -88,7 +88,7 @@ async function submit(useRecommended = false) {
   <Modal :title="`${speaker.name}想和你确认几件事`" wide @close="state.dialog = null">
     <template #head>
       <div class="q-speaker">
-        <img v-if="isAmie" :src="AMIE.avatar" alt="" class="q-avatar" />
+        <img loading="lazy" decoding="async" v-if="isAmie" :src="AMIE.avatar" alt="" class="q-avatar" />
         <span v-else class="q-avatar initial" :style="{ background: speaker.color }" aria-hidden="true">{{ speaker.initial }}</span>
         <div>
           <h2>{{ isAmie ? AMIE.name : speaker.name }}</h2>
@@ -113,7 +113,7 @@ async function submit(useRecommended = false) {
           :class="{ selected: values[q.question_id] === option.value, 'has-image': optionImage(q, option) }"
           @click="values[q.question_id] = option.value"
         >
-          <img v-if="optionImage(q, option)" :src="optionImage(q, option)" alt="" />
+          <img loading="lazy" decoding="async" v-if="optionImage(q, option)" :src="optionImage(q, option)" alt="" />
           <span v-else-if="hasImages(q)" class="q-noimg" aria-hidden="true">暂无示意图</span>
           <span>{{ option.label }}</span>
           <span v-if="q.recommended === option.value" class="rec">推荐</span>
@@ -138,7 +138,7 @@ async function submit(useRecommended = false) {
 
       <div v-else-if="q.type === 'upload'" class="q-upload">
         <figure v-for="(item, i) in uploads[q.question_id]" :key="i" class="upload-thumb" :class="{ pending: !item.done && !item.failed, failed: item.failed }">
-          <img :src="item.preview" :alt="`补传照片 ${i + 1}`" />
+          <img loading="lazy" decoding="async" :src="item.preview" :alt="`补传照片 ${i + 1}`" />
           <figcaption v-if="item.failed">上传失败</figcaption>
           <figcaption v-else-if="!item.done">上传中…</figcaption>
         </figure>

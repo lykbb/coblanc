@@ -60,7 +60,7 @@ const zoom = (url) => { state.lightbox = url }
           <div class="mini-head"><span>你们的照片</span><span>{{ allPhotos.length }}/10</span></div>
           <div class="mini-thumbs four">
             <button v-for="(url, i) in allPhotos.slice(0, 4)" :key="url" type="button" class="thumb-btn" :aria-label="`放大照片 ${i + 1}`" @click="zoom(url)">
-              <img :src="url" :alt="`照片 ${i + 1}`" />
+              <img loading="lazy" decoding="async" :src="url" :alt="`照片 ${i + 1}`" />
               <span v-if="i === 3 && allPhotos.length > 4" class="more">+{{ allPhotos.length - 4 }}</span>
             </button>
             <span v-if="!allPhotos.length" class="thumb-empty">等待上传</span>
@@ -72,7 +72,7 @@ const zoom = (url) => { state.lightbox = url }
             <div class="mini-head"><span>{{ group.label }}</span><span>{{ photos[group.key].length }}/10</span></div>
             <div class="mini-thumbs">
               <button v-for="(url, i) in photos[group.key].slice(0, 2)" :key="url" type="button" class="thumb-btn" :aria-label="`放大${group.label} ${i + 1}`" @click="zoom(url)">
-                <img :src="url" :alt="`${group.label} ${i + 1}`" />
+                <img loading="lazy" decoding="async" :src="url" :alt="`${group.label} ${i + 1}`" />
               </button>
               <span v-if="!photos[group.key].length" class="thumb-empty">等待上传</span>
             </div>
@@ -84,7 +84,7 @@ const zoom = (url) => { state.lightbox = url }
       <StageCard :index="1" :title="STAGES[1].title" :subtitle="subtitles[1]" :status="stageStatus(1)">
         <div class="style-body">
           <button v-if="styleArt" type="button" class="thumb-btn style-art" :aria-label="`放大${styleLabel(look?.style)}风格图`" @click="zoom(styleArt)">
-            <img :src="styleArt" :alt="styleLabel(look?.style)" />
+            <img loading="lazy" decoding="async" :src="styleArt" :alt="styleLabel(look?.style)" />
             <span class="tag">{{ styleLabel(look?.style) }}</span>
           </button>
           <div v-else class="placeholder">{{ look ? styleLabel(look.style) : '风格由妆造师和你们一起选' }}</div>
@@ -100,11 +100,11 @@ const zoom = (url) => { state.lightbox = url }
         <div class="look-body">
           <div class="look-thumbs">
             <button v-if="photos[side.key][0]" type="button" class="thumb-btn" :aria-label="`放大${side.who}照片`" @click="zoom(photos[side.key][0])">
-              <img :src="photos[side.key][0]" :alt="`${side.who}本人照片`" />
+              <img loading="lazy" decoding="async" :src="photos[side.key][0]" :alt="`${side.who}本人照片`" />
               <span class="tag">本人</span>
             </button>
             <button v-for="item in lookRefs(['makeup', 'outfit'])" :key="item.url" type="button" class="thumb-btn" aria-label="放大妆造参考图" @click="zoom(item.url)">
-              <img :src="item.url" alt="妆造参考图" />
+              <img loading="lazy" decoding="async" :src="item.url" alt="妆造参考图" />
               <span class="tag">{{ item.role === 'makeup' ? '妆容' : '服装' }}</span>
             </button>
           </div>
@@ -128,7 +128,7 @@ const zoom = (url) => { state.lightbox = url }
       <StageCard class="photo-stage" :index="5" :title="STAGES[5].title" :subtitle="subtitles[5]" :status="stageStatus(5)">
         <div class="sample-body">
           <button v-if="sample || state.sampleUrl" type="button" class="thumb-btn sample-img photo-preview" aria-label="放大样片" @click="zoom(sample?.url || state.sampleUrl)">
-            <img :src="sample?.url || state.sampleUrl" alt="样片（带水印）" />
+            <img loading="lazy" decoding="async" :src="sample?.url || state.sampleUrl" alt="样片（带水印）" />
             <span class="tag">{{ sample ? '样片 · 带水印' : '已确认的样片' }}</span>
             <span class="zoom-hint">点击看大图</span>
           </button>
@@ -156,7 +156,7 @@ const zoom = (url) => { state.lightbox = url }
               :aria-checked="state.picked === p.image_id"
             >
               <button type="button" class="set-zoom" :aria-label="`放大第 ${i + 1} 张`" @click="zoom(p.url)">
-                <img :src="p.url" :alt="`第 ${i + 1} 张`" />
+                <img loading="lazy" decoding="async" :src="p.url" :alt="`第 ${i + 1} 张`" />
               </button>
               <span class="num">{{ String(i + 1).padStart(2, '0') }}</span>
               <button
@@ -169,7 +169,7 @@ const zoom = (url) => { state.lightbox = url }
           </div>
           <div v-else-if="finalPhotos.length" class="set-grid photo-set">
             <button v-for="(url, i) in finalPhotos" :key="url" type="button" class="set-cell set-zoom-only" :aria-label="`放大第 ${i + 1} 张`" @click="zoom(url)">
-              <img :src="url" :alt="`成片 ${i + 1}`" />
+              <img loading="lazy" decoding="async" :src="url" :alt="`成片 ${i + 1}`" />
               <span class="num">{{ String(i + 1).padStart(2, '0') }}</span>
               <span class="zoom-hint">点击看大图</span>
             </button>

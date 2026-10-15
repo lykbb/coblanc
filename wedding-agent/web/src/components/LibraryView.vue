@@ -8,11 +8,11 @@ const LIB = ASSET + 'library/'
 
 // 每张图整页只用一次
 const BRAND = [
-  { url: ASSET + 'coblanc-film-hero.png', label: '主视觉' },
-  { url: ASSET + 'coblanc-film-couple.png', label: '合照印象' },
-  { url: ASSET + 'film-style-board.png', label: '胶片风格板' },
-  { url: ASSET + 'studio-framework.png', label: '工作台示意' },
-  { url: ASSET + 'amie-portrait.png', label: 'Amie 形象' },
+  { url: ASSET + 'coblanc-film-hero.webp', label: '主视觉' },
+  { url: ASSET + 'coblanc-film-couple.webp', label: '合照印象' },
+  { url: ASSET + 'film-style-board.webp', label: '胶片风格板' },
+  { url: ASSET + 'studio-framework.webp', label: '工作台示意' },
+  { url: ASSET + 'amie-portrait.webp', label: 'Amie 形象' },
 ]
 
 const STYLE_TILES = [
@@ -21,7 +21,7 @@ const STYLE_TILES = [
   { url: STYLE_ART.french_editorial, label: STYLE_LABELS.french_editorial },
   { url: STYLE_ART.cinematic, label: STYLE_LABELS.cinematic },
   { url: STYLE_ART.retro, label: STYLE_LABELS.retro },
-  { url: ASSET + 'style-minimal.png', label: '极简清透' },
+  { url: ASSET + 'style-minimal.webp', label: '极简清透' },
 ]
 
 const MOOD_LABELS = [
@@ -30,7 +30,7 @@ const MOOD_LABELS = [
   '浅芋', '亚麻', '湖光', '蜜杏', '鸢尾', '青瓷',
 ]
 const MOODS = MOOD_LABELS.map((label, i) => ({
-  url: `${LIB}mood-${String(i + 1).padStart(2, '0')}.png`,
+  url: `${LIB}mood-${String(i + 1).padStart(2, '0')}.webp`,
   label,
 }))
 
@@ -109,7 +109,7 @@ const total = computed(() => sections.value.reduce((n, s) => n + s.items.length,
           :aria-label="`放大 ${item.label || sec.title} ${i + 1}`"
           @click="state.lightbox = item.url"
         >
-          <img :src="item.url" :alt="item.label || `${sec.title} ${i + 1}`" loading="lazy" />
+          <img :src="item.url" :alt="item.label || `${sec.title} ${i + 1}`" loading="lazy" decoding="async" />
           <span v-if="item.label" class="library-tag">{{ item.label }}</span>
         </button>
       </div>

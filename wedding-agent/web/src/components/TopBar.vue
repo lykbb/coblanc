@@ -30,7 +30,7 @@ function quit() {
   <header class="topbar">
     <ol class="relay" aria-label="专家接力进度">
       <li class="relay-amie">
-        <img :src="AMIE.avatar" alt="Amie" />
+        <img loading="lazy" decoding="async" :src="AMIE.avatar" alt="Amie" />
       </li>
       <li v-for="step in steps" :key="step.label" class="relay-step" :class="step.status">
         <span class="relay-dot">

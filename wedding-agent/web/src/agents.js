@@ -5,7 +5,7 @@ export const AMIE = {
   name: 'Amie 艾蜜',
   title: 'AMIE 艾蜜',
   intro: ['你的婚纱照 AI 创意伙伴', '和专属项目导演'],
-  avatar: ASSET + 'amie-portrait.png',
+  avatar: ASSET + 'amie-portrait.webp',
 }
 
 // 每个步骤由谁出面说话；key 对应接口里的 step
@@ -36,11 +36,11 @@ export const STYLE_LABELS = {
 
 // 风格示意图（品牌自己的风格板，只在没有资产库图片时用）
 export const STYLE_ART = {
-  chinese_red_gold: ASSET + 'style-chinese.png',
-  korean_studio: ASSET + 'style-korean.png',
-  french_editorial: ASSET + 'style-french.png',
-  cinematic: ASSET + 'style-cinema.png',
-  retro: ASSET + 'style-film.png',
+  chinese_red_gold: ASSET + 'style-chinese.webp',
+  korean_studio: ASSET + 'style-korean.webp',
+  french_editorial: ASSET + 'style-french.webp',
+  cinematic: ASSET + 'style-cinema.webp',
+  retro: ASSET + 'style-film.webp',
 }
 
 export const MATERIAL_LABELS = {

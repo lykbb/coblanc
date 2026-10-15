@@ -35,7 +35,7 @@ function newProject() {
     <ul v-else class="project-list">
       <li v-for="p in state.projects" :key="p.task_id" class="project-item" :class="{ current: p.task_id === state.taskId }">
         <div class="project-cover">
-          <img v-if="p.cover" :src="p.cover" alt="" />
+          <img loading="lazy" decoding="async" v-if="p.cover" :src="p.cover" alt="" />
           <span v-else>COBLANC</span>
         </div>
         <div class="project-info">

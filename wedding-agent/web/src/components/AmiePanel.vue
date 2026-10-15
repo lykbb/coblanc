@@ -176,7 +176,7 @@ const placeholder = computed(() => {
   >
     <div class="amie-scroll">
     <section class="amie-card amie-intro">
-      <img :src="AMIE.avatar" alt="Amie 艾蜜的形象照" />
+      <img loading="lazy" decoding="async" :src="AMIE.avatar" alt="Amie 艾蜜的形象照" />
       <div>
         <h2>{{ AMIE.title }}</h2>
         <p v-for="line in AMIE.intro" :key="line">{{ line }}</p>
@@ -192,7 +192,7 @@ const placeholder = computed(() => {
       <h3>当前任务</h3>
       <div class="current">
         <button v-if="currentThumb" type="button" class="current-thumb" aria-label="放大图片" @click="state.lightbox = currentThumb">
-          <img :src="currentThumb" alt="" />
+          <img loading="lazy" decoding="async" :src="currentThumb" alt="" />
         </button>
         <div>
           <strong>{{ current.title }}</strong>
@@ -205,7 +205,7 @@ const placeholder = computed(() => {
       <div class="card-row"><h3>已上传的素材</h3><button type="button" class="link-btn" @click="state.view = 'library'">查看全部</button></div>
       <div class="material-row">
         <button v-for="(url, i) in materials.slice(0, 4)" :key="url" type="button" class="thumb-btn" :aria-label="`放大素材 ${i + 1}`" @click="state.lightbox = url">
-          <img :src="url" :alt="`素材 ${i + 1}`" />
+          <img loading="lazy" decoding="async" :src="url" :alt="`素材 ${i + 1}`" />
         </button>
       </div>
     </section>
@@ -231,7 +231,7 @@ const placeholder = computed(() => {
     <div class="amie-composer">
       <div v-if="canAttach && draftPhotos.length" class="composer-thumbs">
         <figure v-for="(photo, i) in draftPhotos" :key="photo.key" class="composer-thumb" :class="{ failed: photo.failed, pending: !photo.file_id && !photo.failed }">
-          <img :src="photo.preview" :alt="`照片 ${i + 1}`" />
+          <img loading="lazy" decoding="async" :src="photo.preview" :alt="`照片 ${i + 1}`" />
           <figcaption v-if="photo.failed">失败</figcaption>
           <figcaption v-else-if="!photo.file_id">上传中</figcaption>
           <button type="button" class="thumb-remove" :aria-label="`删除照片 ${i + 1}`" @click="removePhoto(i)"><Icon name="close" :size="12" /></button>

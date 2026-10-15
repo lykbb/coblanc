@@ -4,8 +4,8 @@ import { AMIE, STYLE_ART } from '../agents.js'
 import { openProject, phase, restart, state } from '../store.js'
 
 const ASSET = '/coblanc-film/assets/'
-const HERO = ASSET + 'coblanc-film-hero.png'
-const COUPLE = ASSET + 'coblanc-film-couple.png'
+const HERO = ASSET + 'coblanc-film-hero.webp'
+const COUPLE = ASSET + 'coblanc-film-couple.webp'
 
 const STATUS = {
   running: '进行中',
@@ -98,13 +98,13 @@ function continueCurrent() {
       <div class="home-hero-visual" aria-hidden="true">
         <div class="home-glow"></div>
         <figure class="home-frame home-frame-main">
-          <img :src="HERO" alt="" />
+          <img :src="HERO" fetchpriority="high" decoding="async" alt="" />
         </figure>
         <figure class="home-frame home-frame-side">
-          <img :src="COUPLE" alt="" />
+          <img loading="lazy" decoding="async" :src="COUPLE" alt="" />
         </figure>
         <figure class="home-amie">
-          <img :src="AMIE.avatar" alt="" />
+          <img loading="lazy" decoding="async" :src="AMIE.avatar" alt="" />
           <figcaption>
             <strong>{{ AMIE.title }}</strong>
             <span>你的创意伙伴</span>
@@ -171,7 +171,7 @@ function continueCurrent() {
         <li v-for="p in recent" :key="p.task_id">
           <button type="button" class="home-recent-card" @click="openProject(p.task_id)">
             <div class="home-recent-cover">
-              <img v-if="p.cover" :src="p.cover" alt="" />
+              <img loading="lazy" decoding="async" v-if="p.cover" :src="p.cover" alt="" />
               <span v-else>COBLANC</span>
             </div>
             <div class="home-recent-meta">
@@ -192,7 +192,7 @@ function continueCurrent() {
       </header>
       <div class="home-mood-row">
         <figure v-for="mood in moods" :key="mood.key" class="home-mood">
-          <img :src="mood.url" :alt="mood.label" />
+          <img loading="lazy" decoding="async" :src="mood.url" :alt="mood.label" />
           <figcaption>{{ mood.label }}</figcaption>
         </figure>
       </div>
