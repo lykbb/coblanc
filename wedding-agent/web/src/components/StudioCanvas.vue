@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from 'vue'
 import StageCard from './StageCard.vue'
-import StartPanel from './StartPanel.vue'
 import JourneyBar from './JourneyBar.vue'
 import { STYLE_ART } from '../agents.js'
 import { framingCounts, heights, short, splitLook, styleLabel } from '../plan.js'
@@ -26,7 +25,7 @@ const lookRefs = (roles) => (look.value?.references || []).filter((r) => roles.i
 const redoLeft = computed(() => Math.max(0, MAX_REDO - state.redoUsed))
 
 const subtitle = computed(() => {
-  if (phase.value === 'start') return '上传两人的照片，Amie 会请妆造师、摄影师和修图师一起为你们出方案'
+  if (phase.value === 'start') return '在右边把照片发给 Amie，她会请妆造师、摄影师和修图师一起为你们出方案'
   if (phase.value === 'done') return '这组婚纱照已经完成，可以去「成片交付」下载高清图和婚礼物料'
   if (phase.value === 'failed') return '这次没拍好，看看右边 Amie 的说明，换几张照片再试一次'
   return 'Amie 正在协调各领域的专业团队，为你们生成专属的婚纱照方案'
@@ -48,12 +47,11 @@ const zoom = (url) => { state.lightbox = url }
 
 <template>
   <div class="canvas">
+    <div class="canvas-scroll">
     <div class="canvas-head">
       <h1>创作画布</h1>
       <p>{{ subtitle }}</p>
     </div>
-
-    <StartPanel v-if="phase === 'start'" />
 
     <div class="stage-grid">
       <!-- 1 双方照片 -->
@@ -85,7 +83,7 @@ const zoom = (url) => { state.lightbox = url }
       <!-- 2 风格方案 -->
       <StageCard :index="1" :title="STAGES[1].title" :subtitle="subtitles[1]" :status="stageStatus(1)">
         <div class="style-body">
-          <button v-if="styleArt" type="button" class="thumb-btn style-art":aria-label="`放大${styleLabel(look?.style)}风格图`" @click="zoom(styleArt)">
+          <button v-if="styleArt" type="button" class="thumb-btn style-art" :aria-label="`放大${styleLabel(look?.style)}风格图`" @click="zoom(styleArt)">
             <img :src="styleArt" :alt="styleLabel(look?.style)" />
             <span class="tag">{{ styleLabel(look?.style) }}</span>
           </button>
@@ -127,11 +125,12 @@ const zoom = (url) => { state.lightbox = url }
       </StageCard>
 
       <!-- 6 样片确认 -->
-      <StageCard :index="5" :title="STAGES[5].title" :subtitle="subtitles[5]" :status="stageStatus(5)">
+      <StageCard class="photo-stage" :index="5" :title="STAGES[5].title" :subtitle="subtitles[5]" :status="stageStatus(5)">
         <div class="sample-body">
-          <button v-if="sample || state.sampleUrl" type="button" class="thumb-btn sample-img"aria-label="放大样片" @click="zoom(sample?.url || state.sampleUrl)">
+          <button v-if="sample || state.sampleUrl" type="button" class="thumb-btn sample-img photo-preview" aria-label="放大样片" @click="zoom(sample?.url || state.sampleUrl)">
             <img :src="sample?.url || state.sampleUrl" alt="样片（带水印）" />
             <span class="tag">{{ sample ? '样片 · 带水印' : '已确认的样片' }}</span>
+            <span class="zoom-hint">点击看大图</span>
           </button>
           <div v-else class="placeholder" :class="{ shimmer: phase === 'composing' || phase === 'sample_gen' }">
             {{ phase === 'composing' ? 'Amie 正在写拍摄指令…' : phase === 'sample_gen' ? '正在拍 1 张样片…' : '先拍 1 张样片，看方向对不对' }}
@@ -145,29 +144,34 @@ const zoom = (url) => { state.lightbox = url }
       </StageCard>
 
       <!-- 7 九张成片 -->
-      <StageCard :index="6" :title="STAGES[6].title" :subtitle="subtitles[6]" :status="stageStatus(6)">
+      <StageCard class="photo-stage" :index="6" :title="STAGES[6].title" :subtitle="subtitles[6]" :status="stageStatus(6)">
         <div class="set-body">
-          <div v-if="phase === 'set_review'" class="set-grid" role="radiogroup" aria-label="选一张做主视觉">
-            <button
+          <div v-if="phase === 'set_review'" class="set-grid photo-set" role="radiogroup" aria-label="选一张做主视觉">
+            <div
               v-for="(p, i) in previews"
               :key="p.image_id"
-              type="button"
-              role="radio"
-              :aria-checked="state.picked === p.image_id"
               class="set-cell"
               :class="{ picked: state.picked === p.image_id }"
-              @click="state.picked = p.image_id"
-              @dblclick="zoom(p.url)"
+              role="radio"
+              :aria-checked="state.picked === p.image_id"
             >
-              <img :src="p.url" :alt="`第 ${i + 1} 张`" />
+              <button type="button" class="set-zoom" :aria-label="`放大第 ${i + 1} 张`" @click="zoom(p.url)">
+                <img :src="p.url" :alt="`第 ${i + 1} 张`" />
+              </button>
               <span class="num">{{ String(i + 1).padStart(2, '0') }}</span>
-              <span v-if="state.picked === p.image_id" class="tag">主视觉</span>
-            </button>
+              <button
+                type="button"
+                class="set-pick"
+                :aria-pressed="state.picked === p.image_id"
+                @click="state.picked = p.image_id"
+              >{{ state.picked === p.image_id ? '主视觉' : '选为主视觉' }}</button>
+            </div>
           </div>
-          <div v-else-if="finalPhotos.length" class="set-grid">
-            <button v-for="(url, i) in finalPhotos" :key="url" type="button" class="set-cell" :aria-label="`放大第 ${i + 1} 张`" @click="zoom(url)">
+          <div v-else-if="finalPhotos.length" class="set-grid photo-set">
+            <button v-for="(url, i) in finalPhotos" :key="url" type="button" class="set-cell set-zoom-only" :aria-label="`放大第 ${i + 1} 张`" @click="zoom(url)">
               <img :src="url" :alt="`成片 ${i + 1}`" />
               <span class="num">{{ String(i + 1).padStart(2, '0') }}</span>
+              <span class="zoom-hint">点击看大图</span>
             </button>
           </div>
           <div v-else class="set-grid">
@@ -179,12 +183,12 @@ const zoom = (url) => { state.lightbox = url }
           <div v-if="phase === 'set_review'" class="card-actions">
             <button type="button" class="btn-primary small" :disabled="state.busy" @click="review('confirm', state.picked)">就选这组，去解锁高清</button>
             <button type="button" class="btn-ghost small" :disabled="state.busy || !redoLeft" @click="openRedo()">重做（还剩 {{ redoLeft }} 次）</button>
-            <span class="hint">点一张设为主视觉，双击放大</span>
+            <span class="hint">点图看大图；点「选为主视觉」定主图</span>
           </div>
         </div>
       </StageCard>
     </div>
-
+    </div>
     <JourneyBar />
   </div>
 </template>

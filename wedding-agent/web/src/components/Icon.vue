@@ -14,6 +14,7 @@ defineProps({ name: { type: String, required: true }, size: { type: [Number, Str
     <template v-else-if="name === 'close'"><path d="M6 6l12 12M18 6 6 18" /></template>
     <template v-else-if="name === 'plus'"><path d="M12 5v14M5 12h14" /></template>
     <template v-else-if="name === 'send'"><path d="M5 12h13" /><path d="m13 6 6 6-6 6" /></template>
+    <template v-else-if="name === 'paperclip'"><path d="M21.44 11.05 12.25 20.24a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" /></template>
     <template v-else-if="name === 'flag'"><path d="M6 21V4" /><path d="M6 4h11l-2.5 4L17 12H6" /></template>
     <template v-else-if="name === 'refresh'"><path d="M19 8a7.5 7.5 0 1 0 1 5" /><path d="M19 3v5h-5" /></template>
     <template v-else-if="name === 'download'"><path d="M12 4v11" /><path d="m7 10 5 5 5-5" /><path d="M5 20h14" /></template>
@@ -21,5 +22,7 @@ defineProps({ name: { type: String, required: true }, size: { type: [Number, Str
     <template v-else-if="name === 'clock'"><circle cx="12" cy="12" r="8" /><path d="M12 8v4.5l3 2" /></template>
     <template v-else-if="name === 'alert'"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5v5.5M12 16.5v.01" /></template>
     <template v-else-if="name === 'zoom'"><circle cx="11" cy="11" r="6" /><path d="m20 20-4.5-4.5" /></template>
+    <template v-else-if="name === 'chevron-left'"><path d="m14.5 5.5-6 6.5 6 6.5" /></template>
+    <template v-else-if="name === 'chevron-right'"><path d="m9.5 5.5 6 6.5-6 6.5" /></template>
   </svg>
 </template>

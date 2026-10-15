@@ -41,7 +41,6 @@ function quit() {
       </li>
     </ol>
     <div class="topbar-right">
-      <span class="user-chip"><span class="user-dot small" aria-hidden="true"><Icon name="user" :size="14" /></span>演示账号</span>
       <button v-if="state.taskId" type="button" class="icon-btn" aria-label="结束这次创作" @click="quit"><Icon name="close" /></button>
     </div>
   </header>

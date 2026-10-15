@@ -197,14 +197,8 @@
   }
 
   function openProject() {
-    if (getSession()) {
-      studioOverlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      renderStudio();
-      return;
-    }
-    authOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    // 跳进新版 Vue 创作台，不再打开落地页里的旧工作室
+    window.location.href = '/';
   }
 
   function closeAuth() {

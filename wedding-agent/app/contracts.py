@@ -147,7 +147,7 @@ FIELD_TYPES = {
 
 # 对外函数名 → 允许写的工单字段（step_text 任何模块都可以写）
 MODULE_WRITES = {
-    "intake": {"brief", "questions", "consent", "groom_photo_urls", "bride_photo_urls", "photo_urls"},
+    "intake": {"brief", "questions", "consent", "groom_photo_urls", "bride_photo_urls", "photo_urls", "identity"},
     "compose": {"prompt", "references", "shot_prompts", "identity"},
     "reveal": {"message"},
     "style": {"look", "questions"},

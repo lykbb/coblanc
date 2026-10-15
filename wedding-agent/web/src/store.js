@@ -32,7 +32,7 @@ function writeJson(key, value) {
 }
 
 export const state = reactive({
-  view: 'studio',
+  view: 'overview',
   taskId: null,
   task: null,
   busy: false,

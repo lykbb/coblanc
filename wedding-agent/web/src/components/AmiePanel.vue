@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import Icon from './Icon.vue'
 import { AMIE, speakerOf } from '../agents.js'
 import { framingCounts } from '../plan.js'
-import { MAX_REDO, openRedo, phase, restart, state } from '../store.js'
+import { MAX_REDO, addPhotos, openRedo, phase, removePhoto, restart, startTask, state } from '../store.js'
 
 const task = computed(() => state.task)
 const speaker = computed(() => speakerOf(task.value?.step))
@@ -13,10 +13,12 @@ const asking = computed(() => phase.value.endsWith('_ask'))
 const reviewing = computed(() => phase.value === 'sample_review' || phase.value === 'set_review')
 const redoLeft = computed(() => Math.max(0, MAX_REDO - state.redoUsed))
 const note = ref('')
+const dragging = ref(false)
+let dragDepth = 0
 
 const bubble = computed(() => {
   const p = phase.value
-  if (p === 'start') return { who: null, text: '嗨！我是 Amie 艾蜜 ✨ 先把你们两个人的照片发给我，我来组织妆造师、摄影师和修图师。' }
+  if (p === 'start') return { who: null, text: '嗨！我是 Amie 艾蜜 ✨ 先把你们两个人的照片发给我，合照、单人照都可以。' }
   if (p === 'loading') return { who: null, text: '正在打开你们的项目…' }
   if (p === 'done') return { who: null, text: task.value?.message || '你们的作品完成啦。' }
   if (p === 'failed') return { who: null, text: task.value?.error?.message || '这次没拍好，换几张更清晰的照片再试试吧。' }
@@ -31,7 +33,7 @@ const current = computed(() => {
   const p = phase.value
   const t = task.value
   const counts = framingCounts(t?.plan?.shots).map((c) => `${c.name} ${c.count}`).join(' · ')
-  if (p === 'start') return { title: '上传照片', detail: '新郎、新娘各 1～10 张正面照' }
+  if (p === 'start') return { title: '上传照片', detail: '1～10 张，合照或单人照都可以' }
   if (asking.value) return { title: `回答${named(speaker.value.name)}的 ${t?.questions?.length || 0} 个问题`, detail: speaker.value.role }
   if (p === 'composing') return { title: '整理拍摄指令', detail: '把妆造和镜头方案合成一份' }
   if (p === 'sample_gen') return { title: '拍 1 张样片', detail: '先看方向，再拍全套' }
@@ -55,6 +57,9 @@ const materials = computed(() => {
   if (fromPlan.length) return fromPlan
   return state.draft.photos.map((p) => p.preview)
 })
+
+const draftPhotos = computed(() => state.draft.photos)
+const canStart = computed(() => draftPhotos.value.some((p) => p.file_id) && !state.busy && state.uploading === 0)
 
 // 开始前的灵感短句：点一下追加到"你们的想法"里
 const IDEAS = ['想要东方中式喜嫁', '韩式影棚，干净简洁', '法式杂志感，有点胶片味', '新娘想保留眼镜']
@@ -86,7 +91,47 @@ const chips = computed(() => {
   return []
 })
 
+function pick(event) {
+  addPhotos([...event.target.files])
+  event.target.value = ''
+}
+
+function onDragEnter(event) {
+  if (phase.value !== 'start') return
+  if (![...event.dataTransfer.types].includes('Files')) return
+  event.preventDefault()
+  dragDepth += 1
+  dragging.value = true
+}
+
+function onDragOver(event) {
+  if (phase.value !== 'start') return
+  if (![...event.dataTransfer.types].includes('Files')) return
+  event.preventDefault()
+  event.dataTransfer.dropEffect = 'copy'
+}
+
+function onDragLeave(event) {
+  if (phase.value !== 'start') return
+  event.preventDefault()
+  dragDepth = Math.max(0, dragDepth - 1)
+  if (dragDepth === 0) dragging.value = false
+}
+
+function onDrop(event) {
+  if (phase.value !== 'start') return
+  event.preventDefault()
+  dragDepth = 0
+  dragging.value = false
+  const files = [...(event.dataTransfer.files || [])].filter((f) => f.type.startsWith('image/'))
+  if (files.length) addPhotos(files)
+}
+
 function send() {
+  if (phase.value === 'start') {
+    if (canStart.value) startTask()
+    return
+  }
   const text = note.value.trim()
   if (!text || !reviewing.value) return
   openRedo('other', text)
@@ -94,15 +139,27 @@ function send() {
 }
 
 const placeholder = computed(() => {
-  if (phase.value === 'start') return '说说你们想要的感觉（选填），比如风格、婚期'
+  if (phase.value === 'start') return '说说你们想要的感觉（选填）'
+  // 审片阶段单独文案，不与生成中混用
   if (reviewing.value) return redoLeft.value ? '哪里要改？说给 Amie 听' : '重做次数用完了，可以联系人工'
   if (asking.value) return '请在弹出的问题卡片里回答'
-  return 'Amie 正在忙，出图后可以提修改意见'
+  // 处理中 / LLM 忙碌 / 出图中
+  return '正在为您生成中'
 })
+
 </script>
 
 <template>
-  <aside class="amie" aria-label="Amie 助手">
+  <aside
+    class="amie"
+    :class="{ 'drop-active': dragging }"
+    aria-label="Amie 助手"
+    @dragenter="onDragEnter"
+    @dragover="onDragOver"
+    @dragleave="onDragLeave"
+    @drop="onDrop"
+  >
+    <div class="amie-scroll">
     <section class="amie-card amie-intro">
       <img :src="AMIE.avatar" alt="Amie 艾蜜的形象照" />
       <div>
@@ -129,7 +186,7 @@ const placeholder = computed(() => {
       </div>
     </section>
 
-    <section v-if="materials.length" class="amie-card">
+    <section v-if="phase !== 'start' && materials.length" class="amie-card">
       <div class="card-row"><h3>已上传的素材</h3><button type="button" class="link-btn" @click="state.view = 'library'">查看全部</button></div>
       <div class="material-row">
         <button v-for="(url, i) in materials.slice(0, 4)" :key="url" type="button" class="thumb-btn" :aria-label="`放大素材 ${i + 1}`" @click="state.lightbox = url">
@@ -154,35 +211,62 @@ const placeholder = computed(() => {
       </div>
     </section>
 
-    <form class="amie-input" @submit.prevent="send">
-      <label class="sr-only" for="amie-input">给 Amie 留言</label>
-      <input
-        v-if="phase === 'start'"
-        id="amie-input"
-        v-model="state.draft.description"
-        :placeholder="placeholder"
-        maxlength="200"
-      />
-      <input v-else id="amie-input" v-model="note" :placeholder="placeholder" :disabled="!reviewing || !redoLeft" maxlength="200" />
-      <button v-if="phase !== 'start'" type="submit" class="send-btn" aria-label="发送" :disabled="!reviewing || !note.trim()"><Icon name="send" :size="18" /></button>
-    </form>
+    </div>
 
-    <p v-if="phase === 'start'" class="hint">写好想法、传好照片后，点画布上方的「开始创作」。</p>
-    <p v-else-if="reviewing" class="hint">满意的话，在画布的{{ phase === 'set_review' ? '「九张成片」' : '「样片确认」' }}卡片里确认。</p>
-    <div v-else class="amie-actions">
-      <template v-if="asking">
-        <button type="button" class="btn-primary" @click="state.dialog = 'questions'">回答问题</button>
-      </template>
-      <template v-else-if="phase === 'pay'">
-        <button type="button" class="btn-primary" :disabled="state.busy" @click="state.dialog = 'pay'">去解锁高清</button>
-      </template>
-      <template v-else-if="phase === 'done'">
-        <button type="button" class="btn-ghost" @click="restart">再做一组</button>
-        <button type="button" class="btn-primary" @click="state.view = 'delivery'">查看并下载成片</button>
-      </template>
-      <template v-else-if="phase === 'failed'">
-        <button type="button" class="btn-primary" @click="restart">重新开始</button>
-      </template>
+    <div class="amie-composer">
+      <div v-if="phase === 'start' && draftPhotos.length" class="composer-thumbs">
+        <figure v-for="(photo, i) in draftPhotos" :key="photo.key" class="composer-thumb" :class="{ failed: photo.failed, pending: !photo.file_id && !photo.failed }">
+          <img :src="photo.preview" :alt="`照片 ${i + 1}`" />
+          <figcaption v-if="photo.failed">失败</figcaption>
+          <figcaption v-else-if="!photo.file_id">上传中</figcaption>
+          <button type="button" class="thumb-remove" :aria-label="`删除照片 ${i + 1}`" @click="removePhoto(i)"><Icon name="close" :size="12" /></button>
+        </figure>
+        <span class="composer-count">{{ draftPhotos.length }}/10</span>
+      </div>
+
+      <form class="amie-input" @submit.prevent="send">
+        <label v-if="phase === 'start' && draftPhotos.length < 10" class="attach-btn" title="添加附件">
+          <input type="file" accept="image/jpeg,image/png" multiple class="sr-only" @change="pick" />
+          <Icon name="paperclip" :size="18" />
+          <span class="sr-only">添加附件</span>
+        </label>
+        <label class="sr-only" for="amie-input">给 Amie 留言</label>
+        <input
+          v-if="phase === 'start'"
+          id="amie-input"
+          v-model="state.draft.description"
+          :placeholder="placeholder"
+          maxlength="200"
+        />
+        <input v-else id="amie-input" v-model="note" :placeholder="placeholder" :disabled="!reviewing || !redoLeft" maxlength="200" />
+        <button
+          v-if="phase === 'start'"
+          type="submit"
+          class="send-btn"
+          :aria-label="canStart ? '开始创作' : '请先添加照片'"
+          :disabled="!canStart"
+        >
+          <Icon name="send" :size="18" />
+        </button>
+        <button v-else type="submit" class="send-btn" aria-label="发送" :disabled="!reviewing || !note.trim()"><Icon name="send" :size="18" /></button>
+      </form>
+
+      <p v-if="reviewing" class="hint">满意的话，在画布的{{ phase === 'set_review' ? '「九张成片」' : '「样片确认」' }}卡片里确认。</p>
+      <div v-else-if="asking || phase === 'pay' || phase === 'done' || phase === 'failed'" class="amie-actions">
+        <template v-if="asking">
+          <button type="button" class="btn-primary" @click="state.dialog = 'questions'">回答问题</button>
+        </template>
+        <template v-else-if="phase === 'pay'">
+          <button type="button" class="btn-primary" :disabled="state.busy" @click="state.dialog = 'pay'">去解锁高清</button>
+        </template>
+        <template v-else-if="phase === 'done'">
+          <button type="button" class="btn-ghost" @click="restart">再做一组</button>
+          <button type="button" class="btn-primary" @click="state.view = 'delivery'">查看并下载成片</button>
+        </template>
+        <template v-else-if="phase === 'failed'">
+          <button type="button" class="btn-primary" @click="restart">重新开始</button>
+        </template>
+      </div>
     </div>
   </aside>
 </template>

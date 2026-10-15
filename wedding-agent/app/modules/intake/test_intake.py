@@ -137,6 +137,7 @@ def test_prompt_sections_load():
                        (node.IMAGE_PROMPT, "identity"), (node.IMAGE_PROMPT, "compose")]:
         assert node.load_section(path, name)
     node.load_section(node.PHOTO_SORT, "check").format(label="合照", expected=2)
+    node.load_section(node.PHOTO_SORT, "check").format(label="照片", expected="1 或 2")
 
 
 def test_binding_sentence_order_and_merge():
@@ -162,3 +163,38 @@ def test_identity_fallback_and_send_cap():
     full = node._identity({"photo_urls": [f"p{i}" for i in range(10)]})
     assert len(full) == 10 and all(i["role"] == "couple" for i in full)
     assert node._fit_references([{"url": "r", "role": "pose"}], full) == []
+
+def test_mixed_solos_pass_without_couple_requirement(monkeypatch):
+    """单入口两张清晰单人照（男女各一）不应再被当成合照缺人而要求补传。"""
+    state = {
+        "task_id": "t", "photo_urls": ["man.jpg", "woman.jpg"],
+        "description": "", "answers": [], "question_rounds": {"intake": 0},
+        "consent": node.DEFAULT_CONSENT,
+    }
+    calls = []
+    results = [
+        {"index": 1, "people_count": 1, "clear": True, "front_facing": True, "unobstructed": True, "tag": "groom", "reason": ""},
+        {"index": 2, "people_count": 1, "clear": True, "front_facing": True, "unobstructed": True, "tag": "bride", "reason": ""},
+    ]
+    _real_llm(monkeypatch, results, calls)
+    update = intake(state)
+    assert not any(q.get("type") == "upload" for q in update.get("questions") or [])
+    assert update.get("identity") == [
+        {"url": "man.jpg", "role": "groom"},
+        {"url": "woman.jpg", "role": "bride"},
+    ]
+    node._cached_photo_check.cache_clear()
+
+
+def test_mixed_upload_still_rejects_three_people(monkeypatch):
+    state = {
+        "task_id": "t", "photo_urls": ["crowd.jpg"],
+        "description": "", "answers": [], "question_rounds": {"intake": 0},
+        "consent": node.DEFAULT_CONSENT,
+    }
+    calls = []
+    _real_llm(monkeypatch, [{"index": 1, "people_count": 3, "clear": True, "front_facing": True, "unobstructed": True, "tag": "unknown", "reason": "画面里有 3 个人"}], calls)
+    update = intake(state)
+    assert update["questions"][0]["type"] == "upload"
+    assert "q_photos" == update["questions"][0]["question_id"]
+    node._cached_photo_check.cache_clear()

@@ -40,6 +40,8 @@ class PhotoCheckItem(BaseModel):
     clear: bool
     front_facing: bool
     unobstructed: bool
+    # groom/bride=单人；couple=两人合照；unknown=分不清（混合上传时用来建身份照）
+    tag: str = "unknown"
     reason: str = ""
 
 
@@ -127,8 +129,8 @@ MAX_SEND_IMAGES = 10
 
 
 def _identity(state: WeddingState) -> list[dict]:
-    """身份照清单（发图顺序）。整组分类接入前按上传分组生成：
-    分组上传时没有合照，从新郎单人照开始：新郎前 2 张、新娘前 2 张；单入口上传时全部当作合照。"""
+    """身份照清单（发图顺序）。优先用 intake 写入的 identity；
+    否则分组上传：新郎前 2 张、新娘前 2 张；再否则单入口回退为全部标成合照（兼容旧任务）。"""
     saved = [dict(item) for item in state.get("identity") or [] if isinstance(item, dict) and item.get("url")]
     if saved:
         return saved[:MAX_SEND_IMAGES]
@@ -270,6 +272,9 @@ def _real_intake(state: WeddingState) -> dict:
         "consent": consent,
     }
     update.update(replacement)
+    identity = _identity_from_mixed_checks({**working, **replacement})
+    if identity:
+        update["identity"] = identity
     if update["questions"]:
         update["step_text"] = "我是小囍，你们这次拍摄的项目经理，再确认几项关键信息就可以交给妆造师了。"
     return update
@@ -459,28 +464,33 @@ def _validate_photo_shape(state: WeddingState) -> None:
     else:
         photos = state.get("photo_urls") or []
         if not 1 <= len(photos) <= 10:
-            raise ModuleError("PHOTO_INVALID", "请上传 1～10 张合照")
+            raise ModuleError("PHOTO_INVALID", "请上传 1～10 张照片，合照或单人照都可以")
 
 
 def _photo_groups(state: WeddingState) -> list[tuple[str, str, list[str], int]]:
+    """返回 (显示名, question_id, urls, expected_people)。
+    expected_people=0 表示单入口混合上传：每张可以是单人照(1)或两人合照(2)。
+    """
     groom, bride = state.get("groom_photo_urls"), state.get("bride_photo_urls")
     if groom is not None or bride is not None:
         return [
             ("新郎", "q_groom_photos", list(groom or []), 1),
             ("新娘", "q_bride_photos", list(bride or []), 1),
         ]
-    return [("合照", "q_photos", list(state.get("photo_urls") or []), 2)]
+    # 单入口：不要把每张都当成合照（强制 2 人），否则男女各一张单人照会被误判要补传
+    return [("照片", "q_photos", list(state.get("photo_urls") or []), 0)]
 
 
 @lru_cache(maxsize=128)
 def _cached_photo_check(urls: tuple[str, ...], expected: int, label: str) -> tuple[dict, ...]:
     template = load_section(PHOTO_SORT, "check")
-    content: list[dict[str, Any]] = [{"type": "text", "text": template.format(label=label, expected=expected)}]
+    expected_text = "1 或 2" if expected == 0 else str(expected)
+    content: list[dict[str, Any]] = [{"type": "text", "text": template.format(label=label, expected=expected_text)}]
     try:
         content.extend({"type": "image_url", "image_url": {"url": _data_url(url)}} for url in urls)
         result = _get_llm("vision").with_structured_output(PhotoCheck).invoke([{"role": "user", "content": content}])
     except Exception as error:
-        return tuple({"index": i, "people_count": 0, "clear": False, "front_facing": False, "unobstructed": False, "reason": "照片检查暂时失败，请补传"} for i in range(1, len(urls) + 1))
+        return tuple({"index": i, "people_count": 0, "clear": False, "front_facing": False, "unobstructed": False, "tag": "unknown", "reason": "照片检查暂时失败，请补传"} for i in range(1, len(urls) + 1))
     raw = result.model_dump() if hasattr(result, "model_dump") else result
     if isinstance(raw, list):
         items = raw
@@ -491,32 +501,128 @@ def _cached_photo_check(urls: tuple[str, ...], expected: int, label: str) -> tup
     normalised = []
     for index, item in enumerate(items, 1):
         value = item.model_dump() if hasattr(item, "model_dump") else dict(item)
+        people_count = int(value.get("people_count", 0))
+        tag = str(value.get("tag") or "unknown").strip().lower()
+        if tag not in {"groom", "bride", "couple", "unknown"}:
+            tag = "unknown"
+        if people_count >= 2 and tag == "unknown":
+            tag = "couple"
         normalised.append({
             "index": int(value.get("index", index)),
-            "people_count": int(value.get("people_count", 0)),
+            "people_count": people_count,
             "clear": bool(value.get("clear")),
             "front_facing": bool(value.get("front_facing")),
             "unobstructed": bool(value.get("unobstructed")),
+            "tag": tag,
             "reason": str(value.get("reason", "")),
         })
     while len(normalised) < len(urls):
         normalised.append({
             "index": len(normalised) + 1, "people_count": 0, "clear": False,
-            "front_facing": False, "unobstructed": False, "reason": "未返回这张照片的检查结果",
+            "front_facing": False, "unobstructed": False, "tag": "unknown",
+            "reason": "未返回这张照片的检查结果",
         })
     return tuple(normalised[:len(urls)])
+
+
+def _count_ok(people_count: int, expected: int) -> bool:
+    """expected=0：混合上传，单人(1)或两人合照(2)都合格；否则必须人数正好等于 expected。"""
+    if expected == 0:
+        return people_count in (1, 2)
+    return people_count == expected
 
 
 def _photo_failures(state: WeddingState) -> list[dict]:
     failures = []
     for label, question_id, urls, expected in _photo_groups(state):
         for result in _cached_photo_check(tuple(urls), expected, label):
-            if result["people_count"] != expected or not result["clear"] or not result["front_facing"] or not result["unobstructed"]:
+            count_ok = _count_ok(result["people_count"], expected)
+            quality_ok = result["clear"] and result["front_facing"] and result["unobstructed"]
+            # 混合上传的单人照必须能标出新郎/新娘，否则后面无法保证双方都出现
+            tag_ok = True
+            if expected == 0 and count_ok and quality_ok:
+                if result["people_count"] == 1 and result.get("tag") not in {"groom", "bride"}:
+                    tag_ok = False
+                elif result["people_count"] == 2:
+                    # 合照默认算双方都在
+                    tag_ok = True
+            if not count_ok or not quality_ok or not tag_ok:
+                reason = (result.get("reason") or "").strip()
+                # 混合上传允许单人照：模型若仍写「需2人合照」之类，改成准确说法
+                if expected == 0 and result["people_count"] == 1 and (
+                    not reason or "需2人" in reason or "缺少另一位" in reason or "合照" in reason and "1" in reason
+                ):
+                    if not tag_ok:
+                        reason = "单人照分不清是新郎还是新娘"
+                    elif not quality_ok:
+                        reason = "请换成更清晰、正脸、无遮挡的单人照"
+                    elif not count_ok:
+                        reason = "请上传单人正面照或两人合照"
+                    else:
+                        reason = "请上传清晰的新郎或新娘单人正面照"
+                elif not reason:
+                    if not count_ok and expected == 0:
+                        reason = "请上传单人正面照或两人合照"
+                    elif not count_ok:
+                        reason = f"人数应为{expected}人"
+                    elif not tag_ok:
+                        reason = "单人照分不清是新郎还是新娘"
+                    else:
+                        reason = "请换成更清晰、正脸、无遮挡的照片"
                 failures.append({
                     "label": label, "question_id": question_id, "index": result["index"],
-                    "reason": result["reason"] or "人数、清晰度、正脸或遮挡不符合要求",
+                    "reason": reason,
                 })
+    if failures:
+        return failures
+    # 单入口：通过单张检查后，还要确认新郎、新娘至少各出现一次（合照里出现也算）
+    failures.extend(_missing_role_failures(state))
     return failures
+
+
+def _missing_role_failures(state: WeddingState) -> list[dict]:
+    groom, bride = state.get("groom_photo_urls"), state.get("bride_photo_urls")
+    if groom is not None or bride is not None:
+        return []
+    urls = list(state.get("photo_urls") or [])
+    if not urls:
+        return []
+    results = _cached_photo_check(tuple(urls), 0, "照片")
+    present: set[str] = set()
+    for result in results:
+        if not (_count_ok(result["people_count"], 0) and result["clear"] and result["front_facing"] and result["unobstructed"]):
+            continue
+        if result["people_count"] == 2 or result.get("tag") == "couple":
+            present.update({"groom", "bride"})
+        elif result.get("tag") in {"groom", "bride"}:
+            present.add(result["tag"])
+    missing = []
+    if "groom" not in present:
+        missing.append({"label": "照片", "question_id": "q_photos", "index": 1, "reason": "还缺新郎清晰正面照（单人照或合照均可）"})
+    if "bride" not in present:
+        missing.append({"label": "照片", "question_id": "q_photos", "index": 1, "reason": "还缺新娘清晰正面照（单人照或合照均可）"})
+    return missing
+
+
+def _identity_from_mixed_checks(state: WeddingState) -> list[dict] | None:
+    """单入口混合上传：按检查结果排身份照（合照优先，再新郎单人，再新娘单人）。"""
+    groom, bride = state.get("groom_photo_urls"), state.get("bride_photo_urls")
+    if groom is not None or bride is not None:
+        return None
+    urls = list(state.get("photo_urls") or [])
+    if not urls:
+        return None
+    results = _cached_photo_check(tuple(urls), 0, "照片")
+    couples, grooms, brides = [], [], []
+    for url, result in zip(urls, results):
+        if result["people_count"] == 2 or result.get("tag") == "couple":
+            couples.append({"url": url, "role": "couple"})
+        elif result.get("tag") == "groom":
+            grooms.append({"url": url, "role": "groom"})
+        elif result.get("tag") == "bride":
+            brides.append({"url": url, "role": "bride"})
+    ordered = couples + grooms + brides
+    return ordered[:MAX_SEND_IMAGES] if ordered else None
 
 
 def _photo_replacements(state: WeddingState, answers: dict[str, dict], *, resolve_failures: bool = True) -> dict:
