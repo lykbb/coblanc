@@ -17,7 +17,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 
 from app.common.config import settings
 from app.common.errors import ModuleError
-from app.common.llm import get_llm
+from app.common.llm import get_llm, model_name
 from app.modules.assets import search_assets
 from app.state import Brief, WeddingState
 
@@ -161,7 +161,7 @@ def frame(state: WeddingState) -> dict:
             return found
 
         result = Decision.model_validate(run_pi(
-            {"model": settings.llm_model_agent, "system": system, "input": context,
+            {"model": model_name("agent"), "system": system, "input": context,
              "max_steps": settings.max_agent_steps}, decide, find,
             timeout=settings.llm_timeout_seconds * (settings.max_agent_steps + 1),
         ))

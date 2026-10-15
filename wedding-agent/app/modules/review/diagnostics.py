@@ -19,10 +19,11 @@ from .reporting import run_metadata, save_report, timestamp
 from .synthetic import make_couple_png
 from .vision import inspect_candidates
 from .asset_inputs import read_images
+from app.common.llm import llm_config, llm_ready
 
 
 def readiness() -> dict:
-    return {"vision_configured": bool(settings.llm_api_key and settings.llm_model_vision), "agent_configured": bool(settings.llm_api_key and settings.llm_model_agent), "face_provider_connected": provider_metadata()["connected"]}
+    return {"vision_configured": llm_ready("vision"), "agent_configured": llm_ready("agent"), "face_provider_connected": provider_metadata()["connected"]}
 
 
 def _live_authorization(entry: dict, stage: str) -> None:
@@ -31,7 +32,7 @@ def _live_authorization(entry: dict, stage: str) -> None:
         raise ModuleError("PHOTO_INVALID", "真实诊断需要双方授权记录及凭据编号")
     if stage != "face":
         services = consent.get("approved_services")
-        if not isinstance(services, list) or settings.llm_base_url not in services:
+        if not isinstance(services, list) or llm_config("vision")["base_url"] not in services:
             raise ModuleError("GENERATION_FAILED", "当前模型服务不在此样本的获准服务名单中")
         config = readiness()
         if stage in {"vision", "check"} and not config["vision_configured"]:

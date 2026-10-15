@@ -13,6 +13,7 @@ from .model_calls import CallStats, read_prompt
 from .real import propose_retouch
 from .synthetic import make_couple_png
 from .vision import inspect_candidates
+from app.common.llm import llm_ready, model_name
 
 
 def run_smoke(mode: str = "mock", stage: str = "all") -> dict:
@@ -20,7 +21,7 @@ def run_smoke(mode: str = "mock", stage: str = "all") -> dict:
         raise ModuleError("FILE_INVALID", "联调模式或步骤不正确")
     if mode == "live" and settings.fake_for("review"):
         raise ModuleError("GENERATION_FAILED", "review 仍处于 fake 模式；真实联调前请配置 REAL_MODULES=review")
-    if mode == "live" and (not settings.llm_api_key or (stage in {"vision", "all"} and not settings.llm_model_vision) or (stage in {"retouch", "all"} and not settings.llm_model_agent)):
+    if mode == "live" and ((stage in {"vision", "all"} and not llm_ready("vision")) or (stage in {"retouch", "all"} and not llm_ready("agent"))):
         raise ModuleError("GENERATION_FAILED", "独立真实联调缺少模型配置，请先由负责人配置现有模型入口")
     ids = [f"img_{i}" for i in range(1, settings.candidates_per_round + 1)]
     if not ids:
@@ -52,8 +53,8 @@ def run_smoke(mode: str = "mock", stage: str = "all") -> dict:
     report["timing"].update(stats.summary())
     report["metadata"] = {
         "mode": mode,
-        "vision_model": settings.llm_model_vision if mode == "live" else "mock",
-        "agent_model": settings.llm_model_agent if mode == "live" else "mock",
+        "vision_model": model_name("vision") if mode == "live" else "mock",
+        "agent_model": model_name("agent") if mode == "live" else "mock",
         "face_model": "not_connected",
         "score_scale": "synthetic_0_1",
         "face_sim_threshold": settings.face_sim_threshold,

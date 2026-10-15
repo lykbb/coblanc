@@ -74,3 +74,10 @@ def asset_catalog(tmp_path, monkeypatch):
 def _cleanup_tmp():
     yield
     shutil.rmtree(_TMP, ignore_errors=True)
+
+
+@pytest.fixture(autouse=True)
+def _no_real_deepseek(monkeypatch):
+    """测试不连真实 DeepSeek：即使本机 .env 里有 DEEPSEEK_API_KEY 也当作没填。"""
+    from app.common.config import settings
+    monkeypatch.setattr(settings, "deepseek_api_key", "")

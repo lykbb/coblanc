@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from app.common.config import settings
+from app.common.llm import model_name
 from app.common.errors import ModuleError
 
 from .model_calls import read_prompt
@@ -23,8 +24,8 @@ def run_metadata(mode: str, dataset_version: str) -> dict:
         "dataset_version": dataset_version,
         "face_model": "synthetic_fixture" if mode == "mock" else provider["face_model"],
         "score_scale": "synthetic_0_1" if mode == "mock" else provider["score_scale"],
-        "vision_model": "mock" if mode == "mock" else settings.llm_model_vision or "unconfigured",
-        "agent_model": "mock" if mode == "mock" else settings.llm_model_agent or "unconfigured",
+        "vision_model": "mock" if mode == "mock" else model_name("vision") or "unconfigured",
+        "agent_model": "mock" if mode == "mock" else model_name("agent") or "unconfigured",
         "prompt_version": hashlib.sha256(prompts.encode("utf-8")).hexdigest(),
         "face_sim_threshold": settings.face_sim_threshold,
     }

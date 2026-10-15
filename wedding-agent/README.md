@@ -50,6 +50,17 @@ cp .env.example .env
 | `SEEDREAM_MODEL` | 生图模型 ID，当前账号用 `doubao-seedream-5-0-flash-260915` |
 | `MAX_AGENT_STEPS` | Agent 最多走几步，套图建议 `10` |
 
+| `DEEPSEEK_API_KEY` | 可选。填了就用 DeepSeek（`https://api.deepseek.com`，默认模型 `deepseek-flash`）做对话和看图；不填用上面的 `LLM_*`。生图仍用 Seedream |
+| `DEEPSEEK_MODEL_AGENT` / `_CHEAP` / `_VISION` | 可选，按用途单独指定 DeepSeek 模型，留空用 `DEEPSEEK_MODEL` |
+
+检查大模型能不能连上（只发一句很短的文字，不打印密钥）：
+
+```bash
+cd "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent"
+uv run python -m app.scripts.check_llm          # 检查 agent、cheap、vision 三种
+uv run python -m app.scripts.check_llm agent    # 只检查一种
+```
+
 ### 4. 启动（开两个终端，都不要关）
 
 终端 1，后端：
