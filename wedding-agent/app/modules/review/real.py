@@ -12,7 +12,8 @@ from app.contracts import RetouchPlan
 from app.modules.assets import load_image
 from app.state import Brief, WeddingState
 
-from .face_compare import compare_faces
+from . import face_compare
+from .face_compare import compare_faces, provider_metadata
 from .model_calls import read_prompt, structured_call
 from .vision import finding_issues, inspect_candidates
 from .asset_inputs import read_images
@@ -20,10 +21,14 @@ from .quality import face_threshold, passes, route_for_score, validate_scores, r
 
 
 def check_real(state: WeddingState, candidates: list[dict], *, caller=None, comparator=None, loader=None, stats=None, simulated: bool = False) -> list[dict]:
+    # 没传比对器且人脸服务未接入时，退回只用视觉模型检查，结果标记 face_compare=skipped。
     comparator = comparator or compare_faces
+    skip_face = comparator is face_compare.compare_faces and not provider_metadata()["connected"]
     loader = loader or load_image
     threshold = face_threshold()
     source, images = read_images(state, candidates, loader=loader)
+    if skip_face:
+        return _vision_only_scores(state, source, images, threshold, caller=caller, stats=stats)
     # 校验格式并先做人脸比较；没有已配置的人脸服务时，不会发起视觉付费请求。
     face_scores = {}
     for image_id, data in images:
@@ -52,6 +57,19 @@ def check_real(state: WeddingState, candidates: list[dict], *, caller=None, comp
             if value < threshold:
                 issues.append(f"原图人物 {'A' if index == 0 else 'B'} 与候选人脸相似度不足")
         scores.append({"image_id": image_id, "face_sim": faces, "body_ok": finding.body_ok, "hands_ok": finding.hands_ok, "issues": issues, "total": round(sum(faces) / 2, 3)})
+    return scores
+
+
+def _vision_only_scores(state, source, images, threshold, *, caller=None, stats=None) -> list[dict]:
+    """人脸比对不可用时的退路：face_sim 记为阈值（不代表真实相似度），只看视觉模型的结论。"""
+    findings = inspect_candidates(source, images, state.get("brief") or {}, caller=caller, stats=stats)
+    scores = []
+    for image_id, _ in images:
+        finding = findings[image_id]
+        issues = finding_issues(finding)
+        total = round(threshold if issues else min(1.0, threshold + 0.1), 3)
+        scores.append({"image_id": image_id, "face_sim": [threshold, threshold], "body_ok": finding.body_ok,
+                       "hands_ok": finding.hands_ok, "issues": issues, "total": total, "face_compare": "skipped"})
     return scores
 
 

@@ -116,11 +116,25 @@ def test_invalid_visual_results_raise_module_error(real_state, monkeypatch, kind
         check(real_state)
 
 
-def test_missing_face_service_prevents_paid_vision_call(real_state, monkeypatch):
+def test_missing_face_service_falls_back_to_vision_only(real_state, monkeypatch):
     calls = stub_model(monkeypatch, visual_output(real_state))
-    with pytest.raises(ModuleError):
-        check(real_state)
-    assert calls == []
+    result = check(real_state)
+    assert len(calls) == 1
+    assert result["passed"] is True
+    assert all(score["face_compare"] == "skipped" for score in result["scores"])
+
+
+def test_vision_only_fallback_still_blocks_visual_defects(real_state, monkeypatch):
+    stub_model(monkeypatch, visual_output(real_state, hands_ok=False, issues=["手指数量不对"]))
+    result = check(real_state)
+    assert result["passed"] is False
+    assert all(score["face_compare"] == "skipped" and not score["hands_ok"] for score in result["scores"])
+
+
+def test_connected_face_service_does_not_skip(real_state, monkeypatch):
+    monkeypatch.setattr(real, "compare_faces", lambda *_: [0.9, 0.9])
+    stub_model(monkeypatch, visual_output(real_state))
+    assert all(score["face_compare"] == "done" for score in check(real_state)["scores"])
 
 
 @pytest.mark.parametrize("value", [[0.9], [0.9, float("nan")], [0.9, 2], [True, 0.9]])

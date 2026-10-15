@@ -70,7 +70,7 @@ def _run(task_id: str, graph_input) -> None:
         try:
             graph.invoke(graph_input, _config(task_id))
         except ModuleError as error:
-            log.warning("模块报错 %s", error.code)
+            log.warning("模块报错 %s：%s（步骤 %s）", error.code, error.message, store.get(task_id).step)
             store.update(task_id, status="failed", error={"code": error.code, "message": error.message})
             return
         except Exception:

@@ -81,6 +81,7 @@ class Score(_Strict):
     hands_ok: bool
     issues: list[str]
     total: float
+    face_compare: Literal["done", "skipped"] = "done"  # skipped：人脸比对服务未接入，只做了视觉模型检查
 
 
 class RetouchPlan(_Strict):

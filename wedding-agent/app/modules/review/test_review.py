@@ -207,10 +207,8 @@ def test_real_mode_reports_not_ready(load_state, monkeypatch, function):
     with pytest.raises(ModuleError) as caught:
         function(load_state("after_generation"))
     assert caught.value.code == "GENERATION_FAILED"
-    if function is check:
-        assert "尚未接入" in caught.value.message
-    else:
-        assert "质检" in caught.value.message
+    # 人脸服务未接入时 check 退回视觉模型检查；没配模型时两者都报质检模型不可用
+    assert "质检" in caught.value.message
 
 
 def test_batch_fixture_outputs_scores_without_photo_urls():
