@@ -1,20 +1,32 @@
 # COBLANC 婚纱照交互原型
 
-这是一个独立的静态交互原型，用于展示 COBLANC 的 Landing Page、短信登录演示和婚纱照创作工作台。
+这是一个静态页面（HTML + CSS + JS）。工作台已经接入小囍后端的 6 个接口：分组上传照片、创建任务、轮询进度、回答问题、样片和套图审核（确认、只要这一张、重做）、模拟支付、交付下载。
 
-## 访问方式
+## 运行
 
-在 `wedding-agent/web` 运行现有前端开发服务后访问：
+第一次安装依赖和配置 `.env`，见 [wedding-agent/README.md 的「运行」](../../../README.md#运行)。
 
-```text
-/coblanc-film/
+终端 1，后端：
+
+```bash
+cd ai-wedding/wedding-agent
+uv run uvicorn app.api:app --reload --port 8000
+# 不花钱测试：REAL_MODULES=none uv run uvicorn app.api:app --reload --port 8000
 ```
 
-手机验证码登录为原型演示流程，演示验证码是 `123456`。
+终端 2，前端：
 
-## 边界说明
+```bash
+cd ai-wedding/wedding-agent/web
+npm run dev
+```
 
-- 原型仅使用静态 HTML、CSS、JavaScript 和图片资源。
-- 不调用现有后端接口，不修改现有六个业务组件的 props 或 events。
-- 工作台采用左侧输入与选择、右侧节点画布同步呈现结果的交互结构。
-- 正式接入登录、文件上传和生图服务时，应替换原型中的本地模拟状态。
+打开 http://localhost:5173/coblanc-film/ 。
+
+## 说明
+
+- 登录是演示：任意 11 位手机号，验证码固定 `123456`，没有登录后端。
+- 支付是演示（`method: mock`），不会扣款。
+- 页面通过同源 `/api` 访问接口，开发时由 Vite 代理到 `127.0.0.1:8000`，所以后端必须同时开着。
+- 接口出错时，工作台顶部会显示红色提示（错误码和说明）。
+- 如果页面一直转圈，或提示「连不上后端服务」，检查两个终端是否都还开着。
