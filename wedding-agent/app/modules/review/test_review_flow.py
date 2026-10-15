@@ -67,7 +67,7 @@ def _wait(client: TestClient, task_id: str, *statuses: str) -> dict:
 def _upload_and_answer(client: TestClient, image: bytes) -> tuple[str, dict]:
     upload = client.post("/api/uploads", files={"file": ("synthetic_couple.png", image, "image/png")})
     assert upload.status_code == 200
-    created = client.post("/api/tasks", json={"photo_file_ids": [upload.json()["file_id"]], "description": "韩式影棚风，保留两人原有特征"})
+    created = client.post("/api/tasks", json={"photo_file_ids": [upload.json()["file_id"]] * 2, "description": "韩式影棚风，保留两人原有特征"})
     assert created.status_code == 200
     task_id = created.json()["task_id"]
     speakers = []

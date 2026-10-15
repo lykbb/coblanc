@@ -126,7 +126,7 @@ function continueCurrent() {
           {{ current ? `项目 ${current.task_id}` : '当前任务' }}
           <template v-if="current?.created_at"> · {{ when(current.created_at) }}</template>
         </p>
-        <p v-else class="home-panel-text">上传 1～10 张照片，合照或单人照都可以。Amie 会为你们分好新郎与新娘。</p>
+        <p v-else class="home-panel-text">上传 2～10 张照片，至少 1 张你们俩的合照，其余单人照也可以。想让宠物一起入镜，记得告诉 Amie。</p>
         <div class="home-panel-actions">
           <button type="button" class="btn-primary small" @click="hasWork ? continueCurrent() : startFresh()">
             {{ hasWork ? '回到创作画布' : '立即开始' }}

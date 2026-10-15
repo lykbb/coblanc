@@ -42,6 +42,9 @@ class PhotoCheckItem(BaseModel):
     unobstructed: bool
     # groom/bride=单人；couple=两人合照；unknown=分不清（混合上传时用来建身份照）
     tag: str = "unknown"
+    # 画面里有没有宠物（狗/猫/兔等），以及是哪种
+    has_pet: bool = False
+    pet_kind: str = ""
     reason: str = ""
 
 
@@ -272,12 +275,25 @@ def _real_intake(state: WeddingState) -> dict:
         "consent": consent,
     }
     update.update(replacement)
+    pet_note = _pet_keep_feature({**working, **replacement})
+    if pet_note and pet_note not in update["brief"]["keep_features"]:
+        update["brief"]["keep_features"].append(pet_note)
     identity = _identity_from_mixed_checks({**working, **replacement})
     if identity:
         update["identity"] = identity
     if update["questions"]:
         update["step_text"] = "我是小囍，你们这次拍摄的项目经理，再确认几项关键信息就可以交给妆造师了。"
     return update
+
+
+def _pet_keep_feature(state: WeddingState) -> str:
+    """用户同意且照片里确实有宠物：写进需求单，生图时一起入镜。"""
+    groom, bride = state.get("groom_photo_urls"), state.get("bride_photo_urls")
+    urls = list(state.get("photo_urls") or [])
+    if groom is not None or bride is not None or not urls or not _pet_consent(state):
+        return ""
+    kinds = [_pet_name(r) for r in _cached_photo_check(tuple(urls), 0, "照片") if r.get("has_pet") and _mixed_usable(r, True)]
+    return f"宠物{kinds[0]}作为纪念一起入镜，保持它的外貌特征" if kinds else ""
 
 
 def _rounds(state: WeddingState) -> int:
@@ -463,8 +479,10 @@ def _validate_photo_shape(state: WeddingState) -> None:
             raise ModuleError("PHOTO_INVALID", "分组照片字段不一致，请重新上传")
     else:
         photos = state.get("photo_urls") or []
-        if not 1 <= len(photos) <= 10:
-            raise ModuleError("PHOTO_INVALID", "请上传 1～10 张照片，合照或单人照都可以")
+        if len(photos) < 2:
+            raise ModuleError("PHOTO_INVALID", "请上传 2～10 张照片，其中至少 1 张是你们俩的合照")
+        if len(photos) > 10:
+            raise ModuleError("PHOTO_INVALID", "照片最多 10 张，请删掉几张再上传")
 
 
 def _photo_groups(state: WeddingState) -> list[tuple[str, str, list[str], int]]:
@@ -490,7 +508,7 @@ def _cached_photo_check(urls: tuple[str, ...], expected: int, label: str) -> tup
         content.extend({"type": "image_url", "image_url": {"url": _data_url(url)}} for url in urls)
         result = _get_llm("vision").with_structured_output(PhotoCheck).invoke([{"role": "user", "content": content}])
     except Exception as error:
-        return tuple({"index": i, "people_count": 0, "clear": False, "front_facing": False, "unobstructed": False, "tag": "unknown", "reason": "照片检查暂时失败，请补传"} for i in range(1, len(urls) + 1))
+        return tuple({"index": i, "people_count": 0, "clear": False, "front_facing": False, "unobstructed": False, "tag": "unknown", "has_pet": False, "pet_kind": "", "reason": "照片检查暂时失败，请补传"} for i in range(1, len(urls) + 1))
     raw = result.model_dump() if hasattr(result, "model_dump") else result
     if isinstance(raw, list):
         items = raw
@@ -503,7 +521,7 @@ def _cached_photo_check(urls: tuple[str, ...], expected: int, label: str) -> tup
         value = item.model_dump() if hasattr(item, "model_dump") else dict(item)
         people_count = int(value.get("people_count", 0))
         tag = str(value.get("tag") or "unknown").strip().lower()
-        if tag not in {"groom", "bride", "couple", "unknown"}:
+        if tag not in {"groom", "bride", "couple", "pet", "unknown"}:
             tag = "unknown"
         if people_count >= 2 and tag == "unknown":
             tag = "couple"
@@ -514,12 +532,14 @@ def _cached_photo_check(urls: tuple[str, ...], expected: int, label: str) -> tup
             "front_facing": bool(value.get("front_facing")),
             "unobstructed": bool(value.get("unobstructed")),
             "tag": tag,
+            "has_pet": bool(value.get("has_pet")) or tag == "pet",
+            "pet_kind": str(value.get("pet_kind") or "").strip(),
             "reason": str(value.get("reason", "")),
         })
     while len(normalised) < len(urls):
         normalised.append({
             "index": len(normalised) + 1, "people_count": 0, "clear": False,
-            "front_facing": False, "unobstructed": False, "tag": "unknown",
+            "front_facing": False, "unobstructed": False, "tag": "unknown", "has_pet": False, "pet_kind": "",
             "reason": "未返回这张照片的检查结果",
         })
     return tuple(normalised[:len(urls)])
@@ -532,35 +552,64 @@ def _count_ok(people_count: int, expected: int) -> bool:
     return people_count == expected
 
 
-def _mixed_usable(result: dict) -> bool:
-    """混合上传：1～2 人、清晰、能认出身份即可用。侧脸/轻微遮挡不卡，只是优先级靠后。"""
+PET_WORDS = ("宠物", "狗", "猫", "兔", "毛孩子", "仓鼠", "鹦鹉")
+
+
+def _pet_consent(state: WeddingState) -> bool:
+    """用户在描述或回答里主动提到宠物，视为同意宠物一起入镜。"""
+    text = _brief_source_text(state, _answers(state))
+    return any(word in text for word in PET_WORDS)
+
+
+def _pet_name(result: dict) -> str:
+    return result.get("pet_kind") or "小动物"
+
+
+def _mixed_usable(result: dict, pet_ok: bool = False) -> bool:
+    """混合上传：1～2 人、清晰、能认出身份即可用；有宠物时须用户同意。侧脸/轻微遮挡不卡。"""
+    if result.get("has_pet") and not pet_ok:
+        return False
     if not (_count_ok(result["people_count"], 0) and result["clear"]):
         return False
     return result["people_count"] == 2 or result.get("tag") in {"groom", "bride", "couple"}
 
 
-def _mixed_unusable_reason(result: dict) -> str:
+def _is_couple(result: dict) -> bool:
+    return result["people_count"] == 2 or result.get("tag") == "couple"
+
+
+def _mixed_unusable_reason(result: dict, pet_ok: bool) -> str:
+    pet = _pet_name(result)
+    if result.get("has_pet") and result["people_count"] == 0:
+        return f"这张只有{pet}，请换成你们俩和它的合照" if pet_ok else f"这张是{pet}，如需一起入镜请告诉我"
+    if result.get("has_pet") and not pet_ok:
+        return f"这张里有{pet}，如需一起入镜请告诉我"
     if result["people_count"] == 0:
-        return "没看到清晰的人脸"
+        return "这张没看到人脸，请换一张你们的照片"
     if result["people_count"] > 2:
-        return "人太多，请上传单人照或两人合照"
+        return "这张人有点多，请换成单人照或你们俩的合照"
     if not result["clear"]:
-        return "照片模糊，请换一张清晰的"
-    return "分不清是新郎还是新娘"
+        return "这张有点模糊，请换一张清晰的"
+    return "这张分不清是新郎还是新娘，请换一张"
 
 
 def _photo_failures(state: WeddingState) -> list[dict]:
     groups = _photo_groups(state)
     if len(groups) == 1 and groups[0][3] == 0:
-        # 单入口混合上传：不可用的照片直接跳过；只有新郎/新娘缺清晰照时才让补传
+        # 单入口混合上传：宠物照（未同意）必须换；其他不可用的照片在要求已满足时直接跳过
         label, question_id, urls, _ = groups[0]
+        pet_ok = _pet_consent(state)
         results = _cached_photo_check(tuple(urls), 0, label)
+        pets = [{"label": label, "question_id": question_id, "index": r["index"], "reason": _mixed_unusable_reason(r, pet_ok)}
+                for r in results if r.get("has_pet") and not _mixed_usable(r, pet_ok)]
         missing = _missing_role_failures(state)
-        if not missing:
+        if not missing and not pets:
             return []
-        bad = [{"label": label, "question_id": question_id, "index": r["index"], "reason": _mixed_unusable_reason(r)}
-               for r in results if not _mixed_usable(r)]
-        return bad + missing
+        if not missing:
+            return pets
+        bad = [{"label": label, "question_id": question_id, "index": r["index"], "reason": _mixed_unusable_reason(r, pet_ok)}
+               for r in results if not _mixed_usable(r, pet_ok) and not r.get("has_pet")]
+        return pets + bad + missing
     failures = []
     for label, question_id, urls, expected in groups:
         for result in _cached_photo_check(tuple(urls), expected, label):
@@ -616,19 +665,21 @@ def _missing_role_failures(state: WeddingState) -> list[dict]:
     if not urls:
         return []
     results = _cached_photo_check(tuple(urls), 0, "照片")
+    pet_ok = _pet_consent(state)
+    usable = [r for r in results if _mixed_usable(r, pet_ok)]
     present: set[str] = set()
-    for result in results:
-        if not _mixed_usable(result):
-            continue
-        if result["people_count"] == 2 or result.get("tag") == "couple":
+    for result in usable:
+        if _is_couple(result):
             present.update({"groom", "bride"})
         elif result.get("tag") in {"groom", "bride"}:
             present.add(result["tag"])
     missing = []
+    if not any(_is_couple(r) for r in usable):
+        missing.append({"label": "照片", "question_id": "q_photos", "index": 1, "reason": "还需要至少 1 张你们俩的合照"})
     if "groom" not in present:
-        missing.append({"label": "照片", "question_id": "q_photos", "index": 1, "reason": "还缺新郎清晰正面照（单人照或合照均可）"})
+        missing.append({"label": "照片", "question_id": "q_photos", "index": 1, "reason": "还缺新郎的清晰照片"})
     if "bride" not in present:
-        missing.append({"label": "照片", "question_id": "q_photos", "index": 1, "reason": "还缺新娘清晰正面照（单人照或合照均可）"})
+        missing.append({"label": "照片", "question_id": "q_photos", "index": 1, "reason": "还缺新娘的清晰照片"})
     return missing
 
 
@@ -642,7 +693,8 @@ def _identity_from_mixed_checks(state: WeddingState) -> list[dict] | None:
         return None
     results = _cached_photo_check(tuple(urls), 0, "照片")
     couples, grooms, brides = [], [], []
-    pairs = [(u, r) for u, r in zip(urls, results) if _mixed_usable(r)]
+    pet_ok = _pet_consent(state)
+    pairs = [(u, r) for u, r in zip(urls, results) if _mixed_usable(r, pet_ok)]
     # 正脸无遮挡的排前面，侧脸等放后面
     pairs.sort(key=lambda p: not (p[1]["front_facing"] and p[1]["unobstructed"]))
     for url, result in pairs:

@@ -164,22 +164,24 @@ def test_identity_fallback_and_send_cap():
     assert len(full) == 10 and all(i["role"] == "couple" for i in full)
     assert node._fit_references([{"url": "r", "role": "pose"}], full) == []
 
-def test_mixed_solos_pass_without_couple_requirement(monkeypatch):
-    """单入口两张清晰单人照（男女各一）不应再被当成合照缺人而要求补传。"""
+def test_mixed_couple_plus_solos_pass(monkeypatch):
+    """1 张合照 + 男女单人照：不应要求补传，身份照合照在前。"""
     state = {
-        "task_id": "t", "photo_urls": ["man.jpg", "woman.jpg"],
+        "task_id": "t", "photo_urls": ["us.jpg", "man.jpg", "woman.jpg"],
         "description": "", "answers": [], "question_rounds": {"intake": 0},
         "consent": node.DEFAULT_CONSENT,
     }
     calls = []
     results = [
-        {"index": 1, "people_count": 1, "clear": True, "front_facing": True, "unobstructed": True, "tag": "groom", "reason": ""},
-        {"index": 2, "people_count": 1, "clear": True, "front_facing": True, "unobstructed": True, "tag": "bride", "reason": ""},
+        {"index": 1, "people_count": 2, "clear": True, "front_facing": True, "unobstructed": True, "tag": "couple", "reason": ""},
+        {"index": 2, "people_count": 1, "clear": True, "front_facing": True, "unobstructed": True, "tag": "groom", "reason": ""},
+        {"index": 3, "people_count": 1, "clear": True, "front_facing": True, "unobstructed": True, "tag": "bride", "reason": ""},
     ]
     _real_llm(monkeypatch, results, calls)
     update = intake(state)
     assert not any(q.get("type") == "upload" for q in update.get("questions") or [])
     assert update.get("identity") == [
+        {"url": "us.jpg", "role": "couple"},
         {"url": "man.jpg", "role": "groom"},
         {"url": "woman.jpg", "role": "bride"},
     ]
@@ -188,12 +190,13 @@ def test_mixed_solos_pass_without_couple_requirement(monkeypatch):
 
 def test_mixed_upload_still_rejects_three_people(monkeypatch):
     state = {
-        "task_id": "t", "photo_urls": ["crowd.jpg"],
+        "task_id": "t", "photo_urls": ["crowd.jpg", "crowd2.jpg"],
         "description": "", "answers": [], "question_rounds": {"intake": 0},
         "consent": node.DEFAULT_CONSENT,
     }
     calls = []
-    _real_llm(monkeypatch, [{"index": 1, "people_count": 3, "clear": True, "front_facing": True, "unobstructed": True, "tag": "unknown", "reason": "画面里有 3 个人"}], calls)
+    crowd = {"people_count": 3, "clear": True, "front_facing": True, "unobstructed": True, "tag": "unknown", "reason": "画面里有 3 个人"}
+    _real_llm(monkeypatch, [{"index": 1, **crowd}, {"index": 2, **crowd}], calls)
     update = intake(state)
     assert update["questions"][0]["type"] == "upload"
     assert "q_photos" == update["questions"][0]["question_id"]
@@ -209,11 +212,12 @@ def test_mixed_solo_photos_with_side_faces_pass(monkeypatch):
     node._cached_photo_check.cache_clear()
     urls = [f"p{i}" for i in range(1, 11)]
     results = [_solo(i, "groom" if i <= 5 else "bride", front=i not in (3, 4)) for i in range(1, 11)]
+    results[0] = {**results[0], "people_count": 2, "tag": "couple"}
     _real_llm(monkeypatch, results, [])
     state = {"photo_urls": urls}
     assert node._photo_failures(state) == []
     identity = node._identity_from_mixed_checks(state)
-    assert {p["role"] for p in identity} == {"groom", "bride"}
+    assert {p["role"] for p in identity} == {"couple", "groom", "bride"}
     assert identity[0]["url"] != "p3"
     node._cached_photo_check.cache_clear()
 
@@ -225,3 +229,57 @@ def test_mixed_missing_bride_never_says_couple(monkeypatch):
     failures = node._photo_failures({"photo_urls": ["a", "b"]})
     assert failures and all("2人" not in f["reason"] and "合照第" not in f["reason"] for f in failures)
     node._cached_photo_check.cache_clear()
+
+
+def _couple(i, pet=""):
+    return {"index": i, "people_count": 2, "clear": True, "front_facing": True, "unobstructed": True,
+            "tag": "couple", "has_pet": bool(pet), "pet_kind": pet, "reason": ""}
+
+
+def _pet_only(i, kind="小狗"):
+    return {"index": i, "people_count": 0, "clear": True, "front_facing": False, "unobstructed": True,
+            "tag": "pet", "has_pet": True, "pet_kind": kind, "reason": ""}
+
+
+def _check(monkeypatch, results, description=""):
+    node._cached_photo_check.cache_clear()
+    _real_llm(monkeypatch, results, [])
+    state = {"photo_urls": [f"u{i}" for i in range(len(results))], "description": description, "answers": []}
+    try:
+        return node._photo_failures(state), state
+    finally:
+        pass
+
+
+def test_rule_all_solo_asks_for_couple(monkeypatch):
+    failures, _ = _check(monkeypatch, [_solo(1, "groom"), _solo(2, "bride")])
+    assert [f["reason"] for f in failures] == ["还需要至少 1 张你们俩的合照"]
+    node._cached_photo_check.cache_clear()
+
+
+def test_rule_one_couple_plus_solos_ok(monkeypatch):
+    failures, state = _check(monkeypatch, [_couple(1), _solo(2, "groom"), _solo(3, "bride", front=False)])
+    assert failures == []
+    assert node._identity_from_mixed_checks(state)[0]["role"] == "couple"
+    node._cached_photo_check.cache_clear()
+
+
+def test_rule_pet_without_consent_rejected(monkeypatch):
+    failures, _ = _check(monkeypatch, [_couple(1), _pet_only(2), _couple(3, "小猫")])
+    reasons = {f["index"]: f["reason"] for f in failures}
+    assert reasons == {2: "这张是小狗，如需一起入镜请告诉我", 3: "这张里有小猫，如需一起入镜请告诉我"}
+    node._cached_photo_check.cache_clear()
+
+
+def test_rule_pet_with_consent_ok_and_recorded(monkeypatch):
+    failures, state = _check(monkeypatch, [_couple(1, "小狗"), _solo(2, "groom")], description="想带我们家小狗一起拍")
+    assert failures == []
+    assert "小狗" in node._pet_keep_feature(state)
+    node._cached_photo_check.cache_clear()
+
+
+def test_rule_photo_count_bounds():
+    for n in (1, 11):
+        with pytest.raises(ModuleError):
+            node._validate_photo_shape({"photo_urls": [f"u{i}" for i in range(n)]})
+    node._validate_photo_shape({"photo_urls": ["a", "b"]})

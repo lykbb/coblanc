@@ -33,7 +33,7 @@ const current = computed(() => {
   const p = phase.value
   const t = task.value
   const counts = framingCounts(t?.plan?.shots).map((c) => `${c.name} ${c.count}`).join(' · ')
-  if (p === 'start') return { title: '上传照片', detail: '1～10 张，合照或单人照都可以' }
+  if (p === 'start') return { title: '上传照片', detail: '2～10 张，至少 1 张合照；宠物入镜请说明' }
   if (asking.value) return { title: `回答${named(speaker.value.name)}的 ${t?.questions?.length || 0} 个问题`, detail: speaker.value.role }
   if (p === 'composing') return { title: '整理拍摄指令', detail: '把妆造和镜头方案合成一份' }
   if (p === 'sample_gen') return { title: '拍 1 张样片', detail: '先看方向，再拍全套' }
