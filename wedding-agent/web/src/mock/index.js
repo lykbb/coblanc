@@ -260,3 +260,10 @@ export async function pay(taskId) {
   })
   return { status: 'delivering' }
 }
+
+export async function retry(taskId) {
+  const task = need(taskId, 'failed')
+  task.status = 'running'
+  task.error = null
+  return { status: 'running' }
+}

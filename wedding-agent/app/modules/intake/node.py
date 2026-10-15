@@ -256,16 +256,14 @@ def _real_intake(state: WeddingState) -> dict:
     replacement = _photo_replacements(state, answers)
     working = dict(state)
     working.update(replacement)
-    _validate_photo_shape(working)
-    failures = _photo_failures(working)
+    failures = _count_failures(working) or _photo_failures(working)
     if failures:
-        if rounds >= settings.max_question_rounds:
-            raise ModuleError("PHOTO_INVALID", _failure_message(failures))
+        # 照片问题永远不终止任务：暂停等用户补传/说明，补完从 intake 继续
         update = {
             "brief": _brief_from_answers(working, answers, force_defaults=False).model_dump(),
             "questions": _upload_questions(failures),
             "consent": consent,
-            "step_text": "有几张照片还需要补传，我会只替换不合格的那几张。",
+            "step_text": _photo_step_text(failures),
         }
         update.update(replacement)
         return update
@@ -675,11 +673,11 @@ def _missing_role_failures(state: WeddingState) -> list[dict]:
             present.add(result["tag"])
     missing = []
     if not any(_is_couple(r) for r in usable):
-        missing.append({"label": "照片", "question_id": "q_photos", "index": 1, "reason": "还需要至少 1 张你们俩的合照"})
+        missing.append({"label": "照片", "question_id": "q_photos", "index": None, "reason": "还需要至少 1 张你们俩的合照"})
     if "groom" not in present:
-        missing.append({"label": "照片", "question_id": "q_photos", "index": 1, "reason": "还缺新郎的清晰照片"})
+        missing.append({"label": "照片", "question_id": "q_photos", "index": None, "reason": "还缺新郎的清晰照片，单人照或合照都行"})
     if "bride" not in present:
-        missing.append({"label": "照片", "question_id": "q_photos", "index": 1, "reason": "还缺新娘的清晰照片"})
+        missing.append({"label": "照片", "question_id": "q_photos", "index": None, "reason": "还缺新娘的清晰照片，单人照或合照都行"})
     return missing
 
 
@@ -710,15 +708,24 @@ def _identity_from_mixed_checks(state: WeddingState) -> list[dict] | None:
 
 def _photo_replacements(state: WeddingState, answers: dict[str, dict], *, resolve_failures: bool = True) -> dict:
     update: dict[str, Any] = {}
+    current_round = _rounds(state)
     for _label, question_id, current, _expected in _photo_groups(state):
         answer = answers.get(question_id) or {}
         urls = answer.get("urls")
+        # 只用最近一轮的补传，避免旧回答被重复套用
+        if answer.get("round") not in (None, current_round):
+            continue
         if answer.get("skipped") or not isinstance(urls, list) or not urls:
             continue
-        if len(urls) == len(current):
+        if question_id == "q_photos" and resolve_failures:
+            # 混合上传：去掉被点名的照片，新照片追加在后面，总数不超过 10（新照片优先保留）
+            flagged = {item["index"] for item in _photo_failures(state) if item.get("index")}
+            kept = [url for i, url in enumerate(current, 1) if i not in flagged]
+            new_urls = (kept + list(urls))[-10:] if len(kept) + len(urls) > 10 else kept + list(urls)
+        elif len(urls) == len(current):
             new_urls = list(urls)
         else:
-            failures = [item["index"] for item in _photo_failures(state) if item["question_id"] == question_id] if resolve_failures else list(range(1, len(urls) + 1))
+            failures = [item["index"] for item in _photo_failures(state) if item["question_id"] == question_id and item.get("index")] if resolve_failures else list(range(1, len(urls) + 1))
             new_urls = list(current)
             for index, url in zip(failures, urls):
                 if 1 <= index <= len(new_urls):
@@ -736,24 +743,40 @@ def _photo_replacements(state: WeddingState, answers: dict[str, dict], *, resolv
     return update
 
 
+def _count_failures(state: WeddingState) -> list[dict]:
+    """数量不对也当成照片问题，让用户补传，不终止任务。"""
+    try:
+        _validate_photo_shape(state)
+    except ModuleError as error:
+        groom, bride = state.get("groom_photo_urls"), state.get("bride_photo_urls")
+        question_id = "q_photos" if groom is None and bride is None else ("q_groom_photos" if not groom else "q_bride_photos")
+        return [{"label": "照片", "question_id": question_id, "index": None, "reason": error.message}]
+    return []
+
+
+def _describe_failures(items: list[dict]) -> str:
+    overall = [item["reason"] for item in items if not item.get("index")]
+    per_photo = [f"第{item['index']}张{item['reason'].removeprefix('这张')}" for item in items if item.get("index")]
+    return "；".join(overall + per_photo)
+
+
+def _photo_step_text(failures: list[dict]) -> str:
+    return f"照片还差一点：{_describe_failures(failures)}。直接在下方对话框补传照片或告诉我就行。"
+
+
 def _upload_questions(failures: list[dict]) -> list[dict]:
     by_group: dict[str, list[dict]] = {}
     for item in failures:
         by_group.setdefault(item["question_id"], []).append(item)
-    questions = []
-    for question_id, items in by_group.items():
-        detail = "、".join(f"第{item['index']}张：{item['reason']}" for item in items)
-        label = items[0]["label"]
-        questions.append({
-            "question_id": question_id, "type": "upload",
-            "title": f"{label}{detail}，请补传清晰的正面照",
-            "options": [], "recommended": None, "allow_skip": False,
-        })
-    return questions
+    return [{
+        "question_id": question_id, "type": "upload",
+        "title": f"照片还差一点：{_describe_failures(items)}",
+        "options": [], "recommended": None, "allow_skip": False,
+    } for question_id, items in by_group.items()]
 
 
 def _failure_message(failures: list[dict]) -> str:
-    return "；".join(f"{item['label']}第{item['index']}张：{item['reason']}" for item in failures)
+    return "上传的照片不符合要求：" + _describe_failures(failures)
 
 
 def _brief(state: WeddingState) -> Brief:

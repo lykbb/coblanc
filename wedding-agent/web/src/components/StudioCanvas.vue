@@ -27,7 +27,7 @@ const redoLeft = computed(() => Math.max(0, MAX_REDO - state.redoUsed))
 const subtitle = computed(() => {
   if (phase.value === 'start') return '在右边把照片发给 Amie，她会请妆造师、摄影师和修图师一起为你们出方案'
   if (phase.value === 'done') return '这组婚纱照已经完成，可以去「成片交付」下载高清图和婚礼物料'
-  if (phase.value === 'failed') return '这次没拍好，看看右边 Amie 的说明，换几张照片再试一次'
+  if (phase.value === 'failed') return state.task?.error?.category === 'user_input' ? '上传的照片不符合要求，看看右边 Amie 的说明' : '系统出了点问题，可以在右边点「重试」继续'
   return 'Amie 正在协调各领域的专业团队，为你们生成专属的婚纱照方案'
 })
 

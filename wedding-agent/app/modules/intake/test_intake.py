@@ -118,7 +118,7 @@ def test_photo_check_cache_is_group_scoped(monkeypatch):
     node._cached_photo_check.cache_clear()
 
 
-def test_photo_invalid_after_max_rounds(monkeypatch):
+def test_photo_problem_after_max_rounds_still_asks(monkeypatch):
     state = {
         "task_id": "t", "photo_urls": ["g1", "b1"],
         "groom_photo_urls": ["g1"], "bride_photo_urls": ["b1"],
@@ -127,8 +127,9 @@ def test_photo_invalid_after_max_rounds(monkeypatch):
     }
     calls = []
     _real_llm(monkeypatch, [{"index": 1, "people_count": 0, "clear": False, "front_facing": False, "unobstructed": False, "reason": "模糊"}], calls)
-    with pytest.raises(ModuleError, match="模糊"):
-        intake(state)
+    update = intake(state)
+    assert update["questions"][0]["type"] == "upload"
+    assert "模糊" in update["questions"][0]["title"]
     node._cached_photo_check.cache_clear()
 
 
@@ -283,3 +284,33 @@ def test_rule_photo_count_bounds():
         with pytest.raises(ModuleError):
             node._validate_photo_shape({"photo_urls": [f"u{i}" for i in range(n)]})
     node._validate_photo_shape({"photo_urls": ["a", "b"]})
+
+
+def test_missing_person_is_overall_not_photo_one(monkeypatch):
+    failures, _ = _check(monkeypatch, [_couple(1, "小狗"), _solo(2, "groom")])
+    # 有宠物未同意：合照不可用 → 缺合照、缺新娘都是整体问题，不挂在第1张
+    questions = node._upload_questions(failures)
+    title = questions[0]["title"]
+    assert "还缺新娘的清晰照片，单人照或合照都行" in title
+    assert "第1张还缺" not in title and "第1张：还缺" not in title
+    assert "第1张里有小狗" in title
+    node._cached_photo_check.cache_clear()
+
+
+def test_photo_problem_never_raises_and_upload_appends(monkeypatch):
+    node._cached_photo_check.cache_clear()
+    _real_llm(monkeypatch, [_solo(1, "bride"), _solo(2, "groom")], [])
+    state = {"task_id": "t", "photo_urls": ["a", "b"], "description": "", "answers": [],
+             "question_rounds": {"intake": 9}, "consent": node.DEFAULT_CONSENT}
+    update = intake(state)
+    assert update["questions"][0]["question_id"] == "q_photos"
+    # 用户补传 1 张：追加而不是替换第 1 张
+    state["answers"] = [{"question_id": "q_photos", "value": ["f"], "urls": ["c"], "asker": "intake", "round": 9}]
+    assert node._photo_replacements(state, node._answers(state))["photo_urls"] == ["a", "b", "c"]
+    node._cached_photo_check.cache_clear()
+
+
+def test_wants_to_ask_upload_ignores_round_limit():
+    from app import graph
+    state = {"questions": [{"type": "upload"}], "question_rounds": {"intake": 99}}
+    assert graph._wants_to_ask(state, "intake")

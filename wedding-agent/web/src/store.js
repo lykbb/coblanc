@@ -177,7 +177,8 @@ function onTask(data) {
     lastChange = Date.now()
     if (data.step_text && data.step_text !== prev?.step_text) addLog(speakerOf(data.step).name, data.step_text)
   }
-  if (data.status === 'waiting_user') {
+  // 补传照片题不弹窗：在右下角对话框里补传或留言
+  if (data.status === 'waiting_user' && !data.questions.some((q) => q.type === 'upload')) {
     const qKey = data.step + ':' + data.questions.map((q) => q.question_id).join(',')
     if (qKey !== lastQuestionsKey) {
       lastQuestionsKey = qKey
@@ -191,7 +192,7 @@ function onTask(data) {
   }
   if (data.status === 'awaiting_payment' && prev?.status !== 'awaiting_payment') state.dialog = 'pay'
   if (data.status === 'done' && prev?.status !== 'done') addLog('Amie', data.message || '你们的作品完成啦')
-  if (data.status === 'failed' && prev?.status !== 'failed') addLog('Amie', data.error?.message || '这次没拍好')
+  if (data.status === 'failed' && prev?.status !== 'failed') addLog('Amie', failureText(data.error))
 
   const cover = data.deliverables?.photo || state.sampleUrl || data.plan?.photos?.all?.[0] || null
   touchProject(data.task_id, { status: data.status, cover })
@@ -306,6 +307,38 @@ export async function startTask() {
     touchProject(created.task_id, { status: created.status, cover: null })
     addLog('你', `上传了 ${photos.length} 张照片${state.draft.description.trim() ? '，并说了你们的想法' : ''}`, true)
   })
+}
+
+export function failureText(error) {
+  if (!error) return '出了点问题，请稍后再试'
+  return error.title ? `${error.title}：${error.message}` : error.message
+}
+
+// 补传照片：用右下角对话框里新加的照片 + 留言回答 upload 题，然后从小囍那一步继续
+export async function submitPhotoFix(text) {
+  const question = state.task?.questions?.find((q) => q.type === 'upload')
+  if (!question) return false
+  if (state.uploading) {
+    state.notice = '照片还在上传，请稍等一下'
+    return false
+  }
+  const ids = state.draft.photos.filter((p) => p.file_id).map((p) => p.file_id)
+  if (!ids.length && !text) {
+    state.notice = '先补传照片，或者告诉 Amie 你的想法'
+    return false
+  }
+  const answers = [{ question_id: question.question_id, value: ids }]
+  if (text) answers.push({ question_id: 'q_photos_note', value: text })
+  const ok = await act(() => api.submitAnswers(state.taskId, answers))
+  if (ok) {
+    addLog('你', `${ids.length ? `补传了 ${ids.length} 张照片` : ''}${ids.length && text ? '，' : ''}${text ? `说：${text}` : ''}`, true)
+    state.draft.photos = []
+  }
+  return ok
+}
+
+export async function retryTask() {
+  await act(() => api.retry(state.taskId))
 }
 
 export async function submitAnswers(answers) {

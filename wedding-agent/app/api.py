@@ -208,8 +208,9 @@ def _attach_upload_urls(task_id: str, answers: list[dict]) -> list[dict]:
     for answer in answers:
         if answer["question_id"] in upload_ids and not answer.get("skipped"):
             value = answer.get("value")
-            file_ids = [value] if isinstance(value, str) else value
-            if not isinstance(file_ids, list) or not file_ids or not all(isinstance(item, str) for item in file_ids):
+            file_ids = [value] if isinstance(value, str) else (value or [])
+            # 允许只留言不传图（例如“小狗要一起入镜”），此时 urls 为空
+            if not isinstance(file_ids, list) or not all(isinstance(item, str) for item in file_ids):
                 raise ApiError("PHOTO_INVALID", "请上传照片后再提交")
             missing = [file_id for file_id in file_ids if file_id not in uploads]
             if missing:
@@ -217,6 +218,16 @@ def _attach_upload_urls(task_id: str, answers: list[dict]) -> list[dict]:
             answer = {**answer, "urls": [uploads[file_id] for file_id in file_ids]}
         result.append(answer)
     return result
+
+
+@app.post("/api/tasks/{task_id}/retry")
+def retry_task(task_id: str):
+    error = _task(task_id).error or {}
+    if not error.get("retryable"):
+        raise ApiError("WRONG_STATUS", "这个任务不能重试，请重新开始")
+    _take(task_id, "failed")
+    runner.retry(task_id)
+    return {"status": "running"}
 
 
 @app.post("/api/tasks/{task_id}/answers")

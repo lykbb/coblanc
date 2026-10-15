@@ -62,7 +62,13 @@ def _rounds(state: WeddingState, asker: str) -> int:
 
 
 def _wants_to_ask(state: WeddingState, asker: str) -> bool:
-    return bool(state.get("questions")) and not state.get("candidates") and _rounds(state, asker) < settings.max_question_rounds
+    questions = state.get("questions") or []
+    if not questions or state.get("candidates"):
+        return False
+    # 补传照片不受轮数限制：照片问题只会暂停等用户，不会终止任务
+    if any(q.get("type") == "upload" for q in questions):
+        return True
+    return _rounds(state, asker) < settings.max_question_rounds
 
 
 def _retouching(state: WeddingState, target: str) -> bool:

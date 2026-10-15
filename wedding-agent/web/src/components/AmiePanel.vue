@@ -3,13 +3,17 @@ import { computed, ref } from 'vue'
 import Icon from './Icon.vue'
 import { AMIE, speakerOf } from '../agents.js'
 import { framingCounts } from '../plan.js'
-import { MAX_REDO, addPhotos, openRedo, phase, removePhoto, restart, startTask, state } from '../store.js'
+import { MAX_REDO, addPhotos, failureText, openRedo, phase, removePhoto, restart, retryTask, startTask, state, submitPhotoFix } from '../store.js'
 
 const task = computed(() => state.task)
 const speaker = computed(() => speakerOf(task.value?.step))
 // 中文里夹英文名时两边加空格："回答 Amie 的"、"回答妆造师的"
 const named = (name) => (/^[A-Za-z]/.test(name) ? ` ${name} ` : name)
-const asking = computed(() => phase.value.endsWith('_ask'))
+const photoFix = computed(() => phase.value.endsWith('_ask') && (state.task?.questions || []).some((q) => q.type === 'upload'))
+const asking = computed(() => phase.value.endsWith('_ask') && !photoFix.value)
+// 能往对话框里加照片：开始前，或者等用户补传照片时
+const canAttach = computed(() => phase.value === 'start' || photoFix.value)
+const failure = computed(() => task.value?.error || state.error || null)
 const reviewing = computed(() => phase.value === 'sample_review' || phase.value === 'set_review')
 const redoLeft = computed(() => Math.max(0, MAX_REDO - state.redoUsed))
 const note = ref('')
@@ -21,7 +25,8 @@ const bubble = computed(() => {
   if (p === 'start') return { who: null, text: '嗨！我是 Amie 艾蜜 ✨ 先把你们两个人的照片发给我，合照、单人照都可以。' }
   if (p === 'loading') return { who: null, text: '正在打开你们的项目…' }
   if (p === 'done') return { who: null, text: task.value?.message || '你们的作品完成啦。' }
-  if (p === 'failed') return { who: null, text: task.value?.error?.message || '这次没拍好，换几张更清晰的照片再试试吧。' }
+  if (p === 'failed') return { who: null, text: failureText(failure.value) }
+  if (photoFix.value) return { who: null, text: task.value?.step_text || task.value?.questions?.[0]?.title || '照片还差一点，补传一下就能继续。' }
   if (p === 'pay') return { who: null, text: '这组照片已经定好了，解锁后就能下载 9 张高清图和婚礼物料。' }
   if (p === 'sample_review') return { who: null, text: '样片出来了，先看看方向对不对。满意的话我就安排拍 9 张；不满意告诉我哪里要改。' }
   if (p === 'set_review') return { who: null, text: '9 张套图都拍好了，修图师已经逐张检查过。挑一张做主视觉，请柬和海报都用它。' }
@@ -34,6 +39,7 @@ const current = computed(() => {
   const t = task.value
   const counts = framingCounts(t?.plan?.shots).map((c) => `${c.name} ${c.count}`).join(' · ')
   if (p === 'start') return { title: '上传照片', detail: '2～10 张，至少 1 张合照；宠物入镜请说明' }
+  if (photoFix.value) return { title: '照片还差一点', detail: task.value?.questions?.find((q) => q.type === 'upload')?.title?.replace(/^照片还差一点：/, '') || '' }
   if (asking.value) return { title: `回答${named(speaker.value.name)}的 ${t?.questions?.length || 0} 个问题`, detail: speaker.value.role }
   if (p === 'composing') return { title: '整理拍摄指令', detail: '把妆造和镜头方案合成一份' }
   if (p === 'sample_gen') return { title: '拍 1 张样片', detail: '先看方向，再拍全套' }
@@ -43,7 +49,11 @@ const current = computed(() => {
   if (p === 'pay') return { title: '解锁高清图和物料', detail: '演示版，不会真实扣款' }
   if (p === 'delivering') return { title: '制作婚礼物料', detail: '请柬、迎宾海报、婚礼大屏' }
   if (p === 'done') return { title: '作品已完成', detail: '去「成片交付」下载' }
-  if (p === 'failed') return { title: '这次没拍好', detail: task.value?.error?.code || '' }
+  if (p === 'failed') {
+    const e = failure.value
+    if (e?.category === 'user_input') return { title: e.title || '上传的照片不符合要求', detail: e.message }
+    return { title: e?.title || '系统异常，这一步没完成', detail: e?.retryable ? '模型/网络/服务异常，可以点「重试」' : (e?.message || '') }
+  }
   return { title: `${named(speaker.value.name).trimStart()}正在准备`, detail: speaker.value.role }
 })
 
@@ -97,7 +107,7 @@ function pick(event) {
 }
 
 function onDragEnter(event) {
-  if (phase.value !== 'start') return
+  if (!canAttach.value) return
   if (![...event.dataTransfer.types].includes('Files')) return
   event.preventDefault()
   dragDepth += 1
@@ -105,21 +115,21 @@ function onDragEnter(event) {
 }
 
 function onDragOver(event) {
-  if (phase.value !== 'start') return
+  if (!canAttach.value) return
   if (![...event.dataTransfer.types].includes('Files')) return
   event.preventDefault()
   event.dataTransfer.dropEffect = 'copy'
 }
 
 function onDragLeave(event) {
-  if (phase.value !== 'start') return
+  if (!canAttach.value) return
   event.preventDefault()
   dragDepth = Math.max(0, dragDepth - 1)
   if (dragDepth === 0) dragging.value = false
 }
 
 function onDrop(event) {
-  if (phase.value !== 'start') return
+  if (!canAttach.value) return
   event.preventDefault()
   dragDepth = 0
   dragging.value = false
@@ -133,6 +143,10 @@ function send() {
     return
   }
   const text = note.value.trim()
+  if (photoFix.value) {
+    submitPhotoFix(text).then((ok) => { if (ok) note.value = '' })
+    return
+  }
   if (!text || !reviewing.value) return
   openRedo('other', text)
   note.value = ''
@@ -142,6 +156,7 @@ const placeholder = computed(() => {
   if (phase.value === 'start') return '说说你们想要的感觉（选填）'
   // 审片阶段单独文案，不与生成中混用
   if (reviewing.value) return redoLeft.value ? '哪里要改？说给 Amie 听' : '重做次数用完了，可以联系人工'
+  if (photoFix.value) return '补传照片，或告诉 Amie（如：小狗要一起入镜）'
   if (asking.value) return '请在弹出的问题卡片里回答'
   // 处理中 / LLM 忙碌 / 出图中
   return '正在为您生成中'
@@ -214,7 +229,7 @@ const placeholder = computed(() => {
     </div>
 
     <div class="amie-composer">
-      <div v-if="phase === 'start' && draftPhotos.length" class="composer-thumbs">
+      <div v-if="canAttach && draftPhotos.length" class="composer-thumbs">
         <figure v-for="(photo, i) in draftPhotos" :key="photo.key" class="composer-thumb" :class="{ failed: photo.failed, pending: !photo.file_id && !photo.failed }">
           <img :src="photo.preview" :alt="`照片 ${i + 1}`" />
           <figcaption v-if="photo.failed">失败</figcaption>
@@ -225,7 +240,7 @@ const placeholder = computed(() => {
       </div>
 
       <form class="amie-input" @submit.prevent="send">
-        <label v-if="phase === 'start' && draftPhotos.length < 10" class="attach-btn" title="添加附件">
+        <label v-if="canAttach && draftPhotos.length < 10" class="attach-btn" title="添加附件">
           <input type="file" accept="image/jpeg,image/png" multiple class="sr-only" @change="pick" />
           <Icon name="paperclip" :size="18" />
           <span class="sr-only">添加附件</span>
@@ -238,7 +253,7 @@ const placeholder = computed(() => {
           :placeholder="placeholder"
           maxlength="200"
         />
-        <input v-else id="amie-input" v-model="note" :placeholder="placeholder" :disabled="!reviewing || !redoLeft" maxlength="200" />
+        <input v-else id="amie-input" v-model="note" :placeholder="placeholder" :disabled="!photoFix && (!reviewing || !redoLeft)" maxlength="200" />
         <button
           v-if="phase === 'start'"
           type="submit"
@@ -248,7 +263,7 @@ const placeholder = computed(() => {
         >
           <Icon name="send" :size="18" />
         </button>
-        <button v-else type="submit" class="send-btn" aria-label="发送" :disabled="!reviewing || !note.trim()"><Icon name="send" :size="18" /></button>
+        <button v-else type="submit" class="send-btn" aria-label="发送" :disabled="photoFix ? (state.busy || (!note.trim() && !draftPhotos.some((p) => p.file_id))) : (!reviewing || !note.trim())"><Icon name="send" :size="18" /></button>
       </form>
 
       <p v-if="reviewing" class="hint">满意的话，在画布的{{ phase === 'set_review' ? '「九张成片」' : '「样片确认」' }}卡片里确认。</p>
@@ -264,7 +279,8 @@ const placeholder = computed(() => {
           <button type="button" class="btn-primary" @click="state.view = 'delivery'">查看并下载成片</button>
         </template>
         <template v-else-if="phase === 'failed'">
-          <button type="button" class="btn-primary" @click="restart">重新开始</button>
+          <button v-if="failure?.retryable" type="button" class="btn-primary" :disabled="state.busy" @click="retryTask">重试</button>
+          <button type="button" :class="failure?.retryable ? 'btn-ghost' : 'btn-primary'" @click="restart">重新开始</button>
         </template>
       </div>
     </div>

@@ -14,6 +14,7 @@ export const ENDPOINTS = {
   submitAnswers: 'POST /api/tasks/{task_id}/answers',
   review: 'POST /api/tasks/{task_id}/review',
   pay: 'POST /api/tasks/{task_id}/pay',
+  retry: 'POST /api/tasks/{task_id}/retry',
 }
 export const apiLog = reactive({})
 
@@ -63,6 +64,9 @@ const real = {
   },
   pay(taskId, method = 'mock') {
     return post(`/api/tasks/${taskId}/pay`, { method })
+  },
+  retry(taskId) {
+    return post(`/api/tasks/${taskId}/retry`, {})
   },
 }
 
