@@ -140,11 +140,11 @@ def test_prompt_sections_load():
 
 
 def test_binding_sentence_order_and_merge():
-    identity = [{"url": "c", "role": "couple", "left": "groom", "right": "bride"},
+    identity = [{"url": "c", "role": "couple"},
                 {"url": "g1", "role": "groom"}, {"url": "g2", "role": "groom"}, {"url": "b1", "role": "bride"}]
     refs = [{"url": "p", "role": "pose"}, {"url": "o", "role": "outfit"}]
     text = node.binding_sentence(identity, refs)
-    assert text.startswith("图1是两人的合照，左边是新郎，右边是新娘；图2、图3是新郎本人；图4是新娘本人；图5只参考两人的姿势和站位；图6只参考服装款式。")
+    assert text.startswith("图1是新郎新娘的合照，男性为新郎，女性为新娘；图2、图3是新郎本人；图4是新娘本人；图5只参考两人的姿势和站位；图6只参考服装款式。")
     assert text.endswith("不要用他们的脸、发型和身材。")
     assert "{" not in text
 
@@ -152,7 +152,8 @@ def test_binding_sentence_order_and_merge():
 def test_binding_without_couple_or_refs():
     identity = [{"url": "g", "role": "groom"}, {"url": "b", "role": "bride"}, {"url": "b2", "role": "bride"}]
     assert node.binding_sentence(identity, []) == "图1是新郎本人；图2、图3是新娘本人。"
-    assert node.binding_sentence([{"url": "c", "role": "couple"}], []) == "图1是新郎和新娘两人的合照。"
+    couples = [{"url": "c1", "role": "couple"}, {"url": "c2", "role": "couple"}]
+    assert node.binding_sentence(couples, []) == "图1、图2是新郎新娘的合照，男性为新郎，女性为新娘。"
 
 
 def test_identity_fallback_and_send_cap():

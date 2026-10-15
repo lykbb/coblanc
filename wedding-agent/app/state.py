@@ -80,7 +80,7 @@ class WeddingState(TypedDict, total=False):
     prompt: str  # 汇总妆造师和摄影师的方案后写的最终提示词（所有镜头共用的部分；没有 shot_prompts 时每张都用它）
     shot_prompts: list[dict]  # 可选：每个镜头的最终提示词，每项 {"slot": 0~8, "prompt": ...}；生图按 slot 取
     references: list[dict]  # 生图时带上的参考图，每张含 url、role
-    identity: list[dict]  # 身份照清单（发图顺序），每项 {"url", "role": groom|bride|couple, 可选 "left"/"right"}；生图按它的顺序先发，再发 references
+    identity: list[dict]  # 身份照清单（发图顺序），每项 {"url", "role": groom|bride|couple}；生图按它的顺序先发，再发 references
     message: str  # 揭幕寄语
 
     # 妆造师写（先和用户确认妆容、发型、服饰、配饰）

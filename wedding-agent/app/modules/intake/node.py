@@ -124,7 +124,6 @@ def compose(state: WeddingState) -> dict:
 
 
 MAX_SEND_IMAGES = 10
-ROLE_NAMES = {"groom": "新郎", "bride": "新娘"}
 
 
 def _identity(state: WeddingState) -> list[dict]:
@@ -161,15 +160,7 @@ def binding_sentence(identity: list[dict], references: list[dict]) -> str:
     entries: list[tuple[str, str]] = []  # (分组键, 模板)
     for item in identity:
         role = item.get("role")
-        if role == "couple":
-            left, right = ROLE_NAMES.get(item.get("left", "")), ROLE_NAMES.get(item.get("right", ""))
-            if left and right:
-                key = f"couple:{left}:{right}"
-                template = templates["couple"].replace("{left}", left).replace("{right}", right)
-            else:
-                key, template = "couple?", templates["couple_unsplit"]
-        else:
-            key, template = role, templates[role]
+        key, template = role, templates[role]
         entries.append((key, template))
     entries += [(ref["role"], templates[ref["role"]]) for ref in references if ref.get("role") in templates]
     parts, n = [], 1

@@ -27,8 +27,6 @@ class IdentityPhoto(_Strict):
 
     url: str
     role: Literal["groom", "bride", "couple"]
-    left: Optional[Literal["groom", "bride"]] = None
-    right: Optional[Literal["groom", "bride"]] = None
 
 
 class Look(_Strict):
