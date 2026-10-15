@@ -100,7 +100,8 @@ async def upload_image(file: UploadFile = File(...)):
 
 
 class CreateTaskBody(BaseModel):
-    # 旧客户端继续传 photo_file_ids；新客户端传男女分组照片。
+    # 主入口：photo_file_ids，一个上传框，合照、单人照混传 1～10 张，由小囍分出新郎新娘。
+    # groom_photo_file_ids / bride_photo_file_ids 是分开上传的旧写法，保留兼容。
     photo_file_ids: list[str] = Field(default_factory=list)
     groom_photo_file_ids: list[str] = Field(default_factory=list)
     bride_photo_file_ids: list[str] = Field(default_factory=list)
@@ -118,8 +119,8 @@ def create_task(body: CreateTaskBody):
         or not 1 <= len(body.bride_photo_file_ids) <= 10
     ):
         raise ApiError("PHOTO_INVALID", "新郎和新娘的照片数量都必须是 1～10 张")
-    if not grouped and not body.photo_file_ids:
-        raise ApiError("PHOTO_INVALID", "请先上传照片；新契约可分别传 groom_photo_file_ids 和 bride_photo_file_ids")
+    if not grouped and not 1 <= len(body.photo_file_ids) <= 10:
+        raise ApiError("PHOTO_INVALID", "请上传 1～10 张照片，合照、单人照都可以")
     file_ids = body.groom_photo_file_ids + body.bride_photo_file_ids if grouped else body.photo_file_ids
     missing = [file_id for file_id in file_ids if file_id not in uploads]
     if missing:
@@ -162,6 +163,24 @@ def get_task(task_id: str):
         "deliverables": values.get("deliverables") if status == "done" else None,
         "message": values.get("message") if status == "done" else None,
         "error": info.error if status == "failed" else None,
+        "plan": _plan(values),
+    }
+
+
+def _plan(values: dict) -> dict:
+    """只读的方案进度，给前端画布显示。只挑用户能看的字段，提示词、评分等内部信息不外露。"""
+    brief = values.get("brief")
+    return {
+        "photos": {
+            "groom": list(values.get("groom_photo_urls") or []),
+            "bride": list(values.get("bride_photo_urls") or []),
+            "all": list(values.get("photo_urls") or []),
+        },
+        "brief": {key: brief.get(key) for key in ("heights_cm", "materials", "invitation", "keep_features", "beautify")}
+        if brief else None,
+        "look": values.get("look"),
+        "shot": values.get("shot"),
+        "shots": list(values.get("shots") or []),
     }
 
 

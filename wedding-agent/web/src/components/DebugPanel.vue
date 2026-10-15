@@ -13,7 +13,7 @@ const pretty = (value) => JSON.stringify(value, null, 2)
   <section class="debug">
     <button type="button" @click="open = !open">{{ open ? '▼' : '▶' }} 接口调试（任务 id：{{ taskId || '还没创建' }}）</button>
     <div v-if="open" class="debug-body">
-      <van-button size="small" :disabled="!taskId" @click="$emit('refresh')">刷新状态（GET 任务）</van-button>
+      <button type="button" class="btn-ghost small" :disabled="!taskId" @click="$emit('refresh')">刷新状态（GET 任务）</button>
       <div v-for="(label, name) in ENDPOINTS" :key="name" class="debug-item">
         <h4>{{ label }}</h4>
         <template v-if="apiLog[name]">

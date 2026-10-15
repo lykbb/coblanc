@@ -107,6 +107,12 @@ def test_grouped_photo_flow_records_counts_and_consent(png_bytes):
     assert list(dict.fromkeys(speakers)) == ["intake", "styling", "framing"]
     status = client.get(f"/api/tasks/{task_id}").json()
     assert status["photo_counts"] == {"groom": 1, "bride": 1, "legacy": 0}
+    # plan：前端画布用的只读方案进度，不带提示词等内部字段
+    plan = status["plan"]
+    assert len(plan["photos"]["groom"]) == 1 and len(plan["photos"]["bride"]) == 1
+    assert plan["look"]["text"] and plan["shot"]["text"] and len(plan["shots"]) == settings.set_candidates
+    assert set(plan["brief"]) == {"heights_cm", "materials", "invitation", "keep_features", "beautify"}
+    assert "prompt" not in plan
     values = runner.values(task_id)
     assert values["consent"]["confirmed"] is True
 
@@ -231,6 +237,15 @@ def test_set_shots_have_distinct_prompts(png_bytes):
     assert len({item["text"] for item in shots}) == len(shots)
     assert len({item["prompt"] for item in prompts}) == len(prompts) == len(shots)
     assert all(item["prompt"].startswith(values["prompt"]) for item in prompts)
+
+
+def test_single_upload_box_accepts_one_to_ten(png_bytes):
+    ids = [client.post("/api/uploads", files={"file": ("p.png", png_bytes, "image/png")}).json()["file_id"]
+           for _ in range(11)]
+    for bad in ([], ids):
+        response = client.post("/api/tasks", json={"photo_file_ids": bad})
+        assert response.status_code == 400 and response.json()["error"]["code"] == "PHOTO_INVALID"
+    assert client.post("/api/tasks", json={"photo_file_ids": ids[:10]}).json()["status"] == "running"
 
 
 def test_grouped_create_rejects_more_than_ten(png_bytes):

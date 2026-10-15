@@ -126,7 +126,7 @@ export async function createTask(body) {
   if (grouped && (!groomIds.length || !brideIds.length)) throw apiError('PHOTO_INVALID', '请分别上传新郎和新娘各 1～10 张正面生活照')
   if (grouped && (groomIds.length > 10 || brideIds.length > 10)) throw apiError('PHOTO_INVALID', '新郎和新娘的照片数量都必须是 1～10 张')
   const legacy = body.photo_file_ids || []
-  if (!grouped && !legacy.length) throw apiError('PHOTO_INVALID', '请先上传照片')
+  if (!grouped && (!legacy.length || legacy.length > 10)) throw apiError('PHOTO_INVALID', '请上传 1～10 张照片，合照、单人照都可以')
   const all = grouped ? [...groomIds, ...brideIds] : legacy
   if (all.some((id) => !uploads[id])) throw apiError('FILE_INVALID', '找不到上传的照片，请重新上传')
   const taskId = `t_mock_${Date.now()}`
@@ -168,11 +168,47 @@ export async function getTask(taskId) {
     deliverables: status === 'done' ? task.deliverables : null,
     message: status === 'done' ? task.message : null,
     error: null,
+    plan: {
+      photos: { groom: task.legacy ? [] : task.groom, bride: task.bride, all: [...task.groom, ...task.bride] },
+      brief: task.plan?.brief || null,
+      look: task.plan?.look || null,
+      shot: task.plan?.shot || null,
+      shots: task.plan?.shots || [],
+    },
+  }
+}
+
+// 按每轮回答拼出 plan（和后端 GET 返回的 plan 结构一致）
+const SHOT_FRAMINGS = [['全身', '两人并肩看镜头'], ['半身', '侧身额头相抵'], ['特写', '新娘回眸微笑'], ['全身', '牵手走向镜头'], ['半身', '新郎从背后环抱'], ['远景', '背影牵手'], ['半身', '两人对视微笑'], ['特写', '十指相扣'], ['全身', '新郎抱起新娘']]
+function labelOf(question, answer) {
+  const value = answer && !answer.skipped ? answer.value : question.recommended
+  return question.options.find((o) => o.value === value)?.label || ''
+}
+function updatePlan(task, step, answers) {
+  const byId = Object.fromEntries(answers.map((a) => [a.question_id, a]))
+  const find = (id) => task.questions.find((q) => q.question_id === id)
+  task.plan = task.plan || {}
+  if (step === 'intake' && find('q_height')) {
+    const nums = String(byId.q_height?.value || '').match(/\d{3}/g) || []
+    const materials = byId.q_materials && !byId.q_materials.skipped ? byId.q_materials.value : ['invitation', 'welcome_poster', 'led_screen']
+    task.plan.brief = { heights_cm: nums.length >= 2 ? [Number(nums[0]), Number(nums[1])] : [], materials, invitation: {}, keep_features: [], beautify: 'none' }
+  }
+  if (step === 'styling') {
+    task.plan.look = {
+      text: `新娘：${labelOf(find('q_makeup'), byId.q_makeup)}，低盘发，${labelOf(find('q_outfit'), byId.q_outfit)}，珍珠耳饰；新郎：利落短发，黑色修身西装，白衬衫，自然控油修饰`,
+      style: 'korean_studio',
+      references: [],
+    }
+  }
+  if (step === 'framing') {
+    task.plan.shot = { text: `简洁影棚，${labelOf(find('q_light'), byId.q_light)}，两人${labelOf(find('q_interaction'), byId.q_interaction)}`, pose: 'keep_original', references: [] }
+    task.plan.shots = SHOT_FRAMINGS.map(([framing, text], slot) => ({ slot, pose: 'keep_original', framing, scene: '简洁影棚', text: `${framing}构图，${text}` }))
   }
 }
 
 export async function submitAnswers(taskId, answers) {
   const task = need(taskId, 'waiting_user')
+  updatePlan(task, ROUNDS[task.round].step, answers)
   const consent = answers.find((a) => a.question_id === 'q_consent')
   if (consent) {
     task.consent = {

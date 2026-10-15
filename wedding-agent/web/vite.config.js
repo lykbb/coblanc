@@ -14,13 +14,14 @@ const staticPrototypes = {
   },
 }
 
-// 开发时 /api 转发到后端（uv run uvicorn app.api:app --port 8000）
+// 开发时 /api 转发到后端（uv run uvicorn app.api:app --port 8000）；
+// 后端换了端口时用环境变量 API_TARGET 指定，例如 API_TARGET=http://127.0.0.1:8010
 export default defineConfig({
   plugins: [staticPrototypes, vue()],
   server: {
     port: 5173,
     proxy: {
-      '/api': 'http://127.0.0.1:8000',
+      '/api': process.env.API_TARGET || 'http://127.0.0.1:8000',
     },
   },
 })
