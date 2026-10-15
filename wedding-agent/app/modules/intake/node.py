@@ -532,9 +532,37 @@ def _count_ok(people_count: int, expected: int) -> bool:
     return people_count == expected
 
 
+def _mixed_usable(result: dict) -> bool:
+    """混合上传：1～2 人、清晰、能认出身份即可用。侧脸/轻微遮挡不卡，只是优先级靠后。"""
+    if not (_count_ok(result["people_count"], 0) and result["clear"]):
+        return False
+    return result["people_count"] == 2 or result.get("tag") in {"groom", "bride", "couple"}
+
+
+def _mixed_unusable_reason(result: dict) -> str:
+    if result["people_count"] == 0:
+        return "没看到清晰的人脸"
+    if result["people_count"] > 2:
+        return "人太多，请上传单人照或两人合照"
+    if not result["clear"]:
+        return "照片模糊，请换一张清晰的"
+    return "分不清是新郎还是新娘"
+
+
 def _photo_failures(state: WeddingState) -> list[dict]:
+    groups = _photo_groups(state)
+    if len(groups) == 1 and groups[0][3] == 0:
+        # 单入口混合上传：不可用的照片直接跳过；只有新郎/新娘缺清晰照时才让补传
+        label, question_id, urls, _ = groups[0]
+        results = _cached_photo_check(tuple(urls), 0, label)
+        missing = _missing_role_failures(state)
+        if not missing:
+            return []
+        bad = [{"label": label, "question_id": question_id, "index": r["index"], "reason": _mixed_unusable_reason(r)}
+               for r in results if not _mixed_usable(r)]
+        return bad + missing
     failures = []
-    for label, question_id, urls, expected in _photo_groups(state):
+    for label, question_id, urls, expected in groups:
         for result in _cached_photo_check(tuple(urls), expected, label):
             count_ok = _count_ok(result["people_count"], expected)
             quality_ok = result["clear"] and result["front_facing"] and result["unobstructed"]
@@ -590,7 +618,7 @@ def _missing_role_failures(state: WeddingState) -> list[dict]:
     results = _cached_photo_check(tuple(urls), 0, "照片")
     present: set[str] = set()
     for result in results:
-        if not (_count_ok(result["people_count"], 0) and result["clear"] and result["front_facing"] and result["unobstructed"]):
+        if not _mixed_usable(result):
             continue
         if result["people_count"] == 2 or result.get("tag") == "couple":
             present.update({"groom", "bride"})
@@ -614,7 +642,10 @@ def _identity_from_mixed_checks(state: WeddingState) -> list[dict] | None:
         return None
     results = _cached_photo_check(tuple(urls), 0, "照片")
     couples, grooms, brides = [], [], []
-    for url, result in zip(urls, results):
+    pairs = [(u, r) for u, r in zip(urls, results) if _mixed_usable(r)]
+    # 正脸无遮挡的排前面，侧脸等放后面
+    pairs.sort(key=lambda p: not (p[1]["front_facing"] and p[1]["unobstructed"]))
+    for url, result in pairs:
         if result["people_count"] == 2 or result.get("tag") == "couple":
             couples.append({"url": url, "role": "couple"})
         elif result.get("tag") == "groom":

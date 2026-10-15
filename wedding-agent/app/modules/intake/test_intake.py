@@ -198,3 +198,30 @@ def test_mixed_upload_still_rejects_three_people(monkeypatch):
     assert update["questions"][0]["type"] == "upload"
     assert "q_photos" == update["questions"][0]["question_id"]
     node._cached_photo_check.cache_clear()
+
+
+def _solo(i, tag, front=True, clear=True):
+    return {"index": i, "people_count": 1, "clear": clear, "front_facing": front, "unobstructed": True, "tag": tag,
+            "reason": "" if front and clear else "只有1个人，需要2人合照"}
+
+
+def test_mixed_solo_photos_with_side_faces_pass(monkeypatch):
+    node._cached_photo_check.cache_clear()
+    urls = [f"p{i}" for i in range(1, 11)]
+    results = [_solo(i, "groom" if i <= 5 else "bride", front=i not in (3, 4)) for i in range(1, 11)]
+    _real_llm(monkeypatch, results, [])
+    state = {"photo_urls": urls}
+    assert node._photo_failures(state) == []
+    identity = node._identity_from_mixed_checks(state)
+    assert {p["role"] for p in identity} == {"groom", "bride"}
+    assert identity[0]["url"] != "p3"
+    node._cached_photo_check.cache_clear()
+
+
+def test_mixed_missing_bride_never_says_couple(monkeypatch):
+    node._cached_photo_check.cache_clear()
+    results = [_solo(1, "groom"), _solo(2, "bride", clear=False)]
+    _real_llm(monkeypatch, results, [])
+    failures = node._photo_failures({"photo_urls": ["a", "b"]})
+    assert failures and all("2人" not in f["reason"] and "合照第" not in f["reason"] for f in failures)
+    node._cached_photo_check.cache_clear()
