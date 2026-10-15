@@ -309,7 +309,7 @@
         <div class="journey-head reveal"><div class="eyebrow">From hello to final reveal</div><div><h2>每一步都看得见，也知道下一步为什么发生。</h2><p class="journey-lead">登录后创建专属项目。双方照片与风格通过校验后，造型组分别完成女生、男生方案，摄影师再匹配户外场景。先确认一张样片，再生成九张完整成片。</p></div></div>
         <div class="journey-flow">
           <article class="journey-node reveal"><small>STEP 01</small><div><h3>登录建档</h3><p>手机号验证，保存项目进度与双方确认记录。</p></div></article>
-          <article class="journey-node reveal"><small>STEP 02 · AMIE</small><div><h3>上传与风格</h3><p>双方各 1–5 张照片，填写身高并从四套风格中选择。</p></div></article>
+          <article class="journey-node reveal"><small>STEP 02 · AMIE</small><div><h3>上传与风格</h3><p>双方各 1–10 张照片，填写身高并从四套风格中选择。</p></div></article>
           <article class="journey-node reveal"><small>STEP 03 · STYLING</small><div><h3>双人造型</h3><p>女生、男生依次确认妆容、发型和服装，可补充文字偏好。</p></div></article>
           <article class="journey-node reveal"><small>STEP 04 · PHOTO</small><div><h3>两个户外场景</h3><p>摄影师根据风格与造型推荐两个可选场景。</p></div></article>
           <article class="journey-node reveal"><small>STEP 05 · AMIE</small><div><h3>方案汇总</h3><p>把专业选择整理成一张创作工单，确认后锁定。</p></div></article>
@@ -318,7 +318,7 @@
           <article class="journey-node reveal"><small>STEP 08 · REVEAL</small><div><h3>九张成片</h3><p>近景 2、中景 3、远景 2、特写 2，形成完整叙事。</p></div></article>
         </div>
         <div class="journey-return reveal"><span>样片不满意，不会直接生成九张</span><span>可以退回风格、女生造型、男生造型、摄影场景或仅重新生成样片。</span></div>
-        <div class="journey-actions reveal"><button class="solid-btn" type="button" data-open-studio>体验完整交互流程</button><span class="prototype-note">本页为产品交互原型，不会真实发送验证码或生成付费订单。</span></div>
+        <div class="journey-actions reveal"><button class="solid-btn" type="button" data-open-studio>体验完整交互流程</button><span class="prototype-note">工作台已接入小囍后端接口；登录和支付为演示。</span></div>
       </div>
     </section>
 
@@ -342,12 +342,12 @@
       <button class="close-ui" type="button" data-close-auth aria-label="关闭登录">×</button>
       <div class="auth-visual"><strong>COBLANC 共白</strong><div><h2>先认识一下，<br>再一起开始。</h2><p>登录后，Amie 会为你保存风格偏好、对话记录、候选照片与最终交付。</p></div></div>
       <form class="auth-form" id="authForm" novalidate>
-        <div class="eyebrow">Welcome to COBLANC</div><h2 id="authTitle">登录你的婚礼项目</h2><p>当前为交互原型。填写任意 11 位手机号，验证码使用 123456。</p>
+        <div class="eyebrow">Welcome to COBLANC</div><h2 id="authTitle">登录你的婚礼项目</h2><p>演示登录（未接登录后端）：填写任意 11 位手机号，验证码使用 123456。</p>
         <div class="field"><label for="phone">手机号码</label><input id="phone" inputmode="numeric" autocomplete="tel" maxlength="11" placeholder="请输入 11 位手机号"></div>
         <div class="field"><label for="code">验证码</label><div class="code-row"><input id="code" inputmode="numeric" maxlength="6" placeholder="请输入验证码"><button id="sendCode" type="button">获取验证码</button></div></div>
         <label class="consent"><input id="consent" type="checkbox"><span>我已阅读并同意用户协议与隐私说明，理解参考照片仅用于本次创作流程演示。</span></label>
         <div class="auth-error" id="authError" aria-live="polite"></div>
-        <button class="auth-submit" type="submit">登录并创建项目</button><div class="auth-hint">验证码不会真实发送 · 原型固定验证码 123456</div>
+        <button class="auth-submit" type="submit">登录并创建项目</button><div class="auth-hint">演示登录 · 验证码不会真实发送 · 固定 123456</div>
       </form>
     </div>
   </div>

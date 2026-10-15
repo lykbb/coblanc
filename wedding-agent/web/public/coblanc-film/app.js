@@ -14,6 +14,123 @@
   let codeTimer = null;
   let project = freshProject();
 
+
+  // ===== 真实接口（同源 /api，开发时由 Vite 代理到后端 8000）=====
+  const API_BASE = '';
+  const POLL_MS = 1500;
+  const PAUSED = ['waiting_user', 'preview_ready', 'awaiting_payment', 'done', 'failed'];
+  const SPEAKERS = { intake: '小囍（项目经理）', styling: '妆造师', framing: '摄影师' };
+  const REDO_REASONS = [['face', '脸不像'], ['body', '身材比例不对'], ['hands', '手部有问题'], ['style', '不喜欢这个风格'], ['other', '其他']];
+  let pollTimer = null;
+  let lastKey = '';
+
+  async function request(path, options = {}) {
+    let res;
+    try {
+      res = await fetch(API_BASE + path, options);
+    } catch (error) {
+      throw new Error('连不上后端服务（' + path + '），请确认后端已启动');
+    }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const error = new Error(data?.error?.message || data?.detail?.[0]?.msg || ('HTTP ' + res.status));
+      error.code = data?.error?.code || ('HTTP_' + res.status);
+      throw error;
+    }
+    return data;
+  }
+  function post(path, body) {
+    return request(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  }
+  const api = {
+    upload(file) { const form = new FormData(); form.append('file', file); return request('/api/uploads', { method: 'POST', body: form }); },
+    createTask(body) { return post('/api/tasks', body); },
+    getTask(taskId) { return request(`/api/tasks/${taskId}`); },
+    answers(taskId, answers) { return post(`/api/tasks/${taskId}/answers`, { answers }); },
+    review(taskId, payload) { return post(`/api/tasks/${taskId}/review`, payload); },
+    pay(taskId) { return post(`/api/tasks/${taskId}/pay`, { method: 'mock' }); }
+  };
+
+  function showApiError(error) {
+    project.apiError = error.code ? `${error.code}：${error.message}` : error.message;
+  }
+  function stopPolling() { clearTimeout(pollTimer); pollTimer = null; }
+  function startPolling() { stopPolling(); lastKey = ''; poll(); }
+  async function poll() {
+    if (!project.taskId) return;
+    try {
+      const data = await api.getTask(project.taskId);
+      const key = JSON.stringify([data.status, data.step, data.step_text, (data.questions || []).map((q) => q.question_id), (data.previews || []).map((p) => p.image_id)]);
+      if (key !== lastKey) {
+        lastKey = key;
+        applyTask(data);
+        if (studioOverlay.classList.contains('open')) renderStudio();
+      } else {
+        project.task = data;
+      }
+      if (PAUSED.includes(data.status)) return stopPolling();
+    } catch (error) {
+      showApiError(error);
+      if (error.code === 'TASK_NOT_FOUND') { dropTask(); renderStudio(); return; }
+      renderStudio();
+    }
+    pollTimer = setTimeout(poll, POLL_MS);
+  }
+  function applyTask(data) {
+    project.task = data;
+    const previews = data.previews || [];
+    if (data.status === 'waiting_user') {
+      project.answers = {};
+      (data.questions || []).forEach((q) => {
+        if (q.type === 'multi_choice') project.answers[q.question_id] = Array.isArray(q.recommended) ? [...q.recommended] : [];
+        else if (q.type === 'upload') project.answers[q.question_id] = [];
+        else project.answers[q.question_id] = q.recommended ?? '';
+      });
+    }
+    if (data.status === 'preview_ready') {
+      project.selectedImage = (previews.find((p) => p.is_best) || previews[0])?.image_id || '';
+      if (data.generation?.stage === 'set') { project.finalPreviews = previews; project.stage = 7; }
+      else { project.sampleUrl = previews[0]?.url || ''; project.stage = 6; }
+    }
+    if (['awaiting_payment', 'delivering', 'done'].includes(data.status)) project.stage = 7;
+    project.sampleReady = Boolean(project.sampleUrl);
+    project.finalReady = data.status === 'done';
+  }
+  function dropTask() {
+    stopPolling();
+    Object.assign(project, { taskId: null, task: null, sampleUrl: '', finalPreviews: [], selectedImage: '', answers: {}, sampleReady: false, finalReady: false, showRework: false });
+  }
+  async function act(action) {
+    if (project.busy) return;
+    project.busy = true;
+    project.apiError = '';
+    renderStudio();
+    try {
+      await action();
+      startPolling();
+    } catch (error) {
+      showApiError(error);
+    } finally {
+      project.busy = false;
+      renderStudio();
+    }
+  }
+  function fileIds(role) { return project.uploads[role].filter((photo) => photo.fileId).map((photo) => photo.fileId); }
+  function buildDescription() {
+    const b = project.bride, g = project.groom;
+    return [
+      `风格：${project.style}`,
+      `身高：女生 ${project.brideHeight}cm / 男生 ${project.groomHeight}cm`,
+      project.styleNote && `风格补充：${project.styleNote}`,
+      `女生造型：妆容 ${b.makeup}，发型 ${b.hair}，服装 ${b.outfit}`,
+      b.note && `女生补充：${b.note}`,
+      `男生造型：妆容 ${g.makeup}，发型 ${g.hair}，服装 ${g.outfit}`,
+      g.note && `男生补充：${g.note}`,
+      `场景：${project.scene}`,
+      project.sceneNote && `摄影补充：${project.sceneNote}`
+    ].filter(Boolean).join('\n');
+  }
+
   function freshProject() {
     return {
       stage: 0,
@@ -30,7 +147,15 @@
       sampleReady: false,
       sampleNote: '',
       showRework: false,
-      finalReady: false
+      finalReady: false,
+      taskId: null,
+      task: null,
+      busy: false,
+      apiError: '',
+      answers: {},
+      sampleUrl: '',
+      finalPreviews: [],
+      selectedImage: ''
     };
   }
 
@@ -134,7 +259,7 @@
     const consent = document.getElementById('consent').checked;
     const error = document.getElementById('authError');
     if (!/^1\d{10}$/.test(phone)) return void (error.textContent = '请输入有效的 11 位手机号');
-    if (code !== '123456') return void (error.textContent = '原型验证码为 123456');
+    if (code !== '123456') return void (error.textContent = '演示登录（未接登录后端）：验证码固定为 123456');
     if (!consent) return void (error.textContent = '请先同意用户协议与隐私说明');
     setSession(phone);
     error.textContent = '';
@@ -180,15 +305,15 @@
   function uploadCard(role, title, subtitle) {
     const photos = project.uploads[role];
     return `<section class="upload-card">
-      <div class="upload-card-head"><div><h3>${title}</h3><small>${subtitle}</small></div><span class="upload-count">${photos.length} / 5</span></div>
-      <label class="upload-drop"><input type="file" accept="image/*" multiple data-upload="${role}"><b>＋ 选择照片</b><span>支持一次多选，至少 1 张、最多 5 张</span></label>
-      <div class="thumbs">${photos.map((photo, index) => `<div class="thumb"><img src="${photo.url}" alt="${escapeHTML(title)}参考照 ${index + 1}"><button type="button" data-remove-upload="${role}" data-index="${index}" aria-label="移除照片">×</button></div>`).join('')}</div>
+      <div class="upload-card-head"><div><h3>${title}</h3><small>${subtitle}</small></div><span class="upload-count">${photos.filter((photo) => photo.fileId).length} / 10</span></div>
+      <label class="upload-drop"><input type="file" accept="image/*" multiple data-upload="${role}"><b>＋ 选择照片</b><span>支持一次多选，至少 1 张、最多 10 张</span></label>
+      <div class="thumbs">${photos.map((photo, index) => `<div class="thumb"><img src="${photo.url}" alt="${escapeHTML(title)}参考照 ${index + 1}">${photo.status === 'done' ? '' : `<small style="position:absolute;left:4px;bottom:4px;background:#fff;padding:0 4px">${photo.status === 'failed' ? '上传失败' : '上传中'}</small>`}<button type="button" data-remove-upload="${role}" data-index="${index}" aria-label="移除照片">×</button></div>`).join('')}</div>
       <div class="stage-error">${escapeHTML(project.uploadError[role])}</div>
     </section>`;
   }
 
   function renderUpload() {
-    return `${agent('Amie 正在建立双人档案', 'A')}<span class="prototype-badge">STEP 01 · IDENTITY REFERENCES</span><h2>先让我好好认识你们。</h2><p class="stage-desc">男女双方分别上传清晰近照。系统会在继续前检查数量，照片只用于本次原型预览，不会上传到服务器。</p><div class="upload-grid">${uploadCard('bride', '女生照片', '正脸清晰，可包含不同角度')}${uploadCard('groom', '男生照片', '正脸清晰，可包含不同角度')}</div><div class="upload-guidance">建议包含正脸、轻微侧脸和自然表情；避免多人合照、重度滤镜、墨镜或大面积遮挡。</div>${actions('稍后再说', '选择风格')}`;
+    return `${agent('Amie 正在建立双人档案', 'A')}<span class="prototype-badge">STEP 01 · IDENTITY REFERENCES</span><h2>先让我好好认识你们。</h2><p class="stage-desc">男女双方分别上传清晰近照。系统会在继续前检查数量，照片会上传到小囍后端（POST /api/uploads），只用于本次生成。</p><div class="upload-grid">${uploadCard('bride', '女生照片', '正脸清晰，可包含不同角度')}${uploadCard('groom', '男生照片', '正脸清晰，可包含不同角度')}</div><div class="upload-guidance">建议包含正脸、轻微侧脸和自然表情；避免多人合照、重度滤镜、墨镜或大面积遮挡。</div>${actions('稍后再说', '选择风格')}`;
   }
 
   function renderStyle() {
@@ -246,23 +371,74 @@
   }
 
   function sampleImage() {
-    return project.style.includes('中式') ? 'assets/style-chinese.png' : project.scene.includes('庄园') ? 'assets/coblanc-film-hero.png' : 'assets/style-french.png';
+    return project.sampleUrl;
+  }
+
+  function taskProgress(t) {
+    return `<div class="gen-card"><div class="gen-log">${escapeHTML(t?.step_text || '已提交，等待后端处理')}<br><small>状态 ${escapeHTML(t?.status || '-')} · 步骤 ${escapeHTML(t?.step || '-')} · 任务 ${escapeHTML(project.taskId || '-')}</small></div><button class="solid-btn" type="button" data-refresh>刷新状态</button></div>`;
+  }
+
+  function taskFailed(t) {
+    return `<h2>这次没做成</h2><p class="stage-desc">错误码：${escapeHTML(t.error?.code || '（无）')}<br>说明：${escapeHTML(t.error?.message || '出了点问题')}<br>停在：${escapeHTML(t.step || '（无）')}</p><div class="stage-actions"><button class="back" type="button" data-restart>重新开始</button></div>`;
+  }
+
+  function renderQuestions(questions) {
+    return questions.map((q) => {
+      const value = project.answers[q.question_id];
+      let body = '';
+      if (q.type === 'single_choice' || q.type === 'multi_choice') {
+        body = `<div class="rework-grid">${(q.options || []).map((o) => {
+          const on = q.type === 'multi_choice' ? (value || []).includes(o.value) : value === o.value;
+          return `<button type="button" class="${on ? 'selected' : ''}" style="${on ? 'outline:2px solid currentColor' : ''}" data-q="${escapeHTML(q.question_id)}" data-qtype="${q.type}" data-v="${escapeHTML(o.value)}">${o.image ? `<img src="${escapeHTML(o.image)}" alt="" style="width:100%;display:block">` : ''}${on ? '✓ ' : ''}${escapeHTML(o.label)}</button>`;
+        }).join('')}</div>`;
+      } else if (q.type === 'upload') {
+        body = `<label class="upload-drop"><input type="file" accept="image/*" multiple data-qupload="${escapeHTML(q.question_id)}"><b>＋ 选择照片</b><span>已上传 ${(value || []).length} 张</span></label>`;
+      } else {
+        body = `<textarea data-qtext="${escapeHTML(q.question_id)}" placeholder="${escapeHTML(q.placeholder || '')}">${escapeHTML(value)}</textarea>`;
+      }
+      return `<div class="prompt-box"><label>${escapeHTML(q.title)}${q.allow_skip ? '（可跳过）' : '（必答）'}</label>${body}</div>`;
+    }).join('');
+  }
+
+  function reworkPanel() {
+    return `<div class="rework-panel${project.showRework ? ' open' : ''}"><p class="stage-desc">选一个原因，后端会重新生成（POST review action=redo）。备注写在上面的输入框里。</p><div class="rework-grid">${REDO_REASONS.map(([value, label]) => `<button type="button" data-redo="${value}">${label}</button>`).join('')}</div></div>`;
   }
 
   function renderSample() {
-    if (!project.sampleReady) {
-      return `${agent('生图 Agent 与修图师已收到工单', '生', 'Amie 会在生成后陪你一起确认')}<span class="prototype-badge">STEP 07 · SAMPLE</span><h2>先生成一张，把方向看清楚。</h2><p class="stage-desc">本次只生成一张样片。确认后才进入九张成片，避免消耗在错误方向上。</p><div class="gen-card"><div class="gen-log" id="genLog">双方参考照数量校验通过<br>造型与场景工单已锁定<br>等待生成样片</div><div class="gen-track"><div class="gen-bar" id="genBar"></div></div><button class="solid-btn" id="generateSample" type="button">生成 1 张样片</button></div><div class="stage-actions"><button class="back" type="button" data-back>返回方案</button><span class="prototype-note">原型使用示意图模拟生成结果</span></div>`;
+    const t = project.task;
+    const head = `${agent('生图 Agent 与修图师', '生', 'Amie 会在生成后陪你一起确认')}<span class="prototype-badge">STEP 07 · SAMPLE</span>`;
+    const busy = project.busy ? 'disabled' : '';
+    if (!t) return `${head}<h2>还没有提交任务</h2><p class="stage-desc">请回到方案汇总页点「确认并生成 1 张样片」。</p><div class="stage-actions"><button class="back" type="button" data-back>返回方案</button></div>`;
+    if (t.status === 'failed') return head + taskFailed(t);
+    if (t.status === 'waiting_user') {
+      return `${head}<h2>${escapeHTML(SPEAKERS[t.step] || '小囍')}想再确认几件事</h2><p class="stage-desc">${escapeHTML(t.step_text || '')}</p>${renderQuestions(t.questions || [])}<div class="stage-error" id="stageError" aria-live="polite"></div><div class="stage-actions"><button class="back" type="button" data-back>返回方案</button><button class="next" id="submitAnswers" type="button" ${busy}>提交回答 →</button></div>`;
     }
-    return `${agent('修图师已完成样片初检', '修', 'Amie 想先听你的真实感受')}<span class="prototype-badge">STEP 07 · SAMPLE REVIEW</span><h2>这张像你们，也像想要的婚纱照吗？</h2><div class="sample-layout"><div class="sample-image"><img src="${sampleImage()}" alt="COBLANC 婚纱照样片"></div><div><div class="score-row"><span class="score">双人辨识度 94</span><span class="score">手部结构 96</span><span class="score">服装完整度 95</span><span class="score">画面清晰度 97</span></div><p class="stage-desc">修图师建议通过。你仍然拥有最终决定权，不满意可以按问题准确退回。</p>${promptBox('告诉 Amie 哪里还不对（可选）', 'sampleNote', '例如女生发型不对、男生不像、场景太空、希望动作更自然')}<div class="review-actions"><button class="approve" id="approveSample" type="button">符合预期，生成 9 张成片 →</button><button id="toggleRework" type="button">不符合，我想调整</button></div><div class="rework-panel${project.showRework ? ' open' : ''}" id="reworkPanel"><div class="rework-grid"><button data-route="1">风格或身高不对</button><button data-route="2">女生妆造不对</button><button data-route="3">男生妆造不对</button><button data-route="4">场景或摄影感觉不对</button><button data-route="regen">方案没问题，重新生成</button></div></div></div></div><div class="stage-actions"><button class="back" type="button" data-back>返回方案</button><span class="prototype-note">不满意不会进入九张成片</span></div>`;
+    if (t.status === 'preview_ready' && t.generation?.stage !== 'set') {
+      const gen = t.generation || {};
+      return `${head}<h2>这张像你们，也像想要的婚纱照吗？</h2><div class="sample-layout"><div class="sample-image"><img src="${escapeHTML(project.sampleUrl)}" alt="样片"></div><div><div class="score-row"><span class="score">引擎 ${escapeHTML(gen.engine || '-')}</span><span class="score">耗时 ${escapeHTML(gen.seconds ?? '-')}s</span><span class="score">累计 ${escapeHTML(gen.total_images ?? '-')} 张</span></div>${promptBox('告诉 Amie 哪里还不对（重做时作为备注）', 'sampleNote', '例如女生发型不对、男生不像、希望动作更自然')}<div class="review-actions"><button class="approve" id="approveSample" type="button" ${busy}>符合预期，生成 9 张成片 →</button><button id="sampleOnly" type="button" ${busy}>只要这一张，直接交付</button><button id="toggleRework" type="button" ${busy}>不符合，重新生成</button></div>${reworkPanel()}</div></div><div class="stage-actions"><button class="back" type="button" data-back>返回方案</button></div>`;
+    }
+    return `${head}<h2>正在制作中…</h2><p class="stage-desc">每 ${POLL_MS / 1000} 秒查询一次 GET /api/tasks/{id}。</p>${taskProgress(t)}<div class="stage-actions"><button class="back" type="button" data-back>返回方案</button></div>`;
   }
 
   function renderFinal() {
-    const labels = ['特写 01', '近景 01', '中景 01', '远景 01', '中景 02', '近景 02', '远景 02', '中景 03', '特写 02'];
-    const sources = labels.map((_, index) => index % 3 === 1 ? 'assets/coblanc-film-couple.png' : sampleImage());
-    if (!project.finalReady) {
-      return `${agent('摄影师与修图师准备整套出片', '摄', '样片已确认，Amie 将陪你等待最终揭晓')}<span class="prototype-badge">STEP 08 · FINAL SET</span><h2>一张定方向，九张讲完整故事。</h2><p class="stage-desc">九张成片会保持同一套人物、造型与色调，同时覆盖不同规格和镜头距离。</p><div class="final-plan"><span>近景 × 2</span><span>中景 × 3</span><span>远景 × 2</span><span>特写 × 2</span></div><div class="gen-card"><div class="gen-log" id="genLog">样片方向已锁定<br>摄影师正在编排九张镜头<br>修图师将在生成后逐张验收</div><div class="gen-track"><div class="gen-bar" id="genBar"></div></div><button class="solid-btn" id="generateFinal" type="button">生成 9 张成片</button></div><div class="stage-actions"><button class="back" type="button" data-back>返回样片</button><span class="prototype-note">原型使用现有图像模拟九张交付结构</span></div>`;
+    const t = project.task;
+    const head = `${agent('摄影师与修图师', '摄', '样片已确认')}<span class="prototype-badge">STEP 08 · FINAL SET</span>`;
+    const busy = project.busy ? 'disabled' : '';
+    if (!t) return `${head}<h2>还没有任务</h2><div class="stage-actions"><button class="back" type="button" data-back>返回样片</button></div>`;
+    if (t.status === 'failed') return head + taskFailed(t);
+    if (t.status === 'preview_ready' && t.generation?.stage === 'set') {
+      return `${head}<h2>九张成片已生成，点一张作为主图。</h2><div class="final-nine">${project.finalPreviews.map((p, index) => `<figure class="final-frame" data-pick="${escapeHTML(p.image_id)}" style="cursor:pointer;${p.image_id === project.selectedImage ? 'outline:3px solid currentColor' : ''}"><img src="${escapeHTML(p.url)}" alt="成片 ${index + 1}"><span>0${index + 1}${p.is_best ? ' · 推荐' : ''}${p.image_id === project.selectedImage ? ' · 已选' : ''}</span></figure>`).join('')}</div>${promptBox('不满意的地方（重做时作为备注）', 'sampleNote', '例如第 3 张手部不对')}<div class="review-actions"><button class="approve" id="confirmSet" type="button" ${busy}>满意，去支付 →</button><button id="toggleRework" type="button" ${busy}>不满意，重新生成</button></div>${reworkPanel()}`;
     }
-    return `${agent('Amie 为你们揭晓完整作品', 'A', '四位专家已经完成逐张验收')}<span class="prototype-badge">FINAL REVEAL · 9 FRAMES</span><h2>这是属于你们的九个瞬间。</h2><p class="stage-desc">镜头距离与画幅已经覆盖婚礼请帖、迎宾、社交发布和相册排版所需的基本场景。</p><div class="final-nine">${labels.map((label, index) => `<figure class="final-frame"><img src="${sources[index]}" alt="${label}"><span>0${index + 1} · ${label}</span></figure>`).join('')}</div><div class="stage-actions"><button class="back" type="button" data-back>返回样片</button><button class="next" id="saveProject" type="button">保存到我的作品</button></div>`;
+    if (t.status === 'awaiting_payment') {
+      return `${head}<h2>确认完成，去支付</h2><p class="stage-desc">演示支付（method=mock），不会真实扣款。</p><div class="stage-actions"><button class="back" type="button" data-back>返回样片</button><button class="next" id="payTask" type="button" ${busy}>模拟支付 →</button></div>`;
+    }
+    if (t.status === 'done') {
+      const d = t.deliverables || {};
+      const photos = d.photos?.length ? d.photos : (d.photo ? [d.photo] : []);
+      const materials = Object.entries(d).filter(([key]) => key !== 'photos' && key !== 'photo');
+      return `${agent('Amie 为你们揭晓完整作品', 'A')}<span class="prototype-badge">FINAL REVEAL · ${photos.length} FRAMES</span><h2>这是属于你们的${photos.length > 1 ? '九个瞬间' : '那一张'}。</h2>${t.message ? `<p class="stage-desc">${escapeHTML(t.message)}</p>` : ''}<div class="final-nine">${photos.map((url, index) => `<figure class="final-frame"><a href="${escapeHTML(url)}" target="_blank" download><img src="${escapeHTML(url)}" alt="成片 ${index + 1}"></a><span>0${index + 1} · 点击下载</span></figure>`).join('')}</div>${materials.length ? `<div class="summary-grid">${materials.map(([key, url]) => `<div class="summary-item"><small>${escapeHTML(key)}</small><strong><a href="${escapeHTML(url)}" target="_blank" download>下载</a></strong></div>`).join('')}</div>` : ''}<div class="stage-actions"><button class="back" type="button" data-restart>再做一套</button></div>`;
+    }
+    return `${head}<h2>正在制作中…</h2>${taskProgress(t)}`;
   }
 
   function renderChat() {
@@ -338,9 +514,9 @@
     }
     if (index === 4) return `<div class="node-result visual-result single-result">${resultVisual(selectionAssets[project.scene], project.scene || '等待场景选择', 'landscape')}<div class="result-facts"><span>特写</span><span>近景</span><span>中景</span><span>远景</span></div></div>`;
     if (index === 5) return `<div class="node-result result-brief"><span>${escapeHTML(project.style || '风格待确认')}</span><span>${escapeHTML(project.scene || '场景待确认')}</span><span>${state === 'done' ? '工单已锁定' : '等待 Amie 汇总'}</span></div>`;
-    if (index === 6) return `<div class="node-result visual-result sample-result">${project.sampleReady ? resultVisual(sampleImage(), '当前样片', 'landscape') : resultVisual('', '等待生成样片', 'landscape')}<div class="result-facts"><span>${project.sampleReady ? '修图师已初检' : '尚未验收'}</span></div></div>`;
-    const finalSources = Array.from({ length: 9 }, (_, photoIndex) => photoIndex % 3 === 1 ? 'assets/coblanc-film-couple.png' : sampleImage());
-    return `<div class="node-result visual-result final-result">${project.finalReady ? finalSources.map((src, photoIndex) => resultVisual(src, `0${photoIndex + 1}`, 'final-thumb')).join('') : resultVisual('', '等待 9 张成片', 'landscape')}</div>`;
+    if (index === 6) return `<div class="node-result visual-result sample-result">${project.sampleReady ? resultVisual(project.sampleUrl, '当前样片', 'landscape') : resultVisual('', '等待生成样片', 'landscape')}<div class="result-facts"><span>${project.sampleReady ? '修图师已初检' : '尚未验收'}</span></div></div>`;
+    const finalSources = project.finalPreviews.map((p) => p.url);
+    return `<div class="node-result visual-result final-result">${finalSources.length ? finalSources.map((src, photoIndex) => resultVisual(src, `0${photoIndex + 1}`, 'final-thumb')).join('') : resultVisual('', '等待 9 张成片', 'landscape')}</div>`;
   }
 
   function renderNodeFlow() {
@@ -381,18 +557,22 @@
     renderExpertPipeline();
     renderNodeFlow();
     const renderers = [renderUpload, renderStyle, renderBride, renderGroom, renderScene, renderSummary, renderSample, renderFinal];
-    stagePanel.innerHTML = renderers[project.stage]();
+    const banner = project.apiError ? `<div role="alert" style="border:1px solid #c0392b;color:#c0392b;padding:8px 12px;margin-bottom:12px">接口出错：${escapeHTML(project.apiError)}</div>` : '';
+    stagePanel.innerHTML = banner + renderers[project.stage]();
     bindStageEvents();
     const content = document.querySelector('.studio-content');
     const activeNode = document.querySelector('.graph-node.active');
-    requestAnimationFrame(() => { content.scrollTop = Math.max(0, activeNode.offsetTop - 26); });
+    requestAnimationFrame(() => { content.scrollTop = Math.max(0, (activeNode ? activeNode.offsetTop : 0) - 26); });
     document.querySelector('.chat-scroll').scrollTop = 0;
   }
 
   function validateStage() {
     if (project.stage === 0) {
-      if (project.uploads.bride.length < 1 || project.uploads.groom.length < 1) return '请为女生和男生分别上传至少 1 张照片';
-      if (project.uploads.bride.length > 5 || project.uploads.groom.length > 5) return '每个人最多上传 5 张照片';
+      const all = [...project.uploads.bride, ...project.uploads.groom];
+      if (all.some((photo) => photo.status === 'uploading')) return '照片还在上传，请稍等';
+      if (all.some((photo) => photo.status === 'failed')) return '有照片上传失败，请删掉后重新上传';
+      if (fileIds('bride').length < 1 || fileIds('groom').length < 1) return '请为女生和男生分别上传至少 1 张照片';
+      if (fileIds('bride').length > 10 || fileIds('groom').length > 10) return '每个人最多上传 10 张照片';
     }
     if (project.stage === 1) {
       const heights = [Number(project.brideHeight), Number(project.groomHeight)];
@@ -406,24 +586,34 @@
   }
 
   function resetGeneratedResults() {
-    project.sampleReady = false;
-    project.showRework = false;
-    project.finalReady = false;
+    dropTask();
   }
 
   function bindStageEvents() {
-    stagePanel.querySelectorAll('[data-upload]').forEach((input) => input.addEventListener('change', () => {
+    stagePanel.querySelectorAll('[data-upload]').forEach((input) => input.addEventListener('change', async () => {
       const role = input.dataset.upload;
       const files = [...input.files].filter((file) => file.type.startsWith('image/'));
       const total = project.uploads[role].length + files.length;
-      if (total > 5) {
-        project.uploadError[role] = `当前已有 ${project.uploads[role].length} 张，本次最多还能添加 ${5 - project.uploads[role].length} 张`;
-      } else {
-        project.uploadError[role] = '';
-        files.forEach((file) => project.uploads[role].push({ name: file.name, url: URL.createObjectURL(file) }));
+      if (total > 10) {
+        project.uploadError[role] = `当前已有 ${project.uploads[role].length} 张，本次最多还能添加 ${10 - project.uploads[role].length} 张`;
+        return renderStudio();
       }
+      project.uploadError[role] = '';
       resetGeneratedResults();
+      const items = files.map((file) => ({ name: file.name, url: URL.createObjectURL(file), status: 'uploading', fileId: null, file }));
+      project.uploads[role].push(...items);
       renderStudio();
+      for (const item of items) {
+        try {
+          const result = await api.upload(item.file);
+          item.fileId = result.file_id;
+          item.status = 'done';
+        } catch (error) {
+          item.status = 'failed';
+          project.uploadError[role] = `${item.name} 上传失败：${error.message}`;
+        }
+        renderStudio();
+      }
     }));
 
     stagePanel.querySelectorAll('[data-remove-upload]').forEach((button) => button.addEventListener('click', () => {
@@ -453,6 +643,15 @@
         if (error) error.textContent = errorMessage;
         return;
       }
+      if (project.stage === 5) {
+        if (project.taskId) { project.stage = 6; renderStudio(); return startPolling(); }
+        return act(async () => {
+          const created = await api.createTask({ groom_photo_file_ids: fileIds('groom'), bride_photo_file_ids: fileIds('bride'), description: buildDescription() });
+          project.taskId = created.task_id;
+          project.task = { status: created.status };
+          project.stage = 6;
+        });
+      }
       project.stage = Math.min(stages.length - 1, project.stage + 1);
       renderStudio();
     });
@@ -464,41 +663,64 @@
       renderStudio();
     });
 
-    const generateSample = document.getElementById('generateSample');
-    if (generateSample) generateSample.addEventListener('click', () => {
-      generateSample.disabled = true;
-      document.getElementById('genBar').classList.add('run');
-      document.getElementById('genLog').innerHTML = '正在融合双方人物特征<br>正在应用造型与户外场景<br>修图师正在检查手部、比例与清晰度';
-      setTimeout(() => { project.sampleReady = true; renderStudio(); }, 1800);
-    });
+    const byId = (id) => document.getElementById(id);
+    const note = () => (project.sampleNote || '').trim() || null;
+    stagePanel.querySelectorAll('[data-refresh]').forEach((button) => button.addEventListener('click', startPolling));
+    stagePanel.querySelectorAll('[data-restart]').forEach((button) => button.addEventListener('click', () => { dropTask(); project.apiError = ''; project.stage = 0; renderStudio(); }));
 
-    const approve = document.getElementById('approveSample');
-    if (approve) approve.addEventListener('click', () => { project.stage = 7; project.showRework = false; renderStudio(); });
-    const toggleRework = document.getElementById('toggleRework');
-    if (toggleRework) toggleRework.addEventListener('click', () => { project.showRework = !project.showRework; renderStudio(); });
-    stagePanel.querySelectorAll('[data-route]').forEach((button) => button.addEventListener('click', () => {
-      if (button.dataset.route === 'regen') {
-        project.sampleReady = false;
+    stagePanel.querySelectorAll('[data-q]').forEach((button) => button.addEventListener('click', () => {
+      const id = button.dataset.q;
+      const value = button.dataset.v;
+      if (button.dataset.qtype === 'multi_choice') {
+        const list = project.answers[id] || [];
+        project.answers[id] = list.includes(value) ? list.filter((item) => item !== value) : [...list, value];
       } else {
-        project.stage = Number(button.dataset.route);
-        resetGeneratedResults();
+        project.answers[id] = value;
+      }
+      renderStudio();
+    }));
+    stagePanel.querySelectorAll('[data-qtext]').forEach((input) => input.addEventListener('input', () => { project.answers[input.dataset.qtext] = input.value; }));
+    stagePanel.querySelectorAll('[data-qupload]').forEach((input) => input.addEventListener('change', async () => {
+      const id = input.dataset.qupload;
+      for (const file of [...input.files]) {
+        try {
+          const result = await api.upload(file);
+          project.answers[id] = [...(project.answers[id] || []), result.file_id];
+        } catch (error) {
+          showApiError(error);
+        }
       }
       renderStudio();
     }));
 
-    const generateFinal = document.getElementById('generateFinal');
-    if (generateFinal) generateFinal.addEventListener('click', () => {
-      generateFinal.disabled = true;
-      document.getElementById('genBar').classList.add('run');
-      document.getElementById('genLog').innerHTML = '正在生成 2 张特写与 2 张近景<br>正在生成 3 张中景与 2 张远景<br>修图师正在逐张完成最终验收';
-      setTimeout(() => { project.finalReady = true; renderStudio(); }, 2000);
+    const submitAnswers = byId('submitAnswers');
+    if (submitAnswers) submitAnswers.addEventListener('click', () => {
+      const questions = project.task?.questions || [];
+      const empty = (value) => value === '' || value == null || (Array.isArray(value) && value.length === 0);
+      const answers = questions.map((q) => {
+        const value = project.answers[q.question_id];
+        return empty(value) ? { question_id: q.question_id, skipped: true } : { question_id: q.question_id, value };
+      });
+      const missing = questions.find((q, index) => !q.allow_skip && answers[index].skipped);
+      if (missing) { byId('stageError').textContent = `这题必须回答：${missing.title}`; return; }
+      act(() => api.answers(project.taskId, answers));
     });
 
-    const save = document.getElementById('saveProject');
-    if (save) save.addEventListener('click', () => {
-      save.textContent = '已保存到我的作品';
-      save.disabled = true;
-    });
+    const approve = byId('approveSample');
+    if (approve) approve.addEventListener('click', () => act(() => api.review(project.taskId, { action: 'confirm', image_id: project.selectedImage })));
+    const sampleOnly = byId('sampleOnly');
+    if (sampleOnly) sampleOnly.addEventListener('click', () => act(() => api.review(project.taskId, { action: 'sample_only', image_id: project.selectedImage })));
+    const confirmSet = byId('confirmSet');
+    if (confirmSet) confirmSet.addEventListener('click', () => act(() => api.review(project.taskId, { action: 'confirm', image_id: project.selectedImage })));
+    const toggleRework = byId('toggleRework');
+    if (toggleRework) toggleRework.addEventListener('click', () => { project.showRework = !project.showRework; renderStudio(); });
+    stagePanel.querySelectorAll('[data-redo]').forEach((button) => button.addEventListener('click', () => {
+      project.showRework = false;
+      act(() => api.review(project.taskId, { action: 'redo', image_id: project.selectedImage, reason: button.dataset.redo, note: note() }));
+    }));
+    stagePanel.querySelectorAll('[data-pick]').forEach((figure) => figure.addEventListener('click', () => { project.selectedImage = figure.dataset.pick; renderStudio(); }));
+    const payTask = byId('payTask');
+    if (payTask) payTask.addEventListener('click', () => act(() => api.pay(project.taskId)));
   }
 
   updateSessionUI();
