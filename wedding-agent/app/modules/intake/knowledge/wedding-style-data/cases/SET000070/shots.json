@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000596",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘举花、新郎马甲造型举杯",
+    "composition": "双人全身，新娘举花、新郎马甲造型举杯",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘举花、新郎马甲造型举杯",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000597",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新郎托住新娘后仰，二人戴墨镜",
+    "composition": "双人中景，新郎托住新娘后仰，二人戴墨镜",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新郎托住新娘后仰，二人戴墨镜",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000598",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "共举白色文字布幅",
+    "composition": "双人全身，共举白色文字布幅",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，共举白色文字布幅",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000599",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "扬花瓣时亲近",
+    "composition": "双人全身，扬花瓣时亲近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，扬花瓣时亲近",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000600",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "画架旁戴墨镜做手势",
+    "composition": "双人中全景，画架旁戴墨镜做手势",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，画架旁戴墨镜做手势",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000601",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "画架边抛花瓣",
+    "composition": "双人环境全身，画架边抛花瓣",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，画架边抛花瓣",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000602",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "环肩挥手、新娘持花",
+    "composition": "双人近景，环肩挥手、新娘持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，环肩挥手、新娘持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000603",
+    "evidence_type": "observed",
+    "shot": "上下拼版：举杯肖像与墨镜俏皮手势",
+    "action": "上下拼版：举杯肖像与墨镜俏皮手势",
+    "composition": "上下拼版：举杯肖像与墨镜俏皮手势",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json；拼版仅作来源记录，先选其中一个画面再单独定义分镜，不把拼版整体当一张摄影镜头。",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": null,
+    "generation_tested": false,
+    "is_composite": true
+  },
+  {
+    "image_id": "IMG000604",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "牵手向上抛两把伞",
+    "composition": "双人全身，牵手向上抛两把伞",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，牵手向上抛两把伞",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

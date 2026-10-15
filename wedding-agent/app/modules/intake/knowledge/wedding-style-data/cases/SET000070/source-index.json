@@ -1,0 +1,263 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000070",
+ "name": "草坪仪式感白纱鱼尾",
+ "primary_category_id": "04",
+ "secondary_category_id": "04-01",
+ "tags": [
+  "白纱",
+  "抹胸蕾丝鱼尾蓬裙",
+  "头纱手捧",
+  "灰背心白衬衫黑领结",
+  "草坪绿树",
+  "白色餐桌花艺",
+  "婚礼画架",
+  "仪式感"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "成都婚纱照摄影工作室-源画摄影",
+  "url": "https://m.weibo.cn/detail/5315452219950411",
+  "published_date": "2026-06-30",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：成都婚纱照摄影工作室-源画摄影）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（抹胸蕾丝鱼尾蓬裙+头纱；新郎灰背心白衬衫黑领结）、连贯风格（草坪仪式感白纱鱼尾）",
+ "clothing": {
+  "新娘": "抹胸蕾丝鱼尾蓬裙+头纱手捧",
+  "新郎": "灰背心+白衬衫+黑领结"
+ },
+ "scene_and_light": "草坪绿树+白色餐桌花艺+婚礼画架，自然光，仪式感户外婚礼",
+ "limitations": [
+  "超高清原图4672×7008（w08为1200×1600中等）",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000596",
+   "set_id": "SET000070",
+   "file_name": "IMG000596.jpg",
+   "source_page": 1,
+   "width": 4672,
+   "height": 7008,
+   "format": "jpg",
+   "sha256": "658c471318efecbeb1db34ef9368c1bff3236b35e8eb8532050d7229ff3975f8",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝鱼尾蓬裙+头纱手捧",
+    "新郎": "灰背心+白衬衫+黑领结"
+   },
+   "scene_and_light_ref": "草坪绿树+白色餐桌花艺+婚礼画架，自然光，仪式感户外婚礼",
+   "useful_visual_information": null,
+   "text_and_marks": "顶部带「Heart flipped 怦然心动」艺术字，底部带「YUANHUA STUDIO源画摄影」+「@源画摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "658c471318efecbeb1db34ef9368c1bff3236b35e8eb8532050d7229ff3975f8",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000597",
+   "set_id": "SET000070",
+   "file_name": "IMG000597.jpg",
+   "source_page": 2,
+   "width": 4672,
+   "height": 7008,
+   "format": "jpg",
+   "sha256": "45a7489126ec0e74182281d2e543addf7c22b4665e0cc65505e4222d88093f78",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝鱼尾蓬裙+头纱手捧",
+    "新郎": "灰背心+白衬衫+黑领结"
+   },
+   "scene_and_light_ref": "草坪绿树+白色餐桌花艺+婚礼画架，自然光，仪式感户外婚礼",
+   "useful_visual_information": null,
+   "text_and_marks": "顶部带「Heart flipped 怦然心动」艺术字，底部带「YUANHUA STUDIO源画摄影」+「@源画摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "45a7489126ec0e74182281d2e543addf7c22b4665e0cc65505e4222d88093f78",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000598",
+   "set_id": "SET000070",
+   "file_name": "IMG000598.jpg",
+   "source_page": 3,
+   "width": 4672,
+   "height": 7008,
+   "format": "jpg",
+   "sha256": "3a26de3c4171ef8447fb2a2b0ffc25f5d30a6208d63dbcc198a50ef5715b3471",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝鱼尾蓬裙+头纱手捧",
+    "新郎": "灰背心+白衬衫+黑领结"
+   },
+   "scene_and_light_ref": "草坪绿树+白色餐桌花艺+婚礼画架，自然光，仪式感户外婚礼",
+   "useful_visual_information": null,
+   "text_and_marks": "顶部带「Heart flipped 怦然心动」艺术字，底部带「YUANHUA STUDIO源画摄影」+「@源画摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "3a26de3c4171ef8447fb2a2b0ffc25f5d30a6208d63dbcc198a50ef5715b3471",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000599",
+   "set_id": "SET000070",
+   "file_name": "IMG000599.jpg",
+   "source_page": 4,
+   "width": 4672,
+   "height": 7008,
+   "format": "jpg",
+   "sha256": "39495f1f8dde05c4c869521d9d34592013535a434d32c482952e0e4066d17727",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝鱼尾蓬裙+头纱手捧",
+    "新郎": "灰背心+白衬衫+黑领结"
+   },
+   "scene_and_light_ref": "草坪绿树+白色餐桌花艺+婚礼画架，自然光，仪式感户外婚礼",
+   "useful_visual_information": null,
+   "text_and_marks": "顶部带「Heart flipped 怦然心动」艺术字，底部带「YUANHUA STUDIO源画摄影」+「@源画摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "39495f1f8dde05c4c869521d9d34592013535a434d32c482952e0e4066d17727",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000600",
+   "set_id": "SET000070",
+   "file_name": "IMG000600.jpg",
+   "source_page": 5,
+   "width": 4672,
+   "height": 7008,
+   "format": "jpg",
+   "sha256": "063198bd02d5cdaa62f19bd48354a3711446d4a7cc67dac9c17cdd9f311c8d0c",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝鱼尾蓬裙+头纱手捧",
+    "新郎": "灰背心+白衬衫+黑领结"
+   },
+   "scene_and_light_ref": "草坪绿树+白色餐桌花艺+婚礼画架，自然光，仪式感户外婚礼",
+   "useful_visual_information": null,
+   "text_and_marks": "顶部带「Heart flipped 怦然心动」艺术字，底部带「YUANHUA STUDIO源画摄影」+「@源画摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "063198bd02d5cdaa62f19bd48354a3711446d4a7cc67dac9c17cdd9f311c8d0c",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000601",
+   "set_id": "SET000070",
+   "file_name": "IMG000601.jpg",
+   "source_page": 6,
+   "width": 4672,
+   "height": 7008,
+   "format": "jpg",
+   "sha256": "52e9e3c1ab917572063d4dd5b5d83fa6d22fc459f564ff47f0aca5a1a58ca1be",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝鱼尾蓬裙+头纱手捧",
+    "新郎": "灰背心+白衬衫+黑领结"
+   },
+   "scene_and_light_ref": "草坪绿树+白色餐桌花艺+婚礼画架，自然光，仪式感户外婚礼",
+   "useful_visual_information": null,
+   "text_and_marks": "顶部带「Heart flipped 怦然心动」艺术字，底部带「YUANHUA STUDIO源画摄影」+「@源画摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "52e9e3c1ab917572063d4dd5b5d83fa6d22fc459f564ff47f0aca5a1a58ca1be",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000602",
+   "set_id": "SET000070",
+   "file_name": "IMG000602.jpg",
+   "source_page": 7,
+   "width": 4672,
+   "height": 7008,
+   "format": "jpg",
+   "sha256": "61b2612a8eeb1497829abe13e6ebf5af7d16b10d68a57d33d8107e2c2b8e9cf0",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝鱼尾蓬裙+头纱手捧",
+    "新郎": "灰背心+白衬衫+黑领结"
+   },
+   "scene_and_light_ref": "草坪绿树+白色餐桌花艺+婚礼画架，自然光，仪式感户外婚礼",
+   "useful_visual_information": null,
+   "text_and_marks": "顶部带「Heart flipped 怦然心动」艺术字，底部带「YUANHUA STUDIO源画摄影」+「@源画摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "61b2612a8eeb1497829abe13e6ebf5af7d16b10d68a57d33d8107e2c2b8e9cf0",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000603",
+   "set_id": "SET000070",
+   "file_name": "IMG000603.jpg",
+   "source_page": 8,
+   "width": 1200,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "288006531ea30959ad5151f469638f159b8eecb41a6b5be6cf45355ff4f34d5d",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝鱼尾蓬裙+头纱手捧",
+    "新郎": "灰背心+白衬衫+黑领结"
+   },
+   "scene_and_light_ref": "草坪绿树+白色餐桌花艺+婚礼画架，自然光，仪式感户外婚礼",
+   "useful_visual_information": null,
+   "text_and_marks": "顶部带「Heart flipped 怦然心动」艺术字，底部带「YUANHUA STUDIO源画摄影」+「@源画摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "288006531ea30959ad5151f469638f159b8eecb41a6b5be6cf45355ff4f34d5d",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000604",
+   "set_id": "SET000070",
+   "file_name": "IMG000604.jpg",
+   "source_page": 9,
+   "width": 4672,
+   "height": 7008,
+   "format": "jpg",
+   "sha256": "e5e169953458d997681376f9d426b5147ed16251c6df2c2206cd1e93c7f3a1eb",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝鱼尾蓬裙+头纱手捧",
+    "新郎": "灰背心+白衬衫+黑领结"
+   },
+   "scene_and_light_ref": "草坪绿树+白色餐桌花艺+婚礼画架，自然光，仪式感户外婚礼",
+   "useful_visual_information": null,
+   "text_and_marks": "顶部带「Heart flipped 怦然心动」艺术字，底部带「YUANHUA STUDIO源画摄影」+「@源画摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "e5e169953458d997681376f9d426b5147ed16251c6df2c2206cd1e93c7f3a1eb",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

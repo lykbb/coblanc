@@ -1,0 +1,261 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000062",
+ "name": "庭院绿植轻纱白纱",
+ "primary_category_id": "04",
+ "secondary_category_id": "04-01",
+ "tags": [
+  "白纱",
+  "抹胸蕾丝轻婚纱",
+  "满天星花冠",
+  "野花手捧",
+  "黑西装黑裤",
+  "竹篱笆绿植长椅",
+  "庭院户外"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "谢安视觉婚纱摄影",
+  "url": "https://m.weibo.cn/detail/5348088400318487",
+  "published_date": "2026-09-28",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：谢安视觉婚纱摄影）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（抹胸蕾丝轻婚纱+满天星花冠；新郎黑西装黑裤）、连贯风格（庭院绿植轻纱）",
+ "clothing": {
+  "新娘": "抹胸蕾丝轻婚纱+满天星花冠+野花手捧",
+  "新郎": "黑西装+黑裤"
+ },
+ "scene_and_light": "庭院竹篱笆+绿植+长椅户外，自然光，朦胧清透",
+ "limitations": [
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000525",
+   "set_id": "SET000062",
+   "file_name": "IMG000525.jpg",
+   "source_page": 1,
+   "width": 1800,
+   "height": 2700,
+   "format": "jpg",
+   "sha256": "0f252f5acf3b96f5df2cc1ebabc9a2d145d41a98fbf49c37ff46f00a4d508526",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝轻婚纱+满天星花冠+野花手捧",
+    "新郎": "黑西装+黑裤"
+   },
+   "scene_and_light_ref": "庭院竹篱笆+绿植+长椅户外，自然光，朦胧清透",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@谢安视觉婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "0f252f5acf3b96f5df2cc1ebabc9a2d145d41a98fbf49c37ff46f00a4d508526",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000526",
+   "set_id": "SET000062",
+   "file_name": "IMG000526.jpg",
+   "source_page": 2,
+   "width": 1800,
+   "height": 2700,
+   "format": "jpg",
+   "sha256": "c5ace56dbf2074499f4e6794cf16aec35dea630be20d49216d1b059d9c7bbd77",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝轻婚纱+满天星花冠+野花手捧",
+    "新郎": "黑西装+黑裤"
+   },
+   "scene_and_light_ref": "庭院竹篱笆+绿植+长椅户外，自然光，朦胧清透",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@谢安视觉婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "c5ace56dbf2074499f4e6794cf16aec35dea630be20d49216d1b059d9c7bbd77",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000527",
+   "set_id": "SET000062",
+   "file_name": "IMG000527.jpg",
+   "source_page": 3,
+   "width": 1800,
+   "height": 2700,
+   "format": "jpg",
+   "sha256": "baa03b6971c4d6b48e6f8dc3758b7755f163a198db9348dd3ab164786f72384d",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝轻婚纱+满天星花冠+野花手捧",
+    "新郎": "黑西装+黑裤"
+   },
+   "scene_and_light_ref": "庭院竹篱笆+绿植+长椅户外，自然光，朦胧清透",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@谢安视觉婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "baa03b6971c4d6b48e6f8dc3758b7755f163a198db9348dd3ab164786f72384d",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000528",
+   "set_id": "SET000062",
+   "file_name": "IMG000528.jpg",
+   "source_page": 4,
+   "width": 1800,
+   "height": 2427,
+   "format": "jpg",
+   "sha256": "2fcc19cdb260c7d5cdf0bf95a52edc1cd9f8a4c73a83ee5c1800a0169eed8137",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝轻婚纱+满天星花冠+野花手捧",
+    "新郎": "黑西装+黑裤"
+   },
+   "scene_and_light_ref": "庭院竹篱笆+绿植+长椅户外，自然光，朦胧清透",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@谢安视觉婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "2fcc19cdb260c7d5cdf0bf95a52edc1cd9f8a4c73a83ee5c1800a0169eed8137",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000529",
+   "set_id": "SET000062",
+   "file_name": "IMG000529.jpg",
+   "source_page": 5,
+   "width": 1800,
+   "height": 2700,
+   "format": "jpg",
+   "sha256": "948fd174babf0c1f231681b9b94932c6eac77c6cc58008d246c44f1f5afd39bb",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝轻婚纱+满天星花冠+野花手捧",
+    "新郎": "黑西装+黑裤"
+   },
+   "scene_and_light_ref": "庭院竹篱笆+绿植+长椅户外，自然光，朦胧清透",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@谢安视觉婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "948fd174babf0c1f231681b9b94932c6eac77c6cc58008d246c44f1f5afd39bb",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000530",
+   "set_id": "SET000062",
+   "file_name": "IMG000530.jpg",
+   "source_page": 6,
+   "width": 1800,
+   "height": 2700,
+   "format": "jpg",
+   "sha256": "9f3b4dc4fc3a5fbafcfa80d65f6929f8e180bd0c90b12f61f2b29846efbee3d3",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝轻婚纱+满天星花冠+野花手捧",
+    "新郎": "黑西装+黑裤"
+   },
+   "scene_and_light_ref": "庭院竹篱笆+绿植+长椅户外，自然光，朦胧清透",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@谢安视觉婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "9f3b4dc4fc3a5fbafcfa80d65f6929f8e180bd0c90b12f61f2b29846efbee3d3",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000531",
+   "set_id": "SET000062",
+   "file_name": "IMG000531.jpg",
+   "source_page": 7,
+   "width": 1800,
+   "height": 2700,
+   "format": "jpg",
+   "sha256": "fae06302efc264f57b9ec98f2628f85a3e987873e2c4f120303a8a2226aeb69d",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝轻婚纱+满天星花冠+野花手捧",
+    "新郎": "黑西装+黑裤"
+   },
+   "scene_and_light_ref": "庭院竹篱笆+绿植+长椅户外，自然光，朦胧清透",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@谢安视觉婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "fae06302efc264f57b9ec98f2628f85a3e987873e2c4f120303a8a2226aeb69d",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000532",
+   "set_id": "SET000062",
+   "file_name": "IMG000532.jpg",
+   "source_page": 8,
+   "width": 1800,
+   "height": 2700,
+   "format": "jpg",
+   "sha256": "1a11e7647ef304c0232239f1cd35321590abe00b8ec5c98e2757c44ec54c46d5",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝轻婚纱+满天星花冠+野花手捧",
+    "新郎": "黑西装+黑裤"
+   },
+   "scene_and_light_ref": "庭院竹篱笆+绿植+长椅户外，自然光，朦胧清透",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@谢安视觉婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "1a11e7647ef304c0232239f1cd35321590abe00b8ec5c98e2757c44ec54c46d5",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000533",
+   "set_id": "SET000062",
+   "file_name": "IMG000533.jpg",
+   "source_page": 9,
+   "width": 1800,
+   "height": 2700,
+   "format": "jpg",
+   "sha256": "8159949424d8eb19335455e7a8ba50d1cef103662ab3209d8fb35b3f56fdc572",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蕾丝轻婚纱+满天星花冠+野花手捧",
+    "新郎": "黑西装+黑裤"
+   },
+   "scene_and_light_ref": "庭院竹篱笆+绿植+长椅户外，自然光，朦胧清透",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@谢安视觉婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "8159949424d8eb19335455e7a8ba50d1cef103662ab3209d8fb35b3f56fdc572",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

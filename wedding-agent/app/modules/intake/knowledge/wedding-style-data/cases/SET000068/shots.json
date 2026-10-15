@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000578",
+    "evidence_type": "observed",
+    "shot": "双人坐姿全身",
+    "action": "新郎比心、新娘持花",
+    "composition": "双人坐姿全身，新郎比心、新娘持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿全身，新郎比心、新娘持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000579",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎站前举手、新娘持垂坠花",
+    "composition": "双人全身，新郎站前举手、新娘持垂坠花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎站前举手、新娘持垂坠花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000580",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "各举圆形红道具",
+    "composition": "双人全身，各举圆形红道具",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，各举圆形红道具",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000581",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘坐前、新郎站后举花",
+    "composition": "双人全身，新娘坐前、新郎站后举花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘坐前、新郎站后举花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000582",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎侧后环抱、新娘持花",
+    "composition": "双人全身，新郎侧后环抱、新娘持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎侧后环抱、新娘持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000583",
+    "evidence_type": "observed",
+    "shot": "双人坐姿全身",
+    "action": "新郎向新娘嘴边递小物",
+    "composition": "双人坐姿全身，新郎向新娘嘴边递小物",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿全身，新郎向新娘嘴边递小物",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000584",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎俯身吻手",
+    "composition": "双人全身，新郎俯身吻手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎俯身吻手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000585",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新郎整理新娘发侧饰物、新娘坐扶囍字",
+    "composition": "双人中景，新郎整理新娘发侧饰物、新娘坐扶囍字",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新郎整理新娘发侧饰物、新娘坐扶囍字",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000586",
+    "evidence_type": "observed",
+    "shot": "新娘中景",
+    "action": "侧坐扶装饰、手持花枝",
+    "composition": "新娘中景，侧坐扶装饰、手持花枝",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中景，侧坐扶装饰、手持花枝",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000001",
+    "evidence_type": "observed",
+    "shot": "双人全身／环境远景",
+    "action": "二人并排挽臂看镜头",
+    "composition": "人物在下半部，草地占较大面积",
+    "caution": "人物脸部占比小，不作身份唯一参考",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人全身／环境远景；二人并排挽臂看镜头；人物在下半部，草地占较大面积。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000002",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘提裙回头笑，新郎随行看向她",
+    "composition": "动态裙摆居前，二人分列",
+    "caution": "行进是画面动作解读，不证明抓拍",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人全身；新娘提裙回头笑，新郎随行看向她；动态裙摆居前，二人分列。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000003",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎俯身吻手，新娘低头笑",
+    "composition": "新娘裙摆展开，新郎在侧",
+    "caution": "手与嘴接触关系需要单独控制",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人全身；新郎俯身吻手，新娘低头笑；新娘裙摆展开，新郎在侧。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000004",
+    "evidence_type": "observed",
+    "shot": "双人较近全身",
+    "action": "新郎从侧后方靠近新娘耳侧并环抱",
+    "composition": "人物居中偏下，裙摆展开",
+    "caution": "婚纱边缘接近画面边缘，不能固定照搬裁切",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人较近全身；新郎从侧后方靠近新娘耳侧并环抱；人物居中偏下，裙摆展开。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000005",
+    "evidence_type": "observed",
+    "shot": "双人全身／环境远景",
+    "action": "牵手对望，二人间留有距离",
+    "composition": "草地与树冠占较大面积，可见长投影",
+    "caution": "准确焦距、拍摄高度未知",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人全身／环境远景；牵手对望，二人间留有距离；草地与树冠占较大面积，可见长投影。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000006",
+    "evidence_type": "observed",
+    "shot": "双人较近全身",
+    "action": "新郎从后方环抱，新娘举起浅色捧花",
+    "composition": "裙摆占下部，人物头部偏上",
+    "caution": "边缘裁切不作必须复制特征",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人较近全身；新郎从后方环抱，新娘举起浅色捧花；裙摆占下部，人物头部偏上。",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000074",
+ "name": "红提花伞囍字喜嫁",
+ "primary_category_id": "02",
+ "secondary_category_id": "02-02",
+ "tags": [
+  "中式喜服",
+  "红灰提花抹胸礼服",
+  "红伞",
+  "黑西装金胸针",
+  "红底竖排囍字",
+  "红白花艺",
+  "室内喜庆"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "雨墨摄影惠州店官微",
+  "url": "https://m.weibo.cn/detail/5334760688713754",
+  "published_date": "2026-08-22",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：雨墨摄影惠州店官微）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（红灰提花抹胸礼服+红伞；新郎黑西装金胸针）、连贯风格（红提花伞囍字喜嫁）",
+ "clothing": {
+  "新娘": "红灰提花抹胸礼服+红伞",
+  "新郎": "黑西装+金胸针"
+ },
+ "scene_and_light": "红底竖排囍字+红白花艺室内棚拍，喜庆俏皮",
+ "limitations": [
+  "原图2000×2998",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000632",
+   "set_id": "SET000074",
+   "file_name": "IMG000632.jpg",
+   "source_page": 1,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "a4888d0fd4bdde7fd86255c0732daf4239f9a71fb53deac9719ef2edc6cd6cb5",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红灰提花抹胸礼服+红伞",
+    "新郎": "黑西装+金胸针"
+   },
+   "scene_and_light_ref": "红底竖排囍字+红白花艺室内棚拍，喜庆俏皮",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "a4888d0fd4bdde7fd86255c0732daf4239f9a71fb53deac9719ef2edc6cd6cb5",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000633",
+   "set_id": "SET000074",
+   "file_name": "IMG000633.jpg",
+   "source_page": 2,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "3a3e3d298a500aca43847dc2305c8208b9955424f227a0af5472f9dd8b88cf30",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红灰提花抹胸礼服+红伞",
+    "新郎": "黑西装+金胸针"
+   },
+   "scene_and_light_ref": "红底竖排囍字+红白花艺室内棚拍，喜庆俏皮",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "3a3e3d298a500aca43847dc2305c8208b9955424f227a0af5472f9dd8b88cf30",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000634",
+   "set_id": "SET000074",
+   "file_name": "IMG000634.jpg",
+   "source_page": 3,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "afecd19fdbb514cc85073db4e54fa470bde10ec0aa9bb0567bd1fe5bd2014e68",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红灰提花抹胸礼服+红伞",
+    "新郎": "黑西装+金胸针"
+   },
+   "scene_and_light_ref": "红底竖排囍字+红白花艺室内棚拍，喜庆俏皮",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "afecd19fdbb514cc85073db4e54fa470bde10ec0aa9bb0567bd1fe5bd2014e68",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000635",
+   "set_id": "SET000074",
+   "file_name": "IMG000635.jpg",
+   "source_page": 4,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "352df9ded3c26003863d9aca153e20f1fdeb5deba73a8940b40d640b69154a82",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红灰提花抹胸礼服+红伞",
+    "新郎": "黑西装+金胸针"
+   },
+   "scene_and_light_ref": "红底竖排囍字+红白花艺室内棚拍，喜庆俏皮",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "352df9ded3c26003863d9aca153e20f1fdeb5deba73a8940b40d640b69154a82",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000636",
+   "set_id": "SET000074",
+   "file_name": "IMG000636.jpg",
+   "source_page": 5,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "79ef4ec4241dc683492233dab458e390e7ae446e02e7312063b6df2ebd143037",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红灰提花抹胸礼服+红伞",
+    "新郎": "黑西装+金胸针"
+   },
+   "scene_and_light_ref": "红底竖排囍字+红白花艺室内棚拍，喜庆俏皮",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "79ef4ec4241dc683492233dab458e390e7ae446e02e7312063b6df2ebd143037",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000637",
+   "set_id": "SET000074",
+   "file_name": "IMG000637.jpg",
+   "source_page": 6,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "d824880bdafd80c4e27ceeeb6fb64410f5933479b6049ba6ba6cc200c0708fb5",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红灰提花抹胸礼服+红伞",
+    "新郎": "黑西装+金胸针"
+   },
+   "scene_and_light_ref": "红底竖排囍字+红白花艺室内棚拍，喜庆俏皮",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "d824880bdafd80c4e27ceeeb6fb64410f5933479b6049ba6ba6cc200c0708fb5",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000638",
+   "set_id": "SET000074",
+   "file_name": "IMG000638.jpg",
+   "source_page": 7,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "2253d771a1658c4532922235da20796dca191eabe5c78d9d77970de03dd2df1b",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红灰提花抹胸礼服+红伞",
+    "新郎": "黑西装+金胸针"
+   },
+   "scene_and_light_ref": "红底竖排囍字+红白花艺室内棚拍，喜庆俏皮",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "2253d771a1658c4532922235da20796dca191eabe5c78d9d77970de03dd2df1b",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000639",
+   "set_id": "SET000074",
+   "file_name": "IMG000639.jpg",
+   "source_page": 8,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "1cadd9894706f8dbb36395802b137d25066a849d2742c0c305d0e51140371b45",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红灰提花抹胸礼服+红伞",
+    "新郎": "黑西装+金胸针"
+   },
+   "scene_and_light_ref": "红底竖排囍字+红白花艺室内棚拍，喜庆俏皮",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "1cadd9894706f8dbb36395802b137d25066a849d2742c0c305d0e51140371b45",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000640",
+   "set_id": "SET000074",
+   "file_name": "IMG000640.jpg",
+   "source_page": 9,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "7137a2d77a7dffcb839605afa74ccf39098821079398f74e8217cafdf0e4e410",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红灰提花抹胸礼服+红伞",
+    "新郎": "黑西装+金胸针"
+   },
+   "scene_and_light_ref": "红底竖排囍字+红白花艺室内棚拍，喜庆俏皮",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "7137a2d77a7dffcb839605afa74ccf39098821079398f74e8217cafdf0e4e410",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

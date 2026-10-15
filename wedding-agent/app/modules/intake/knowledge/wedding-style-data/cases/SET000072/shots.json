@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000614",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘低坐持气球、新郎倾身挥手",
+    "composition": "双人全身，新娘低坐持气球、新郎倾身挥手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘低坐持气球、新郎倾身挥手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000615",
+    "evidence_type": "observed",
+    "shot": "新娘中全景",
+    "action": "裙摆与气球背景",
+    "composition": "新娘中全景，裙摆与气球背景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中全景，裙摆与气球背景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000616",
+    "evidence_type": "observed",
+    "shot": "新娘全身",
+    "action": "高举气球仰头",
+    "composition": "新娘全身，高举气球仰头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘全身，高举气球仰头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000617",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新郎从后靠近新娘脸侧",
+    "composition": "双人中景，新郎从后靠近新娘脸侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新郎从后靠近新娘脸侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000618",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎单膝低位吻手",
+    "composition": "双人全身，新郎单膝低位吻手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎单膝低位吻手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000619",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘背向举气球、新郎张臂",
+    "composition": "双人全身，新娘背向举气球、新郎张臂",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘背向举气球、新郎张臂",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000620",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "新娘转身看镜头、新郎持气球在后",
+    "composition": "双人环境全身，新娘转身看镜头、新郎持气球在后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，新娘转身看镜头、新郎持气球在后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000621",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "牵手举气球向侧迈步",
+    "composition": "双人全身，牵手举气球向侧迈步",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，牵手举气球向侧迈步",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000622",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘举气球、新郎站旁笑",
+    "composition": "双人中全景，新娘举气球、新郎站旁笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘举气球、新郎站旁笑",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

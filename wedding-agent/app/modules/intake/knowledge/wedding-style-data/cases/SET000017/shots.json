@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000112",
+    "evidence_type": "observed",
+    "shot": "双人全身相依",
+    "action": "长头纱前景展开",
+    "composition": "双人全身相依，长头纱前景展开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身相依，长头纱前景展开",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000113",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "隔虚化窗格看相依肖像",
+    "composition": "双人中景，隔虚化窗格看相依肖像",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，隔虚化窗格看相依肖像",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000114",
+    "evidence_type": "observed",
+    "shot": "新娘中景",
+    "action": "头纱罩头，手触纱",
+    "composition": "新娘中景，头纱罩头，手触纱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中景，头纱罩头，手触纱",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000115",
+    "evidence_type": "observed",
+    "shot": "双人全身并立",
+    "action": "红墙花瓣和木格背景",
+    "composition": "双人全身并立，红墙花瓣和木格背景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身并立，红墙花瓣和木格背景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000116",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎坐凳低头吻新娘手",
+    "composition": "双人全身，新郎坐凳低头吻新娘手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎坐凳低头吻新娘手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000117",
+    "evidence_type": "observed",
+    "shot": "双人中景贴近",
+    "action": "木格在侧、花瓣前景",
+    "composition": "双人中景贴近，木格在侧、花瓣前景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景贴近，木格在侧、花瓣前景",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

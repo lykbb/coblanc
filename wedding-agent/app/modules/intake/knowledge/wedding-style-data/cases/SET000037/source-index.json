@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000037",
+ "name": "红鎏拖尾秀禾",
+ "primary_category_id": "02",
+ "secondary_category_id": "02-01",
+ "tags": [
+  "中式喜服",
+  "红金秀禾",
+  "鎏金拖尾",
+  "红花发饰",
+  "黑西装",
+  "回廊灯笼",
+  "山水浮雕"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "长沙DSJ婚纱摄影旗舰店",
+  "url": "https://m.weibo.cn/detail/5316235590111159",
+  "published_date": "2026-07-02",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：长沙DSJ婚纱摄影旗舰店）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（红底鎏金拖尾秀禾+红花发饰+金饰；新郎黑立领西装+白竹刺绣）、连贯风格（中式回廊灯笼+山水浮雕外景）",
+ "clothing": {
+  "新娘": "红底鎏金拖尾秀禾+红花发饰+金饰+囍字团扇",
+  "新郎": "黑立领西装+白竹刺绣"
+ },
+ "scene_and_light": "中式回廊灯笼+山水浮雕外景，白日/暖光",
+ "limitations": [
+  "每张带DS水印，不遮挡主体，保留",
+  "分辨率1280×1920（中等）"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000297",
+   "set_id": "SET000037",
+   "file_name": "IMG000297.jpg",
+   "source_page": 1,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "213738433241dde7022f5c1872a69259665c4a7b6f9a29ef782088b84c32a0ec",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": "双人回廊全身",
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红底鎏金拖尾秀禾+红花发饰+金饰+囍字团扇",
+    "新郎": "黑立领西装+白竹刺绣"
+   },
+   "scene_and_light_ref": "中式回廊灯笼+山水浮雕外景，白日/暖光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "213738433241dde7022f5c1872a69259665c4a7b6f9a29ef782088b84c32a0ec",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000298",
+   "set_id": "SET000037",
+   "file_name": "IMG000298.jpg",
+   "source_page": 2,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "21c039dccc3b681f7272030c677b0303ab8ae460ccdb8ee8b6d01bb6586f18bd",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": "双人中景",
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红底鎏金拖尾秀禾+红花发饰+金饰+囍字团扇",
+    "新郎": "黑立领西装+白竹刺绣"
+   },
+   "scene_and_light_ref": "中式回廊灯笼+山水浮雕外景，白日/暖光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "21c039dccc3b681f7272030c677b0303ab8ae460ccdb8ee8b6d01bb6586f18bd",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000299",
+   "set_id": "SET000037",
+   "file_name": "IMG000299.jpg",
+   "source_page": 3,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "bb3b61e22a6608ae9151c7b6202df9f45391be73a6680a0300545bd5e546e741",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": "双人门前",
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红底鎏金拖尾秀禾+红花发饰+金饰+囍字团扇",
+    "新郎": "黑立领西装+白竹刺绣"
+   },
+   "scene_and_light_ref": "中式回廊灯笼+山水浮雕外景，白日/暖光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "bb3b61e22a6608ae9151c7b6202df9f45391be73a6680a0300545bd5e546e741",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000300",
+   "set_id": "SET000037",
+   "file_name": "IMG000300.jpg",
+   "source_page": 4,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "bd9b9323d8749511afa0a2c90308b2198736353a51d30936ec7e0fa5e4a30bd0",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红底鎏金拖尾秀禾+红花发饰+金饰+囍字团扇",
+    "新郎": "黑立领西装+白竹刺绣"
+   },
+   "scene_and_light_ref": "中式回廊灯笼+山水浮雕外景，白日/暖光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "bd9b9323d8749511afa0a2c90308b2198736353a51d30936ec7e0fa5e4a30bd0",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000301",
+   "set_id": "SET000037",
+   "file_name": "IMG000301.jpg",
+   "source_page": 5,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "8aef0fcadb2dc176d6b887f280ccbeef07e1932311f560f3a492f2b015a943d6",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红底鎏金拖尾秀禾+红花发饰+金饰+囍字团扇",
+    "新郎": "黑立领西装+白竹刺绣"
+   },
+   "scene_and_light_ref": "中式回廊灯笼+山水浮雕外景，白日/暖光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "8aef0fcadb2dc176d6b887f280ccbeef07e1932311f560f3a492f2b015a943d6",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000302",
+   "set_id": "SET000037",
+   "file_name": "IMG000302.jpg",
+   "source_page": 6,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "c409db0f974ae3f96ade95f75602e48d21f2f33992433b910027234991de83a8",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红底鎏金拖尾秀禾+红花发饰+金饰+囍字团扇",
+    "新郎": "黑立领西装+白竹刺绣"
+   },
+   "scene_and_light_ref": "中式回廊灯笼+山水浮雕外景，白日/暖光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "c409db0f974ae3f96ade95f75602e48d21f2f33992433b910027234991de83a8",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000303",
+   "set_id": "SET000037",
+   "file_name": "IMG000303.jpg",
+   "source_page": 7,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "6331d30ec8aee5ba7def877bb07410d4e1d7c97ac56903f5dbd8cda93d81f89c",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红底鎏金拖尾秀禾+红花发饰+金饰+囍字团扇",
+    "新郎": "黑立领西装+白竹刺绣"
+   },
+   "scene_and_light_ref": "中式回廊灯笼+山水浮雕外景，白日/暖光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "6331d30ec8aee5ba7def877bb07410d4e1d7c97ac56903f5dbd8cda93d81f89c",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000304",
+   "set_id": "SET000037",
+   "file_name": "IMG000304.jpg",
+   "source_page": 8,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "0cc491ff888584954b09ae24ee0d04bd9a40286967a9cf6242ae79ab447d027d",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红底鎏金拖尾秀禾+红花发饰+金饰+囍字团扇",
+    "新郎": "黑立领西装+白竹刺绣"
+   },
+   "scene_and_light_ref": "中式回廊灯笼+山水浮雕外景，白日/暖光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "0cc491ff888584954b09ae24ee0d04bd9a40286967a9cf6242ae79ab447d027d",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000305",
+   "set_id": "SET000037",
+   "file_name": "IMG000305.jpg",
+   "source_page": 9,
+   "width": 1920,
+   "height": 1280,
+   "format": "jpg",
+   "sha256": "d204a91f734a178a31308d1a29e614df5c6928531f6aacd81d06d4f96bc86c68",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红底鎏金拖尾秀禾+红花发饰+金饰+囍字团扇",
+    "新郎": "黑立领西装+白竹刺绣"
+   },
+   "scene_and_light_ref": "中式回廊灯笼+山水浮雕外景，白日/暖光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "d204a91f734a178a31308d1a29e614df5c6928531f6aacd81d06d4f96bc86c68",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

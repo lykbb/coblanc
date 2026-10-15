@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000058",
+ "name": "柏树夹道治愈草坪",
+ "primary_category_id": "04",
+ "secondary_category_id": "04-01",
+ "tags": [
+  "白纱",
+  "一字肩蕾丝长袖白纱",
+  "头纱",
+  "白花手捧",
+  "黑西装领结胸花",
+  "柏树夹道草坪",
+  "户外自然光"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "雨墨摄影惠州店官微",
+  "url": "https://m.weibo.cn/detail/5351835978434124",
+  "published_date": "2026-10-08",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：雨墨摄影惠州店官微）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（一字肩蕾丝长袖白纱+头纱；新郎黑西装+领结）、连贯风格（柏树夹道治愈草坪）",
+ "clothing": {
+  "新娘": "一字肩蕾丝长袖白纱+头纱+白花手捧",
+  "新郎": "黑西装+领结+胸花"
+ },
+ "scene_and_light": "柏树夹道草坪绿植外景，白日自然光，柔和光线",
+ "limitations": [
+  "横版2000×1334与竖版2000×2998混合",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000486",
+   "set_id": "SET000058",
+   "file_name": "IMG000486.jpg",
+   "source_page": 1,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "c5d1be230ab451e0b13e2ceafccdd70ab3e04dd50c5710c199133c17473e1881",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝长袖白纱+头纱+白花手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "柏树夹道草坪绿植外景，白日自然光，柔和光线",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "c5d1be230ab451e0b13e2ceafccdd70ab3e04dd50c5710c199133c17473e1881",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000487",
+   "set_id": "SET000058",
+   "file_name": "IMG000487.jpg",
+   "source_page": 2,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "50f97b953ea6e2aff5130c3809d812a6e160e83771b6a4b2b4cfcd6fd34cb7f8",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝长袖白纱+头纱+白花手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "柏树夹道草坪绿植外景，白日自然光，柔和光线",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "50f97b953ea6e2aff5130c3809d812a6e160e83771b6a4b2b4cfcd6fd34cb7f8",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000488",
+   "set_id": "SET000058",
+   "file_name": "IMG000488.jpg",
+   "source_page": 3,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "d6d18c386e144ebd88190d4a58a9ad90adef5ad8cf97935b5b116ae1ac30bd32",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝长袖白纱+头纱+白花手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "柏树夹道草坪绿植外景，白日自然光，柔和光线",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "d6d18c386e144ebd88190d4a58a9ad90adef5ad8cf97935b5b116ae1ac30bd32",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000489",
+   "set_id": "SET000058",
+   "file_name": "IMG000489.jpg",
+   "source_page": 4,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "6fd4e2ad29833c3fb73a797874f766f99008627c6a9a2824d08ac905142f5fa7",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝长袖白纱+头纱+白花手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "柏树夹道草坪绿植外景，白日自然光，柔和光线",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "6fd4e2ad29833c3fb73a797874f766f99008627c6a9a2824d08ac905142f5fa7",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000490",
+   "set_id": "SET000058",
+   "file_name": "IMG000490.jpg",
+   "source_page": 5,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "346ec101f14e6f9273f71fc19c3400f96f87b49703df43cc041e32d607515095",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝长袖白纱+头纱+白花手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "柏树夹道草坪绿植外景，白日自然光，柔和光线",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "346ec101f14e6f9273f71fc19c3400f96f87b49703df43cc041e32d607515095",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000491",
+   "set_id": "SET000058",
+   "file_name": "IMG000491.jpg",
+   "source_page": 6,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "98d26ac840a95abb81356e2431262a72163671f95b1ae23de0ada4a0c2fd4931",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝长袖白纱+头纱+白花手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "柏树夹道草坪绿植外景，白日自然光，柔和光线",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "98d26ac840a95abb81356e2431262a72163671f95b1ae23de0ada4a0c2fd4931",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000492",
+   "set_id": "SET000058",
+   "file_name": "IMG000492.jpg",
+   "source_page": 7,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "1da00a03f099c5ba897a3c0fcc209bed8da2ff04f456110c28fb62ae6f63c5db",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝长袖白纱+头纱+白花手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "柏树夹道草坪绿植外景，白日自然光，柔和光线",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "1da00a03f099c5ba897a3c0fcc209bed8da2ff04f456110c28fb62ae6f63c5db",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000493",
+   "set_id": "SET000058",
+   "file_name": "IMG000493.jpg",
+   "source_page": 8,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "b17132c3838dbe37be2470e79572cf2c68e76bbf7d2f9cb693ee2e0495894486",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝长袖白纱+头纱+白花手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "柏树夹道草坪绿植外景，白日自然光，柔和光线",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "b17132c3838dbe37be2470e79572cf2c68e76bbf7d2f9cb693ee2e0495894486",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000494",
+   "set_id": "SET000058",
+   "file_name": "IMG000494.jpg",
+   "source_page": 9,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "8b0954d194b13ea58b60bbfa6eec104551b3390cdaf208a9fcd7169e73fe77cc",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝长袖白纱+头纱+白花手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "柏树夹道草坪绿植外景，白日自然光，柔和光线",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "8b0954d194b13ea58b60bbfa6eec104551b3390cdaf208a9fcd7169e73fe77cc",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

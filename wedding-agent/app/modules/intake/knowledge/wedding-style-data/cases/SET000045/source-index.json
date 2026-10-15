@@ -1,0 +1,261 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000045",
+ "name": "灰调水波纹主纱",
+ "primary_category_id": "06",
+ "secondary_category_id": "06-12",
+ "tags": [
+  "白纱",
+  "蕾丝钉珠主纱",
+  "钻石头冠",
+  "马蹄莲手捧",
+  "灰调水波纹光影",
+  "室内棚拍"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "520婚纱摄影",
+  "url": "https://m.weibo.cn/detail/5255104991070264",
+  "published_date": "2026-01-15",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：520婚纱摄影）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（银白蕾丝钉珠主纱+钻石头冠；新郎黑西装+领结）、连贯风格（灰调水波纹棚拍）",
+ "clothing": {
+  "新娘": "银白蕾丝钉珠长袖蓬裙主纱+钻石头冠+马蹄莲手捧花",
+  "新郎": "黑西装+领结"
+ },
+ "scene_and_light": "灰调背景水波纹光影室内棚拍，柔光",
+ "limitations": [
+  "分辨率1067×1600（中等）",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000369",
+   "set_id": "SET000045",
+   "file_name": "IMG000369.jpg",
+   "source_page": 1,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "6b4f25b34ae668de4a0074e1a9008e6ff54b6dbb09a6cc76df3216d302d37269",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "银白蕾丝钉珠长袖蓬裙主纱+钻石头冠+马蹄莲手捧花",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调背景水波纹光影室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影」+底部「@520婚纱摄影」水印，右上角有「Forever Love」装饰英文字样，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "6b4f25b34ae668de4a0074e1a9008e6ff54b6dbb09a6cc76df3216d302d37269",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000370",
+   "set_id": "SET000045",
+   "file_name": "IMG000370.jpg",
+   "source_page": 2,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "013f36f0ebea376dcba6b6a81adac1213ff5e4f0dd2da213c8d1f9751ab889b2",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "银白蕾丝钉珠长袖蓬裙主纱+钻石头冠+马蹄莲手捧花",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调背景水波纹光影室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影」+底部「@520婚纱摄影」水印，右上角有「Forever Love」装饰英文字样，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "013f36f0ebea376dcba6b6a81adac1213ff5e4f0dd2da213c8d1f9751ab889b2",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000371",
+   "set_id": "SET000045",
+   "file_name": "IMG000371.jpg",
+   "source_page": 3,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "a476c211469d239dabc0289e4b8f4c5a7d95d59401452b6f133981960c05c1d0",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "银白蕾丝钉珠长袖蓬裙主纱+钻石头冠+马蹄莲手捧花",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调背景水波纹光影室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影」+底部「@520婚纱摄影」水印，右上角有「Forever Love」装饰英文字样，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "a476c211469d239dabc0289e4b8f4c5a7d95d59401452b6f133981960c05c1d0",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000372",
+   "set_id": "SET000045",
+   "file_name": "IMG000372.jpg",
+   "source_page": 4,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "8bdc3fea464e7e05860aa2fdc36aff3868598e92e7b0904f50af05f9b4120e82",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "银白蕾丝钉珠长袖蓬裙主纱+钻石头冠+马蹄莲手捧花",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调背景水波纹光影室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影」+底部「@520婚纱摄影」水印，右上角有「Forever Love」装饰英文字样，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "8bdc3fea464e7e05860aa2fdc36aff3868598e92e7b0904f50af05f9b4120e82",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000373",
+   "set_id": "SET000045",
+   "file_name": "IMG000373.jpg",
+   "source_page": 5,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "ee36a542c7c8e9f1c4bd074e61a273551ed36695c60ef05c47d9388ff8f96ff8",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "银白蕾丝钉珠长袖蓬裙主纱+钻石头冠+马蹄莲手捧花",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调背景水波纹光影室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影」+底部「@520婚纱摄影」水印，右上角有「Forever Love」装饰英文字样，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "ee36a542c7c8e9f1c4bd074e61a273551ed36695c60ef05c47d9388ff8f96ff8",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000374",
+   "set_id": "SET000045",
+   "file_name": "IMG000374.jpg",
+   "source_page": 6,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "975b28c12b9032cd7a0f1e76431893305ddea63e6eabd55c38f3254f18cc1563",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "银白蕾丝钉珠长袖蓬裙主纱+钻石头冠+马蹄莲手捧花",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调背景水波纹光影室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影」+底部「@520婚纱摄影」水印，右上角有「Forever Love」装饰英文字样，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "975b28c12b9032cd7a0f1e76431893305ddea63e6eabd55c38f3254f18cc1563",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000375",
+   "set_id": "SET000045",
+   "file_name": "IMG000375.jpg",
+   "source_page": 7,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "d2cf0626e6bffceec9252e14313d8472a8bf1cbb2f5441062fe7d436ec656656",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "银白蕾丝钉珠长袖蓬裙主纱+钻石头冠+马蹄莲手捧花",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调背景水波纹光影室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影」+底部「@520婚纱摄影」水印，右上角有「Forever Love」装饰英文字样，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "d2cf0626e6bffceec9252e14313d8472a8bf1cbb2f5441062fe7d436ec656656",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000376",
+   "set_id": "SET000045",
+   "file_name": "IMG000376.jpg",
+   "source_page": 8,
+   "width": 1600,
+   "height": 1067,
+   "format": "jpg",
+   "sha256": "a888dc3646e0d37d596f42d6f50052998cf098f5bd010f7a25de596ddb7a546f",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "银白蕾丝钉珠长袖蓬裙主纱+钻石头冠+马蹄莲手捧花",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调背景水波纹光影室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影」+底部「@520婚纱摄影」水印，右上角有「Forever Love」装饰英文字样，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "a888dc3646e0d37d596f42d6f50052998cf098f5bd010f7a25de596ddb7a546f",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000377",
+   "set_id": "SET000045",
+   "file_name": "IMG000377.jpg",
+   "source_page": 9,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "c0ff38748b927d935eaf509d4ae22715d16144a54407d46b4b2127a09c85f7fd",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "银白蕾丝钉珠长袖蓬裙主纱+钻石头冠+马蹄莲手捧花",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调背景水波纹光影室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影」+底部「@520婚纱摄影」水印，右上角有「Forever Love」装饰英文字样，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "c0ff38748b927d935eaf509d4ae22715d16144a54407d46b4b2127a09c85f7fd",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

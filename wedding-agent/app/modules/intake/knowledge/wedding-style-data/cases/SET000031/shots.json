@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000246",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新郎虚化在前、新娘持花看镜头",
+    "composition": "双人中全景，新郎虚化在前、新娘持花看镜头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新郎虚化在前、新娘持花看镜头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000247",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "新娘举卡片、新郎持绿枝花束",
+    "composition": "横幅双人中景，新娘举卡片、新郎持绿枝花束",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，新娘举卡片、新郎持绿枝花束",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000248",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘手靠脸侧、新郎做手势",
+    "composition": "双人中全景，新娘手靠脸侧、新郎做手势",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘手靠脸侧、新郎做手势",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000249",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "拉开距离牵手走",
+    "composition": "双人全身，拉开距离牵手走",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，拉开距离牵手走",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000250",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "侧身牵手回头、拖尾展现",
+    "composition": "双人全身，侧身牵手回头、拖尾展现",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，侧身牵手回头、拖尾展现",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000251",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "依肩慢行，新郎持花",
+    "composition": "双人全身，依肩慢行，新郎持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，依肩慢行，新郎持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000252",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘提裙、新郎看她",
+    "composition": "双人全身，新娘提裙、新郎看她",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘提裙、新郎看她",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000253",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘持小册、新郎抱绿枝束",
+    "composition": "双人全身，新娘持小册、新郎抱绿枝束",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘持小册、新郎抱绿枝束",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000254",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘歪头做手势，新郎站旁",
+    "composition": "双人中全景，新娘歪头做手势，新郎站旁",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘歪头做手势，新郎站旁",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "image_id": "IMG000570",
+    "evidence_type": "observed",
+    "shot": "双人坐姿全身",
+    "action": "并排，新娘侧看",
+    "composition": "双人坐姿全身，并排，新娘侧看",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿全身，并排，新娘侧看",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000571",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "相对站立贴近",
+    "composition": "横幅双人中景，相对站立贴近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，相对站立贴近",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000572",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新郎俯身吻新娘头顶",
+    "composition": "双人中景，新郎俯身吻新娘头顶",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新郎俯身吻新娘头顶",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000573",
+    "evidence_type": "observed",
+    "shot": "双人坐姿全身",
+    "action": "新郎整理新娘头发",
+    "composition": "双人坐姿全身，新郎整理新娘头发",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿全身，新郎整理新娘头发",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000574",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎坐前吻手、新娘站旁",
+    "composition": "双人全身，新郎坐前吻手、新娘站旁",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎坐前吻手、新娘站旁",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000575",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘背向站立、新郎坐前正视",
+    "composition": "双人全身，新娘背向站立、新郎坐前正视",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘背向站立、新郎坐前正视",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000576",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "花几两侧并立",
+    "composition": "双人全身，花几两侧并立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，花几两侧并立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000577",
+    "evidence_type": "observed",
+    "shot": "新娘单人坐姿全身",
+    "action": "双手持折扇状道具",
+    "composition": "新娘单人坐姿全身，双手持折扇状道具",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘单人坐姿全身，双手持折扇状道具",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

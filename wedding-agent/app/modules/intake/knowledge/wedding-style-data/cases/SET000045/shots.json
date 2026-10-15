@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000369",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘低坐托脸、新郎站后",
+    "composition": "双人中全景，新娘低坐托脸、新郎站后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘低坐托脸、新郎站后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000370",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新郎触脸、新娘闭眼笑",
+    "composition": "双人近景，新郎触脸、新娘闭眼笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新郎触脸、新娘闭眼笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000371",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "侧身亲近、长裙展开",
+    "composition": "双人全身，侧身亲近、长裙展开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，侧身亲近、长裙展开",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000372",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新郎坐低位、新娘靠近肩侧",
+    "composition": "双人中全景，新郎坐低位、新娘靠近肩侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新郎坐低位、新娘靠近肩侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000373",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "正面并立持白花",
+    "composition": "双人中全景，正面并立持白花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，正面并立持白花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000374",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘坐前、新郎手搭肩",
+    "composition": "双人全身，新娘坐前、新郎手搭肩",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘坐前、新郎手搭肩",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000375",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘托脸、新郎低坐持花",
+    "composition": "双人中全景，新娘托脸、新郎低坐持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘托脸、新郎低坐持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000376",
+    "evidence_type": "observed",
+    "shot": "俯视新娘半身",
+    "action": "横向铺开的裙面占背景",
+    "composition": "俯视新娘半身，横向铺开的裙面占背景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "俯视新娘半身，横向铺开的裙面占背景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000377",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "举花、比心与挥手",
+    "composition": "双人中全景，举花、比心与挥手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，举花、比心与挥手",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

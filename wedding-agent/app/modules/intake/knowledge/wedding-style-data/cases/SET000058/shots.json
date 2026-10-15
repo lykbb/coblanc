@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000486",
+    "evidence_type": "observed",
+    "shot": "横幅双人全身",
+    "action": "回头牵手，新郎举花",
+    "composition": "横幅双人全身，回头牵手，新郎举花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人全身，回头牵手，新郎举花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000487",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎吻手，新娘迈步",
+    "composition": "双人全身，新郎吻手，新娘迈步",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎吻手，新娘迈步",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000488",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘转身提裙、新郎在后张臂",
+    "composition": "双人全身，新娘转身提裙、新郎在后张臂",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘转身提裙、新郎在后张臂",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000489",
+    "evidence_type": "observed",
+    "shot": "横幅双人全身",
+    "action": "新郎举花、新娘撑开头纱",
+    "composition": "横幅双人全身，新郎举花、新娘撑开头纱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人全身，新郎举花、新娘撑开头纱",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000490",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "一起向镜头挥手",
+    "composition": "横幅双人中景，一起向镜头挥手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，一起向镜头挥手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000491",
+    "evidence_type": "observed",
+    "shot": "横幅双人全身",
+    "action": "一起俯身并扬起头纱",
+    "composition": "横幅双人全身，一起俯身并扬起头纱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人全身，一起俯身并扬起头纱",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000492",
+    "evidence_type": "observed",
+    "shot": "横幅双人全身",
+    "action": "新郎托住新娘后仰亲吻",
+    "composition": "横幅双人全身，新郎托住新娘后仰亲吻",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人全身，新郎托住新娘后仰亲吻",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000493",
+    "evidence_type": "observed",
+    "shot": "横幅双人全身",
+    "action": "后方拥抱，头纱大片飘入前景",
+    "composition": "横幅双人全身，后方拥抱，头纱大片飘入前景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人全身，后方拥抱，头纱大片飘入前景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000494",
+    "evidence_type": "observed",
+    "shot": "横幅双人全身",
+    "action": "抬牵手回看镜头",
+    "composition": "横幅双人全身，抬牵手回看镜头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人全身，抬牵手回看镜头",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

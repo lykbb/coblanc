@@ -1,0 +1,199 @@
+{
+  "schema_version": "0.2",
+  "set_id": "SET000073",
+  "name": "纱花帽高定主纱",
+  "primary_category_id": "06",
+  "secondary_category_id": "06-12",
+  "status": "review_draft",
+  "description": "灰色纹理棚景，低饱和粉白色调；前6帧浅粉立体花裙、大纱花头饰与黑礼服；后3帧白色花裙、宽檐花帽及白礼服；庄重站坐肖像与大裙摆轮廓，组内存在明确造型分段",
+  "evidence": {
+    "source_platform": "weibo",
+    "publisher": "长沙DSJ婚纱摄影旗舰店",
+    "source_url": "https://m.weibo.cn/detail/5317334040055881",
+    "cloud_folder": "https://my.feishu.cn/drive/folder/XiA9foo9DlGKr2dCvDicC1Qlngd",
+    "checked_on": "2026-10-16",
+    "review_method": "全部联系表逐格视觉核对；不是逐像素审校，未从来源索引自动复制镜头结论",
+    "real_photo_status": "既有发布记录与视觉一致性作为依据，未认证摄影原片",
+    "source_index": "source-index.json"
+  },
+  "observations": [
+    {
+      "id": "SET000073-F1",
+      "dimension": "场景或配色",
+      "statement": "灰色纹理棚景，低饱和粉白色调",
+      "evidence_images": [
+        "IMG000623",
+        "IMG000624",
+        "IMG000625",
+        "IMG000626",
+        "IMG000627",
+        "IMG000628",
+        "IMG000629",
+        "IMG000630",
+        "IMG000631"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    },
+    {
+      "id": "SET000073-F2",
+      "dimension": "服装或造型",
+      "statement": "前6帧浅粉立体花裙、大纱花头饰与黑礼服；后3帧白色花裙、宽檐花帽及白礼服",
+      "evidence_images": [
+        "IMG000623",
+        "IMG000624",
+        "IMG000625",
+        "IMG000626",
+        "IMG000627",
+        "IMG000628",
+        "IMG000629",
+        "IMG000630",
+        "IMG000631"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    },
+    {
+      "id": "SET000073-F3",
+      "dimension": "光影与画面气氛",
+      "statement": "庄重站坐肖像与大裙摆轮廓，组内存在明确造型分段",
+      "evidence_images": [
+        "IMG000623",
+        "IMG000624",
+        "IMG000625",
+        "IMG000626",
+        "IMG000627",
+        "IMG000628",
+        "IMG000629",
+        "IMG000630",
+        "IMG000631"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "此案例的场景、服装轮廓和互动共同构成所述风格观感；不能据此认定为该分类全部作品的必备规则。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "SET000073"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "灰色纹理棚景，低饱和粉白色调",
+    "前6帧浅粉立体花裙、大纱花头饰与黑礼服；后3帧白色花裙、宽檐花帽及白礼服",
+    "庄重站坐肖像与大裙摆轮廓，组内存在明确造型分段"
+  ],
+  "within_session_locks": [
+    "客户身份（独立参考，不使用样片模特身份）",
+    "客户确认后的服装及主要妆发；有明确分镜造型变体时显式标记",
+    "客户确认后的场景方向、主光逻辑与总体色板"
+  ],
+  "creative_variables": [
+    {
+      "field": "明确选择造型A或B",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    },
+    {
+      "field": "花帽与头纱体量",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    },
+    {
+      "field": "站坐镜头比例",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    }
+  ],
+  "compatibility_rules": [
+    "先选本次造型及场景，再选兼容分镜；不要把多个动作叠给同一只手",
+    "人物接触、服装支撑、裙摆占地与投影方向一致",
+    "采纳妆造师最新明确妆容方案；与客户明确要求冲突时协调",
+    "先选择look_id A或B，默认一次组照不跨两个造型；两段人物身份是否一致未核验。"
+  ],
+  "do_not_inherit": [
+    "样片人物身份与五官",
+    "品牌标识、平台水印与无关文字",
+    "未经证实的相机、灯具、模型、Seed或拍摄地点"
+  ],
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "灰色纹理棚景，低饱和粉白色调；前6帧浅粉立体花裙、大纱花头饰与黑礼服；后3帧白色花裙、宽檐花帽及白礼服；庄重站坐肖像与大裙摆轮廓，组内存在明确造型分段",
+    "template": "客户身份与确认造型：{{customer_spec}}。已确认场景、服装及光影方案：{{approved_plan}}。所选风格约束：{{selected_style_constraints}}。当前分镜：{{shot_fragment}}。",
+    "use_note": "共享观察是案例描述，不是不可改模板。先替换本次方案，再只装配一张分镜；不把全部选项拼成一条提示词。",
+    "omit": [
+      "来源水印",
+      "样片人物身份",
+      "未知拍摄参数"
+    ],
+    "exact_text_policy": "准确姓名日期和道具文字由后期排版处理"
+  },
+  "reference_roles": {
+    "style_layout": [
+      "IMG000623",
+      "IMG000627",
+      "IMG000631"
+    ],
+    "customer_identity": [],
+    "pose": "按选定image_id按需查阅；未生成姿态控制图",
+    "clothing": "轮廓参考；客户指定造型优先"
+  },
+  "limitations": [
+    "IMG000623–628与IMG000629–631是两种造型，不可混写成同一套固定服装",
+    "两段是否同一对人物未验证，不作为整组身份一致性正例；应先选一个子方案",
+    "未独立验证是否存在局部合成或AI修饰；不把风格归纳当作真实摄影过程证明",
+    "不由一套样片推导整个二级风格的硬性规则"
+  ],
+  "validation": {
+    "data_review": "draft_ready_for_user",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  },
+  "look_variants": [
+    {
+      "look_id": "A",
+      "image_ids": [
+        "IMG000623",
+        "IMG000624",
+        "IMG000625",
+        "IMG000626",
+        "IMG000627",
+        "IMG000628"
+      ],
+      "description": "浅粉花裙、大纱花头饰、黑礼服"
+    },
+    {
+      "look_id": "B",
+      "image_ids": [
+        "IMG000629",
+        "IMG000630",
+        "IMG000631"
+      ],
+      "description": "白色花裙、宽檐花帽、白礼服"
+    }
+  ]
+}

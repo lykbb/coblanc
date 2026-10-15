@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000064",
+ "name": "重工红金拖尾秀禾",
+ "primary_category_id": "02",
+ "secondary_category_id": "02-01",
+ "tags": [
+  "中式喜服",
+  "红金刺绣拖尾秀禾",
+  "金凤冠",
+  "金项链",
+  "红金长衫马面裙",
+  "红底黑字囍",
+  "室内棚拍"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "雨墨摄影惠州店官微",
+  "url": "https://m.weibo.cn/detail/5322399624988916",
+  "published_date": "2026-07-19",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：雨墨摄影惠州店官微）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（红金拖尾秀禾+金凤冠；新郎红金长衫马面裙）、连贯风格（重工传统秀禾）",
+ "clothing": {
+  "新娘": "红金刺绣拖尾秀禾+金凤冠+金项链",
+  "新郎": "红金刺绣长衫+马面裙"
+ },
+ "scene_and_light": "红底黑字囍字布景室内棚拍，传统婚嫁喜庆",
+ "limitations": [
+  "原图2000×2998",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000543",
+   "set_id": "SET000064",
+   "file_name": "IMG000543.jpg",
+   "source_page": 1,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "770c0316f9429dc4902f5333240a4cf2c4a5ff614a4560cdbaeab13e5c1fe900",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金刺绣拖尾秀禾+金凤冠+金项链",
+    "新郎": "红金刺绣长衫+马面裙"
+   },
+   "scene_and_light_ref": "红底黑字囍字布景室内棚拍，传统婚嫁喜庆",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」右下角+「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "770c0316f9429dc4902f5333240a4cf2c4a5ff614a4560cdbaeab13e5c1fe900",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000544",
+   "set_id": "SET000064",
+   "file_name": "IMG000544.jpg",
+   "source_page": 2,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "a7545dc8581757f6437efae22ead1a5753004d5b73365014535aa335d8f65716",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金刺绣拖尾秀禾+金凤冠+金项链",
+    "新郎": "红金刺绣长衫+马面裙"
+   },
+   "scene_and_light_ref": "红底黑字囍字布景室内棚拍，传统婚嫁喜庆",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」右下角+「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "a7545dc8581757f6437efae22ead1a5753004d5b73365014535aa335d8f65716",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000545",
+   "set_id": "SET000064",
+   "file_name": "IMG000545.jpg",
+   "source_page": 3,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "f2e1368f908b9fc7ccd4f5ef99731ed8320b501d90d12c5b72ae13b969f22e10",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金刺绣拖尾秀禾+金凤冠+金项链",
+    "新郎": "红金刺绣长衫+马面裙"
+   },
+   "scene_and_light_ref": "红底黑字囍字布景室内棚拍，传统婚嫁喜庆",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」右下角+「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "f2e1368f908b9fc7ccd4f5ef99731ed8320b501d90d12c5b72ae13b969f22e10",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000546",
+   "set_id": "SET000064",
+   "file_name": "IMG000546.jpg",
+   "source_page": 4,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "0792fc47590d2fb584415fd7146ceeb07537c068dc91e28bbf08cdcaf9eb34b2",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金刺绣拖尾秀禾+金凤冠+金项链",
+    "新郎": "红金刺绣长衫+马面裙"
+   },
+   "scene_and_light_ref": "红底黑字囍字布景室内棚拍，传统婚嫁喜庆",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」右下角+「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "0792fc47590d2fb584415fd7146ceeb07537c068dc91e28bbf08cdcaf9eb34b2",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000547",
+   "set_id": "SET000064",
+   "file_name": "IMG000547.jpg",
+   "source_page": 5,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "a31bba2eeaca07eada4ac448d4500caf5228e0ea7a20df42bf0173039650aa5e",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金刺绣拖尾秀禾+金凤冠+金项链",
+    "新郎": "红金刺绣长衫+马面裙"
+   },
+   "scene_and_light_ref": "红底黑字囍字布景室内棚拍，传统婚嫁喜庆",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」右下角+「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "a31bba2eeaca07eada4ac448d4500caf5228e0ea7a20df42bf0173039650aa5e",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000548",
+   "set_id": "SET000064",
+   "file_name": "IMG000548.jpg",
+   "source_page": 6,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "26f9b3a8983efac575ae1e294b68220139560243de5e7ba433a66c8d91620f9f",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金刺绣拖尾秀禾+金凤冠+金项链",
+    "新郎": "红金刺绣长衫+马面裙"
+   },
+   "scene_and_light_ref": "红底黑字囍字布景室内棚拍，传统婚嫁喜庆",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」右下角+「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "26f9b3a8983efac575ae1e294b68220139560243de5e7ba433a66c8d91620f9f",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000549",
+   "set_id": "SET000064",
+   "file_name": "IMG000549.jpg",
+   "source_page": 7,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "5fbf475a3746cab12adfe0fed6fdd40ebe5203e9acf0b02685fd02c2eca6b64b",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金刺绣拖尾秀禾+金凤冠+金项链",
+    "新郎": "红金刺绣长衫+马面裙"
+   },
+   "scene_and_light_ref": "红底黑字囍字布景室内棚拍，传统婚嫁喜庆",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」右下角+「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "5fbf475a3746cab12adfe0fed6fdd40ebe5203e9acf0b02685fd02c2eca6b64b",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000550",
+   "set_id": "SET000064",
+   "file_name": "IMG000550.jpg",
+   "source_page": 8,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "3ebf238cea17cb7621a203c36e0a0e6a40a252653b4bb262e36e7527875d58f4",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金刺绣拖尾秀禾+金凤冠+金项链",
+    "新郎": "红金刺绣长衫+马面裙"
+   },
+   "scene_and_light_ref": "红底黑字囍字布景室内棚拍，传统婚嫁喜庆",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」右下角+「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "3ebf238cea17cb7621a203c36e0a0e6a40a252653b4bb262e36e7527875d58f4",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000551",
+   "set_id": "SET000064",
+   "file_name": "IMG000551.jpg",
+   "source_page": 9,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "6174b13553268386116a4a611aed0d13177d53eb829470fe1773e462f4f17c19",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金刺绣拖尾秀禾+金凤冠+金项链",
+    "新郎": "红金刺绣长衫+马面裙"
+   },
+   "scene_and_light_ref": "红底黑字囍字布景室内棚拍，传统婚嫁喜庆",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」右下角+「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "6174b13553268386116a4a611aed0d13177d53eb829470fe1773e462f4f17c19",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

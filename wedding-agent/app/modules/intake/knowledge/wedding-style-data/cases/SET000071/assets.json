@@ -1,0 +1,112 @@
+[
+  {
+    "image_id": "IMG000605",
+    "file_name": "IMG000605.jpg",
+    "sha256": "7e0cea8462147db355c5b247d6c35be0b053ffd8d52022e6668f41f6c6408f48",
+    "width": 3572,
+    "height": 5359,
+    "format": "JPEG",
+    "source_page": 1,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PdJ5fH9eXl6dHUdjzg8cJPrWn0f",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000606",
+    "file_name": "IMG000606.jpg",
+    "sha256": "f700335d70ed2b4d2e2c22f6c2d4e762e878b1476675239f7bcce2be1331cfac",
+    "width": 3572,
+    "height": 5359,
+    "format": "JPEG",
+    "source_page": 2,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PdJ5fH9eXl6dHUdjzg8cJPrWn0f",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000607",
+    "file_name": "IMG000607.jpg",
+    "sha256": "64d2b73a5d62579004e298ff2cdb140effb8d331e74c82188d699fdb42bdbc7d",
+    "width": 3572,
+    "height": 5359,
+    "format": "JPEG",
+    "source_page": 3,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PdJ5fH9eXl6dHUdjzg8cJPrWn0f",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000608",
+    "file_name": "IMG000608.jpg",
+    "sha256": "5be7d4fd9f0acc556ea88adeab58f618568585f5333fefe2272aa95c7f2006c4",
+    "width": 3562,
+    "height": 5343,
+    "format": "JPEG",
+    "source_page": 4,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PdJ5fH9eXl6dHUdjzg8cJPrWn0f",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000609",
+    "file_name": "IMG000609.jpg",
+    "sha256": "dba17dd8e324ebdae64082860811aab968d99ffa38481507c35ee46b92aa973f",
+    "width": 3562,
+    "height": 5343,
+    "format": "JPEG",
+    "source_page": 5,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PdJ5fH9eXl6dHUdjzg8cJPrWn0f",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000610",
+    "file_name": "IMG000610.jpg",
+    "sha256": "0d6135a07ecd20c74a2f5fb09d2800a0aa329d36daca0180719cf6ad8e0b0084",
+    "width": 3562,
+    "height": 5343,
+    "format": "JPEG",
+    "source_page": 6,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PdJ5fH9eXl6dHUdjzg8cJPrWn0f",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000611",
+    "file_name": "IMG000611.jpg",
+    "sha256": "3b88ea16a1f1d6cccd28721fa4e079a0023ccb09be7cb38e0a504edc5f70bb17",
+    "width": 3572,
+    "height": 5359,
+    "format": "JPEG",
+    "source_page": 7,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PdJ5fH9eXl6dHUdjzg8cJPrWn0f",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000612",
+    "file_name": "IMG000612.jpg",
+    "sha256": "f053db3602b9c9d37cc796e9290a0e2466dff5f80c9dc4fe95298ec214bb01e1",
+    "width": 1200,
+    "height": 1600,
+    "format": "JPEG",
+    "source_page": 8,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PdJ5fH9eXl6dHUdjzg8cJPrWn0f",
+    "service_url": null,
+    "reference_constraints": [
+      "composite_layout_not_single_shot"
+    ]
+  },
+  {
+    "image_id": "IMG000613",
+    "file_name": "IMG000613.jpg",
+    "sha256": "ffce2ad92a9f55a115e7f5a85242e2fbbb8b250004e1925502bd4df90f07826a",
+    "width": 3648,
+    "height": 5472,
+    "format": "JPEG",
+    "source_page": 9,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PdJ5fH9eXl6dHUdjzg8cJPrWn0f",
+    "service_url": null,
+    "reference_constraints": []
+  }
+]

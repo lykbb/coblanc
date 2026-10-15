@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000414",
+    "evidence_type": "observed",
+    "shot": "俯视双人中全景",
+    "action": "新郎躺前、新娘俯身笑",
+    "composition": "俯视双人中全景，新郎躺前、新娘俯身笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "俯视双人中全景，新郎躺前、新娘俯身笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000415",
+    "evidence_type": "observed",
+    "shot": "新娘单人中景",
+    "action": "床边侧坐，手搭床面",
+    "composition": "新娘单人中景，床边侧坐，手搭床面",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘单人中景，床边侧坐，手搭床面",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000416",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘站在床面抬手，新郎坐旁笑",
+    "composition": "双人全身，新娘站在床面抬手，新郎坐旁笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘站在床面抬手，新郎坐旁笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000417",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘高位、新郎床边低位",
+    "composition": "双人中全景，新娘高位、新郎床边低位",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘高位、新郎床边低位",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000418",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新娘低头、新郎侧看",
+    "composition": "双人中景，新娘低头、新郎侧看",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新娘低头、新郎侧看",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000419",
+    "evidence_type": "observed",
+    "shot": "俯视双人中全景",
+    "action": "新郎侧卧前景、新娘向前倾",
+    "composition": "俯视双人中全景，新郎侧卧前景、新娘向前倾",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "俯视双人中全景，新郎侧卧前景、新娘向前倾",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

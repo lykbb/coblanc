@@ -1,0 +1,268 @@
+{
+  "schema_version": "1.1",
+  "set_id": "SET000001",
+  "name": "阳光草坪自然浪漫",
+  "primary_category": "04_草坪与森林纪实自然浪漫",
+  "secondary_category": "04-01_阳光草坪清新",
+  "tags": [
+    "草坪",
+    "自然浪漫",
+    "纪实互动",
+    "白色蓬裙",
+    "长头纱",
+    "绿色背景",
+    "户外自然光"
+  ],
+  "source": {
+    "platform": "小红书",
+    "publisher": "北遇 / BEIYU STUDIO",
+    "title": "小红书🐮啊！真拍到电影里的草坪婚纱照了",
+    "url": "https://www.xiaohongshu.com/explore/683565c4000000000f032990",
+    "published_date": "2025-05-27",
+    "collected_date": "2026-10-14"
+  },
+  "real_photo_verification": "摄影品牌署名发布并描述为实拍；同组人物、服装和场景连贯；未取得拍摄原片独立核验。",
+  "collector": "Codex，按负责人确认的候选收集",
+  "review_status": "已入库；非生成式去字版，待负责人查看",
+  "cloud_folder": "https://my.feishu.cn/drive/folder/NLPCfwep8ltOigdhjgZcq8wEnyc",
+  "image_count": 6,
+  "file_note": "小红书网页下载版实拍照片，按负责人要求进行非生成式局部去字；PNG无损保存；未放大、未裁切，人物和婚纱保持原始解码像素。原始JPG留存本地备份。",
+  "set_consistency": "同一对人物、同一套服装造型、同一草坪场景；逐张视觉核对。",
+  "clothing": {
+    "bride": "白色抹胸刺绣上身、蓬松层叠裙摆与拖尾、白色长头纱、耳饰、浅色捧花",
+    "groom": "黑色西装、白衬衫、白色马甲、黑色领结、黑色皮鞋"
+  },
+  "scene_and_light": "室外起伏草坪、树木与白色沙坑；自然日光，部分逆光与侧光；具体季节和地点未独立核实。",
+  "limitations": [
+    "以双人全身和环境构图为主，无独立面部、戒指或面料特写。",
+    "网页下载短边1080px，达到最低门槛，未达到优选1500px。",
+    "文字原覆盖处为传统局部修补的背景纹理，不是可恢复的原始实景信息。"
+  ],
+  "excluded_source_pages": [
+    {
+      "page": 1,
+      "reason": "多图拼版与营销文字"
+    },
+    {
+      "page": 6,
+      "reason": "文字覆盖婚纱"
+    },
+    {
+      "page": 8,
+      "reason": "文字覆盖婚纱"
+    }
+  ],
+  "images": [
+    {
+      "image_id": "IMG000001",
+      "set_id": "SET000001",
+      "file_name": "IMG000001.png",
+      "source_page": 2,
+      "width": 1080,
+      "height": 1440,
+      "bytes": 1115921,
+      "sha256": "01d53cb2d83fab95b3c0c35193290a1952e1aa3b455bde2cd3a7eacecf12ddae",
+      "quality": "短边门槛通过；保留网页压缩与商业精修特征，非原片级细节",
+      "shot": "双人全身，环境留白",
+      "pose_and_interaction": "并排挽臂、面向镜头",
+      "clothing": "同本组 clothing",
+      "scene_and_light": "同本组 scene_and_light",
+      "watermark": "原有英文、品牌字样与右下角平台标识已按要求局部修补清除",
+      "useful_visual_information": "上方大面积草坪留白，婚纱轮廓完整",
+      "original_file_name": "IMG000001.jpg",
+      "original_sha256": "c41b70d68e711dccbc2578f1244afed4e85bd9c372edf8a0ad755d1f372cc845",
+      "pixel_verification": {
+        "file": "IMG000001.png",
+        "width": 1080,
+        "height": 1440,
+        "edited_pixels": 40529,
+        "outside_mask_changed_pixels": 0,
+        "person_and_dress_protected_area_changed_pixels": 0,
+        "text_region": [
+          60,
+          320,
+          435,
+          430
+        ],
+        "method": "同图背景纹理克隆与泊松融合"
+      }
+    },
+    {
+      "image_id": "IMG000002",
+      "set_id": "SET000001",
+      "file_name": "IMG000002.png",
+      "source_page": 3,
+      "width": 1080,
+      "height": 1440,
+      "bytes": 1022036,
+      "sha256": "9ca69b67ac3fa0ad26cc86812ada14f359ba183e94cb4d6550aa261cd7db3e11",
+      "quality": "短边门槛通过；保留网页压缩与商业精修特征，非原片级细节",
+      "shot": "双人全身",
+      "pose_and_interaction": "行进回头、笑容互动",
+      "clothing": "同本组 clothing",
+      "scene_and_light": "同本组 scene_and_light",
+      "watermark": "原有英文、品牌字样与右下角平台标识已按要求局部修补清除",
+      "useful_visual_information": "裙摆展开，左侧边缘有裁切",
+      "original_file_name": "IMG000002.jpg",
+      "original_sha256": "9f99bf18d3e89c91159ff0d6e1762919f99d015be7ef955cbcdbe8cc2d6ad11b",
+      "pixel_verification": {
+        "file": "IMG000002.png",
+        "width": 1080,
+        "height": 1440,
+        "edited_pixels": 13450,
+        "outside_mask_changed_pixels": 0,
+        "person_and_dress_protected_area_changed_pixels": 0,
+        "text_region": [
+          35,
+          390,
+          405,
+          495
+        ],
+        "method": "Navier–Stokes传统局部修补"
+      }
+    },
+    {
+      "image_id": "IMG000003",
+      "set_id": "SET000001",
+      "file_name": "IMG000003.png",
+      "source_page": 4,
+      "width": 1080,
+      "height": 1440,
+      "bytes": 1484886,
+      "sha256": "5b095eb9172ef533d48dab02d88cd13f54b3e1a6d7eeb61628c97a5fbc89eb9e",
+      "quality": "短边门槛通过；保留网页压缩与商业精修特征，非原片级细节",
+      "shot": "双人全身",
+      "pose_and_interaction": "新郎俯身吻手、新娘低头笑",
+      "clothing": "同本组 clothing",
+      "scene_and_light": "同本组 scene_and_light",
+      "watermark": "原有英文、品牌字样与右下角平台标识已按要求局部修补清除",
+      "useful_visual_information": "互动手部可见，拖尾左缘出框",
+      "original_file_name": "IMG000003.jpg",
+      "original_sha256": "050cb634fc523f30de4e03a3e446f83892908b4cf0bbbe77376ceb3acc5e02bb",
+      "pixel_verification": {
+        "file": "IMG000003.png",
+        "width": 1080,
+        "height": 1440,
+        "edited_pixels": 12370,
+        "outside_mask_changed_pixels": 0,
+        "person_and_dress_protected_area_changed_pixels": 0,
+        "text_region": [
+          75,
+          220,
+          450,
+          325
+        ],
+        "method": "Navier–Stokes传统局部修补"
+      }
+    },
+    {
+      "image_id": "IMG000004",
+      "set_id": "SET000001",
+      "file_name": "IMG000004.png",
+      "source_page": 5,
+      "width": 1080,
+      "height": 1440,
+      "bytes": 1079429,
+      "sha256": "fae7d566f2efaff98612bcfe4066117a00ff6b53ec69b4ef1b65302c4f104938",
+      "quality": "短边门槛通过；保留网页压缩与商业精修特征，非原片级细节",
+      "shot": "双人全身，人物较近",
+      "pose_and_interaction": "新郎靠近新娘耳侧、拥抱",
+      "clothing": "同本组 clothing",
+      "scene_and_light": "同本组 scene_and_light",
+      "watermark": "原有英文、品牌字样与右下角平台标识已按要求局部修补清除",
+      "useful_visual_information": "头纱展开，裙摆左缘出框",
+      "original_file_name": "IMG000004.jpg",
+      "original_sha256": "0aeb3209267a6e35ab44492ed7b3a60e5adcc331503fb75d0cc738ea92ec0719",
+      "pixel_verification": {
+        "file": "IMG000004.png",
+        "width": 1080,
+        "height": 1440,
+        "edited_pixels": 34650,
+        "outside_mask_changed_pixels": 0,
+        "person_and_dress_protected_area_changed_pixels": 0,
+        "text_region": [
+          65,
+          200,
+          435,
+          295
+        ],
+        "method": "同图背景纹理克隆与泊松融合"
+      }
+    },
+    {
+      "image_id": "IMG000005",
+      "set_id": "SET000001",
+      "file_name": "IMG000005.png",
+      "source_page": 7,
+      "width": 1080,
+      "height": 1440,
+      "bytes": 1901546,
+      "sha256": "990484e9ccdab6cdc57ab31e38114fb5a723331d87e36af7a0101b813808f32b",
+      "quality": "短边门槛通过；保留网页压缩与商业精修特征，非原片级细节",
+      "shot": "环境远景、双人全身",
+      "pose_and_interaction": "牵手对望",
+      "clothing": "同本组 clothing",
+      "scene_and_light": "同本组 scene_and_light",
+      "watermark": "原有英文、品牌字样与右下角平台标识已按要求局部修补清除",
+      "useful_visual_information": "人物占比较小，适合场景构图，不作面部细节图",
+      "original_file_name": "IMG000005.jpg",
+      "original_sha256": "b6afc60264c60a7d0d6a49484e4e27b7cee20ed5c4cbbb82874d6d03563cd061",
+      "pixel_verification": {
+        "file": "IMG000005.png",
+        "width": 1080,
+        "height": 1440,
+        "edited_pixels": 12113,
+        "outside_mask_changed_pixels": 0,
+        "person_and_dress_protected_area_changed_pixels": 0,
+        "text_region": [
+          610,
+          305,
+          1035,
+          410
+        ],
+        "method": "Navier–Stokes传统局部修补"
+      }
+    },
+    {
+      "image_id": "IMG000006",
+      "set_id": "SET000001",
+      "file_name": "IMG000006.png",
+      "source_page": 9,
+      "width": 1080,
+      "height": 1440,
+      "bytes": 1375495,
+      "sha256": "2c2dcd26347af2f713ee6dc0a0ab2eae07765a8b812c3482cf47bc167eb94bb5",
+      "quality": "短边门槛通过；保留网页压缩与商业精修特征，非原片级细节",
+      "shot": "双人全身，人物较近",
+      "pose_and_interaction": "背后拥抱、新娘举捧花",
+      "clothing": "同本组 clothing",
+      "scene_and_light": "同本组 scene_and_light",
+      "watermark": "原有英文、品牌字样与右下角平台标识已按要求局部修补清除",
+      "useful_visual_information": "头纱与捧花、双人关系可见",
+      "original_file_name": "IMG000006.jpg",
+      "original_sha256": "0572eb76dae208f0f19f8ca1e85f3fdbf8cf2da4a36e35eb6f6369819ba25239",
+      "pixel_verification": {
+        "file": "IMG000006.png",
+        "width": 1080,
+        "height": 1440,
+        "edited_pixels": 11804,
+        "outside_mask_changed_pixels": 0,
+        "person_and_dress_protected_area_changed_pixels": 0,
+        "text_region": [
+          60,
+          145,
+          435,
+          245
+        ],
+        "method": "Navier–Stokes传统局部修补"
+      }
+    }
+  ],
+  "processing": {
+    "method": "同图背景纹理克隆与泊松融合、Navier–Stokes 局部修补；无生成模型",
+    "scope": "仅英文与品牌文字所在背景区域及右下角标识",
+    "pixel_check": "6张均通过：掩膜外变化像素数0；人物与婚纱保护区域变化像素数0",
+    "date": "2026-10-14",
+    "source_backup": "本地原始JPG备份，保留原哈希用于追溯"
+  }
+}

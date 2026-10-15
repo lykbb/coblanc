@@ -1,0 +1,194 @@
+{
+  "schema_version": "0.2",
+  "set_id": "SET000022",
+  "name": "红韵汉服俏皮喜嫁",
+  "primary_category_id": "02",
+  "secondary_category_id": "02-02",
+  "status": "review_draft",
+  "description": "红与米白宽袖婚服，红花木屏暖橙背景；正面玩笑互动与安静依偎并存。",
+  "evidence": {
+    "source_platform": "xiaohongshu",
+    "publisher": "惠州峯尚高定婚纱摄影",
+    "source_url": "https://www.xiaohongshu.com/explore/6acf3f81000000001802a917",
+    "cloud_folder": "https://my.feishu.cn/drive/folder/BLKRfEGpLlJ2QEd9nN9cTcIOn5u",
+    "checked_on": "2026-10-16",
+    "review_method": "全部联系表逐格核对，重要差异与代表图另读单图；尚未进行逐像素全图审校",
+    "real_photo_status": "既有发布说明与视觉连贯性支持；未独立认证摄影原片",
+    "source_index": "source-index.json"
+  },
+  "observations": [
+    {
+      "id": "SET000022-F1",
+      "dimension": "服装",
+      "statement": "新娘红色宽袖花卉装饰外衣、浅色下裙、盘绕高髻与红色发饰；新郎米白宽袖长袍、装饰腰带。",
+      "evidence_images": [
+        "IMG000166",
+        "IMG000167",
+        "IMG000170"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000022-F2",
+      "dimension": "场景",
+      "statement": "红花布置、深色木质格屏与地面；红橙背景有斑驳明暗。",
+      "evidence_images": [
+        "IMG000166",
+        "IMG000167"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000022-F3",
+      "dimension": "配色",
+      "statement": "红色占较大画面面积，米白服装形成明度对比，木色压低背景明度。",
+      "evidence_images": [
+        "IMG000164",
+        "IMG000167"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000022-F4",
+      "dimension": "互动",
+      "statement": "持扇、红绸互动、挥手、依偎；既有看镜头笑容，也有闭眼亲密画面。",
+      "evidence_images": [
+        "IMG000165",
+        "IMG000168",
+        "IMG000170",
+        "IMG000171"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000022-F5",
+      "dimension": "局部效果",
+      "statement": "171与172存在橙色虚化前景；不能仅凭成片判断是实景遮挡还是后期效果。",
+      "evidence_images": [
+        "IMG000171",
+        "IMG000172"
+      ],
+      "evidence_type": "observed"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "婚俗符号与轻松表情结合，构成这一案例的喜庆俏皮感。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "SET000022"
+      ],
+      "status": "needs_cross_case_review"
+    },
+    {
+      "statement": "传统服装可承载轻快互动；安静依偎也可作为组内节奏变化。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "SET000022"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "红花与木屏这一具体组合",
+    "红米白服装配对和具体花纹",
+    "囍字扇、卷轴、红绸球",
+    "盘绕高髻及橙色前景效果"
+  ],
+  "within_session_locks": [
+    "客户身份（独立授权参考，不使用样片模特身份）",
+    "客户确认后的服装和主要妆发",
+    "客户确认后的场景方向、主光逻辑与整体色彩"
+  ],
+  "creative_variables": [
+    {
+      "field": "背景",
+      "options": [
+        "简化红色室内背景",
+        "带窗格的庭院背景"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "设计建议，未实拍或生成验证；换背景时重设光线与人物投影。"
+    },
+    {
+      "field": "道具",
+      "options": [
+        "保留一种扇面",
+        "用红绸替代卷轴",
+        "无手持道具"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "由动作决定道具，不要求每张集齐。"
+    },
+    {
+      "field": "互动",
+      "options": [
+        "活泼挥手",
+        "轻松对望",
+        "安静依偎"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "组内允许节奏变化；不把一组全做夸张笑脸。"
+    },
+    {
+      "field": "服装",
+      "options": [
+        "保留原案例造型方向",
+        "由客户选定另一套协调的中式婚服"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "具体时代制式未考证；变化后全组使用同一套确认造型。"
+    }
+  ],
+  "compatibility_rules": [
+    "红绸动作需要双手位置与绸带路径相符。",
+    "道具扇与手部动作一起选择，不把持扇和空手比心叠到同一只手。",
+    "姓名、日期、卷轴文字如需准确出现，列入后期排版任务。"
+  ],
+  "do_not_inherit": [
+    "把品牌水印、账号名称当作风格元素生成",
+    "推定为某一朝代的准确服制",
+    "将样片脸或体形作为客户身份要求"
+  ],
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "新娘红色宽袖花卉装饰外衣、浅色下裙、盘绕高髻与红色发饰；新郎米白宽袖长袍、装饰腰带。；红花布置、深色木质格屏与地面；红橙背景有斑驳明暗。；红色占较大画面面积，米白服装形成明度对比，木色压低背景明度。",
+    "template": "客户已确认身份与造型：{{customer_spec}}。已选择的场景、服装和光影方案：{{approved_plan}}。风格方向：{{selected_style_constraints}}。本张分镜：{{shot_fragment}}。",
+    "use_note": "原案例描述只在接近样片模式下作为参考；个性化模式先替换方案变量再组装。不能把全部选项或全部分镜拼进同一条提示词。",
+    "omit": [
+      "品牌水印",
+      "样片人物身份",
+      "未经证实的相机/灯具/Seed参数"
+    ],
+    "exact_text_policy": "准确姓名日期及道具文字由后期排版处理"
+  },
+  "reference_roles": {
+    "style_layout": [
+      "IMG000167",
+      "IMG000170",
+      "IMG000171"
+    ],
+    "customer_identity": [],
+    "pose": "按选定分镜image_id按需读取；本实验未导出姿态控制图",
+    "clothing": "来源图可辅助轮廓理解；客户指定衣服优先，不能保证仅靠文字复现细节"
+  },
+  "limitations": [
+    "面部具有明显商业精修感；实拍依据来自既有发布说明，未独立核验原片。",
+    "仅一个该二级案例，无法证明此组特征是俏皮喜嫁的普遍规律。",
+    "品牌标识保留，仅作来源线索，不进入生成描述。"
+  ],
+  "validation": {
+    "data_review": "draft_ready_for_user",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  }
+}

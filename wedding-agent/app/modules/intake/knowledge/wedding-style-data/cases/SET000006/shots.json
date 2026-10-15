@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000040",
+    "evidence_type": "observed",
+    "shot": "新娘脸部特写",
+    "action": "闭眼笑、手靠脸侧",
+    "composition": "新娘脸部特写，闭眼笑、手靠脸侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘脸部特写，闭眼笑、手靠脸侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000041",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘靠肩，正面笑",
+    "composition": "双人中全景，新娘靠肩，正面笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘靠肩，正面笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000042",
+    "evidence_type": "observed",
+    "shot": "双人全身相拥",
+    "action": "新郎抬起一脚",
+    "composition": "双人全身相拥，新郎抬起一脚",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身相拥，新郎抬起一脚",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000043",
+    "evidence_type": "observed",
+    "shot": "新娘蹲姿全身",
+    "action": "旁边猫入画",
+    "composition": "新娘蹲姿全身，旁边猫入画",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘蹲姿全身，旁边猫入画",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000044",
+    "evidence_type": "observed",
+    "shot": "双人全身并立",
+    "action": "墙面叶影",
+    "composition": "双人全身并立，墙面叶影",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身并立，墙面叶影",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000045",
+    "evidence_type": "observed",
+    "shot": "双人低位蹲坐",
+    "action": "叶影落在背景与地面",
+    "composition": "双人低位蹲坐，叶影落在背景与地面",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人低位蹲坐，叶影落在背景与地面",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000046",
+    "evidence_type": "observed",
+    "shot": "新娘近景",
+    "action": "手靠唇侧、正视",
+    "composition": "新娘近景，手靠唇侧、正视",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘近景，手靠唇侧、正视",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000047",
+    "evidence_type": "observed",
+    "shot": "新娘全身站立",
+    "action": "蓝墙叶影",
+    "composition": "新娘全身站立，蓝墙叶影",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘全身站立，蓝墙叶影",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000048",
+    "evidence_type": "observed",
+    "shot": "双人中景前倾笑",
+    "action": "蓝墙树冠构图",
+    "composition": "双人中景前倾笑，蓝墙树冠构图",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景前倾笑，蓝墙树冠构图",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

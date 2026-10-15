@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000387",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "向镜头伸手展示手部",
+    "composition": "双人中景，向镜头伸手展示手部",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，向镜头伸手展示手部",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000388",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘掩嘴看新郎",
+    "composition": "双人全身，新娘掩嘴看新郎",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘掩嘴看新郎",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000389",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "举手合成爱心",
+    "composition": "双人中全景，举手合成爱心",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，举手合成爱心",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000390",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "歪头、手势和花束前景",
+    "composition": "双人近景，歪头、手势和花束前景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，歪头、手势和花束前景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000391",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新郎托新娘下巴、笑",
+    "composition": "双人近景，新郎托新娘下巴、笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新郎托新娘下巴、笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000392",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "各自比心，绿植虚化前景",
+    "composition": "双人中全景，各自比心，绿植虚化前景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，各自比心，绿植虚化前景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000393",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "牵手张开另一手",
+    "composition": "双人全身，牵手张开另一手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，牵手张开另一手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000394",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新娘双手托脸、新郎侧看",
+    "composition": "双人近景，新娘双手托脸、新郎侧看",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新娘双手托脸、新郎侧看",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000395",
+    "evidence_type": "observed",
+    "shot": "双人坐姿全身",
+    "action": "新郎半躺挥手、新娘低位拱手过头",
+    "composition": "双人坐姿全身，新郎半躺挥手、新娘低位拱手过头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿全身，新郎半躺挥手、新娘低位拱手过头",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

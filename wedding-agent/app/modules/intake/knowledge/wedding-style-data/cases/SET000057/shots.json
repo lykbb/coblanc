@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000477",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "门口拉红绸球",
+    "composition": "双人全身，门口拉红绸球",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，门口拉红绸球",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000478",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "一起举起红绸球",
+    "composition": "双人全身，一起举起红绸球",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，一起举起红绸球",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000479",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "各持喜字旗，靠头笑",
+    "composition": "双人中全景，各持喜字旗，靠头笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，各持喜字旗，靠头笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000480",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "各举祝福卷轴",
+    "composition": "双人中景，各举祝福卷轴",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，各举祝福卷轴",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000481",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "红毯台阶中正面站立",
+    "composition": "双人环境全身，红毯台阶中正面站立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，红毯台阶中正面站立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000482",
+    "evidence_type": "observed",
+    "shot": "双人中近景",
+    "action": "新郎在前、新娘后方持花球",
+    "composition": "双人中近景，新郎在前、新娘后方持花球",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中近景，新郎在前、新娘后方持花球",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000483",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎坐前、新娘站后，各持旗",
+    "composition": "双人全身，新郎坐前、新娘站后，各持旗",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎坐前、新娘站后，各持旗",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000484",
+    "evidence_type": "observed",
+    "shot": "横幅双人中全景",
+    "action": "对望持旗，空手相接",
+    "composition": "横幅双人中全景，对望持旗，空手相接",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中全景，对望持旗，空手相接",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000485",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新郎前倾举迎亲牌、新娘在后",
+    "composition": "双人中全景，新郎前倾举迎亲牌、新娘在后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新郎前倾举迎亲牌、新娘在后",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

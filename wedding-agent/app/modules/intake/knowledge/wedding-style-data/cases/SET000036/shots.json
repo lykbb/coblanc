@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000291",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "牵手举花，新郎张手挥动",
+    "composition": "双人全身，牵手举花，新郎张手挥动",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，牵手举花，新郎张手挥动",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000292",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新郎吻新娘脸侧、新娘坐姿持花",
+    "composition": "双人中景，新郎吻新娘脸侧、新娘坐姿持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新郎吻新娘脸侧、新娘坐姿持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000293",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "牵起手面向镜头",
+    "composition": "双人全身，牵起手面向镜头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，牵起手面向镜头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000294",
+    "evidence_type": "observed",
+    "shot": "新娘中全景持花",
+    "action": "新郎背影在右前景",
+    "composition": "新娘中全景持花，新郎背影在右前景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中全景持花，新郎背影在右前景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000295",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新娘双手托颏、新郎侧看她",
+    "composition": "双人近景，新娘双手托颏、新郎侧看她",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新娘双手托颏、新郎侧看她",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000296",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎单膝低位捧手，新娘掩嘴笑",
+    "composition": "双人全身，新郎单膝低位捧手，新娘掩嘴笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎单膝低位捧手，新娘掩嘴笑",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

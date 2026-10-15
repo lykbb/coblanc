@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000082",
+    "evidence_type": "observed",
+    "shot": "新娘背侧中景回头",
+    "action": "突出花帽与背后蝴蝶结",
+    "composition": "新娘背侧中景回头，突出花帽与背后蝴蝶结",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘背侧中景回头，突出花帽与背后蝴蝶结",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000083",
+    "evidence_type": "observed",
+    "shot": "双人环境全身前后分站",
+    "action": "新郎居前持花",
+    "composition": "双人环境全身前后分站，新郎居前持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身前后分站，新郎居前持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000084",
+    "evidence_type": "observed",
+    "shot": "双人全身挽臂正视",
+    "action": "远山背景",
+    "composition": "双人全身挽臂正视，远山背景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身挽臂正视，远山背景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000085",
+    "evidence_type": "observed",
+    "shot": "新娘近景回头",
+    "action": "花帽与花束框脸",
+    "composition": "新娘近景回头，花帽与花束框脸",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘近景回头，花帽与花束框脸",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000086",
+    "evidence_type": "observed",
+    "shot": "新娘环境全身侧站",
+    "action": "长裙拖尾与远山留白",
+    "composition": "新娘环境全身侧站，长裙拖尾与远山留白",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘环境全身侧站，长裙拖尾与远山留白",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000087",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎低头吻手，新娘侧立",
+    "composition": "双人全身，新郎低头吻手，新娘侧立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎低头吻手，新娘侧立",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

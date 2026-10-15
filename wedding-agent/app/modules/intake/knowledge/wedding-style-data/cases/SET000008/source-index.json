@@ -1,0 +1,255 @@
+{
+  "schema_version": "1.1",
+  "set_id": "SET000008",
+  "name": "草坪轻纱举杯仪式",
+  "primary_category_id": "04",
+  "primary_category_name": "04_草坪与森林纪实自然浪漫",
+  "secondary_category_id": "04-01",
+  "secondary_category_name": "阳光草坪清新",
+  "tags": [
+    "草坪",
+    "自然浪漫",
+    "举杯",
+    "蕾丝头纱",
+    "白绿"
+  ],
+  "source": {
+    "platform": "摄影工作室官网",
+    "publisher": "尼鹿摄影",
+    "url": "https://japanweddingphoto.com/stories/qingdao-garden-wedding/",
+    "published_date": null,
+    "collected_date": "2026-10-14"
+  },
+  "real_photo_verification": {
+    "evidence": "来源网站作为摄影作品发布；逐张比较人物、服装、场景及光线连续性，未发现明显生成或换脸迹象。",
+    "limitations": "发布者拍摄说明及目视核验，不等于相机原片或独立实拍认证。"
+  },
+  "collector": "Codex",
+  "review_status": "本地验收通过，待负责人检查",
+  "upload_status": "待云端核验；实际上传结果以批次回执为准",
+  "cloud_folder": "https://my.feishu.cn/drive/folder/WcrzfpaqslHssad9jxjc2aSynv6",
+  "image_count": 6,
+  "set_consistency": "组内同一对人物、同一服装造型；景别与互动不同。",
+  "clothing": {
+    "bride": "白色抹胸修身礼服、白色长手套、蕾丝边长头纱",
+    "groom": "白色立领长袖衬衫、灰米色长裤"
+  },
+  "scene_and_light": "户外草坪、深绿树丛、白色桌布与酒杯，日间自然光",
+  "limitations": [
+    "桌子遮住部分下装，非全身服装细节组；无戒指特写；不收人物过小的原第4页"
+  ],
+  "quality_policy": "不设尺寸门槛，逐张核验画质、清晰度、五官遮挡和主体细节。",
+  "processing": "去除集合中的不合格/近重复候选和营销信息；选中图无叠字，无需像素修补；原JPEG字节复制，仅更名，无放大、裁切或重编码。",
+  "images": [
+    {
+      "image_id": "IMG000058",
+      "set_id": "SET000008",
+      "file_name": "IMG000058.jpg",
+      "source_page": 1,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-garden-wedding/01-406A2388.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "d446eaea726546302830209cfcb02c13d55a2f5c5024aa7d81f06c3efc88d861",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人牵手对望",
+      "pose_and_interaction": "双人牵手对望",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page01.jpg",
+      "original_sha256": "d446eaea726546302830209cfcb02c13d55a2f5c5024aa7d81f06c3efc88d861",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000059",
+      "set_id": "SET000008",
+      "file_name": "IMG000059.jpg",
+      "source_page": 2,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-garden-wedding/02-406A2415.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "af84e71f1ffaf8552d8fb188aca26e08c207785ca1374df54a98547434b6199e",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人中景举杯",
+      "pose_and_interaction": "双人中景举杯",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page02.jpg",
+      "original_sha256": "af84e71f1ffaf8552d8fb188aca26e08c207785ca1374df54a98547434b6199e",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000060",
+      "set_id": "SET000008",
+      "file_name": "IMG000060.jpg",
+      "source_page": 3,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-garden-wedding/03-406A2431.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "793dede15adc7d07348852b4e36f6eef79e419f5a300845eec09621d26d5b99b",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人靠近微笑",
+      "pose_and_interaction": "双人靠近微笑",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page03.jpg",
+      "original_sha256": "793dede15adc7d07348852b4e36f6eef79e419f5a300845eec09621d26d5b99b",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000061",
+      "set_id": "SET000008",
+      "file_name": "IMG000061.jpg",
+      "source_page": 5,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-garden-wedding/05-406A2670.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "4ff1d5cc3d5e4cf66f84e7e29a1593c87e930507ca299dd33a223327c708c6ec",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人展开手臂牵手",
+      "pose_and_interaction": "双人展开手臂牵手",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page05.jpg",
+      "original_sha256": "4ff1d5cc3d5e4cf66f84e7e29a1593c87e930507ca299dd33a223327c708c6ec",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000062",
+      "set_id": "SET000008",
+      "file_name": "IMG000062.jpg",
+      "source_page": 6,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-garden-wedding/06-406A2672.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "f55a79cea33077696b324019a8ef784bb9b9db9d965053bd2c48e94689a5de30",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人近景俯身微笑",
+      "pose_and_interaction": "双人近景俯身微笑",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page06.jpg",
+      "original_sha256": "f55a79cea33077696b324019a8ef784bb9b9db9d965053bd2c48e94689a5de30",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000063",
+      "set_id": "SET000008",
+      "file_name": "IMG000063.jpg",
+      "source_page": 7,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-garden-wedding/07-406A2782.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "fa41de0c01ecfd4368c9547e4006a6dd94ef1c272ee38ef927ac7b4a445bbbca",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人中景举杯回望",
+      "pose_and_interaction": "双人中景举杯回望",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page07.jpg",
+      "original_sha256": "fa41de0c01ecfd4368c9547e4006a6dd94ef1c272ee38ef927ac7b4a445bbbca",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    }
+  ]
+}

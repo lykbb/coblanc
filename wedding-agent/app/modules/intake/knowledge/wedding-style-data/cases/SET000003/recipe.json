@@ -1,0 +1,198 @@
+{
+  "schema_version": "0.2",
+  "set_id": "SET000003",
+  "name": "灰底光影缎面主纱",
+  "primary_category_id": "06",
+  "secondary_category_id": "06-01",
+  "status": "review_draft",
+  "description": "灰色棚景、圆形亮区和清晰投影、白色缎面蓬裙；俏皮姿态与亲密近景结合。",
+  "evidence": {
+    "source_platform": "小红书",
+    "publisher": "ONLYYOU婚纱摄影店",
+    "source_url": "https://www.xiaohongshu.com/explore/699ac1810000000015022337",
+    "cloud_folder": "https://my.feishu.cn/drive/folder/NczjffFXnl95hkd5yzDcVPfZncc",
+    "checked_on": "2026-10-16",
+    "review_method": "全部联系表逐格核对，重要差异与代表图另读单图；尚未进行逐像素全图审校",
+    "real_photo_status": "既有发布说明与视觉连贯性支持；未独立认证摄影原片",
+    "source_index": "source-index.json"
+  },
+  "observations": [
+    {
+      "id": "SET000003-F1",
+      "dimension": "服装",
+      "statement": "白色抹胸缎面观感大蓬裙，包边头纱；新郎黑色礼服、白衬衫和领结。",
+      "evidence_images": [
+        "IMG000013",
+        "IMG000014",
+        "IMG000016"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000003-F2",
+      "dimension": "场景",
+      "statement": "灰色背景与地面，圆形亮区，明显人物投影。",
+      "evidence_images": [
+        "IMG000013",
+        "IMG000015",
+        "IMG000019"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000003-F3",
+      "dimension": "配色",
+      "statement": "以灰、白、黑为主；捧花有少量绿色。",
+      "evidence_images": [
+        "IMG000014",
+        "IMG000015"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000003-F4",
+      "dimension": "互动",
+      "statement": "比心、牵手、触脸、掩嘴笑和张臂，部分图戴墨镜。",
+      "evidence_images": [
+        "IMG000013",
+        "IMG000014",
+        "IMG000017",
+        "IMG000019"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000003-F5",
+      "dimension": "画面装饰",
+      "statement": "部分画面可见空中或地面的纸屑状亮片。",
+      "evidence_images": [
+        "IMG000014",
+        "IMG000016",
+        "IMG000018"
+      ],
+      "evidence_type": "observed"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "光影对比和缎面高光强调服装轮廓，偏棚拍时尚表达。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "SET000003"
+      ],
+      "status": "needs_cross_case_review"
+    },
+    {
+      "statement": "画面具有定向较硬光的观感；不能反推灯具型号、功率和准确机位。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "SET000003"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "圆形光斑的确切大小与位置",
+    "墨镜造型",
+    "纸屑与特定比心动作",
+    "灰底与这一件婚纱的唯一绑定"
+  ],
+  "within_session_locks": [
+    "客户身份（独立授权参考，不使用样片模特身份）",
+    "客户确认后的服装和主要妆发",
+    "客户确认后的场景方向、主光逻辑与整体色彩"
+  ],
+  "creative_variables": [
+    {
+      "field": "背景",
+      "options": [
+        "中性灰",
+        "暖灰",
+        "较深灰"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "改变背景仍需保留裙摆与肤色的可辨层次。"
+    },
+    {
+      "field": "光影",
+      "options": [
+        "圆形亮区",
+        "更宽的定向亮区"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "属于新设计候选，不预先承诺模型能精确实现。"
+    },
+    {
+      "field": "互动",
+      "options": [
+        "克制对望",
+        "轻触脸",
+        "活泼张臂"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "与用户期望的时尚或甜蜜比例协调。"
+    },
+    {
+      "field": "装饰",
+      "options": [
+        "无纸屑",
+        "少量纸屑",
+        "仅局部分镜佩戴墨镜"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "墨镜不能覆盖整组，否则缺少清晰眼部参考。"
+    }
+  ],
+  "compatibility_rules": [
+    "缎面高光不能过曝至失去褶皱。",
+    "全组主光方向和影子逻辑保持协调。",
+    "服装与身份固定，墨镜和道具可作为分镜级开关。"
+  ],
+  "do_not_inherit": [
+    "将墨镜设为所有主婚纱的必选项",
+    "把缎面观感断言为具体纤维材质或品牌",
+    "复制样片人物五官"
+  ],
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "白色抹胸缎面观感大蓬裙，包边头纱；新郎黑色礼服、白衬衫和领结。；灰色背景与地面，圆形亮区，明显人物投影。；以灰、白、黑为主；捧花有少量绿色。",
+    "template": "客户已确认身份与造型：{{customer_spec}}。已选择的场景、服装和光影方案：{{approved_plan}}。风格方向：{{selected_style_constraints}}。本张分镜：{{shot_fragment}}。",
+    "use_note": "原案例描述只在接近样片模式下作为参考；个性化模式先替换方案变量再组装。不能把全部选项或全部分镜拼进同一条提示词。",
+    "omit": [
+      "品牌水印",
+      "样片人物身份",
+      "未经证实的相机/灯具/Seed参数"
+    ],
+    "exact_text_policy": "准确姓名日期及道具文字由后期排版处理"
+  },
+  "reference_roles": {
+    "style_layout": [
+      "IMG000013",
+      "IMG000014",
+      "IMG000017"
+    ],
+    "customer_identity": [],
+    "pose": "按选定分镜image_id按需读取；本实验未导出姿态控制图",
+    "clothing": "来源图可辅助轮廓理解；客户指定衣服优先，不能保证仅靠文字复现细节"
+  },
+  "limitations": [
+    "部分图墨镜遮眼，需与IMG000014等无遮挡画面一起看。",
+    "缺少新郎单人、戒指及独立面料特写。",
+    "“高定”为既有分类名，不代表已验证服装品牌或定制属性。",
+    "旧索引的尺寸门槛及上传状态是历史记录，本实验不照搬。"
+  ],
+  "validation": {
+    "data_review": "draft_ready_for_user",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  }
+}

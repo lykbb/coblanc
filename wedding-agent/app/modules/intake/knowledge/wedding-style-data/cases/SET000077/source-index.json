@@ -1,0 +1,91 @@
+{
+ "set_id": "SET000077",
+ "set_name": "谢安园林粉蝶旗袍",
+ "primary_category_id": "02",
+ "secondary_category_id": "02-08",
+ "secondary_category_name": "民国海派",
+ "source_url": "https://m.weibo.cn/detail/5329240456956386",
+ "author": "谢安视觉婚纱摄影",
+ "description": "粉色蝴蝶花纹旗袍+手提小包，新郎深蓝色长衫+眼镜，园林亭廊+柳树",
+ "people": "双人（新娘+新郎）",
+ "consistency": "同一对人物同一造型",
+ "image_count": 9,
+ "images": [
+  {
+   "image_id": "IMG000651",
+   "file": "IMG000651.jpg",
+   "width": 1200,
+   "height": 800,
+   "format": "jpg",
+   "sha256": "779d26e19b74e286e50b1bc308db87b0ac7395a84200508285a11d6a150a6a95"
+  },
+  {
+   "image_id": "IMG000652",
+   "file": "IMG000652.jpg",
+   "width": 1200,
+   "height": 1902,
+   "format": "jpg",
+   "sha256": "f51c12d8c6887558da4f87c97887ac0033456def7b97a76b04c95a958f087592"
+  },
+  {
+   "image_id": "IMG000653",
+   "file": "IMG000653.jpg",
+   "width": 1200,
+   "height": 1800,
+   "format": "jpg",
+   "sha256": "6cabc1beee2f921c3cc7c474cf82476ae6df58fa4304f9ba770481fa02e9522f"
+  },
+  {
+   "image_id": "IMG000654",
+   "file": "IMG000654.jpg",
+   "width": 1200,
+   "height": 1833,
+   "format": "jpg",
+   "sha256": "ea1c8f1f37643825ac460c972c803e774ac25819991df79889162a97f29b1aeb"
+  },
+  {
+   "image_id": "IMG000655",
+   "file": "IMG000655.jpg",
+   "width": 1200,
+   "height": 1830,
+   "format": "jpg",
+   "sha256": "f4c45787cb841ae29312ff95fd67c7b89e36cb577569fdb91d80f46e32ee9626"
+  },
+  {
+   "image_id": "IMG000656",
+   "file": "IMG000656.jpg",
+   "width": 1200,
+   "height": 809,
+   "format": "jpg",
+   "sha256": "bc4d967245e2e794ebe189a4c15136ec8304f2b1e0e29dc5c3086e8c057622b0"
+  },
+  {
+   "image_id": "IMG000657",
+   "file": "IMG000657.jpg",
+   "width": 1200,
+   "height": 1800,
+   "format": "jpg",
+   "sha256": "d505a8cbbb36f89bb44f695378789d94c37fc98bbd7b488e347a6ed6a2ba3c7b"
+  },
+  {
+   "image_id": "IMG000658",
+   "file": "IMG000658.jpg",
+   "width": 1200,
+   "height": 1885,
+   "format": "jpg",
+   "sha256": "249d59b80b788c88273615d72bb12f4e529a558f31c98a9426866eac25ffe0fe"
+  },
+  {
+   "image_id": "IMG000659",
+   "file": "IMG000659.jpg",
+   "width": 1200,
+   "height": 1800,
+   "format": "jpg",
+   "sha256": "c719f7fd5f4b1387061fa60a337da0ec631ace2f241d3182ab294957ac9ac2c3"
+  }
+ ],
+ "text_status": "保留工作室角标水印，未遮挡主体",
+ "processing": "未做去字/美颜/换脸，保留源格式",
+ "limits": "中等分辨率已标注",
+ "usage": "Agent数据库"
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000297",
+    "evidence_type": "observed",
+    "shot": "双人背侧全身",
+    "action": "台阶廊下亲近，拖尾铺开",
+    "composition": "双人背侧全身，台阶廊下亲近，拖尾铺开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人背侧全身，台阶廊下亲近，拖尾铺开",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000298",
+    "evidence_type": "observed",
+    "shot": "新娘背侧全身回望",
+    "action": "红拖尾沿台阶延伸",
+    "composition": "新娘背侧全身回望，红拖尾沿台阶延伸",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘背侧全身回望，红拖尾沿台阶延伸",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000299",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "山水墙前持扇并立",
+    "composition": "双人全身，山水墙前持扇并立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，山水墙前持扇并立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000300",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "面对面持扇",
+    "composition": "双人中全景，面对面持扇",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，面对面持扇",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000301",
+    "evidence_type": "observed",
+    "shot": "低机位双人全身",
+    "action": "红披帛占大片前景",
+    "composition": "低机位双人全身，红披帛占大片前景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "低机位双人全身，红披帛占大片前景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000302",
+    "evidence_type": "observed",
+    "shot": "新娘全身",
+    "action": "窗边站立，玻璃反射身影",
+    "composition": "新娘全身，窗边站立，玻璃反射身影",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘全身，窗边站立，玻璃反射身影",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000303",
+    "evidence_type": "observed",
+    "shot": "双人环境远景",
+    "action": "建筑牌匾下撑伞",
+    "composition": "双人环境远景，建筑牌匾下撑伞",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境远景，建筑牌匾下撑伞",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000304",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "窗边同撑浅色伞",
+    "composition": "双人全身，窗边同撑浅色伞",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，窗边同撑浅色伞",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000305",
+    "evidence_type": "observed",
+    "shot": "横幅建筑远景",
+    "action": "人物居下部、门楼占幅",
+    "composition": "横幅建筑远景，人物居下部、门楼占幅",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅建筑远景，人物居下部、门楼占幅",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

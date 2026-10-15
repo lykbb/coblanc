@@ -1,0 +1,51 @@
+{
+ "set_id": "SET000076",
+ "set_name": "薇阁室内拖尾主纱",
+ "primary_category_id": "06",
+ "secondary_category_id": "06-12",
+ "secondary_category_name": "高定杂志封面",
+ "source_url": "https://m.weibo.cn/detail/5334039999021531",
+ "author": "薇阁创影",
+ "description": "抹胸缎面大拖尾+头纱，新郎黑西装+领结，欧式雕花木墙+鸟笼架",
+ "people": "双人（新娘+新郎）",
+ "consistency": "同一对人物同一造型",
+ "image_count": 4,
+ "images": [
+  {
+   "image_id": "IMG000647",
+   "file": "IMG000647.jpg",
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "ccf56c3afeb8b519bdda381fe85f35d3a2df7f14481d8e84ee919413a4ae8ec3"
+  },
+  {
+   "image_id": "IMG000648",
+   "file": "IMG000648.jpg",
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "09d760d3622c2dd873b7642f8431b619e8c2437f667f6654e078b172c60d9cd8"
+  },
+  {
+   "image_id": "IMG000649",
+   "file": "IMG000649.jpg",
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "59796ae61c9f3ac46d37e5d9b9da905cbb9db7b1b90a7f3662a91ae5d22e973d"
+  },
+  {
+   "image_id": "IMG000650",
+   "file": "IMG000650.jpg",
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "34e34d81e6a29e47c9856d469d03dbbac70556a4bae187e7bd6f705dcc7e3adb"
+  }
+ ],
+ "text_status": "保留工作室角标水印，未遮挡主体",
+ "processing": "未做去字/美颜/换脸，保留源格式",
+ "limits": "中等分辨率已标注",
+ "usage": "Agent数据库"
+}

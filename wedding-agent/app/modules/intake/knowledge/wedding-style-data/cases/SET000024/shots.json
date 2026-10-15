@@ -1,0 +1,86 @@
+[
+  {
+    "image_id": "IMG000183",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "湖山前并列，新郎抱臂、新娘持花",
+    "composition": "双人全身，湖山前并列，新郎抱臂、新娘持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，湖山前并列，新郎抱臂、新娘持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000184",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新郎前景回头，新娘后方侧倾",
+    "composition": "双人中全景，新郎前景回头，新娘后方侧倾",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新郎前景回头，新娘后方侧倾",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000185",
+    "evidence_type": "observed",
+    "shot": "环境远景",
+    "action": "二人在湖边张臂举花",
+    "composition": "环境远景，二人在湖边张臂举花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "环境远景，二人在湖边张臂举花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000186",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新娘手靠脸侧、捧花占前景",
+    "composition": "双人近景，新娘手靠脸侧、捧花占前景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新娘手靠脸侧、捧花占前景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000187",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "湖边侧身相拥、裙摆展开",
+    "composition": "双人全身，湖边侧身相拥、裙摆展开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，湖边侧身相拥、裙摆展开",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000188",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "树荫下依偎，枝叶框景与斑驳光",
+    "composition": "双人全身，树荫下依偎，枝叶框景与斑驳光",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，树荫下依偎，枝叶框景与斑驳光",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000189",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新郎轻触新娘脸侧、对望",
+    "composition": "双人中全景，新郎轻触新娘脸侧、对望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新郎轻触新娘脸侧、对望",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

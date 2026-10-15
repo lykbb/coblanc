@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000042",
+ "name": "复古缎面主纱",
+ "primary_category_id": "06",
+ "secondary_category_id": "06-01",
+ "tags": [
+  "白纱",
+  "缎面主纱",
+  "露肩蓬裙",
+  "钻石头冠",
+  "白蝴蝶兰",
+  "金棕复古背景",
+  "室内"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "薇阁创影",
+  "url": "https://m.weibo.cn/detail/5349560207017347",
+  "published_date": "2026-10-02",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：薇阁创影）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（露肩缎面蓬裙白纱+钻石头冠；新郎黑西装+领结）、连贯风格（金棕复古棚拍）",
+ "clothing": {
+  "新娘": "露肩缎面蓬裙白纱+钻石头冠+珍珠耳坠",
+  "新郎": "黑西装+领结"
+ },
+ "scene_and_light": "金棕色复古背景室内棚拍，柔光",
+ "limitations": [
+  "分辨率1280×1708（中等）",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000342",
+   "set_id": "SET000042",
+   "file_name": "IMG000342.jpg",
+   "source_page": 1,
+   "width": 1280,
+   "height": 1708,
+   "format": "jpg",
+   "sha256": "e97184836f4e683b00f39830ded4921caf4f283041a2be135ea2c582d4c53f1d",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "露肩缎面蓬裙白纱+钻石头冠+珍珠耳坠",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "金棕色复古背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「WG VISION」+底部「@薇阁创影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "e97184836f4e683b00f39830ded4921caf4f283041a2be135ea2c582d4c53f1d",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000343",
+   "set_id": "SET000042",
+   "file_name": "IMG000343.jpg",
+   "source_page": 2,
+   "width": 1280,
+   "height": 1708,
+   "format": "jpg",
+   "sha256": "cebba32e6010d39f11bbbfd21943c23ab08910428289cad333a879be5e5e2222",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "露肩缎面蓬裙白纱+钻石头冠+珍珠耳坠",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "金棕色复古背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「WG VISION」+底部「@薇阁创影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "cebba32e6010d39f11bbbfd21943c23ab08910428289cad333a879be5e5e2222",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000344",
+   "set_id": "SET000042",
+   "file_name": "IMG000344.jpg",
+   "source_page": 3,
+   "width": 1280,
+   "height": 1708,
+   "format": "jpg",
+   "sha256": "d8f18930ca57ccc571f3baaedc173502fa152092637f92d773220fcaf316edb7",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "露肩缎面蓬裙白纱+钻石头冠+珍珠耳坠",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "金棕色复古背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「WG VISION」+底部「@薇阁创影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "d8f18930ca57ccc571f3baaedc173502fa152092637f92d773220fcaf316edb7",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000345",
+   "set_id": "SET000042",
+   "file_name": "IMG000345.jpg",
+   "source_page": 4,
+   "width": 1280,
+   "height": 1708,
+   "format": "jpg",
+   "sha256": "04b9069a406a5d8433bb332e97aaa7349c73f8b8e60b4de5cecc7409e136241e",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "露肩缎面蓬裙白纱+钻石头冠+珍珠耳坠",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "金棕色复古背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「WG VISION」+底部「@薇阁创影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "04b9069a406a5d8433bb332e97aaa7349c73f8b8e60b4de5cecc7409e136241e",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000346",
+   "set_id": "SET000042",
+   "file_name": "IMG000346.jpg",
+   "source_page": 5,
+   "width": 1280,
+   "height": 1708,
+   "format": "jpg",
+   "sha256": "1870be7352fbc0881ea92ce7acd5a20647eae9a1ab825787b0636b14109673f5",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "露肩缎面蓬裙白纱+钻石头冠+珍珠耳坠",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "金棕色复古背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「WG VISION」+底部「@薇阁创影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "1870be7352fbc0881ea92ce7acd5a20647eae9a1ab825787b0636b14109673f5",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000347",
+   "set_id": "SET000042",
+   "file_name": "IMG000347.jpg",
+   "source_page": 6,
+   "width": 1280,
+   "height": 1708,
+   "format": "jpg",
+   "sha256": "a3ffe1f0b9f8a42d00af4e31a61f01e627ec7206ceb40042fb87690fa08c6832",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "露肩缎面蓬裙白纱+钻石头冠+珍珠耳坠",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "金棕色复古背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「WG VISION」+底部「@薇阁创影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "a3ffe1f0b9f8a42d00af4e31a61f01e627ec7206ceb40042fb87690fa08c6832",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000348",
+   "set_id": "SET000042",
+   "file_name": "IMG000348.jpg",
+   "source_page": 7,
+   "width": 1280,
+   "height": 1708,
+   "format": "jpg",
+   "sha256": "103cfdada0e68573f7ad2efc711acfb5f2d15907c9076130f183b90832f06271",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "露肩缎面蓬裙白纱+钻石头冠+珍珠耳坠",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "金棕色复古背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「WG VISION」+底部「@薇阁创影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "103cfdada0e68573f7ad2efc711acfb5f2d15907c9076130f183b90832f06271",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000349",
+   "set_id": "SET000042",
+   "file_name": "IMG000349.jpg",
+   "source_page": 8,
+   "width": 1280,
+   "height": 1708,
+   "format": "jpg",
+   "sha256": "c4115caa274a15b597ce4dcebc3da7d14d689d208fc773c5d09d09d45c375db5",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "露肩缎面蓬裙白纱+钻石头冠+珍珠耳坠",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "金棕色复古背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「WG VISION」+底部「@薇阁创影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "c4115caa274a15b597ce4dcebc3da7d14d689d208fc773c5d09d09d45c375db5",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000350",
+   "set_id": "SET000042",
+   "file_name": "IMG000350.jpg",
+   "source_page": 9,
+   "width": 1280,
+   "height": 1708,
+   "format": "jpg",
+   "sha256": "868c803ddb89f12891699e43fff3177586741f279f5a819cec69954979a604a7",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "露肩缎面蓬裙白纱+钻石头冠+珍珠耳坠",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "金棕色复古背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「WG VISION」+底部「@薇阁创影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "868c803ddb89f12891699e43fff3177586741f279f5a819cec69954979a604a7",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000632",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "共撑红伞",
+    "composition": "双人全身，共撑红伞",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，共撑红伞",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000633",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "牵手正视",
+    "composition": "双人全身，牵手正视",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，牵手正视",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000634",
+    "evidence_type": "observed",
+    "shot": "双人全身高低错落",
+    "action": "新娘站后张臂，新郎低位",
+    "composition": "双人全身高低错落，新娘站后张臂，新郎低位",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身高低错落，新娘站后张臂，新郎低位",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000635",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "各抱大囍字板",
+    "composition": "双人中全景，各抱大囍字板",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，各抱大囍字板",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000636",
+    "evidence_type": "observed",
+    "shot": "双人坐姿中全景",
+    "action": "手靠脸侧",
+    "composition": "双人坐姿中全景，手靠脸侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿中全景，手靠脸侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000637",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎抛彩纸、新娘捧手笑",
+    "composition": "双人全身，新郎抛彩纸、新娘捧手笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎抛彩纸、新娘捧手笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000638",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新郎举小囍字靠脸侧",
+    "composition": "双人近景，新郎举小囍字靠脸侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新郎举小囍字靠脸侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000639",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "伞下对望，新娘掩嘴笑",
+    "composition": "双人全身，伞下对望，新娘掩嘴笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，伞下对望，新娘掩嘴笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000640",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎抱起新娘，新娘张臂",
+    "composition": "双人全身，新郎抱起新娘，新娘张臂",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎抱起新娘，新娘张臂",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

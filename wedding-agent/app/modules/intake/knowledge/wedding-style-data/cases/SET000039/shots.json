@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000315",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "花瓣纱幔内依偎持花",
+    "composition": "双人全身，花瓣纱幔内依偎持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，花瓣纱幔内依偎持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000316",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "隔纱面对面相视",
+    "composition": "双人中全景，隔纱面对面相视",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，隔纱面对面相视",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000317",
+    "evidence_type": "observed",
+    "shot": "新娘全身",
+    "action": "独坐或低位于纱幔中持花",
+    "composition": "新娘全身，独坐或低位于纱幔中持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘全身，独坐或低位于纱幔中持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000318",
+    "evidence_type": "observed",
+    "shot": "新娘中景",
+    "action": "举手触纱边",
+    "composition": "新娘中景，举手触纱边",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中景，举手触纱边",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000319",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新郎背向环抱，纱幔在前",
+    "composition": "双人中全景，新郎背向环抱，纱幔在前",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新郎背向环抱，纱幔在前",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000320",
+    "evidence_type": "observed",
+    "shot": "横幅环境远景",
+    "action": "二人在纱幔旁举手",
+    "composition": "横幅环境远景，二人在纱幔旁举手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅环境远景，二人在纱幔旁举手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000321",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "明亮正面微笑持花",
+    "composition": "双人中景，明亮正面微笑持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，明亮正面微笑持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000322",
+    "evidence_type": "observed",
+    "shot": "新娘俯视中景",
+    "action": "抬花靠脸侧",
+    "composition": "新娘俯视中景，抬花靠脸侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘俯视中景，抬花靠脸侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000323",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎白衬衫拿外套，新娘低坐持花",
+    "composition": "双人全身，新郎白衬衫拿外套，新娘低坐持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎白衬衫拿外套，新娘低坐持花",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

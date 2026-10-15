@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000534",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "车旁牵手、新娘张臂",
+    "composition": "双人全身，车旁牵手、新娘张臂",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，车旁牵手、新娘张臂",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000535",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "墨镜造型、长纱绕前景",
+    "composition": "双人中全景，墨镜造型、长纱绕前景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，墨镜造型、长纱绕前景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000536",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "车门打开，新娘坐车内挥手",
+    "composition": "双人中全景，车门打开，新娘坐车内挥手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，车门打开，新娘坐车内挥手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000537",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "新娘高位张臂、新郎站车旁、花瓣飞散",
+    "composition": "双人环境全身，新娘高位张臂、新郎站车旁、花瓣飞散",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，新娘高位张臂、新郎站车旁、花瓣飞散",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000538",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘车边坐姿、新郎扬起长纱",
+    "composition": "双人全身，新娘车边坐姿、新郎扬起长纱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘车边坐姿、新郎扬起长纱",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000539",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘高位坐车旁、新郎靠车站立",
+    "composition": "双人全身，新娘高位坐车旁、新郎靠车站立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘高位坐车旁、新郎靠车站立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000540",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘坐车内、新郎持花站前",
+    "composition": "双人中全景，新娘坐车内、新郎持花站前",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘坐车内、新郎持花站前",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000541",
+    "evidence_type": "observed",
+    "shot": "横幅环境远景",
+    "action": "整车与二人靠近",
+    "composition": "横幅环境远景，整车与二人靠近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅环境远景，整车与二人靠近",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000542",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "牵手回望、新郎向镜头挥手",
+    "composition": "双人中景，牵手回望、新郎向镜头挥手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，牵手回望、新郎向镜头挥手",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

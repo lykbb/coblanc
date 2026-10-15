@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000405",
+    "evidence_type": "observed",
+    "shot": "横幅环境远景",
+    "action": "建筑正面居中站立",
+    "composition": "横幅环境远景，建筑正面居中站立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅环境远景，建筑正面居中站立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000406",
+    "evidence_type": "observed",
+    "shot": "楼阁环境远景",
+    "action": "二人在栏杆后依偎",
+    "composition": "楼阁环境远景，二人在栏杆后依偎",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "楼阁环境远景，二人在栏杆后依偎",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000407",
+    "evidence_type": "observed",
+    "shot": "双人近景牵手",
+    "action": "新娘持团形饰物看镜头",
+    "composition": "双人近景牵手，新娘持团形饰物看镜头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景牵手，新娘持团形饰物看镜头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000408",
+    "evidence_type": "observed",
+    "shot": "双人纵深中全景",
+    "action": "新娘持扇居前、新郎廊后",
+    "composition": "双人纵深中全景，新娘持扇居前、新郎廊后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人纵深中全景，新娘持扇居前、新郎廊后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000409",
+    "evidence_type": "observed",
+    "shot": "仰视建筑框景",
+    "action": "二人在栏后分站",
+    "composition": "仰视建筑框景，二人在栏后分站",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "仰视建筑框景，二人在栏后分站",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000410",
+    "evidence_type": "observed",
+    "shot": "双人坐姿中全景",
+    "action": "廊道中正面微笑",
+    "composition": "双人坐姿中全景，廊道中正面微笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿中全景，廊道中正面微笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000411",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "石栏路径牵手各持红灯笼",
+    "composition": "双人全身，石栏路径牵手各持红灯笼",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，石栏路径牵手各持红灯笼",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000412",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "水边牵手额头贴近",
+    "composition": "双人中景，水边牵手额头贴近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，水边牵手额头贴近",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000413",
+    "evidence_type": "observed",
+    "shot": "横幅仰拍楼阁远景",
+    "action": "二人在右上楼廊",
+    "composition": "横幅仰拍楼阁远景，二人在右上楼廊",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅仰拍楼阁远景，二人在右上楼廊",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

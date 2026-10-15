@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000199",
+    "evidence_type": "observed",
+    "shot": "双人环境远景",
+    "action": "尖拱阳台中分站",
+    "composition": "双人环境远景，尖拱阳台中分站",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境远景，尖拱阳台中分站",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000200",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "石墙街边牵手走",
+    "composition": "双人全身，石墙街边牵手走",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，石墙街边牵手走",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000201",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "牵手转动，头纱飘向左",
+    "composition": "双人全身，牵手转动，头纱飘向左",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，牵手转动，头纱飘向左",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000202",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘坐长凳、新郎俯身亲吻",
+    "composition": "双人中全景，新娘坐长凳、新郎俯身亲吻",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘坐长凳、新郎俯身亲吻",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000203",
+    "evidence_type": "observed",
+    "shot": "新娘全身",
+    "action": "长凳边披纱坐姿",
+    "composition": "新娘全身，长凳边披纱坐姿",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘全身，长凳边披纱坐姿",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000204",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "红砖楼前长凳上相对坐",
+    "composition": "双人环境全身，红砖楼前长凳上相对坐",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，红砖楼前长凳上相对坐",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000205",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "灰色建筑前并立、新娘举纱",
+    "composition": "双人全身，灰色建筑前并立、新娘举纱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，灰色建筑前并立、新娘举纱",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000206",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "石窗旁新郎倚墙、新娘高位坐",
+    "composition": "双人全身，石窗旁新郎倚墙、新娘高位坐",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，石窗旁新郎倚墙、新娘高位坐",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000207",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎前方站立、新娘后举纱",
+    "composition": "双人全身，新郎前方站立、新娘后举纱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎前方站立、新娘后举纱",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

@@ -1,0 +1,190 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000036",
+ "name": "黑背景缎面主纱",
+ "primary_category_id": "06",
+ "secondary_category_id": "06-01",
+ "tags": [
+  "白纱",
+  "缎面主纱",
+  "抹胸蓬裙",
+  "银线刺绣",
+  "黑西装领结",
+  "纯黑背景",
+  "室内"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "长沙DSJ婚纱摄影旗舰店",
+  "url": "https://m.weibo.cn/detail/5305053005218742",
+  "published_date": "2026-06-01",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：长沙DSJ婚纱摄影旗舰店）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 6,
+ "set_consistency": "同一对人物、同一套造型（抹胸缎面蓬裙主纱+重工银线刺绣+银色发饰；新郎黑西装+领结）、连贯风格（纯黑背景室内棚拍）",
+ "clothing": {
+  "新娘": "抹胸缎面蓬裙主纱+重工银线刺绣+银色发饰",
+  "新郎": "黑西装+领结"
+ },
+ "scene_and_light": "纯黑背景室内棚拍，柔光",
+ "limitations": [
+  "每张带DS水印，不遮挡主体，保留",
+  "分辨率1280×1920（中等）"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000291",
+   "set_id": "SET000036",
+   "file_name": "IMG000291.jpg",
+   "source_page": 1,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "51520d5f07978d0c4227aea1f4bfef7e2afc22836874a29fedc20e2d561aac32",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": "双人全身",
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸缎面蓬裙主纱+重工银线刺绣+银色发饰",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "纯黑背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "51520d5f07978d0c4227aea1f4bfef7e2afc22836874a29fedc20e2d561aac32",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000292",
+   "set_id": "SET000036",
+   "file_name": "IMG000292.jpg",
+   "source_page": 2,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "280d861227bf630d8666bb02ce182d59b556687e765ecc2d23aa9c9b6b36ad01",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": "双人半身",
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸缎面蓬裙主纱+重工银线刺绣+银色发饰",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "纯黑背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "280d861227bf630d8666bb02ce182d59b556687e765ecc2d23aa9c9b6b36ad01",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000293",
+   "set_id": "SET000036",
+   "file_name": "IMG000293.jpg",
+   "source_page": 3,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "4845b1eef03cef7313241c841416577a6ce7d8033fd784becd72ff434bb89d59",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": "双人特写",
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸缎面蓬裙主纱+重工银线刺绣+银色发饰",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "纯黑背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "4845b1eef03cef7313241c841416577a6ce7d8033fd784becd72ff434bb89d59",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000294",
+   "set_id": "SET000036",
+   "file_name": "IMG000294.jpg",
+   "source_page": 4,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "d6c7bf55b1bcd87c6c8fa674aafa1702b61702e063192ce30eb6552513e1776e",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸缎面蓬裙主纱+重工银线刺绣+银色发饰",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "纯黑背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "d6c7bf55b1bcd87c6c8fa674aafa1702b61702e063192ce30eb6552513e1776e",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000295",
+   "set_id": "SET000036",
+   "file_name": "IMG000295.jpg",
+   "source_page": 5,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "b9daebff800af4c3fc8151db261bfbf210907028e620e69140655aece45b022b",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸缎面蓬裙主纱+重工银线刺绣+银色发饰",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "纯黑背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "b9daebff800af4c3fc8151db261bfbf210907028e620e69140655aece45b022b",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000296",
+   "set_id": "SET000036",
+   "file_name": "IMG000296.jpg",
+   "source_page": 6,
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "0cd9bd87a682c63a1ea5eac105425344f511eb0fcb18561f48934a8b57f21f55",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸缎面蓬裙主纱+重工银线刺绣+银色发饰",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "纯黑背景室内棚拍，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "0cd9bd87a682c63a1ea5eac105425344f511eb0fcb18561f48934a8b57f21f55",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

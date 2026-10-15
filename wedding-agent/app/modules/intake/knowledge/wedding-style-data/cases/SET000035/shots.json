@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000282",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "白墙边挽臂正视",
+    "composition": "双人全身，白墙边挽臂正视",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，白墙边挽臂正视",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000283",
+    "evidence_type": "observed",
+    "shot": "新娘背向环境全身",
+    "action": "亭前台阶展开金拖尾",
+    "composition": "新娘背向环境全身，亭前台阶展开金拖尾",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘背向环境全身，亭前台阶展开金拖尾",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000284",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "墙边挽臂对望",
+    "composition": "横幅双人中景，墙边挽臂对望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，墙边挽臂对望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000285",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "阶梯高低站位牵手",
+    "composition": "双人全身，阶梯高低站位牵手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，阶梯高低站位牵手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000286",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "亭廊中轻触头饰",
+    "composition": "横幅双人中景，亭廊中轻触头饰",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，亭廊中轻触头饰",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000287",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "亭前台阶一前一后",
+    "composition": "双人全身，亭前台阶一前一后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，亭前台阶一前一后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000288",
+    "evidence_type": "observed",
+    "shot": "双人环境远景",
+    "action": "亭子与石栏完整呈现",
+    "composition": "双人环境远景，亭子与石栏完整呈现",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境远景，亭子与石栏完整呈现",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000289",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "阶梯与栏杆分层站位",
+    "composition": "双人环境全身，阶梯与栏杆分层站位",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，阶梯与栏杆分层站位",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000290",
+    "evidence_type": "observed",
+    "shot": "双人环境远景",
+    "action": "石桥上站立、水面倒影",
+    "composition": "双人环境远景，石桥上站立、水面倒影",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境远景，石桥上站立、水面倒影",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

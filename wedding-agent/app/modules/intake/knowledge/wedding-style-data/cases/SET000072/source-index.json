@@ -1,0 +1,263 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000072",
+ "name": "草坪气球森系白纱",
+ "primary_category_id": "04",
+ "secondary_category_id": "04-01",
+ "tags": [
+  "白纱",
+  "抹胸白纱",
+  "头纱",
+  "满天星手捧",
+  "白色气球蝴蝶装饰",
+  "黑西装领结胸花",
+  "草坪树林",
+  "治愈森系"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "雨墨摄影惠州店官微",
+  "url": "https://m.weibo.cn/detail/5323860627951134",
+  "published_date": "2026-07-23",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：雨墨摄影惠州店官微）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（抹胸白纱+头纱；新郎黑西装领结）、连贯风格（草坪气球森系白纱）",
+ "clothing": {
+  "新娘": "抹胸白纱+头纱+满天星手捧",
+  "新郎": "黑西装+领结+胸花"
+ },
+ "scene_and_light": "草坪树林+白色气球蝴蝶装饰，自然光，治愈森系",
+ "limitations": [
+  "原图2000×3000",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000614",
+   "set_id": "SET000072",
+   "file_name": "IMG000614.jpg",
+   "source_page": 1,
+   "width": 2000,
+   "height": 3000,
+   "format": "jpg",
+   "sha256": "64990567517edc79dd49a15f02683716048e053faca901ba54c6de9d44c227ee",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸白纱+头纱+满天星手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "草坪树林+白色气球蝴蝶装饰，自然光，治愈森系",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "64990567517edc79dd49a15f02683716048e053faca901ba54c6de9d44c227ee",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000615",
+   "set_id": "SET000072",
+   "file_name": "IMG000615.jpg",
+   "source_page": 2,
+   "width": 2000,
+   "height": 3000,
+   "format": "jpg",
+   "sha256": "c4146bc1db6ba687693c8952bf50d0d138c00d71aa28d147dc4a65672b484930",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸白纱+头纱+满天星手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "草坪树林+白色气球蝴蝶装饰，自然光，治愈森系",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "c4146bc1db6ba687693c8952bf50d0d138c00d71aa28d147dc4a65672b484930",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000616",
+   "set_id": "SET000072",
+   "file_name": "IMG000616.jpg",
+   "source_page": 3,
+   "width": 2000,
+   "height": 3000,
+   "format": "jpg",
+   "sha256": "f0a7ab69abcd3b978c54b053b38acf71d179d0afb44662196cda129e2d21a297",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸白纱+头纱+满天星手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "草坪树林+白色气球蝴蝶装饰，自然光，治愈森系",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "f0a7ab69abcd3b978c54b053b38acf71d179d0afb44662196cda129e2d21a297",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000617",
+   "set_id": "SET000072",
+   "file_name": "IMG000617.jpg",
+   "source_page": 4,
+   "width": 2000,
+   "height": 3000,
+   "format": "jpg",
+   "sha256": "809ea491e9891255109aade29ad318f2805cdcffbc197b9b34a0a6f0b15f63ec",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸白纱+头纱+满天星手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "草坪树林+白色气球蝴蝶装饰，自然光，治愈森系",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "809ea491e9891255109aade29ad318f2805cdcffbc197b9b34a0a6f0b15f63ec",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000618",
+   "set_id": "SET000072",
+   "file_name": "IMG000618.jpg",
+   "source_page": 5,
+   "width": 2000,
+   "height": 3000,
+   "format": "jpg",
+   "sha256": "147abfac0639fb7fb864d04e442d00b9160968c8ab33828d15b62ba23f238ded",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸白纱+头纱+满天星手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "草坪树林+白色气球蝴蝶装饰，自然光，治愈森系",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "147abfac0639fb7fb864d04e442d00b9160968c8ab33828d15b62ba23f238ded",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000619",
+   "set_id": "SET000072",
+   "file_name": "IMG000619.jpg",
+   "source_page": 6,
+   "width": 2000,
+   "height": 3000,
+   "format": "jpg",
+   "sha256": "641c6a80532165d889954557dd8f290a039bd96170a6376b40c5ed3dfe79c1cc",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸白纱+头纱+满天星手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "草坪树林+白色气球蝴蝶装饰，自然光，治愈森系",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "641c6a80532165d889954557dd8f290a039bd96170a6376b40c5ed3dfe79c1cc",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000620",
+   "set_id": "SET000072",
+   "file_name": "IMG000620.jpg",
+   "source_page": 7,
+   "width": 2000,
+   "height": 3000,
+   "format": "jpg",
+   "sha256": "663f8cdf2e343a63669d87745f7e5f752adaa23c26badd185f499e8ff64962f5",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸白纱+头纱+满天星手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "草坪树林+白色气球蝴蝶装饰，自然光，治愈森系",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "663f8cdf2e343a63669d87745f7e5f752adaa23c26badd185f499e8ff64962f5",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000621",
+   "set_id": "SET000072",
+   "file_name": "IMG000621.jpg",
+   "source_page": 8,
+   "width": 2000,
+   "height": 3000,
+   "format": "jpg",
+   "sha256": "f177da7042897d280cdc14445d9b40fe249c6687c4c7286ddbdd1093360e0d7a",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸白纱+头纱+满天星手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "草坪树林+白色气球蝴蝶装饰，自然光，治愈森系",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "f177da7042897d280cdc14445d9b40fe249c6687c4c7286ddbdd1093360e0d7a",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000622",
+   "set_id": "SET000072",
+   "file_name": "IMG000622.jpg",
+   "source_page": 9,
+   "width": 2000,
+   "height": 3000,
+   "format": "jpg",
+   "sha256": "8032d1982af40498d01b813e4093c23b08469dd05e8238086c4996bc32c64e1f",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸白纱+头纱+满天星手捧",
+    "新郎": "黑西装+领结+胸花"
+   },
+   "scene_and_light_ref": "草坪树林+白色气球蝴蝶装饰，自然光，治愈森系",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@雨墨摄影惠州店官微」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "8032d1982af40498d01b813e4093c23b08469dd05e8238086c4996bc32c64e1f",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

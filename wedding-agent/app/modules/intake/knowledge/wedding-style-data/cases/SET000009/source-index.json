@@ -1,0 +1,295 @@
+{
+  "schema_version": "1.1",
+  "set_id": "SET000009",
+  "name": "湖畔黑纱复古恋人",
+  "primary_category_id": "05",
+  "secondary_category_id": "05-03",
+  "secondary_category_name": "黑纱暗黑浪漫",
+  "tags": [
+    "黑纱",
+    "复古礼帽",
+    "湖畔",
+    "草坪",
+    "珍珠",
+    "自然互动"
+  ],
+  "source": {
+    "platform": "小红书",
+    "publisher": "谢安婚纱摄影",
+    "url": "https://www.xiaohongshu.com/explore/69cf87210000000023025ec2",
+    "title": "客片|不穿白纱的婚纱照，也能被美到🍃",
+    "published_date_display": "04-03",
+    "published_year": null,
+    "collected_date": "2026-10-14"
+  },
+  "real_photo_verification": {
+    "evidence": "摄影账号以客片发布并署名谢安视觉；人物、服装与场景连贯，目视未见明显生成或换脸迹象。",
+    "limitations": "依据发布者说明和视觉审查，未取得相机原片进行独立认证。"
+  },
+  "collector": "Codex",
+  "review_status": "本地验收通过，待负责人检查",
+  "upload_status": "上传结果见批次回执",
+  "cloud_folder": "https://my.feishu.cn/drive/folder/AmDbfnSMqltvwods86IcK9Odntd",
+  "image_count": 6,
+  "set_consistency": "同一对人物、同一黑纱与黑西装造型",
+  "clothing": {
+    "bride": "黑色抹胸拖尾礼服、黑色宽檐礼帽、黑手套、珍珠项链与粉色捧花",
+    "groom": "黑色西装、白衬衫、黑领结"
+  },
+  "scene_and_light": "湖边草坪、白天自然光及傍晚蓝调；背景草木",
+  "limitations": [
+    "部分自然侧脸；不含戒指特写",
+    "黑纱与复古浪漫为主，未将日间画面误标夜景",
+    "源平台压缩版本，非摄影师相机原片"
+  ],
+  "quality_policy": "无尺寸门槛；逐图检查实际细节、人脸遮挡、主体清晰度",
+  "processing": "剔除拼图及弱细节远景；仅右下角背景标识采用同图背景非生成式克隆和边缘融合；无裁切、放大、调色、AI重绘",
+  "images": [
+    {
+      "image_id": "IMG000064",
+      "set_id": "SET000009",
+      "file_name": "IMG000064.png",
+      "source_page": 2,
+      "source_asset_url": "https://sns-webpic-qc.xhscdn.com/202610141415/8913118c51c63b3b78814b590cf72fd4/spectrum/1040g34o31ugbeo89ish05o57j9k0914shtjl7uo!nd_dft_wlteh_webp_3",
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "ed562364a86adf98fb0449c14ab6bec13da46753ae2200f6f9b11c76a0b941fc",
+      "quality": {
+        "visual_review": "通过",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人湖畔全身相拥",
+      "pose_and_interaction": "双人湖畔全身相拥",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "黑纱造型",
+        "同组身份一致性",
+        "互动与构图",
+        "自然光"
+      ],
+      "text_and_marks": "背景角标已清理",
+      "original_file_name": "02.webp",
+      "original_sha256": "d2a4483d6d94639a59146a36e2191aa8f8f12b0110fc4482cbd2d85d6f98a7d9",
+      "processing": "non-generative same-photo background clone with 9px feather",
+      "edit_region": [
+        1004,
+        1570,
+        1080,
+        1620
+      ],
+      "version": 1,
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000065",
+      "set_id": "SET000009",
+      "file_name": "IMG000065.png",
+      "source_page": 5,
+      "source_asset_url": "https://sns-webpic-qc.xhscdn.com/202610141415/b908825cdedd93e6f2dfa01768e7b08c/spectrum/1040g34o31ugbeo89isgg5o57j9k0914sthisn70!nd_dft_wlteh_webp_3",
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "b1c1c23caeb4618267b880670605a921ce3c0f2b6a6f150a74c35595685bf011",
+      "quality": {
+        "visual_review": "通过",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人半身牵手微笑",
+      "pose_and_interaction": "双人半身牵手微笑",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "黑纱造型",
+        "同组身份一致性",
+        "互动与构图",
+        "自然光"
+      ],
+      "text_and_marks": "背景角标已清理",
+      "original_file_name": "05.webp",
+      "original_sha256": "06f0d9519b9fbb1aa6029d58fdb3bbb5325991b1723bc0331c8dfc837f420a21",
+      "processing": "non-generative same-photo background clone with 9px feather",
+      "edit_region": [
+        1004,
+        1570,
+        1080,
+        1620
+      ],
+      "version": 1,
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000066",
+      "set_id": "SET000009",
+      "file_name": "IMG000066.png",
+      "source_page": 6,
+      "source_asset_url": "https://sns-webpic-qc.xhscdn.com/202610141415/9708a6be8b332dda7ffd912f11283dde/spectrum/1040g34o31ugbeo89isg05o57j9k0914schvt1ro!nd_dft_wlteh_webp_3",
+      "width": 1080,
+      "height": 1651,
+      "format": "PNG",
+      "sha256": "f24605eef5701701f8914434cd35be7096b872cb903bd5effe536cc9b626c7c9",
+      "quality": {
+        "visual_review": "通过",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人全身舞步互动",
+      "pose_and_interaction": "双人全身舞步互动",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "黑纱造型",
+        "同组身份一致性",
+        "互动与构图",
+        "自然光"
+      ],
+      "text_and_marks": "背景角标已清理",
+      "original_file_name": "06.webp",
+      "original_sha256": "7b62c24c48a129416d7eee6a9b3053d60547ed9ec2825d97419f58a7858339e0",
+      "processing": "non-generative same-photo background clone with 9px feather",
+      "edit_region": [
+        1004,
+        1601,
+        1080,
+        1651
+      ],
+      "version": 1,
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000067",
+      "set_id": "SET000009",
+      "file_name": "IMG000067.png",
+      "source_page": 7,
+      "source_asset_url": "https://sns-webpic-qc.xhscdn.com/202610141415/3f3ed1710bfa56dbbfb91443ae8321ca/spectrum/1040g34o31ugbeo89ishg5o57j9k0914ssl7cdp0!nd_dft_wlteh_webp_3",
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "da5c64e9e4ce3f74e3ce1018ba1cc431eeec8b6ad08bb149aa4f71fe8f75982b",
+      "quality": {
+        "visual_review": "通过",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人中景对望",
+      "pose_and_interaction": "双人中景对望",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "黑纱造型",
+        "同组身份一致性",
+        "互动与构图",
+        "自然光"
+      ],
+      "text_and_marks": "背景角标已清理",
+      "original_file_name": "07.webp",
+      "original_sha256": "c300638d3c88937e38d611f9ef6edb348063ebd412fae2b397d5acedf52b5d81",
+      "processing": "non-generative same-photo background clone with 9px feather",
+      "edit_region": [
+        1004,
+        1570,
+        1080,
+        1620
+      ],
+      "version": 1,
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000068",
+      "set_id": "SET000009",
+      "file_name": "IMG000068.png",
+      "source_page": 8,
+      "source_asset_url": "https://sns-webpic-qc.xhscdn.com/202610141415/472e6a2c0ac6ccd2b7c31c8299b4a7cf/spectrum/1040g34o31ugbeo89isig5o57j9k0914sq77s6ho!nd_dft_wlteh_webp_3",
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "e613d900c8903cce7f9637151c1195fdffc92e78734d7ee7b071fa54f62abfb5",
+      "quality": {
+        "visual_review": "通过",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "草坪坐卧互动",
+      "pose_and_interaction": "草坪坐卧互动",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "黑纱造型",
+        "同组身份一致性",
+        "互动与构图",
+        "自然光"
+      ],
+      "text_and_marks": "背景角标已清理",
+      "original_file_name": "08.webp",
+      "original_sha256": "ec9fdb7e2678e8d5008510bcaf9aeb6bf08fe4d530e827dbf8487a555f4463ad",
+      "processing": "non-generative same-photo background clone with 9px feather",
+      "edit_region": [
+        1004,
+        1570,
+        1080,
+        1620
+      ],
+      "version": 1,
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000069",
+      "set_id": "SET000009",
+      "file_name": "IMG000069.png",
+      "source_page": 9,
+      "source_asset_url": "https://sns-webpic-qc.xhscdn.com/202610141415/9a680b71510bda1ae0d98fd2074dee0f/spectrum/1040g34o31ugbeo89isj05o57j9k0914slh1rsk8!nd_dft_wlteh_webp_3",
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "ceaf8240d671afa82085bb4537649c1c29e0baf9a428d7164749e279cbc78354",
+      "quality": {
+        "visual_review": "通过",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人侧脸近景捧花",
+      "pose_and_interaction": "双人侧脸近景捧花",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "黑纱造型",
+        "同组身份一致性",
+        "互动与构图",
+        "自然光"
+      ],
+      "text_and_marks": "背景角标已清理",
+      "original_file_name": "09.webp",
+      "original_sha256": "09025370c894cd277bbb1f6788f2960f58b9c8cc7f5e78d60155c393d97938f0",
+      "processing": "non-generative same-photo background clone with 9px feather",
+      "edit_region": [
+        1004,
+        1570,
+        1080,
+        1620
+      ],
+      "version": 1,
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    }
+  ]
+}

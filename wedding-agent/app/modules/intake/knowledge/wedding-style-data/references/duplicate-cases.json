@@ -1,0 +1,527 @@
+[
+  {
+    "canonical_case_id": "SET000029",
+    "alias_case_id": "SET000038",
+    "relationship": "byte_identical_sequence",
+    "image_pairs": [
+      {
+        "canonical_image_id": "IMG000226",
+        "alias_image_id": "IMG000306",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000227",
+        "alias_image_id": "IMG000307",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000228",
+        "alias_image_id": "IMG000308",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000229",
+        "alias_image_id": "IMG000309",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000230",
+        "alias_image_id": "IMG000310",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000231",
+        "alias_image_id": "IMG000311",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000232",
+        "alias_image_id": "IMG000312",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000233",
+        "alias_image_id": "IMG000313",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000234",
+        "alias_image_id": "IMG000314",
+        "sha256_equal": true
+      }
+    ],
+    "cloud_action": "none"
+  },
+  {
+    "canonical_case_id": "SET000032",
+    "alias_case_id": "SET000056",
+    "relationship": "byte_identical_sequence",
+    "image_pairs": [
+      {
+        "canonical_image_id": "IMG000255",
+        "alias_image_id": "IMG000468",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000256",
+        "alias_image_id": "IMG000469",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000257",
+        "alias_image_id": "IMG000470",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000258",
+        "alias_image_id": "IMG000471",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000259",
+        "alias_image_id": "IMG000472",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000260",
+        "alias_image_id": "IMG000473",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000261",
+        "alias_image_id": "IMG000474",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000262",
+        "alias_image_id": "IMG000475",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000263",
+        "alias_image_id": "IMG000476",
+        "sha256_equal": true
+      }
+    ],
+    "cloud_action": "none"
+  },
+  {
+    "canonical_case_id": "SET000033",
+    "alias_case_id": "SET000057",
+    "relationship": "byte_identical_sequence",
+    "image_pairs": [
+      {
+        "canonical_image_id": "IMG000264",
+        "alias_image_id": "IMG000477",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000265",
+        "alias_image_id": "IMG000478",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000266",
+        "alias_image_id": "IMG000479",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000267",
+        "alias_image_id": "IMG000480",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000268",
+        "alias_image_id": "IMG000481",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000269",
+        "alias_image_id": "IMG000482",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000270",
+        "alias_image_id": "IMG000483",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000271",
+        "alias_image_id": "IMG000484",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000272",
+        "alias_image_id": "IMG000485",
+        "sha256_equal": true
+      }
+    ],
+    "cloud_action": "none"
+  },
+  {
+    "canonical_case_id": "SET000040",
+    "alias_case_id": "SET000058",
+    "relationship": "byte_identical_sequence",
+    "image_pairs": [
+      {
+        "canonical_image_id": "IMG000324",
+        "alias_image_id": "IMG000486",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000325",
+        "alias_image_id": "IMG000487",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000326",
+        "alias_image_id": "IMG000488",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000327",
+        "alias_image_id": "IMG000489",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000328",
+        "alias_image_id": "IMG000490",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000329",
+        "alias_image_id": "IMG000491",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000330",
+        "alias_image_id": "IMG000492",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000331",
+        "alias_image_id": "IMG000493",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000332",
+        "alias_image_id": "IMG000494",
+        "sha256_equal": true
+      }
+    ],
+    "cloud_action": "none"
+  },
+  {
+    "canonical_case_id": "SET000030",
+    "alias_case_id": "SET000061",
+    "relationship": "byte_identical_sequence",
+    "image_pairs": [
+      {
+        "canonical_image_id": "IMG000235",
+        "alias_image_id": "IMG000514",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000236",
+        "alias_image_id": "IMG000515",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000237",
+        "alias_image_id": "IMG000516",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000238",
+        "alias_image_id": "IMG000517",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000239",
+        "alias_image_id": "IMG000518",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000240",
+        "alias_image_id": "IMG000519",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000241",
+        "alias_image_id": "IMG000520",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000242",
+        "alias_image_id": "IMG000521",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000243",
+        "alias_image_id": "IMG000522",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000244",
+        "alias_image_id": "IMG000523",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000245",
+        "alias_image_id": "IMG000524",
+        "sha256_equal": true
+      }
+    ],
+    "cloud_action": "none"
+  },
+  {
+    "canonical_case_id": "SET000048",
+    "alias_case_id": "SET000066",
+    "relationship": "byte_identical_sequence",
+    "image_pairs": [
+      {
+        "canonical_image_id": "IMG000396",
+        "alias_image_id": "IMG000561",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000397",
+        "alias_image_id": "IMG000562",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000398",
+        "alias_image_id": "IMG000563",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000399",
+        "alias_image_id": "IMG000564",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000400",
+        "alias_image_id": "IMG000565",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000401",
+        "alias_image_id": "IMG000566",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000402",
+        "alias_image_id": "IMG000567",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000403",
+        "alias_image_id": "IMG000568",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000404",
+        "alias_image_id": "IMG000569",
+        "sha256_equal": true
+      }
+    ],
+    "cloud_action": "none"
+  },
+  {
+    "canonical_case_id": "SET000046",
+    "alias_case_id": "SET000068",
+    "relationship": "byte_identical_sequence",
+    "image_pairs": [
+      {
+        "canonical_image_id": "IMG000378",
+        "alias_image_id": "IMG000578",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000379",
+        "alias_image_id": "IMG000579",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000380",
+        "alias_image_id": "IMG000580",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000381",
+        "alias_image_id": "IMG000581",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000382",
+        "alias_image_id": "IMG000582",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000383",
+        "alias_image_id": "IMG000583",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000384",
+        "alias_image_id": "IMG000584",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000385",
+        "alias_image_id": "IMG000585",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000386",
+        "alias_image_id": "IMG000586",
+        "sha256_equal": true
+      }
+    ],
+    "cloud_action": "none"
+  },
+  {
+    "canonical_case_id": "SET000049",
+    "alias_case_id": "SET000069",
+    "relationship": "byte_identical_sequence",
+    "image_pairs": [
+      {
+        "canonical_image_id": "IMG000405",
+        "alias_image_id": "IMG000587",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000406",
+        "alias_image_id": "IMG000588",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000407",
+        "alias_image_id": "IMG000589",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000408",
+        "alias_image_id": "IMG000590",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000409",
+        "alias_image_id": "IMG000591",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000410",
+        "alias_image_id": "IMG000592",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000411",
+        "alias_image_id": "IMG000593",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000412",
+        "alias_image_id": "IMG000594",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000413",
+        "alias_image_id": "IMG000595",
+        "sha256_equal": true
+      }
+    ],
+    "cloud_action": "none"
+  },
+  {
+    "canonical_case_id": "SET000036",
+    "alias_case_id": "SET000075",
+    "relationship": "same_visual_sequence_different_watermark",
+    "image_pairs": [
+      {
+        "canonical_image_id": "IMG000291",
+        "alias_image_id": "IMG000641",
+        "sha256_equal": false
+      },
+      {
+        "canonical_image_id": "IMG000292",
+        "alias_image_id": "IMG000642",
+        "sha256_equal": false
+      },
+      {
+        "canonical_image_id": "IMG000293",
+        "alias_image_id": "IMG000643",
+        "sha256_equal": false
+      },
+      {
+        "canonical_image_id": "IMG000294",
+        "alias_image_id": "IMG000644",
+        "sha256_equal": false
+      },
+      {
+        "canonical_image_id": "IMG000295",
+        "alias_image_id": "IMG000645",
+        "sha256_equal": false
+      },
+      {
+        "canonical_image_id": "IMG000296",
+        "alias_image_id": "IMG000646",
+        "sha256_equal": false
+      }
+    ],
+    "cloud_action": "none"
+  },
+  {
+    "canonical_case_id": "SET000055",
+    "alias_case_id": "SET000077",
+    "relationship": "byte_identical_sequence",
+    "image_pairs": [
+      {
+        "canonical_image_id": "IMG000459",
+        "alias_image_id": "IMG000651",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000460",
+        "alias_image_id": "IMG000652",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000461",
+        "alias_image_id": "IMG000653",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000462",
+        "alias_image_id": "IMG000654",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000463",
+        "alias_image_id": "IMG000655",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000464",
+        "alias_image_id": "IMG000656",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000465",
+        "alias_image_id": "IMG000657",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000466",
+        "alias_image_id": "IMG000658",
+        "sha256_equal": true
+      },
+      {
+        "canonical_image_id": "IMG000467",
+        "alias_image_id": "IMG000659",
+        "sha256_equal": true
+      }
+    ],
+    "cloud_action": "none"
+  }
+]

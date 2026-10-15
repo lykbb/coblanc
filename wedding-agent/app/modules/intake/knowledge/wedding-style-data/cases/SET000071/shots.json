@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000605",
+    "evidence_type": "observed",
+    "shot": "双人坐姿全身",
+    "action": "木椅上贴近笑",
+    "composition": "双人坐姿全身，木椅上贴近笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿全身，木椅上贴近笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000606",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "举标语道具",
+    "composition": "双人中景，举标语道具",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，举标语道具",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000607",
+    "evidence_type": "observed",
+    "shot": "新娘中近景",
+    "action": "拨开珠帘持花笑",
+    "composition": "新娘中近景，拨开珠帘持花笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中近景，拨开珠帘持花笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000608",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "一起掀帘探出",
+    "composition": "双人全身，一起掀帘探出",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，一起掀帘探出",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000609",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "头部贴近镜头",
+    "composition": "双人近景，头部贴近镜头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，头部贴近镜头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000610",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "抱住珠帘笑",
+    "composition": "双人全身，抱住珠帘笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，抱住珠帘笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000611",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新郎在新娘脸侧做手势",
+    "composition": "双人中景，新郎在新娘脸侧做手势",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新郎在新娘脸侧做手势",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000612",
+    "evidence_type": "observed",
+    "shot": "双画面拼版：上幅举标语",
+    "action": "下幅向镜头举小罐",
+    "composition": "双画面拼版：上幅举标语，下幅向镜头举小罐",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json；拼版仅作来源记录，先选其中一个画面再单独定义分镜，不把拼版整体当一张摄影镜头。",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": null,
+    "generation_tested": false,
+    "is_composite": true
+  },
+  {
+    "image_id": "IMG000613",
+    "evidence_type": "observed",
+    "shot": "双人坐姿全身",
+    "action": "各持红折扇",
+    "composition": "双人坐姿全身，各持红折扇",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿全身，各持红折扇",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

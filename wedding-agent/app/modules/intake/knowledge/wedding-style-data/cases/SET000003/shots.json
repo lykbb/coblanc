@@ -1,0 +1,86 @@
+[
+  {
+    "image_id": "IMG000013",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "戴墨镜并列站立，各自做小幅手势",
+    "composition": "圆形亮区居后，裙摆完整展开",
+    "caution": "墨镜遮眼，不作身份唯一参考",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人全身；戴墨镜并列站立，各自做小幅手势；圆形亮区居后，裙摆完整展开。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000014",
+    "evidence_type": "observed",
+    "shot": "双人中近景",
+    "action": "新郎伸手轻触新娘脸，新娘握住其手对望",
+    "composition": "新郎右侧前景背侧面，新娘脸清晰",
+    "caution": "旧中景标签细化；触脸手势需精确控制",
+    "source_annotation_review": "保留动作并细化景别",
+    "prompt_fragment_draft": "双人中近景；新郎伸手轻触新娘脸，新娘握住其手对望；新郎右侧前景背侧面，新娘脸清晰。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000015",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "牵手抬起大笑，新郎另一手持花",
+    "composition": "横向拉开距离，裙摆主体在右",
+    "caution": "不可把捧花固定给新娘，原图由新郎持有",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人全身；牵手抬起大笑，新郎另一手持花；横向拉开距离，裙摆主体在右。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000016",
+    "evidence_type": "observed",
+    "shot": "新娘单人全身",
+    "action": "新娘托脸微笑并举捧花",
+    "composition": "白色大裙摆占据下部，背后有投影",
+    "caution": "未从照片判断准确镜头参数",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "新娘单人全身；新娘托脸微笑并举捧花；白色大裙摆占据下部，背后有投影。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000017",
+    "evidence_type": "observed",
+    "shot": "双人俯视中全景",
+    "action": "新郎背对镜头居前举手与花，新娘掩嘴笑",
+    "composition": "前后纵深和俯视角度明显",
+    "caution": "前景遮挡是构图选择，不是身份控制依据",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人俯视中全景；新郎背对镜头居前举手与花，新娘掩嘴笑；前后纵深和俯视角度明显。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000018",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎笑并比心，新娘前倾笑持花",
+    "composition": "姿态左右错落，灰底投影明显",
+    "caution": "需要保持身体重心自然",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人全身；新郎笑并比心，新娘前倾笑持花；姿态左右错落，灰底投影明显。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000019",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "二人戴墨镜夸张张臂",
+    "composition": "双人平行站位，手影延伸",
+    "caution": "抬手与裁切边界需核对",
+    "source_annotation_review": "保留并核对",
+    "prompt_fragment_draft": "双人全身；二人戴墨镜夸张张臂；双人平行站位，手影延伸。",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

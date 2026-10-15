@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000441",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎低坐抬腿、新娘牵红绸",
+    "composition": "双人全身，新郎低坐抬腿、新娘牵红绸",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎低坐抬腿、新娘牵红绸",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000442",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "并立看镜头",
+    "composition": "双人全身，并立看镜头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，并立看镜头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000443",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎低坐、新娘提起衣袖边",
+    "composition": "双人全身，新郎低坐、新娘提起衣袖边",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎低坐、新娘提起衣袖边",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000444",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "各举喜字牌、对望牵手",
+    "composition": "双人全身，各举喜字牌、对望牵手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，各举喜字牌、对望牵手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000445",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新娘持红花球居前",
+    "composition": "双人近景，新娘持红花球居前",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新娘持红花球居前",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000446",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "殿宇前正面张开衣袖",
+    "composition": "双人环境全身，殿宇前正面张开衣袖",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，殿宇前正面张开衣袖",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000447",
+    "evidence_type": "observed",
+    "shot": "双人中近景",
+    "action": "新郎持花球居前",
+    "composition": "双人中近景，新郎持花球居前",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中近景，新郎持花球居前",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000448",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "长红纱从前景飘动",
+    "composition": "双人全身，长红纱从前景飘动",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，长红纱从前景飘动",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000449",
+    "evidence_type": "observed",
+    "shot": "新娘近景",
+    "action": "红色绣花盖头与花球",
+    "composition": "新娘近景，红色绣花盖头与花球",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘近景，红色绣花盖头与花球",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

@@ -1,0 +1,175 @@
+{
+  "schema_version": "0.2",
+  "set_id": "SET000035",
+  "name": "园林红金拖尾",
+  "primary_category_id": "02",
+  "secondary_category_id": "02-05",
+  "status": "review_draft",
+  "description": "园林亭台、白石栏杆与石桥水面倒影；新娘红金露肩礼裙、金冠与长浅金披帛，新郎黑西服；建筑对称构图、阶梯高低关系与长拖尾",
+  "evidence": {
+    "source_platform": "weibo",
+    "publisher": "雨墨摄影惠州店官微",
+    "source_url": "https://m.weibo.cn/detail/5326397528868566",
+    "cloud_folder": "https://my.feishu.cn/drive/folder/CSM5fWH9ZlV56wdXarZcew0wnac",
+    "checked_on": "2026-10-16",
+    "review_method": "全部联系表逐格视觉核对；不是逐像素审校，未从来源索引自动复制镜头结论",
+    "real_photo_status": "既有发布记录与视觉一致性作为依据，未认证摄影原片",
+    "source_index": "source-index.json"
+  },
+  "observations": [
+    {
+      "id": "SET000035-F1",
+      "dimension": "场景或配色",
+      "statement": "园林亭台、白石栏杆与石桥水面倒影",
+      "evidence_images": [
+        "IMG000282",
+        "IMG000283",
+        "IMG000284",
+        "IMG000285",
+        "IMG000286",
+        "IMG000287",
+        "IMG000288",
+        "IMG000289",
+        "IMG000290"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    },
+    {
+      "id": "SET000035-F2",
+      "dimension": "服装或造型",
+      "statement": "新娘红金露肩礼裙、金冠与长浅金披帛，新郎黑西服",
+      "evidence_images": [
+        "IMG000282",
+        "IMG000283",
+        "IMG000284",
+        "IMG000285",
+        "IMG000286",
+        "IMG000287",
+        "IMG000288",
+        "IMG000289",
+        "IMG000290"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    },
+    {
+      "id": "SET000035-F3",
+      "dimension": "光影与画面气氛",
+      "statement": "建筑对称构图、阶梯高低关系与长拖尾",
+      "evidence_images": [
+        "IMG000282",
+        "IMG000283",
+        "IMG000284",
+        "IMG000285",
+        "IMG000286",
+        "IMG000287",
+        "IMG000288",
+        "IMG000289",
+        "IMG000290"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "此案例的场景、服装轮廓和互动共同构成所述风格观感；不能据此认定为该分类全部作品的必备规则。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "SET000035"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "园林亭台、白石栏杆与石桥水面倒影",
+    "新娘红金露肩礼裙、金冠与长浅金披帛，新郎黑西服",
+    "建筑对称构图、阶梯高低关系与长拖尾"
+  ],
+  "within_session_locks": [
+    "客户身份（独立参考，不使用样片模特身份）",
+    "客户确认后的服装及主要妆发；有明确分镜造型变体时显式标记",
+    "客户确认后的场景方向、主光逻辑与总体色板"
+  ],
+  "creative_variables": [
+    {
+      "field": "亭台或石桥位置",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    },
+    {
+      "field": "拖尾展示角度",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    },
+    {
+      "field": "对称与错位构图",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    }
+  ],
+  "compatibility_rules": [
+    "先选本次造型及场景，再选兼容分镜；不要把多个动作叠给同一只手",
+    "人物接触、服装支撑、裙摆占地与投影方向一致",
+    "采纳妆造师最新明确妆容方案；与客户明确要求冲突时协调"
+  ],
+  "do_not_inherit": [
+    "样片人物身份与五官",
+    "品牌标识、平台水印与无关文字",
+    "未经证实的相机、灯具、模型、Seed或拍摄地点"
+  ],
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "园林亭台、白石栏杆与石桥水面倒影；新娘红金露肩礼裙、金冠与长浅金披帛，新郎黑西服；建筑对称构图、阶梯高低关系与长拖尾",
+    "template": "客户身份与确认造型：{{customer_spec}}。已确认场景、服装及光影方案：{{approved_plan}}。所选风格约束：{{selected_style_constraints}}。当前分镜：{{shot_fragment}}。",
+    "use_note": "共享观察是案例描述，不是不可改模板。先替换本次方案，再只装配一张分镜；不把全部选项拼成一条提示词。",
+    "omit": [
+      "来源水印",
+      "样片人物身份",
+      "未知拍摄参数"
+    ],
+    "exact_text_policy": "准确姓名日期和道具文字由后期排版处理"
+  },
+  "reference_roles": {
+    "style_layout": [
+      "IMG000282",
+      "IMG000286",
+      "IMG000290"
+    ],
+    "customer_identity": [],
+    "pose": "按选定image_id按需查阅；未生成姿态控制图",
+    "clothing": "轮廓参考；客户指定造型优先"
+  },
+  "limitations": [
+    "不能只凭服装颜色认定准确历史服制",
+    "长拖尾需顺应阶梯和地面，不能悬空贯穿栏杆",
+    "未独立验证是否存在局部合成或AI修饰；不把风格归纳当作真实摄影过程证明",
+    "不由一套样片推导整个二级风格的硬性规则"
+  ],
+  "validation": {
+    "data_review": "draft_ready_for_user",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  }
+}

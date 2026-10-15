@@ -1,0 +1,289 @@
+[
+  {
+    "folder": "05-01",
+    "extra_name": "IMG000158(1).jpg",
+    "canonical_name": "IMG000158.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "05-01",
+    "extra_name": "IMG000154(1).jpg",
+    "canonical_name": "IMG000154.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "05-01",
+    "extra_name": "IMG000156(1).jpg",
+    "canonical_name": "IMG000156.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "05-01",
+    "extra_name": "IMG000152(1).jpg",
+    "canonical_name": "IMG000152.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "05-01",
+    "extra_name": "IMG000150(1).jpg",
+    "canonical_name": "IMG000150.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "05-01",
+    "extra_name": "IMG000155(1).jpg",
+    "canonical_name": "IMG000155.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "05-01",
+    "extra_name": "IMG000157(1).jpg",
+    "canonical_name": "IMG000157.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "05-01",
+    "extra_name": "IMG000153(1).jpg",
+    "canonical_name": "IMG000153.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "05-01",
+    "extra_name": "IMG000151(1).jpg",
+    "canonical_name": "IMG000151.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000125(1).jpg",
+    "canonical_name": "IMG000125.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000129(1).jpg",
+    "canonical_name": "IMG000129.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000127(1).jpg",
+    "canonical_name": "IMG000127.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000123(1).jpg",
+    "canonical_name": "IMG000123.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000131(1).jpg",
+    "canonical_name": "IMG000131.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000119(1).jpg",
+    "canonical_name": "IMG000119.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000133(1).jpg",
+    "canonical_name": "IMG000133.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000121(1).jpg",
+    "canonical_name": "IMG000121.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000124(1).jpg",
+    "canonical_name": "IMG000124.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000128(1).jpg",
+    "canonical_name": "IMG000128.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000134(1).jpg",
+    "canonical_name": "IMG000134.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000126(1).jpg",
+    "canonical_name": "IMG000126.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000118(1).jpg",
+    "canonical_name": "IMG000118.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000122(1).jpg",
+    "canonical_name": "IMG000122.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000130(1).jpg",
+    "canonical_name": "IMG000130.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000132(1).jpg",
+    "canonical_name": "IMG000132.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000018_紫色花神洱海清透",
+    "extra_name": "IMG000120(1).jpg",
+    "canonical_name": "IMG000120.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000146(1).jpg",
+    "canonical_name": "IMG000146.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000137(1).jpg",
+    "canonical_name": "IMG000137.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000135(1).jpg",
+    "canonical_name": "IMG000135.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000148(1).jpg",
+    "canonical_name": "IMG000148.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000139(1).jpg",
+    "canonical_name": "IMG000139.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000144(1).jpg",
+    "canonical_name": "IMG000144.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000140(1).jpg",
+    "canonical_name": "IMG000140.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000142(1).jpg",
+    "canonical_name": "IMG000142.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000147(1).jpg",
+    "canonical_name": "IMG000147.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000136(1).jpg",
+    "canonical_name": "IMG000136.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000149(1).jpg",
+    "canonical_name": "IMG000149.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000145(1).jpg",
+    "canonical_name": "IMG000145.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000138(1).jpg",
+    "canonical_name": "IMG000138.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000141(1).jpg",
+    "canonical_name": "IMG000141.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  },
+  {
+    "folder": "SET000019_蓝色花神洱海清透",
+    "extra_name": "IMG000143(1).jpg",
+    "canonical_name": "IMG000143.jpg",
+    "sha256_equal": true,
+    "action": "exclude_exact_copy_from_data"
+  }
+]

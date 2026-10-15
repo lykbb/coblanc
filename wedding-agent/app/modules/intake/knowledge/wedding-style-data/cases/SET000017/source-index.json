@@ -1,0 +1,562 @@
+{
+  "schema_version": "1.1",
+  "set_id": "SET000017",
+  "name": "玉兰朱墙蕾丝新中式",
+  "primary_category_id": "02",
+  "primary_category_name": "中式风与喜嫁",
+  "secondary_category_id": "02-03",
+  "secondary_category_name": "新中式极简",
+  "tags": [
+    "新中式",
+    "朱红背景",
+    "玉兰",
+    "中西融合",
+    "蕾丝鱼尾婚纱",
+    "木窗棂",
+    "暖调光影"
+  ],
+  "source": {
+    "platform": "小红书",
+    "publisher": "85VISION PHOTO STUDIO",
+    "url": "https://www.xiaohongshu.com/board/6acf2ea2000000001100146f/6a1d2fe300000000350389ca",
+    "note_id": "6a1d2fe300000000350389ca",
+    "title": "get到了新中式婚纱照的美‼️温婉又大气",
+    "board_id": "6acf2ea2000000001100146f",
+    "published_date": null,
+    "date_displayed": "06-01，年份未核实",
+    "collected_date": "2026-10-14",
+    "total_pages": 9,
+    "reviewed_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "real_photo_verification": {
+    "evidence": "摄影工作室发布并描述摄影师搭配与拍摄场景；九页人物、服装、道具与场景连贯，未见明确AI生成声明或明显生成结构错误。",
+    "limitations": "依据来源与目视检查，未取得摄影原片或拍摄现场独立证明。人物保留原发布版本的妆容、柔光及商业修图。"
+  },
+  "collector": "Codex，用户提供收藏板；01-07负责人",
+  "review_status": "本地质量核验通过，待负责人复核",
+  "upload_status": "本索引随本组上传；最终上传结果以01-07独立入库登记及飞书目录为准",
+  "cloud_folder": "https://my.feishu.cn/drive/folder/PIr2fNGgoltxnDdRmWBcpIhmnce",
+  "image_count": 6,
+  "set_consistency": "同一对人物、同一套蕾丝鱼尾婚纱与黑色刺绣男装、同一朱墙玉兰布景；五张双人、一张新娘单人，头纱佩戴方式变化。",
+  "clothing": {
+    "bride": "白色露肩长袖蕾丝鱼尾婚纱、蕾丝长头纱、盘发玉兰发饰、长耳饰、花枝捧花",
+    "groom": "黑色带白色刺绣的礼服外套、白衬衫、黑色长裤和皮鞋"
+  },
+  "scene_and_light": "朱红墙面、木窗棂、玉兰花枝、茶盏、木桌与薄纱；暖调定向光、植物投影与前景虚化。真实拍摄地点和季节未核实。",
+  "limitations": [
+    "缺少新郎单人近景及戒指特写",
+    "下载的是平台发布版，不是摄影师原片",
+    "已有柔光与商业修图，未恢复或补造肤质细节",
+    "来源记录不代表已取得训练或对外使用许可"
+  ],
+  "processing": "非生成式修补右下角平台标识；人物、婚纱、头纱、配饰与手部零像素改动。未裁切、改色、放大或锐化。",
+  "images": [
+    {
+      "image_id": "IMG000112",
+      "set_id": "SET000017",
+      "file_name": "IMG000112.png",
+      "source_page": 3,
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "158e7591c12967238e2b32014aa675e620de1112a8776727784fa4a28d515031",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官、发丝轮廓与蕾丝纹样可辨；原发布版有柔光与商业修图，未经锐化或放大",
+        "face_occlusion": "无严重遮挡；第6页透纱肖像五官可辨，第8页吻手轻遮嘴部且有其他清晰正面照片"
+      },
+      "shot": "双人全身",
+      "pose_and_interaction": "侧身对望拥抱，展示背部束腰与飘动头纱",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "新中式与西式蕾丝融合",
+        "姿势构图",
+        "光影",
+        "服装轮廓",
+        "整组一致性"
+      ],
+      "text_and_marks": "右下角平台标识已清理；实景茶盏纹样保留",
+      "original_file_name": "03.jpg",
+      "original_sha256": "7d0be850db3e10758621b1c70234d63552f7a1326b3c4776e26ecea1431d03e2",
+      "processing": {
+        "method": "non-generative OpenCV Navier-Stokes / same-photo Poisson clone",
+        "version": "clean",
+        "plan": {
+          "source": "03.jpg",
+          "output": "03.png",
+          "protected_rects": [
+            [
+              0,
+              0,
+              1080,
+              1586
+            ],
+            [
+              0,
+              1586,
+              1032,
+              1620
+            ],
+            [
+              1076,
+              1586,
+              1080,
+              1620
+            ],
+            [
+              1032,
+              1616,
+              1076,
+              1620
+            ]
+          ],
+          "regions": [
+            {
+              "kind": "inpaint",
+              "rect": [
+                1032,
+                1586,
+                1076,
+                1616
+              ],
+              "radius": 4
+            }
+          ]
+        },
+        "resize_or_crop": false,
+        "subject_changed": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1289,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000113",
+      "set_id": "SET000017",
+      "file_name": "IMG000113.png",
+      "source_page": 5,
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "7b87ca9d232bab2ed6fbfa5b38f23dc50d07bb09fcdb7aedfbadcf16c3f24380",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官、发丝轮廓与蕾丝纹样可辨；原发布版有柔光与商业修图，未经锐化或放大",
+        "face_occlusion": "无严重遮挡；第6页透纱肖像五官可辨，第8页吻手轻遮嘴部且有其他清晰正面照片"
+      },
+      "shot": "双人中景",
+      "pose_and_interaction": "新娘从身后环抱新郎，持玉兰花枝",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "新中式与西式蕾丝融合",
+        "姿势构图",
+        "光影",
+        "服装轮廓",
+        "整组一致性"
+      ],
+      "text_and_marks": "右下角平台标识已清理；实景茶盏纹样保留",
+      "original_file_name": "05.jpg",
+      "original_sha256": "f61cf5fbee79dc4dea2503e3e4a1ded29ce94b3010c1234457aa67e551706924",
+      "processing": {
+        "method": "non-generative local quadratic background interpolation, 7px feather",
+        "version": "clean_v3",
+        "plan": {
+          "regions": [
+            {
+              "kind": "polynomial_background_interpolation",
+              "rect": [
+                1027,
+                1581,
+                1079,
+                1619
+              ],
+              "context_rect": [
+                995,
+                1540,
+                1080,
+                1620
+              ],
+              "degree": 2,
+              "feather_px": 7
+            }
+          ],
+          "protected_rects": [
+            [
+              0,
+              0,
+              1080,
+              1581
+            ],
+            [
+              0,
+              1581,
+              1027,
+              1620
+            ],
+            [
+              1079,
+              1581,
+              1080,
+              1620
+            ],
+            [
+              1027,
+              1619,
+              1079,
+              1620
+            ]
+          ]
+        },
+        "resize_or_crop": false,
+        "subject_changed": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1678,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000114",
+      "set_id": "SET000017",
+      "file_name": "IMG000114.png",
+      "source_page": 6,
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "bd7b86a915e961c2e6e2047ac54b9c26e3a6466cf419137e2a58f95ecab240be",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官、发丝轮廓与蕾丝纹样可辨；原发布版有柔光与商业修图，未经锐化或放大",
+        "face_occlusion": "无严重遮挡；第6页透纱肖像五官可辨，第8页吻手轻遮嘴部且有其他清晰正面照片"
+      },
+      "shot": "新娘近景",
+      "pose_and_interaction": "坐姿提起头纱，五官可见",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "新中式与西式蕾丝融合",
+        "姿势构图",
+        "光影",
+        "服装轮廓",
+        "整组一致性"
+      ],
+      "text_and_marks": "右下角平台标识已清理；实景茶盏纹样保留",
+      "original_file_name": "06.jpg",
+      "original_sha256": "65285a7e786105903ed120fa3125060dd5718628a7e6e9db235d17a3bcc9dbeb",
+      "processing": {
+        "method": "non-generative OpenCV Navier-Stokes / same-photo Poisson clone",
+        "version": "clean",
+        "plan": {
+          "source": "06.jpg",
+          "output": "06.png",
+          "protected_rects": [
+            [
+              0,
+              0,
+              1080,
+              1586
+            ],
+            [
+              0,
+              1586,
+              1032,
+              1620
+            ],
+            [
+              1076,
+              1586,
+              1080,
+              1620
+            ],
+            [
+              1032,
+              1616,
+              1076,
+              1620
+            ]
+          ],
+          "regions": [
+            {
+              "kind": "inpaint",
+              "rect": [
+                1032,
+                1586,
+                1076,
+                1616
+              ],
+              "radius": 4
+            }
+          ]
+        },
+        "resize_or_crop": false,
+        "subject_changed": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1244,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000115",
+      "set_id": "SET000017",
+      "file_name": "IMG000115.png",
+      "source_page": 7,
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "9daf420bb88ab007781ca9a253cf82901521d66e797413e564c26af1271a1415",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官、发丝轮廓与蕾丝纹样可辨；原发布版有柔光与商业修图，未经锐化或放大",
+        "face_occlusion": "无严重遮挡；第6页透纱肖像五官可辨，第8页吻手轻遮嘴部且有其他清晰正面照片"
+      },
+      "shot": "双人全身",
+      "pose_and_interaction": "并肩站立，新娘持花枝",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "新中式与西式蕾丝融合",
+        "姿势构图",
+        "光影",
+        "服装轮廓",
+        "整组一致性"
+      ],
+      "text_and_marks": "右下角平台标识已清理；实景茶盏纹样保留",
+      "original_file_name": "07.jpg",
+      "original_sha256": "0ba1b8f4374f55c87d758d51aaaf3077e7c1c65c97d141515d01518b13875f4b",
+      "processing": {
+        "method": "non-generative OpenCV Navier-Stokes / same-photo Poisson clone",
+        "version": "clean",
+        "plan": {
+          "source": "07.jpg",
+          "output": "07.png",
+          "protected_rects": [
+            [
+              0,
+              0,
+              1080,
+              1586
+            ],
+            [
+              0,
+              1586,
+              1032,
+              1620
+            ],
+            [
+              1076,
+              1586,
+              1080,
+              1620
+            ],
+            [
+              1032,
+              1616,
+              1076,
+              1620
+            ]
+          ],
+          "regions": [
+            {
+              "kind": "inpaint",
+              "rect": [
+                1032,
+                1586,
+                1076,
+                1616
+              ],
+              "radius": 4
+            }
+          ]
+        },
+        "resize_or_crop": false,
+        "subject_changed": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1184,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000116",
+      "set_id": "SET000017",
+      "file_name": "IMG000116.png",
+      "source_page": 8,
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "d811fba48c28d1f219cdc68dd97e75c0c5cad60087b51082bcae168e54e38931",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官、发丝轮廓与蕾丝纹样可辨；原发布版有柔光与商业修图，未经锐化或放大",
+        "face_occlusion": "无严重遮挡；第6页透纱肖像五官可辨，第8页吻手轻遮嘴部且有其他清晰正面照片"
+      },
+      "shot": "双人全身",
+      "pose_and_interaction": "新郎坐姿持茶盏吻手，新娘站立",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "新中式与西式蕾丝融合",
+        "姿势构图",
+        "光影",
+        "服装轮廓",
+        "整组一致性"
+      ],
+      "text_and_marks": "右下角平台标识已清理；实景茶盏纹样保留",
+      "original_file_name": "08.jpg",
+      "original_sha256": "c9dc513fdaa17f7a13b86bd4af70b68dafe53f17615a596ed5c1d63282e73217",
+      "processing": {
+        "method": "non-generative OpenCV Navier-Stokes / same-photo Poisson clone",
+        "version": "clean",
+        "plan": {
+          "source": "08.jpg",
+          "output": "08.png",
+          "protected_rects": [
+            [
+              0,
+              0,
+              1080,
+              1586
+            ],
+            [
+              0,
+              1586,
+              1032,
+              1620
+            ],
+            [
+              1076,
+              1586,
+              1080,
+              1620
+            ],
+            [
+              1032,
+              1616,
+              1076,
+              1620
+            ]
+          ],
+          "regions": [
+            {
+              "kind": "inpaint",
+              "rect": [
+                1032,
+                1586,
+                1076,
+                1616
+              ],
+              "radius": 4
+            }
+          ]
+        },
+        "resize_or_crop": false,
+        "subject_changed": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1255,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000117",
+      "set_id": "SET000017",
+      "file_name": "IMG000117.png",
+      "source_page": 9,
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "54bf637e91056eebac451d4f8676dab20063069e79e377dc50dc9f38e70e8c0a",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官、发丝轮廓与蕾丝纹样可辨；原发布版有柔光与商业修图，未经锐化或放大",
+        "face_occlusion": "无严重遮挡；第6页透纱肖像五官可辨，第8页吻手轻遮嘴部且有其他清晰正面照片"
+      },
+      "shot": "双人中景",
+      "pose_and_interaction": "靠近窗棂并肩贴头，新娘扶窗棂",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "新中式与西式蕾丝融合",
+        "姿势构图",
+        "光影",
+        "服装轮廓",
+        "整组一致性"
+      ],
+      "text_and_marks": "右下角平台标识已清理；实景茶盏纹样保留",
+      "original_file_name": "09.jpg",
+      "original_sha256": "5199ebb29bd6e9302a3614484c6d52f8d3dff6fd51c36d48ceec6b75008ac7da",
+      "processing": {
+        "method": "non-generative OpenCV Navier-Stokes / same-photo Poisson clone",
+        "version": "clean",
+        "plan": {
+          "source": "09.jpg",
+          "output": "09.png",
+          "protected_rects": [
+            [
+              0,
+              0,
+              1080,
+              1586
+            ],
+            [
+              0,
+              1586,
+              1032,
+              1620
+            ],
+            [
+              1076,
+              1586,
+              1080,
+              1620
+            ],
+            [
+              1032,
+              1616,
+              1076,
+              1620
+            ]
+          ],
+          "regions": [
+            {
+              "kind": "inpaint",
+              "rect": [
+                1032,
+                1586,
+                1076,
+                1616
+              ],
+              "radius": 4
+            }
+          ]
+        },
+        "resize_or_crop": false,
+        "subject_changed": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1298,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    }
+  ]
+}
