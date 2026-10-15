@@ -50,8 +50,8 @@ cp .env.example .env
 | `SEEDREAM_MODEL` | 生图模型 ID，当前账号用 `doubao-seedream-5-0-flash-260915` |
 | `MAX_AGENT_STEPS` | Agent 最多走几步，套图建议 `10` |
 
-| `DEEPSEEK_API_KEY` | 可选。填了就用 DeepSeek（`https://api.deepseek.com`，默认模型 `deepseek-flash`）做对话和看图；不填用上面的 `LLM_*`。生图仍用 Seedream |
-| `DEEPSEEK_MODEL_AGENT` / `_CHEAP` / `_VISION` | 可选，按用途单独指定 DeepSeek 模型，留空用 `DEEPSEEK_MODEL` |
+| `CHAT_API_KEY` / `CHAT_BASE_URL` / `CHAT_MODEL` | 可选。对话和看图用的模型，任意兼容 OpenAI 接口的服务都行（默认 `https://api.deepseek.com` + `deepseek-flash`；通义千问用 `https://dashscope.aliyuncs.com/compatible-mode/v1` + `qwen-vl-max`）。不填用上面的 `LLM_*`。生图仍用 Seedream。旧名 `DEEPSEEK_*` 仍然有效 |
+| `CHAT_MODEL_AGENT` / `_CHEAP` / `_VISION` | 可选，按用途单独指定模型，留空用 `CHAT_MODEL` |
 
 检查大模型能不能连上（只发一句很短的文字，不打印密钥）：
 

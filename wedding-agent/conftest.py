@@ -77,7 +77,7 @@ def _cleanup_tmp():
 
 
 @pytest.fixture(autouse=True)
-def _no_real_deepseek(monkeypatch):
-    """测试不连真实 DeepSeek：即使本机 .env 里有 DEEPSEEK_API_KEY 也当作没填。"""
+def _no_real_chat_model(monkeypatch):
+    """测试不连真实对话模型：即使本机 .env 里有 CHAT_API_KEY / DEEPSEEK_API_KEY 也当作没填。"""
     from app.common.config import settings
-    monkeypatch.setattr(settings, "deepseek_api_key", "")
+    monkeypatch.setattr(settings, "chat_api_key", "")

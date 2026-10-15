@@ -17,6 +17,11 @@ def _str(name: str, default: str = "") -> str:
     return os.getenv(name, default).strip()
 
 
+def _chat(suffix: str, default: str = "") -> str:
+    """读 CHAT_<suffix>；没填时兼容旧名 DEEPSEEK_<suffix>。"""
+    return _str(f"CHAT_{suffix}") or _str(f"DEEPSEEK_{suffix}") or default
+
+
 def _bool(name: str, default: bool) -> bool:
     value = os.getenv(name)
     if value is None or not value.strip():
@@ -69,13 +74,13 @@ class Settings:
     llm_model_cheap: str
     llm_model_vision: str
     llm_timeout_seconds: int
-    # DeepSeek（兼容 OpenAI 接口）。填了 DEEPSEEK_API_KEY 就优先用它做对话和看图，生图仍用 Seedream
-    deepseek_api_key: str
-    deepseek_base_url: str
-    deepseek_model: str
-    deepseek_model_agent: str
-    deepseek_model_cheap: str
-    deepseek_model_vision: str
+    # 对话/看图模型（任意兼容 OpenAI 接口的服务）。填了 CHAT_API_KEY 就优先用它，生图仍用 Seedream
+    chat_api_key: str
+    chat_base_url: str
+    chat_model: str
+    chat_model_agent: str
+    chat_model_cheap: str
+    chat_model_vision: str
     # 生图服务
     runninghub_api_key: str
     runninghub_workflow_id: str
@@ -114,12 +119,12 @@ def load_settings() -> Settings:
         llm_model_cheap=_str("LLM_MODEL_CHEAP"),
         llm_model_vision=_str("LLM_MODEL_VISION"),
         llm_timeout_seconds=_int("LLM_TIMEOUT_SECONDS", 60),
-        deepseek_api_key=_str("DEEPSEEK_API_KEY"),
-        deepseek_base_url=_str("DEEPSEEK_BASE_URL", "https://api.deepseek.com"),
-        deepseek_model=_str("DEEPSEEK_MODEL", "deepseek-flash"),
-        deepseek_model_agent=_str("DEEPSEEK_MODEL_AGENT"),
-        deepseek_model_cheap=_str("DEEPSEEK_MODEL_CHEAP"),
-        deepseek_model_vision=_str("DEEPSEEK_MODEL_VISION"),
+        chat_api_key=_chat("API_KEY"),
+        chat_base_url=_chat("BASE_URL", "https://api.deepseek.com"),
+        chat_model=_chat("MODEL", "deepseek-flash"),
+        chat_model_agent=_chat("MODEL_AGENT"),
+        chat_model_cheap=_chat("MODEL_CHEAP"),
+        chat_model_vision=_chat("MODEL_VISION"),
         runninghub_api_key=_str("RUNNINGHUB_API_KEY"),
         runninghub_workflow_id=_str("RUNNINGHUB_WORKFLOW_ID"),
         seedream_model=_str("SEEDREAM_MODEL"),
