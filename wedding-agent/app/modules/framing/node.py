@@ -138,6 +138,9 @@ def frame(state: WeddingState) -> dict:
             "brief": brief.model_dump(), "look": copy.deepcopy(state.get("look") or {}),
             "answers": answers, "height_band": band, "expected_pose": expected_pose,
             "retouch_plan": copy.deepcopy(plan) if retouching else None,
+            # 资产库里每类有几张可用图；为 0 的类别搜不到东西，模型不要反复搜索、直接给出方案
+            "asset_library": {kind: len(search_assets(kind)) for kind in ("pose", "background")},
+            "asset_note": "asset_library 里数量为 0 的类别不要调用 search_assets；同一类最多搜索 2 次，搜不到就直接 final，references 留空。",
         }
         assets: dict[str, dict] = {}
         llm = get_llm("agent").with_structured_output(Decision, method="function_calling")

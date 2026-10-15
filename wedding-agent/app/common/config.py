@@ -81,6 +81,7 @@ class Settings:
     chat_model_agent: str
     chat_model_cheap: str
     chat_model_vision: str
+    chat_thinking: bool  # CHAT_THINKING=1 才打开思考模式；默认关，结构化输出更稳更快
     # 生图服务
     runninghub_api_key: str
     runninghub_workflow_id: str
@@ -125,6 +126,7 @@ def load_settings() -> Settings:
         chat_model_agent=_chat("MODEL_AGENT"),
         chat_model_cheap=_chat("MODEL_CHEAP"),
         chat_model_vision=_chat("MODEL_VISION"),
+        chat_thinking=_bool("CHAT_THINKING", False),
         runninghub_api_key=_str("RUNNINGHUB_API_KEY"),
         runninghub_workflow_id=_str("RUNNINGHUB_WORKFLOW_ID"),
         seedream_model=_str("SEEDREAM_MODEL"),

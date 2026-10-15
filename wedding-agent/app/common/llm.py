@@ -17,6 +17,17 @@ from app.common.config import settings
 KINDS = ("agent", "cheap", "vision")
 
 
+class ChatModel(ChatOpenAI):
+    """CHAT_* 服务用：结构化输出默认走 function_calling。
+
+    DeepSeek 等服务不支持 response_format=json_schema（langchain 的默认），思考模式下也不支持强制 tool_choice，
+    所以这里默认 function_calling，并按 CHAT_THINKING 关掉思考。
+    """
+
+    def with_structured_output(self, schema=None, *, method=None, **kwargs):
+        return super().with_structured_output(schema, method=method or "function_calling", **kwargs)
+
+
 def llm_config(kind: str = "agent") -> dict:
     """返回 {provider, base_url, model, api_key}；不打印、不记录 api_key。"""
     if kind not in KINDS:
@@ -42,6 +53,10 @@ def get_llm(kind: str = "agent") -> ChatOpenAI:
     config = llm_config(kind)
     if not config["api_key"] or not config["model"]:
         raise RuntimeError(f"缺少 CHAT_API_KEY（或 LLM_API_KEY + LLM_MODEL_{kind.upper()}），请在 .env 里填写")
+    if config["provider"] == "chat":
+        extra = {} if settings.chat_thinking else {"thinking": {"type": "disabled"}}
+        return ChatModel(model=config["model"], base_url=config["base_url"], api_key=config["api_key"],
+                         timeout=settings.llm_timeout_seconds, max_retries=1, extra_body=extra or None)
     return ChatOpenAI(
         model=config["model"],
         base_url=config["base_url"],

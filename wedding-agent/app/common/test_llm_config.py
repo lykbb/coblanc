@@ -27,3 +27,10 @@ def test_legacy_deepseek_env_names(monkeypatch):
     assert config._chat("MODEL", "x") == "new-model"
     monkeypatch.setenv("CHAT_API_KEY", "new")
     assert config._chat("API_KEY") == "new"
+
+
+def test_chat_model_defaults_to_function_calling(monkeypatch):
+    monkeypatch.setattr(settings, "chat_api_key", "k")
+    model = llm.get_llm("agent")
+    assert isinstance(model, llm.ChatModel)
+    assert model.extra_body == {"thinking": {"type": "disabled"}}

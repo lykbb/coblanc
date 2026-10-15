@@ -476,8 +476,8 @@ def _photo_groups(state: WeddingState) -> list[tuple[str, str, list[str], int]]:
 def _cached_photo_check(urls: tuple[str, ...], expected: int, label: str) -> tuple[dict, ...]:
     template = load_section(PHOTO_SORT, "check")
     content: list[dict[str, Any]] = [{"type": "text", "text": template.format(label=label, expected=expected)}]
-    content.extend({"type": "image_url", "image_url": {"url": url}} for url in urls)
     try:
+        content.extend({"type": "image_url", "image_url": {"url": _data_url(url)}} for url in urls)
         result = _get_llm("vision").with_structured_output(PhotoCheck).invoke([{"role": "user", "content": content}])
     except Exception as error:
         return tuple({"index": i, "people_count": 0, "clear": False, "front_facing": False, "unobstructed": False, "reason": "照片检查暂时失败，请补传"} for i in range(1, len(urls) + 1))
@@ -609,6 +609,20 @@ def _safe_references(raw: Any, look: dict, shot: dict) -> list[dict]:
 class _SafeFormat(dict):
     def __missing__(self, key: str) -> str:
         return "{" + key + "}"
+
+
+def _data_url(url: str) -> str:
+    """本机地址外部模型下载不到，统一转成 base64 内嵌发送。"""
+    if url.startswith("data:"):
+        return url
+    import base64
+    from app.modules.assets import load_image
+    try:
+        data = load_image(url)
+    except Exception:
+        return url  # 读不到本地文件（例如公网地址）就原样发
+    mime = "image/png" if data.startswith(b"\x89PNG") else "image/jpeg"
+    return f"data:{mime};base64," + base64.b64encode(data).decode("ascii")
 
 
 def _get_llm(kind: str):
