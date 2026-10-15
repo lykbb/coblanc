@@ -63,7 +63,7 @@ def test_compose_prefix_and_single_patch(load_state):
     state["shot"] = {"text": "摄影师构图清晰", "pose": "pose_a", "references": []}
     state["retouch_plan"] = {"target": "prompt", "patch": "两人靠近", "image_id": None}
     update = compose(state)
-    opening = (node.PROMPTS / "opening.md").read_text(encoding="utf-8").strip()
+    opening = node.load_section(node.IMAGE_PROMPT, "identity")
     assert update["prompt"].startswith(opening)
     assert update["prompt"].count("两人靠近") == 1
 
@@ -130,3 +130,10 @@ def test_photo_invalid_after_max_rounds(monkeypatch):
     with pytest.raises(ModuleError, match="模糊"):
         intake(state)
     node._cached_photo_check.cache_clear()
+
+
+def test_prompt_sections_load():
+    for path, name in [(node.DIALOGUE, "brief"), (node.DIALOGUE, "reveal"), (node.PHOTO_SORT, "check"),
+                       (node.IMAGE_PROMPT, "identity"), (node.IMAGE_PROMPT, "compose")]:
+        assert node.load_section(path, name)
+    node.load_section(node.PHOTO_SORT, "check").format(label="合照", expected=2)

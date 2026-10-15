@@ -16,6 +16,20 @@ from app.contracts import Reference
 from app.state import Brief, WeddingState
 
 PROMPTS = Path(__file__).parent / "prompts"
+SKILLS = Path(__file__).parent / "skills"
+DIALOGUE = PROMPTS / "dialogue.md"
+PHOTO_SORT = SKILLS / "photo_sort" / "SKILL.md"
+IMAGE_PROMPT = SKILLS / "image_prompt" / "SKILL.md"
+
+
+def load_section(path: Path, name: str) -> str:
+    """读取 md 文件里 <!-- section: name --> 与 <!-- /section --> 之间的内容。"""
+    text = path.read_text(encoding="utf-8")
+    start = f"<!-- section: {name} -->"
+    if start not in text:
+        raise KeyError(f"{path.name} 缺少 section {name}")
+    body = text.split(start, 1)[1].split("<!-- /section -->", 1)[0]
+    return body.strip()
 
 
 class PhotoCheckItem(BaseModel):
@@ -73,7 +87,7 @@ def compose(state: WeddingState) -> dict:
     brief = _brief(state)
     look, shot = state.get("look") or {}, state.get("shot") or {}
     plan = state.get("retouch_plan") or {}
-    opening = (PROMPTS / "opening.md").read_text(encoding="utf-8").strip()
+    opening = load_section(IMAGE_PROMPT, "identity")
     if settings.fake_for("intake"):
         parts = [opening, str(look.get("text", "")), str(shot.get("text", ""))]
         if plan.get("target") == "prompt" and plan.get("patch"):
@@ -89,7 +103,7 @@ def compose(state: WeddingState) -> dict:
         "retouch_patch": str(plan.get("patch", "") if plan.get("target") == "prompt" else ""),
     }
     try:
-        template = (PROMPTS / "compose.md").read_text(encoding="utf-8")
+        template = load_section(IMAGE_PROMPT, "compose")
         result = _get_llm("agent").with_structured_output(ComposeResult).invoke(template.format_map(_SafeFormat(fields)))
         raw = result.model_dump() if hasattr(result, "model_dump") else result
         body = str(raw.get("prompt") or "").strip()
@@ -125,7 +139,7 @@ def reveal(state: WeddingState) -> dict:
         "materials": ", ".join(str(key) for key in (state.get("deliverables") or {})),
     }
     try:
-        template = (PROMPTS / "reveal.md").read_text(encoding="utf-8")
+        template = load_section(DIALOGUE, "reveal")
         result = _get_llm("cheap").with_structured_output(RevealResult).invoke(template.format_map(_SafeFormat(fields)))
         raw = result.model_dump() if hasattr(result, "model_dump") else result
         text = str(raw.get("message") or "").strip()
@@ -286,7 +300,7 @@ def _brief_from_answers(state: WeddingState, answers: dict[str, dict], *, force_
 def _brief_from_llm(state: WeddingState, answers: dict[str, dict]) -> Brief:
     fallback = _brief_from_answers(state, answers, force_defaults=False)
     try:
-        template = (PROMPTS / "brief.md").read_text(encoding="utf-8")
+        template = load_section(DIALOGUE, "brief")
         result = _get_llm("agent").with_structured_output(Brief).invoke(template.format_map(_SafeFormat({
             "description": state.get("description", ""),
             "answers": json.dumps(list(answers.values()), ensure_ascii=False),
@@ -394,7 +408,7 @@ def _photo_groups(state: WeddingState) -> list[tuple[str, str, list[str], int]]:
 
 @lru_cache(maxsize=128)
 def _cached_photo_check(urls: tuple[str, ...], expected: int, label: str) -> tuple[dict, ...]:
-    template = (PROMPTS / "photo_check.md").read_text(encoding="utf-8")
+    template = load_section(PHOTO_SORT, "check")
     content: list[dict[str, Any]] = [{"type": "text", "text": template.format(label=label, expected=expected)}]
     content.extend({"type": "image_url", "image_url": {"url": url}} for url in urls)
     try:
