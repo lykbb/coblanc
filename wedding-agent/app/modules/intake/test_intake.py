@@ -63,7 +63,7 @@ def test_compose_prefix_and_single_patch(load_state):
     state["shot"] = {"text": "摄影师构图清晰", "pose": "pose_a", "references": []}
     state["retouch_plan"] = {"target": "prompt", "patch": "两人靠近", "image_id": None}
     update = compose(state)
-    opening = node.load_section(node.IMAGE_PROMPT, "identity")
+    opening = node.binding_sentence(update["identity"], update["references"]) + node.load_section(node.IMAGE_PROMPT, "identity")
     assert update["prompt"].startswith(opening)
     assert update["prompt"].count("两人靠近") == 1
 
@@ -137,3 +137,27 @@ def test_prompt_sections_load():
                        (node.IMAGE_PROMPT, "identity"), (node.IMAGE_PROMPT, "compose")]:
         assert node.load_section(path, name)
     node.load_section(node.PHOTO_SORT, "check").format(label="合照", expected=2)
+
+
+def test_binding_sentence_order_and_merge():
+    identity = [{"url": "c", "role": "couple", "left": "groom", "right": "bride"},
+                {"url": "g1", "role": "groom"}, {"url": "g2", "role": "groom"}, {"url": "b1", "role": "bride"}]
+    refs = [{"url": "p", "role": "pose"}, {"url": "o", "role": "outfit"}]
+    text = node.binding_sentence(identity, refs)
+    assert text.startswith("图1是两人的合照，左边是新郎，右边是新娘；图2、图3是新郎本人；图4是新娘本人；图5只参考两人的姿势和站位；图6只参考服装款式。")
+    assert text.endswith("不要用他们的脸、发型和身材。")
+    assert "{" not in text
+
+
+def test_binding_without_couple_or_refs():
+    identity = [{"url": "g", "role": "groom"}, {"url": "b", "role": "bride"}, {"url": "b2", "role": "bride"}]
+    assert node.binding_sentence(identity, []) == "图1是新郎本人；图2、图3是新娘本人。"
+    assert node.binding_sentence([{"url": "c", "role": "couple"}], []) == "图1是新郎和新娘两人的合照。"
+
+
+def test_identity_fallback_and_send_cap():
+    state = {"groom_photo_urls": ["g1", "g2", "g3"], "bride_photo_urls": ["b1"]}
+    assert [i["url"] for i in node._identity(state)] == ["g1", "g2", "b1"]
+    full = node._identity({"photo_urls": [f"p{i}" for i in range(10)]})
+    assert len(full) == 10 and all(i["role"] == "couple" for i in full)
+    assert node._fit_references([{"url": "r", "role": "pose"}], full) == []

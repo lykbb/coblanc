@@ -87,13 +87,15 @@ def compose(state: WeddingState) -> dict:
     brief = _brief(state)
     look, shot = state.get("look") or {}, state.get("shot") or {}
     plan = state.get("retouch_plan") or {}
-    opening = load_section(IMAGE_PROMPT, "identity")
+    identity = _identity(state)
     if settings.fake_for("intake"):
+        references = _fit_references(_look_shot_refs(look, shot), identity)
+        opening = _opening(identity, references)
         parts = [opening, str(look.get("text", "")), str(shot.get("text", ""))]
         if plan.get("target") == "prompt" and plan.get("patch"):
             parts.append(str(plan["patch"]))
         prompt = "".join(part for part in parts if part)
-        return {"prompt": prompt, "references": _look_shot_refs(look, shot),
+        return {"prompt": prompt, "references": references, "identity": identity,
                 "shot_prompts": _shot_prompts(prompt, state)}
     fields = {
         "brief": json.dumps(brief.model_dump(), ensure_ascii=False),
@@ -111,11 +113,84 @@ def compose(state: WeddingState) -> dict:
         raise ModuleError("GENERATION_FAILED", "小囍暂时无法整理生图方案，请稍后再试") from error
     if not body:
         raise ModuleError("GENERATION_FAILED", "小囍没有得到有效的生图提示词，请稍后再试")
-    if body.startswith(opening):
-        body = body[len(opening):].lstrip()
+    references = _fit_references(_safe_references(raw.get("references"), look, shot), identity)
+    opening = _opening(identity, references)
+    for fixed in (opening, load_section(IMAGE_PROMPT, "identity")):
+        if body.startswith(fixed):
+            body = body[len(fixed):].lstrip()
     prompt = opening + body
-    return {"prompt": prompt, "references": _safe_references(raw.get("references"), look, shot),
+    return {"prompt": prompt, "references": references, "identity": identity,
             "shot_prompts": _shot_prompts(prompt, state)}
+
+
+MAX_SEND_IMAGES = 10
+ROLE_NAMES = {"groom": "新郎", "bride": "新娘"}
+
+
+def _identity(state: WeddingState) -> list[dict]:
+    """身份照清单（发图顺序）。整组分类接入前按上传分组生成：
+    分组上传时没有合照，从新郎单人照开始：新郎前 2 张、新娘前 2 张；单入口上传时全部当作合照。"""
+    saved = [dict(item) for item in state.get("identity") or [] if isinstance(item, dict) and item.get("url")]
+    if saved:
+        return saved[:MAX_SEND_IMAGES]
+    groom, bride = state.get("groom_photo_urls"), state.get("bride_photo_urls")
+    if groom is not None or bride is not None:
+        items = [{"url": u, "role": "groom"} for u in list(groom or [])[:2]]
+        items += [{"url": u, "role": "bride"} for u in list(bride or [])[:2]]
+        return items
+    return [{"url": u, "role": "couple"} for u in list(state.get("photo_urls") or [])[:MAX_SEND_IMAGES]]
+
+
+def _fit_references(references: list[dict], identity: list[dict]) -> list[dict]:
+    """身份照优先；参考图只能用剩下的位置，放不下的从后往前丢。"""
+    return references[: max(0, MAX_SEND_IMAGES - len(identity))]
+
+
+def _binding_templates() -> dict[str, str]:
+    lines: dict[str, str] = {}
+    for line in load_section(IMAGE_PROMPT, "binding").splitlines():
+        key, sep, value = line.partition("：")
+        if sep:
+            lines[key.strip()] = value.strip()
+    return lines
+
+
+def binding_sentence(identity: list[dict], references: list[dict]) -> str:
+    """按发图顺序写"图几是谁"，同一类连续的编号合并（图1、图2是新郎本人）。"""
+    templates = _binding_templates()
+    entries: list[tuple[str, str]] = []  # (分组键, 模板)
+    for item in identity:
+        role = item.get("role")
+        if role == "couple":
+            left, right = ROLE_NAMES.get(item.get("left", "")), ROLE_NAMES.get(item.get("right", ""))
+            if left and right:
+                key = f"couple:{left}:{right}"
+                template = templates["couple"].replace("{left}", left).replace("{right}", right)
+            else:
+                key, template = "couple?", templates["couple_unsplit"]
+        else:
+            key, template = role, templates[role]
+        entries.append((key, template))
+    entries += [(ref["role"], templates[ref["role"]]) for ref in references if ref.get("role") in templates]
+    parts, n = [], 1
+    i = 0
+    while i < len(entries):
+        j = i
+        while j + 1 < len(entries) and entries[j + 1][0] == entries[i][0]:
+            j += 1
+        numbers = "、".join(f"图{k}" for k in range(n + i, n + j + 1))
+        parts.append(entries[i][1].replace("图{n}", numbers))
+        i = j + 1
+    if not parts:
+        return ""
+    sentence = "；".join(parts) + "。"
+    if references:
+        sentence += templates["有参考图时句末"]
+    return sentence
+
+
+def _opening(identity: list[dict], references: list[dict]) -> str:
+    return binding_sentence(identity, references) + load_section(IMAGE_PROMPT, "identity")
 
 
 def _shot_prompts(prompt: str, state: WeddingState) -> list[dict]:

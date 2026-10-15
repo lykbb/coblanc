@@ -37,8 +37,10 @@ STAGE_COUNTS = {"sample": "sample_candidates", "set": "set_candidates"}
 
 def generate(state: WeddingState) -> dict:
     prompt = state.get("prompt", "")
-    photos = list(state.get("photo_urls", []))
-    references = copy.deepcopy(state.get("references", []))
+    identity = state.get("identity") or []
+    # 发图顺序 = 身份照清单（与提示词开头的"图几是谁"一致），再接参考图；总数不超过 10 张。
+    photos = [item["url"] for item in identity if item.get("url")] or list(state.get("photo_urls", []))
+    references = copy.deepcopy(state.get("references", []))[: max(0, 10 - len(photos))]
     previous = state.get("generation") or {}
     stage = previous.get("stage") if previous.get("stage") in STAGE_COUNTS else "sample"  # 套图阶段由框架在样片确认后写入
     count = getattr(settings, STAGE_COUNTS[stage])

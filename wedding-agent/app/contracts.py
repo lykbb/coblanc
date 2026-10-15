@@ -22,6 +22,15 @@ class Reference(_Strict):
     role: Literal["style", "outfit", "makeup", "pose", "background"]
 
 
+class IdentityPhoto(_Strict):
+    """身份照清单的一项（按发图顺序）。"""
+
+    url: str
+    role: Literal["groom", "bride", "couple"]
+    left: Optional[Literal["groom", "bride"]] = None
+    right: Optional[Literal["groom", "bride"]] = None
+
+
 class Look(_Strict):
     text: str
     style: str
@@ -125,6 +134,7 @@ FIELD_TYPES = {
     "prompt": str,
     "shot_prompts": list[ShotPrompt],
     "references": list[Reference],
+    "identity": list[IdentityPhoto],
     "candidates": list[Candidate],
     "generation": Generation,
     "scores": list[Score],
@@ -139,7 +149,7 @@ FIELD_TYPES = {
 # 对外函数名 → 允许写的工单字段（step_text 任何模块都可以写）
 MODULE_WRITES = {
     "intake": {"brief", "questions", "consent", "groom_photo_urls", "bride_photo_urls", "photo_urls"},
-    "compose": {"prompt", "references", "shot_prompts"},
+    "compose": {"prompt", "references", "shot_prompts", "identity"},
     "reveal": {"message"},
     "style": {"look", "questions"},
     "frame": {"shot", "shots", "questions"},
