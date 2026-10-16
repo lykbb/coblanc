@@ -40,8 +40,9 @@ const navCats = computed(() => [{ id: '', name: '全部' }, ...styles.value])
 const subTags = ref([])
 async function loadSubTags(style) {
   subTags.value = []
+  if (!style) return // 顶层「全部」不展开二级标签
   try {
-    const tags = (await refs.tags(style)).tags.slice(0, 10).map((t) => t.tag)
+    const tags = (await refs.tags(style)).tags.slice(0, 10)
     if (filter.style === style) subTags.value = tags
   } catch { /* 二级标签可缺 */ }
 }
@@ -106,7 +107,6 @@ onMounted(async () => {
   }
   load()
   loadTags()
-  loadSubTags('')
   observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting && !isLinks.value && items.value.length < total.value) load(true)
   }, { rootMargin: '800px' })
@@ -266,11 +266,18 @@ async function removeLink(link) {
 <template>
   <section class="refwall portal-page" @dragenter.prevent="onDragEnter" @dragover.prevent @dragleave="onDragLeave" @drop.prevent="onDrop">
     <aside class="refwall-side" aria-label="分类">
-      <div v-for="c in navCats" :key="c.id || 'all'" class="side-cat" :class="{ on: filter.style === c.id }">
-        <button type="button" class="side-cat-btn" @click="pickStyle(c.id)"><small v-if="c.id">{{ c.id }}</small>{{ c.name }}</button>
-        <div v-if="filter.style === c.id && subTags.length" class="side-tags">
-          <button type="button" :class="{ on: !filter.tag }" @click="filter.tag = ''">全部</button>
-          <button v-for="t in subTags" :key="t" type="button" :class="{ on: filter.tag === t }" @click="filter.tag = t">{{ t }}</button>
+      <p class="side-label"><span>Categories</span>分类</p>
+      <div v-for="c in navCats" :key="c.id || 'all'" class="side-cat" :class="{ on: filter.style === c.id, open: c.id && filter.style === c.id && subTags.length }">
+        <button type="button" class="side-cat-btn" :aria-expanded="c.id ? filter.style === c.id : undefined" @click="pickStyle(c.id)">
+          <small class="side-num">{{ c.id || '—' }}</small><span class="side-name">{{ c.name }}</span>
+        </button>
+        <div v-if="c.id" class="side-tags-wrap">
+          <div class="side-tags">
+            <template v-if="filter.style === c.id">
+              <button type="button" :class="{ on: !filter.tag }" @click="filter.tag = ''">全部</button>
+              <button v-for="t in subTags" :key="t.tag" type="button" :class="{ on: filter.tag === t.tag }" @click="filter.tag = t.tag">{{ t.tag }}<i>{{ t.count }}</i></button>
+            </template>
+          </div>
         </div>
       </div>
     </aside>
