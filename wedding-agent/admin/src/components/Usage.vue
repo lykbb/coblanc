@@ -27,7 +27,7 @@ const money = (b) => (b.cost == null ? '—' : `${b.cost.toFixed(b.cost < 1 ? 4 
     </header>
     <p v-if="error" class="page-error" role="alert">{{ error }}</p>
     <template v-if="data">
-      <p v-if="!data.total.calls" class="empty-s">暂无数据</p>
+      <p v-if="!data.total?.calls" class="empty-s">暂无数据</p>
       <template v-else>
         <div class="stat-row">
           <div class="stat-card"><span>调用</span><strong>{{ num(data.total.calls) }}</strong></div>
@@ -36,6 +36,7 @@ const money = (b) => (b.cost == null ? '—' : `${b.cost.toFixed(b.cost < 1 ? 4 
           <div class="stat-card"><span>生图</span><strong>{{ num(data.total.images) }}</strong></div>
           <div class="stat-card"><span>费用估算</span><strong>{{ money(data.total) }}</strong></div>
         </div>
+        <p v-if="data.total.backfilled" class="muted-s">含 {{ data.total.backfilled }} 条回填（上线记录前的任务，仅生图张数下限）</p>
         <h2 class="sub-h">按模型</h2>
         <table class="data-table">
           <thead><tr><th>服务</th><th>模型</th><th>用途</th><th>调用</th><th>输入</th><th>输出</th><th>合计</th><th>生图</th><th>费用估算</th></tr></thead>

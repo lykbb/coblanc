@@ -27,9 +27,10 @@ def start(
     groom_photo_urls: list[str] | None = None,
     bride_photo_urls: list[str] | None = None,
     consent: dict | None = None,
+    operator: str | None = None,
 ) -> str:
     task_id = f"t_{uuid.uuid4().hex[:8]}"
-    store.create(task_id)
+    store.create(task_id, operator)
     groom = list(groom_photo_urls or [])
     bride = list(bride_photo_urls or [])
     initial = {

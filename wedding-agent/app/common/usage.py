@@ -25,12 +25,14 @@ def _path():
 
 
 def record(provider: str, model: str, kind: str, input_tokens: int = 0, output_tokens: int = 0,
-           total_tokens: int | None = None, images: int = 0) -> None:
-    task = current_task.get()
-    entry = {"at": time.time(), "task_id": None if task == "-" else task, "provider": provider, "model": model or "?",
+           total_tokens: int | None = None, images: int = 0, *, at: float | None = None, task_id: str | None = None,
+           backfilled: bool = False) -> None:
+    """backfilled=True：上线用量记录前的任务，事后从任务存档里还原（只有能确定的数，如生图张数），页面上会标出。"""
+    task = task_id or current_task.get()
+    entry = {"at": at or time.time(), "task_id": None if task == "-" else task, "provider": provider, "model": model or "?",
              "kind": kind, "input": int(input_tokens or 0), "output": int(output_tokens or 0),
              "total": int(total_tokens if total_tokens is not None else (input_tokens or 0) + (output_tokens or 0)),
-             "images": int(images or 0)}
+             "images": int(images or 0), **({"backfilled": True} if backfilled else {})}
     try:
         with _lock:
             path = _path()

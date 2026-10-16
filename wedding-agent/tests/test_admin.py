@@ -121,3 +121,15 @@ def test_path_mode_login_cookie_scoped_and_referer_checked(portal_env):
     assert client.post("/api/admin/access/codes", json=body, headers={"Referer": f"http://{host}/"}).status_code == 403
     assert client.post("/api/admin/access/codes", json=body, headers={"Referer": f"http://{host}/gallery/"}).status_code == 403
     assert client.post("/api/admin/access/codes", json=body, headers={"Referer": f"http://{host}/abordadmin/"}).status_code == 200
+
+
+def test_task_operator_recorded(admin_client):
+    from conftest import make_png
+
+    site = TestClient(app)
+    [(_, code)] = access.create(["何选"])
+    site.post("/api/access/redeem", json={"code": code})
+    ids = [site.post("/api/uploads", files={"file": ("a.png", make_png(8 + i), "image/png")}).json()["file_id"] for i in range(2)]
+    task_id = site.post("/api/tasks", json={"photo_file_ids": ids}).json()["task_id"]
+    item = next(i for i in admin_client.get("/api/admin/tasks").json()["items"] if i["task_id"] == task_id)
+    assert item["operator"] == "何选" and item["operator_source"] is None

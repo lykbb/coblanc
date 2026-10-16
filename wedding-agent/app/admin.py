@@ -82,6 +82,7 @@ def _relative(value):
 def tasks(limit: int = 100):
     return {"items": [
         {"task_id": task_id, "updated_at": updated, "status": info.status, "step": info.step,
+         "operator": info.operator, "operator_source": info.operator_source,
          "step_text": info.step_text, "error": info.error, "user_redo_count": info.user_redo_count}
         for task_id, updated, info in store.recent(max(1, min(limit, 500)))
     ]}

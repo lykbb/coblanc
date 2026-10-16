@@ -27,10 +27,12 @@ class TaskInfo:
     step_text: str | None = None
     error: dict | None = None
     user_redo_count: int = 0
+    operator: str | None = None  # 发起任务的人（用户站设备绑定的邀请码持有人）
+    operator_source: str | None = None  # None=建任务时记录；"backfill"=事后按 IP 推断
     run_lock: threading.Lock = field(default_factory=threading.Lock)
 
 
-PERSIST_FIELDS = ("status", "step", "step_text", "error", "user_redo_count")
+PERSIST_FIELDS = ("status", "step", "step_text", "error", "user_redo_count", "operator", "operator_source")
 # 重启时还在跑的任务：线程已经没了，标成可重试的系统错误，点「重试」从检查点继续
 INTERRUPTED = {"running", "delivering"}
 
@@ -91,9 +93,9 @@ class TaskStore:
                           "message": "服务更新重启打断了处理（不是你们的问题），点「重试」会从中断的那一步继续。"}
         return info
 
-    def create(self, task_id: str) -> TaskInfo:
+    def create(self, task_id: str, operator: str | None = None) -> TaskInfo:
         with self._guard:
-            info = self._tasks[task_id] = TaskInfo()
+            info = self._tasks[task_id] = TaskInfo(operator=operator)
             self._save(task_id, info)
             return info
 

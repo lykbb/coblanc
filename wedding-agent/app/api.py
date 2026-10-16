@@ -226,7 +226,7 @@ class CreateTaskBody(BaseModel):
 
 
 @app.post("/api/tasks")
-def create_task(body: CreateTaskBody):
+def create_task(body: CreateTaskBody, request: Request):
     grouped = bool(body.groom_photo_file_ids or body.bride_photo_file_ids)
     if grouped and (not body.groom_photo_file_ids or not body.bride_photo_file_ids):
         raise ApiError("PHOTO_INVALID", "请分别上传新郎和新娘各 1～10 张正面生活照")
@@ -251,6 +251,7 @@ def create_task(body: CreateTaskBody):
         body.description,
         groom_photo_urls=groom_urls or None,
         bride_photo_urls=bride_urls or None,
+        operator=access.holder_for(request.cookies.get(access.COOKIE)),
         consent=body.consent.model_dump() if body.consent else None,
     )
     return {"task_id": task_id, "status": "running"}

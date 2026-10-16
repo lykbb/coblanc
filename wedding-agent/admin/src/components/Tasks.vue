@@ -35,18 +35,19 @@ const GROUPS = [['photos', '用户照片'], ['previews', '样片 / 预览'], ['d
       <button type="button" class="ghost-btn push" @click="load">刷新</button></header>
     <p v-if="error" class="page-error" role="alert">{{ error }}</p>
     <table class="data-table">
-      <thead><tr><th>任务</th><th>状态</th><th>步骤</th><th>错误</th><th>更新</th></tr></thead>
+      <thead><tr><th>操作人</th><th>状态</th><th>步骤</th><th>错误</th><th>更新</th><th>任务</th></tr></thead>
       <tbody>
         <template v-for="t in items" :key="t.task_id">
           <tr class="clickable" :class="{ on: open?.task_id === t.task_id }" @click="view(t)">
-            <td class="mono">{{ t.task_id }}</td>
+            <td>{{ t.operator || '—' }}<span v-if="t.operator && t.operator_source === 'backfill'" class="tag" title="按 IP 推断">推断</span></td>
             <td><i class="mark" :class="t.status === 'failed' ? 'bad' : t.status === 'done' ? 'good' : 'idle'"></i>{{ STATUS[t.status] || t.status }}</td>
             <td>{{ t.step_text || t.step || '—' }}</td>
             <td class="err">{{ t.error ? (t.error.title || t.error.code) + (t.error.message ? '：' + t.error.message : '') : '—' }}</td>
             <td class="muted-s">{{ when(t.updated_at) }}</td>
+            <td class="mono">{{ t.task_id }}</td>
           </tr>
           <tr v-if="open?.task_id === t.task_id" class="detail">
-            <td colspan="5">
+            <td colspan="6">
               <div v-for="[key, label] in GROUPS" :key="key" class="task-group">
                 <template v-if="open.images[key].length">
                   <span class="muted-s">{{ label }} · {{ open.images[key].length }}</span>

@@ -40,11 +40,12 @@ def _since(period: str) -> float:
 
 
 def _bucket() -> dict:
-    return {"calls": 0, "input": 0, "output": 0, "total": 0, "images": 0, "cost": None, "currency": None}
+    return {"calls": 0, "input": 0, "output": 0, "total": 0, "images": 0, "backfilled": 0, "cost": None, "currency": None}
 
 
 def _add(bucket: dict, entry: dict, priced: tuple[float, str] | None) -> None:
     bucket["calls"] += 1
+    bucket["backfilled"] += 1 if entry.get("backfilled") else 0
     for key in ("input", "output", "total", "images"):
         bucket[key] += entry.get(key, 0)
     if priced:
@@ -61,18 +62,22 @@ def usage_summary(period: str = "7d"):
     models: dict = defaultdict(_bucket)
     tasks: dict = defaultdict(_bucket)
     days: dict = defaultdict(_bucket)
+    daily_models: dict = defaultdict(_bucket)
     total = _bucket()
     for entry in entries:
         priced = usage.cost(entry, table)
         _add(models[(entry["provider"], entry["model"], entry["kind"])], entry, priced)
         _add(tasks[entry.get("task_id") or "—"], entry, priced)
-        _add(days[time.strftime("%Y-%m-%d", time.localtime(entry["at"]))], entry, priced)
+        day = time.strftime("%Y-%m-%d", time.localtime(entry["at"]))
+        _add(days[day], entry, priced)
+        _add(daily_models[(day, entry["model"])], entry, priced)
         _add(total, entry, priced)
     return {
         "period": period, "total": total, "priced_models": sorted(table),
         "models": [{"provider": p, "model": m, "kind": k, **v} for (p, m, k), v in sorted(models.items(), key=lambda x: -x[1]["total"])],
         "tasks": [{"task_id": t, **v} for t, v in sorted(tasks.items(), key=lambda x: -x[1]["total"])][:200],
         "days": [{"day": d, **v} for d, v in sorted(days.items())],
+        "daily_models": [{"day": d, "model": m, **v} for (d, m), v in sorted(daily_models.items())],
     }
 
 

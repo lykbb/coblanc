@@ -90,3 +90,11 @@ def test_ops_need_admin_session(portal_env):
     for path in ("/api/admin/usage", "/api/admin/server", "/api/admin/files/list", "/api/admin/files/view?path=app/a.py"):
         assert member.get(path).status_code == 401
         assert TestClient(app, headers={"X-Real-IP": "8.8.8.8"}).get(path).status_code == 403
+
+
+def test_usage_backfilled_and_daily_models(admin_client):
+    usage.record("seedream", "seedream-x", "image", images=3, task_id="t_old", backfilled=True)
+    usage.record("chat", "deepseek-chat", "agent", 10, 5)
+    r = admin_client.get("/api/admin/usage?period=7d").json()
+    assert r["total"]["backfilled"] == 1 and r["total"]["images"] == 3
+    assert {(d["model"], d["total"], d["images"]) for d in r["daily_models"]} == {("seedream-x", 0, 3), ("deepseek-chat", 15, 0)}

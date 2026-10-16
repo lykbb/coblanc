@@ -46,3 +46,13 @@ td .mark { margin-right: 8px; vertical-align: middle; }
 .files-head { position: sticky; top: 0; display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--panel); border-bottom: 1px solid var(--line); }
 .files-code { margin: 0; padding: 14px 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; line-height: 1.6; white-space: pre; tab-size: 4; }
 .files-img { max-width: 100%; margin: 16px auto; }
+.svc-list { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; }
+.svc-list span { display: inline-flex; align-items: center; gap: 6px; }
+.chart-card { padding: 16px; border-radius: 14px; background: var(--panel); box-shadow: 0 0 0 1px var(--line); }
+.chart { width: 100%; height: auto; display: block; }
+.chart-base { stroke: var(--line); }
+.chart-axis, .chart-day, .chart-img { font-size: 10px; fill: var(--muted); }
+.chart-day, .chart-img { text-anchor: middle; }
+.chart-img { fill: var(--peach-ink); }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 8px; font-size: 12px; color: var(--muted); }
+.chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
