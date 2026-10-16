@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { bytes, ops } from '../api.js'
-import { money, num, short, ticks, yuan } from '../usage.js'
+import { KINDS, money, num, short, ticks, yuan } from '../usage.js'
 
 const PALETTE = ['#ef9c88', '#b6a5ea', '#e8b07c', '#7fbf9d', '#eda1b2', '#8fb3e0', '#c9b07a']
 const server = ref(null)
@@ -108,15 +108,15 @@ const costLine = computed(() => chart.value.bars.map((b, i) => `${cx(i)},${y(b.c
             <span><b class="chart-img">N张</b>生图</span>
           </div>
         </div>
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead><tr><th>模型</th><th>步骤</th><th>状态</th><th>调用</th><th>输入</th><th>缓存</th><th>输出</th><th>生图</th><th>费用</th></tr></thead>
           <tbody>
-            <tr v-for="m in usage.models" :key="m.provider + m.model + m.kind" :class="{ dim: m.active === false && !m.calls }">
-              <td class="mono">{{ m.model }}</td><td>{{ m.step_labels.join('、') || '—' }}</td><td>{{ m.active ? '在用' : m.active === false ? '未启用' : '历史' }}</td>
+            <tr v-for="m in usage.models.filter((m) => m.active !== false || m.calls)" :key="m.provider + m.model + m.kind">
+              <td><span class="mono">{{ m.model }}</span><span class="muted-s"> · {{ KINDS[m.kind] || m.kind }}</span></td><td class="ell" :title="m.step_labels.join('、')">{{ m.step_labels.join('、') || '—' }}</td><td>{{ m.active ? '在用' : '历史' }}</td>
               <td class="right">{{ num(m.calls) }}</td><td class="right">{{ num(m.input) }}</td><td class="right">{{ num(m.cached) }}</td><td class="right">{{ num(m.output) }}</td><td class="right">{{ num(m.images) }}<span v-if="m.backfilled" class="tag">含回填</span></td><td class="right">{{ money(m) }}</td>
             </tr>
           </tbody>
-        </table>
+        </table></div>
       </template>
     </template>
   </section>

@@ -15,6 +15,11 @@ os.environ.update({"FAKE": "1", "FAKE_FAIL_FIRST_CHECK": "0", "STORAGE_DIR": _TM
 # 默认全部用示例数据；想让某个模块走真实实现，运行时加 REAL_MODULES=模块名（会产生费用）
 os.environ.setdefault("REAL_MODULES", "")
 
+# TestClient 的连接地址是 "testclient"：测试里把它当作本机 nginx，带 X-Real-IP 模拟真实客户端
+from app import portal as _portal  # noqa: E402
+
+_portal.TRUSTED_PROXIES.add("testclient")
+
 FIXTURES = Path(__file__).parent / "tests" / "fixtures"
 
 

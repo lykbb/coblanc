@@ -26,18 +26,19 @@ const detail = (d) => Object.entries(d || {}).filter(([, v]) => v !== null && v 
   <section class="portal-page">
     <header class="page-head"><h1>审计</h1><span class="page-count">{{ items.length }}</span></header>
     <p v-if="error" class="page-error" role="alert">{{ error }}</p>
-    <table class="data-table">
-      <thead><tr><th>时间</th><th>站点</th><th>谁</th><th>操作</th><th>详情</th><th>IP</th></tr></thead>
+    <div class="table-wrap"><table class="data-table audit-table">
+      <thead><tr><th>时间</th><th>用户</th><th>账号</th><th>站点</th><th>操作</th><th>详情</th><th>IP</th></tr></thead>
       <tbody>
         <tr v-for="(e, i) in items" :key="i" :class="{ warn: WARN.has(e.action) }">
           <td class="muted-s">{{ when(e.at) }}</td>
           <td class="muted-s">{{ SITES[e.site] || e.site || '—' }}</td>
-          <td>{{ e.holder || '—' }}</td>
+          <td>{{ e.user || '—' }}<span v-if="e.user && e.user_source === 'ip'" class="tag soft" title="按 IP 推断">推断</span></td>
+          <td class="muted-s">{{ e.holder && e.holder !== e.user ? e.holder : '' }}</td>
           <td>{{ ACTIONS[e.action] || e.action }}</td>
-          <td class="muted-s wrap">{{ detail(e.detail) }}</td>
+          <td class="muted-s ell" :title="detail(e.detail)">{{ detail(e.detail) }}</td>
           <td class="mono muted-s">{{ e.ip }}</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </section>
 </template>

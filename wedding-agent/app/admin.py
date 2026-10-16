@@ -22,7 +22,8 @@ router = APIRouter(prefix="/api/admin", dependencies=[Depends(admin.require)])
 
 @router.get("/access")
 def access_overview():
-    return access.overview() | {"admins": settings.admin_holders, "members": settings.gallery_members}
+    return access.overview() | {"admins": settings.admin_holders, "members": settings.gallery_members,
+                                "system": sorted(access.SYSTEM_HOLDERS)}
 
 
 class CreateCodes(BaseModel):

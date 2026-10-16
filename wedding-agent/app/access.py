@@ -172,6 +172,18 @@ def ip_holder(ip: str) -> str:
     return max(devices, key=lambda d: d.get("last_seen", 0))["holder"] if devices else ip
 
 
+SYSTEM_HOLDERS = {"grokbot", "test", "admin", "xiaoxi", "verify-bot"}  # 系统 / 共享账号，不算具体成员
+
+
+def member_for_ip(ip: str) -> str | None:
+    """这个 IP 最近用的是哪位成员（任意用户站设备的持有人，排除系统账号）；对不上返回 None。"""
+    if not ip:
+        return None
+    devices = [d for d in _load()["devices"].values()
+               if d.get("kind", "site") == "site" and d.get("ip") == ip and d["holder"] not in SYSTEM_HOLDERS]
+    return max(devices, key=lambda d: d.get("last_seen", 0))["holder"] if devices else None
+
+
 def create(holders: list[str]) -> list[tuple[str, str]]:
     result = []
     with _lock:

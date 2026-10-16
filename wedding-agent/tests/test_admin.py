@@ -143,3 +143,18 @@ def test_task_operator_recorded(admin_client):
     task_id = site.post("/api/tasks", json={"photo_file_ids": ids}).json()["task_id"]
     item = next(i for i in admin_client.get("/api/admin/tasks").json()["items"] if i["task_id"] == task_id)
     assert item["operator"] == "何选" and item["operator_source"] is None
+
+
+def test_real_ip_trusted_only_from_local_proxy_and_audit_user(admin_client):
+    from fastapi.testclient import TestClient
+    from app.api import app
+    from app.portal import read_audit
+    spoof = TestClient(app, client=("203.0.113.9", 1234))
+    spoof.post("/auth/admin/login", data={"username": "nobody", "password": "x"}, headers={"X-Real-IP": "10.9.9.9"})
+    local = TestClient(app, client=("127.0.0.1", 1234))
+    local.post("/auth/admin/login", data={"username": "nobody", "password": "x"}, headers={"X-Real-IP": "198.51.100.7"})
+    ips = [e["ip"] for e in read_audit(10) if e["action"] in ("login_failed", "login_locked")][:2]
+    assert ips == ["198.51.100.7", "203.0.113.9"]
+    ip = admin_client.headers["x-real-ip"]
+    entry = next(e for e in read_audit(50) if e["ip"] == ip)
+    assert entry["user"] and entry["user_source"] in ("device", "ip")

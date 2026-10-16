@@ -98,3 +98,24 @@ td .mark { margin-right: 8px; vertical-align: middle; }
 .out-lightbox img { max-width: min(70vw, 900px); max-height: 92vh; border-radius: 10px; }
 .out-lightbox aside { max-width: 360px; max-height: 92vh; overflow: auto; background: #fff; border-radius: 12px; padding: 12px 14px; }
 .out-lightbox aside pre { white-space: pre-wrap; font-size: 12px; margin: 6px 0 0; }
+.table-wrap { overflow-x: auto; }
+.table-wrap .data-table th, .table-wrap .data-table td, .audit-table th, .audit-table td, .inv-table th, .inv-table td { white-space: nowrap; }
+.data-table td.ell { max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+.data-table td.wrap-cell { white-space: normal; min-width: 240px; }
+.data-table th.right { text-align: right; }
+.tag.soft { opacity: .65; }
+.inv-form-row { display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; }
+.inv-form-row .field { height: 34px; }
+.inv-form-row .field.grow { flex: 1; min-width: 200px; }
+.inv-form-row .field.narrow { width: 110px; }
+.inv-table .menu-cell { width: 1%; text-align: right; position: relative; }
+.row-menu { position: absolute; right: 8px; top: calc(100% - 4px); z-index: 30; min-width: 140px; padding: 6px; background: #fff; border-radius: 12px; box-shadow: 0 8px 28px rgba(30,20,40,.14), 0 0 0 1px rgba(0,0,0,.05); display: grid; text-align: left; }
+.row-menu button { border: 0; background: transparent; text-align: left; padding: 7px 10px; border-radius: 8px; font: inherit; font-size: 13px; cursor: pointer; color: inherit; }
+.row-menu button:hover { background: #f6f4f8; }
+.row-menu button.danger { color: #c9533d; }
+.dots-btn { border: 0; background: transparent; width: 30px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 16px; line-height: 1; color: var(--muted); }
+.dots-btn:hover, .dots-btn.on { background: #f1f0f5; color: var(--ink); }
+.inv-devices { width: 100%; border-collapse: collapse; font-size: 12px; }
+.inv-devices td { padding: 6px 8px; border-top: 1px solid var(--line); white-space: nowrap; }
+.inv-devices td.ua { max-width: 360px; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
+.inv-section { margin-top: 18px; }

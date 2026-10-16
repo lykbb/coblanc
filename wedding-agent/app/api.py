@@ -128,6 +128,7 @@ async def _require_access(request: Request, call_next):
 
 
 app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(portal.RealClientIP)  # 最后加 = 最外层，先于其他中间件换成真实 IP
 settings.storage_dir.mkdir(parents=True, exist_ok=True)
 app.include_router(login.router)
 app.include_router(admin.status_router)
@@ -163,8 +164,7 @@ def _take(task_id: str, expected: str, new: str = "running") -> None:
 # ---- 0. 邀请码 ----
 
 
-def _client_ip(request: Request) -> str:
-    return request.headers.get("x-real-ip") or (request.client.host if request.client else "")
+_client_ip = portal.client_ip
 
 
 @app.get("/api/access/status")

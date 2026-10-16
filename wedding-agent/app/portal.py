@@ -12,6 +12,7 @@
 
 from __future__ import annotations
 
+import ipaddress
 import json
 import threading
 import time
@@ -34,8 +35,38 @@ class PortalError(ModuleError):
     pass
 
 
+TRUSTED_PROXIES = {"127.0.0.1", "::1"}  # 只信本机 nginx 传来的 X-Real-IP
+
+
+class RealClientIP:
+    """最外层 ASGI 中间件：请求来自本机代理且带合法 X-Real-IP 时，把连接地址换成真实客户端 IP。
+    之后所有地方（白名单、审计、限流、uvicorn 访问日志）都只看 request.client。"""
+
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] in ("http", "websocket") and scope.get("client") and scope["client"][0] in TRUSTED_PROXIES:
+            real = dict(scope.get("headers") or []).get(b"x-real-ip", b"").decode("latin-1").strip()
+            try:
+                ipaddress.ip_address(real)
+                scope["client"] = (real, scope["client"][1])
+            except ValueError:
+                pass
+        await self.app(scope, receive, send)
+
+
 def client_ip(request: Request) -> str:
-    return request.headers.get("x-real-ip") or (request.client.host if request.client else "")
+    return request.client.host if request.client else ""
+
+
+def member_of(request: Request) -> tuple[str | None, str | None]:
+    """这次操作是哪位成员：用户站设备凭证（邀请码绑定）→ device；否则按 IP 对应的设备持有人 → ip（推断）。"""
+    holder = access.holder_for(request.cookies.get(access.COOKIE))
+    if holder:
+        return holder, "device"
+    member = access.member_for_ip(client_ip(request))
+    return (member, "ip") if member else (None, None)
 
 
 def _audit_path():
@@ -43,7 +74,9 @@ def _audit_path():
 
 
 def write_audit(request: Request, site: str, holder: str | None, action: str, detail: dict | None = None) -> None:
-    entry = {"at": time.time(), "site": site, "holder": holder, "ip": client_ip(request), "action": action, "detail": detail or {}}
+    user, source = member_of(request)
+    entry = {"at": time.time(), "site": site, "holder": holder, "user": user, "user_source": source,
+             "ip": client_ip(request), "action": action, "detail": detail or {}}
     path = _audit_path()
     with _audit_lock:
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -57,7 +90,12 @@ def read_audit(limit: int) -> list[dict]:
     if not path.exists():
         return []
     lines = path.read_text(encoding="utf-8").splitlines()[-limit:]
-    return [json.loads(line) for line in reversed(lines) if line.strip()]
+    items = [json.loads(line) for line in reversed(lines) if line.strip()]
+    for item in items:  # 旧记录没有 user：按 IP 推断
+        if "user" not in item:
+            item["user"] = access.member_for_ip(item.get("ip", ""))
+            item["user_source"] = "ip" if item["user"] else None
+    return items
 
 
 def site_prefix(request: Request) -> str:
