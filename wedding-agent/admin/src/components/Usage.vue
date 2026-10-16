@@ -89,7 +89,7 @@ async function upload(e) {
           <template v-for="s in data.steps" :key="s.step">
             <tr class="group-row"><td>{{ s.label }}</td><td></td><td class="right">{{ num(s.calls) }}</td><td class="right">{{ num(s.input) }}</td><td class="right">{{ num(s.cached) }}</td><td class="right">{{ num(s.output) }}</td><td class="right">{{ num(s.images) }}</td><td class="right">{{ money(s) }}</td></tr>
             <tr v-for="r in data.step_models.filter((r) => r.step === s.step)" :key="s.step + r.provider + r.model + r.kind">
-              <td></td><td><span class="mono">{{ r.model }}</span><span class="muted-s"> · {{ KINDS[r.kind] || r.kind }}</span></td><td class="right">{{ num(r.calls) }}</td><td class="right">{{ num(r.input) }}</td><td class="right">{{ num(r.cached) }}</td><td class="right">{{ num(r.output) }}</td><td class="right">{{ num(r.images) }}</td><td class="right" :title="priceTitle(r)">{{ money(r) }}</td>
+              <td></td><td class="ell" :title="r.model"><span class="mono">{{ r.model }}</span><span class="muted-s"> · {{ KINDS[r.kind] || r.kind }}</span></td><td class="right">{{ num(r.calls) }}</td><td class="right">{{ num(r.input) }}</td><td class="right">{{ num(r.cached) }}</td><td class="right">{{ num(r.output) }}</td><td class="right">{{ num(r.images) }}</td><td class="right" :title="priceTitle(r)">{{ money(r) }}</td>
             </tr>
           </template>
           <tr v-if="!data.steps.length"><td colspan="8" class="muted-s">暂无数据</td></tr>
