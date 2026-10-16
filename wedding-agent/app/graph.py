@@ -23,7 +23,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
 from app.common.config import settings
-from app.common.log import current_task
+from app.common.log import current_step, current_task
 from app.common.progress import STEP_TEXT, store
 from app.contracts import validate_update
 from app.modules.assets import make_previews, package
@@ -43,6 +43,7 @@ def _module_node(module: str, step: str, fn, status: str = "running"):
     def run(state: WeddingState) -> dict:
         task_id = state["task_id"]
         current_task.set(task_id)
+        current_step.set(fn.__name__)
         store.update(task_id, status=status, step=step, step_text=STEP_TEXT[step])
         if settings.fake_delay_seconds and settings.fake_for(module):
             time.sleep(settings.fake_delay_seconds)  # 演示用：让 fake 模式下的进度动画看得见

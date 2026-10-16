@@ -1,9 +1,10 @@
-"""模型用量记录：只记真实 API 响应里返回的用量（对话模型的 token、生图的张数和 usage），写 state_dir/usage.jsonl。
+"""模型用量与费用（框架维护）：只记真实 API 响应里返回的用量，写 state_dir/usage.jsonl；单价见同目录 prices.json。
 
-- 对话模型：get_llm 给模型挂 UsageCallback，每次调用结束从响应的 usage_metadata / token_usage 取数。
-- 生图：Seedream 记响应里的 usage 和张数；RunningHub 不返回 token，只记一次调用和张数。
-- 费用估算只按 state_dir/token_prices.json 里填的单价算（不填就不估）：
-  {"模型名": {"input_per_million": 2, "output_per_million": 8, "per_image": 0.25, "currency": "CNY"}}
+每条记录：at、task_id、step（流水线步骤 = graph 节点名）、provider、model、kind（agent/cheap/vision/image）、
+input（含缓存命中）、cached（缓存命中的输入）、output、total、images；回填的旧任务带 backfilled。
+- 对话模型：get_llm 挂 UsageCallback，调用结束取 usage_metadata / token_usage（含缓存命中数），同时写任务过程记录。
+- 生图：Seedream 记响应里的 usage 和张数；RunningHub 不返回 token，只记张数。
+- 费用：按 prices.json 里的官方公开价算（CNY）；DeepSeek 按请求时刻的北京时间分高峰/空闲；verified=false 的不算。
 """
 
 from __future__ import annotations
@@ -11,13 +12,32 @@ from __future__ import annotations
 import json
 import threading
 import time
+from datetime import datetime, timedelta, timezone
+from functools import lru_cache
+from pathlib import Path
 
 from langchain_core.callbacks import BaseCallbackHandler
 
+from app.common import trace
 from app.common.config import settings
-from app.common.log import current_task
+from app.common.log import current_step, current_task
 
 _lock = threading.Lock()
+PRICES_FILE = Path(__file__).with_name("prices.json")
+BEIJING = timezone(timedelta(hours=8))
+
+# graph 节点名 → 页面上显示的 agent / 步骤
+STEPS = {
+    "intake": "小囍·接单", "compose": "小囍·写最终提示词", "reveal": "小囍·揭幕寄语",
+    "style": "妆造师", "frame": "摄影师", "generate": "生图", "check": "修图师·质检",
+    "retouch": "修图师·修图方案", "make_previews": "物料·预览", "package": "物料·套版",
+}
+
+
+def step_label(step: str | None) -> str:
+    if not step or step == "-":
+        return "未标注（旧记录）"
+    return STEPS.get(step, step)
 
 
 def _path():
@@ -25,12 +45,14 @@ def _path():
 
 
 def record(provider: str, model: str, kind: str, input_tokens: int = 0, output_tokens: int = 0,
-           total_tokens: int | None = None, images: int = 0, *, at: float | None = None, task_id: str | None = None,
-           backfilled: bool = False) -> None:
+           total_tokens: int | None = None, images: int = 0, *, cached_tokens: int = 0, at: float | None = None,
+           task_id: str | None = None, step: str | None = None, backfilled: bool = False) -> None:
     """backfilled=True：上线用量记录前的任务，事后从任务存档里还原（只有能确定的数，如生图张数），页面上会标出。"""
     task = task_id or current_task.get()
-    entry = {"at": at or time.time(), "task_id": None if task == "-" else task, "provider": provider, "model": model or "?",
-             "kind": kind, "input": int(input_tokens or 0), "output": int(output_tokens or 0),
+    stage = step or current_step.get()
+    entry = {"at": at or time.time(), "task_id": None if task == "-" else task, "step": None if stage == "-" else stage,
+             "provider": provider, "model": model or "?", "kind": kind,
+             "input": int(input_tokens or 0), "cached": int(cached_tokens or 0), "output": int(output_tokens or 0),
              "total": int(total_tokens if total_tokens is not None else (input_tokens or 0) + (output_tokens or 0)),
              "images": int(images or 0), **({"backfilled": True} if backfilled else {})}
     try:
@@ -43,7 +65,7 @@ def record(provider: str, model: str, kind: str, input_tokens: int = 0, output_t
         pass  # 记账失败不影响业务
 
 
-def read(since: float = 0) -> list[dict]:
+def read(since: float = 0, task_id: str | None = None) -> list[dict]:
     try:
         lines = _path().read_text(encoding="utf-8").splitlines()
     except FileNotFoundError:
@@ -54,44 +76,131 @@ def read(since: float = 0) -> list[dict]:
             entry = json.loads(line)
         except ValueError:
             continue
-        if entry.get("at", 0) >= since:
+        if entry.get("at", 0) >= since and (task_id is None or entry.get("task_id") == task_id):
+            entry.setdefault("cached", 0)
+            if not entry.get("step"):
+                entry["step"] = "generate" if entry.get("kind") == "image" else None  # 生图只发生在生图步骤
             items.append(entry)
     return items
 
 
-def prices() -> dict:
-    try:
-        data = json.loads((settings.state_dir / "token_prices.json").read_text(encoding="utf-8"))
-        return data if isinstance(data, dict) else {}
-    except (FileNotFoundError, ValueError):
-        return {}
+# ---- 单价 ----
 
 
-def cost(entry: dict, table: dict) -> tuple[float, str] | None:
-    price = table.get(entry["model"])
-    if not isinstance(price, dict):
+@lru_cache(maxsize=1)
+def price_table() -> dict:
+    return json.loads(PRICES_FILE.read_text(encoding="utf-8"))
+
+
+def price_for(provider: str, model: str) -> dict | None:
+    for item in price_table()["models"]:
+        if (model or "").startswith(item["match"]) or provider == item["match"]:
+            return item
+    return None
+
+
+def is_peak(at: float) -> bool:
+    moment = datetime.fromtimestamp(at, BEIJING)
+    minutes = moment.hour * 60 + moment.minute
+    return moment.weekday() < 5 and (540 <= minutes < 720 or 840 <= minutes < 1080)
+
+
+def cost(entry: dict) -> float | None:
+    """这一条的费用（元）；没有可核实的官方单价返回 None。"""
+    price = price_for(entry.get("provider", ""), entry.get("model", ""))
+    if not price or not price.get("verified"):
         return None
-    value = (entry["input"] * float(price.get("input_per_million", 0)) + entry["output"] * float(price.get("output_per_million", 0))) / 1e6
-    value += entry["images"] * float(price.get("per_image", 0))
-    return value, str(price.get("currency", "CNY"))
+    if price["unit"] == "per_image":
+        return entry.get("images", 0) * float(price["per_image"])
+    tier = price["tiers"]["peak" if is_peak(entry["at"]) else "offpeak"]
+    cached = min(entry.get("cached", 0), entry.get("input", 0))
+    return ((entry.get("input", 0) - cached) * tier["input"] + cached * tier["cache_hit"]
+            + entry.get("output", 0) * tier["output"]) / 1e6
+
+
+# ---- 已接入的全部模型（含未启用） ----
+
+ROLE_STEPS = {
+    "agent": ["intake", "compose", "style", "frame", "retouch"],
+    "cheap": ["reveal"],
+    "vision": ["intake", "check"],
+}
+
+
+def catalog() -> list[dict]:
+    """代码里接入的全部模型及是否在用（只读非密钥配置；不返回任何 key）。"""
+    from app.common.llm import llm_config
+
+    rows = []
+    for kind, steps in ROLE_STEPS.items():
+        config = llm_config(kind)
+        chat = config["provider"] == "chat"
+        rows.append({"provider": "chat" if chat else "ark", "model": config["model"] or "未配置", "kind": kind,
+                     "steps": steps, "active": bool(config["api_key"] and config["model"]),
+                     "note": "对话模型（CHAT_*）" if chat else "方舟对话（LLM_MODEL_*）"})
+        if chat:  # 方舟对话只在没配 CHAT_API_KEY 时才用
+            ark = getattr(settings, f"llm_model_{kind}")
+            rows.append({"provider": "ark", "model": ark or "未配置", "kind": kind, "steps": steps, "active": False,
+                         "note": "方舟对话备用：仅在未配置 CHAT_API_KEY 时启用"})
+    rows.append({"provider": "seedream", "model": settings.seedream_model or "未配置", "kind": "image",
+                 "steps": ["generate"], "active": bool(settings.llm_api_key and settings.seedream_model),
+                 "note": "生图主路（方舟 /images/generations）"})
+    from app.modules.generation.client import _runninghub_ready
+
+    rows.append({"provider": "runninghub", "model": settings.runninghub_workflow_id or "未配置", "kind": "image",
+                 "steps": ["generate"], "active": _runninghub_ready(), "note": "生图备用：Seedream 失败且可重试时切换"})
+    for row in rows:
+        price = price_for(row["provider"], row["model"])
+        row["step_labels"] = [step_label(s) for s in row["steps"]]
+        row["price"] = price
+    return rows
+
+
+# ---- 对话模型回调 ----
+
+
+def _message(message) -> dict:
+    item = {"role": getattr(message, "type", "?"), "content": getattr(message, "content", "")}
+    calls = getattr(message, "tool_calls", None)
+    if calls:
+        item["tool_calls"] = [{"name": c.get("name"), "args": c.get("args")} for c in calls]
+    return item
 
 
 class UsageCallback(BaseCallbackHandler):
-    """挂在对话模型上：每次调用结束记一条真实用量。"""
+    """挂在对话模型上：每次调用结束记一条真实用量，并把完整输入输出写进任务过程记录。"""
 
     def __init__(self, provider: str, model: str, kind: str) -> None:
         self.provider, self.model, self.kind = provider, model, kind
+        self._inputs: dict = {}
 
-    def on_llm_end(self, response, **kwargs) -> None:
-        found = False
+    def on_chat_model_start(self, serialized, messages, *, run_id=None, **kwargs) -> None:
+        self._inputs[run_id] = [_message(m) for batch in messages for m in batch]
+
+    def on_llm_error(self, error, *, run_id=None, **kwargs) -> None:
+        trace.add("llm", {"provider": self.provider, "model": self.model, "role": self.kind,
+                          "input": self._inputs.pop(run_id, None), "error": type(error).__name__})
+
+    def on_llm_end(self, response, *, run_id=None, **kwargs) -> None:
+        raw = (response.llm_output or {}).get("token_usage") or {}
+        model = (response.llm_output or {}).get("model_name") or self.model
+        outputs, used = [], None
         for generations in response.generations or []:
             for generation in generations:
-                meta = getattr(getattr(generation, "message", None), "usage_metadata", None)
-                if meta:
-                    record(self.provider, self.model, self.kind, meta.get("input_tokens", 0), meta.get("output_tokens", 0), meta.get("total_tokens"))
-                    found = True
-        if not found:
-            usage = (response.llm_output or {}).get("token_usage") or {}
-            if usage:
-                record(self.provider, (response.llm_output or {}).get("model_name") or self.model, self.kind,
-                       usage.get("prompt_tokens", 0), usage.get("completion_tokens", 0), usage.get("total_tokens"))
+                message = getattr(generation, "message", None)
+                if message is not None:
+                    outputs.append(_message(message))
+                meta = getattr(message, "usage_metadata", None)
+                if meta and used is None:
+                    raw = raw or (getattr(message, "response_metadata", {}) or {}).get("token_usage") or {}
+                    used = (meta.get("input_tokens", 0), meta.get("output_tokens", 0), meta.get("total_tokens"),
+                            (meta.get("input_token_details") or {}).get("cache_read"))
+        if used is None and raw:
+            used = (raw.get("prompt_tokens", 0), raw.get("completion_tokens", 0), raw.get("total_tokens"), None)
+        if used is not None:
+            cached = used[3] if used[3] is not None else (
+                raw.get("prompt_cache_hit_tokens") or (raw.get("prompt_tokens_details") or {}).get("cached_tokens") or 0)
+            record(self.provider, model, self.kind, used[0], used[1], used[2], cached_tokens=cached)
+        trace.add("llm", {"provider": self.provider, "model": model, "role": self.kind,
+                          "input": self._inputs.pop(run_id, None), "output": outputs,
+                          "usage": {"input": used[0], "output": used[1], "cached": cached} if used else None})

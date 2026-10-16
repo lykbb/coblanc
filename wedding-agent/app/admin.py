@@ -88,21 +88,86 @@ def tasks(limit: int = 100):
     ]}
 
 
-@router.get("/tasks/{task_id}")
-def task_detail(task_id: str):
+# 任务详情里按顺序展示的工单字段：(字段, 标题)；其余字段不展示
+DETAIL_FIELDS = [
+    ("description", "用户描述"), ("consent", "授权"), ("brief", "小囍·需求单"),
+    ("look", "妆造师·造型方案"), ("shot", "摄影师·镜头方案"), ("shots", "摄影师·分镜表"),
+    ("identity", "小囍·身份照顺序"), ("references", "小囍·参考图"),
+    ("prompt", "小囍·最终提示词（给生图 agent）"), ("shot_prompts", "小囍·分镜提示词"),
+    ("generation", "生图·结果"), ("candidates", "生图·候选图"),
+    ("scores", "修图师·质检评分"), ("passed", "修图师·是否合格"), ("best_image_id", "修图师·选中"),
+    ("quality_note", "修图师·说明"), ("retouch_plan", "修图师·修图方案"),
+    ("user_feedback", "用户重做反馈"), ("retry_count", "重试次数"), ("sample_only", "只要样片"),
+    ("previews", "预览"), ("deliverables", "交付"), ("message", "小囍·揭幕寄语"),
+]
+
+
+def _local(value):
+    """脱敏，并把用户站的图片绝对地址改成相对路径（后台站点自己代理 /files）。"""
+    from app.common.trace import mask
+
+    base = settings.public_base_url + "/files/"
+    def walk(item):
+        if isinstance(item, str):
+            return item[len(base) - len("/files/"):] if item.startswith(base) else item
+        if isinstance(item, dict):
+            return {k: walk(v) for k, v in item.items()}
+        if isinstance(item, list):
+            return [walk(v) for v in item]
+        return item
+    return walk(mask(value))
+
+
+def _questions(task_id: str) -> dict:
+    """问过用户的问题：从检查点历史里收集（工单里只留当前这轮）。"""
     from app import runner
 
-    info = store.get(task_id)
+    found: dict = {}
+    try:
+        for snapshot in runner.graph.get_state_history(runner._config(task_id), limit=400):
+            for question in snapshot.values.get("questions") or []:
+                found.setdefault(question.get("question_id"), question)
+    except Exception:
+        pass
+    return found
+
+
+@router.get("/tasks/{task_id}")
+def task_detail(task_id: str):
+    from app import admin_ops, runner
+    from app.common import trace, usage
+
+    info = store.peek(task_id)
     if info is None:
         raise PortalError("TASK_NOT_FOUND", "找不到这个任务")
     values = runner.values(task_id)
+    questions = _questions(task_id)
+    chat = [{"asker": a.get("asker"), "round": a.get("round"), "question": (questions.get(a.get("question_id")) or {}).get("title"),
+             "question_id": a.get("question_id"), "answer": a.get("value"), "skipped": a.get("skipped")}
+            for a in values.get("answers") or []]
+    entries = usage.read(task_id=task_id)
+    summary = admin_ops.summarize(entries)
     return {
-        "task_id": task_id, "status": info.status, "step": info.step, "error": info.error,
+        "task_id": task_id, "status": info.status, "step": info.step, "step_text": info.step_text, "error": info.error,
+        "operator": info.operator, "operator_source": info.operator_source, "user_redo_count": info.user_redo_count,
         "generation": values.get("generation"),
         "images": {
             "photos": _relative(values.get("photo_urls")) or (_relative(values.get("groom_photo_urls")) or []) + (_relative(values.get("bride_photo_urls")) or []),
+            "candidates": _relative(values.get("candidates")) or [],
             "previews": _relative(values.get("previews")) or [],
             "deliverables": _relative(values.get("deliverables")) or [],
+        },
+        "chat": _local(chat),
+        "pending_questions": _local(values.get("questions") or []),
+        "fields": [{"key": key, "label": label, "value": _local(values[key])} for key, label in DETAIL_FIELDS
+                   if values.get(key) not in (None, "", [], {})],
+        "trace": [{**_local(item), "step_label": usage.step_label(item.get("step"))} for item in trace.read(task_id)],
+        "usage": {
+            "total": summary["total"],
+            "steps": [{"step": k, "label": usage.step_label(k), **v} for k, v in summary["steps"].items()],
+            "step_models": [{"step": s, "label": usage.step_label(s), "provider": p, "model": m, "kind": k, **v}
+                            for (s, p, m, k), v in summary["step_models"].items()],
+            "records": [{**e, "label": usage.step_label(e.get("step")), "cost": usage.cost(e)} for e in entries],
         },
     }
 

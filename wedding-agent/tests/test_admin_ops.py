@@ -10,29 +10,57 @@ from app import admin_ops
 from app.api import app
 from app.common import usage
 from app.common.config import settings
-from app.common.log import current_task
+from app.common.log import current_step, current_task
 from app.portal import read_audit
 from conftest import make_png
 
 
 def test_usage_empty_then_recorded(admin_client):
     r = admin_client.get("/api/admin/usage?period=today").json()
-    assert r["models"] == [] and r["total"]["calls"] == 0
-    token = current_task.set("t_abc")
+    assert r["total"]["calls"] == 0 and r["prices"]["currency"] == "CNY"
+    assert {m["kind"] for m in r["models"]} == {"agent", "cheap", "vision", "image"}  # 已接入的模型都列出，用量 0
+    assert all(m["calls"] == 0 for m in r["models"])
+    task, step = current_task.set("t_abc"), current_step.set("style")
     try:
-        msg = AIMessage("ok", usage_metadata={"input_tokens": 100, "output_tokens": 20, "total_tokens": 120})
-        usage.UsageCallback("chat", "deepseek-chat", "agent").on_llm_end(LLMResult(generations=[[ChatGeneration(message=msg)]]))
-        usage.record("seedream", "seedream-x", "image", images=1)
+        msg = AIMessage("ok", usage_metadata={"input_tokens": 1000, "output_tokens": 200, "total_tokens": 1200,
+                                              "input_token_details": {"cache_read": 400}})
+        usage.UsageCallback("chat", "deepseek-flash", "agent").on_llm_end(LLMResult(generations=[[ChatGeneration(message=msg)]]))
+        current_step.set("generate")
+        usage.record("seedream", "doubao-seedream-5-0-flash-260915", "image", images=2)
+        usage.record("runninghub", "wf1", "image", images=1)
     finally:
-        current_task.reset(token)
+        current_task.reset(task)
+        current_step.reset(step)
     r = admin_client.get("/api/admin/usage?period=7d").json()
-    chat = next(m for m in r["models"] if m["model"] == "deepseek-chat")
-    assert chat["input"] == 100 and chat["output"] == 20 and chat["cost"] is None
-    assert r["tasks"][0]["task_id"] == "t_abc" and r["total"]["images"] == 1
-    (settings.state_dir / "token_prices.json").write_text(json.dumps({"deepseek-chat": {"input_per_million": 2, "output_per_million": 8}}))
-    chat = next(m for m in admin_client.get("/api/admin/usage?period=30d").json()["models"] if m["model"] == "deepseek-chat")
-    assert chat["cost"] == pytest.approx((100 * 2 + 20 * 8) / 1e6)
+    chat = next(m for m in r["models"] if m["model"] == "deepseek-flash" and m["calls"])
+    assert chat["input"] == 1000 and chat["cached"] == 400 and chat["output"] == 200
+    entry = usage.read(task_id="t_abc")[0]
+    tier = usage.price_for("chat", "deepseek-flash")["tiers"]["peak" if usage.is_peak(entry["at"]) else "offpeak"]
+    assert chat["cost"] == pytest.approx((600 * tier["input"] + 400 * tier["cache_hit"] + 200 * tier["output"]) / 1e6)
+    steps = {s["step"]: s for s in r["steps"]}
+    assert steps["style"]["label"] == "妆造师" and steps["generate"]["cost"] == pytest.approx(0.24)
+    assert steps["generate"]["unpriced"] == 1  # RunningHub 没有可核实的官方单价，不估
+    assert r["tasks"][0]["task_id"] == "t_abc" and r["total"]["images"] == 3
     assert admin_client.get("/api/admin/usage?period=1y").status_code == 400
+
+
+def test_prices_file_and_peak():
+    table = usage.price_table()
+    assert table["currency"] == "CNY" and table["version"]
+    for item in table["models"]:
+        assert item["source"].startswith("https://") and item["checked"] and "verified" in item
+    # 北京时间 周三 10:00 高峰；周三 13:00、周六 10:00 空闲
+    from datetime import datetime
+    at = lambda *a: datetime(*a, tzinfo=usage.BEIJING).timestamp()
+    assert usage.is_peak(at(2026, 10, 14, 10)) and not usage.is_peak(at(2026, 10, 14, 13)) and not usage.is_peak(at(2026, 10, 17, 10))
+    assert usage.cost({"provider": "chat", "model": "deepseek-flash", "at": at(2026, 10, 17, 10), "input": 1_000_000, "cached": 0, "output": 0}) == pytest.approx(1.0)
+
+
+def test_trace_masks_secrets(admin_client):
+    from app.common import trace
+    trace.add("image", {"api_key": "sk-abcdefghijklmnop", "prompt": "hi Bearer abc", "image": "data:image/png;base64," + "A" * 4000}, task_id="t_m")
+    item = trace.read("t_m")[0]
+    assert item["api_key"] == "***" and "abc" not in item["prompt"] and item["image"].startswith("[image/png")
 
 
 def test_server_info(admin_client):

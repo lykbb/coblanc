@@ -97,6 +97,12 @@ def test_tasks_readonly(admin_client):
     assert task_id and items[0]["task_id"] == task_id
     detail = admin_client.get(f"/api/admin/tasks/{task_id}").json()
     assert detail["images"]["photos"] and all(url.startswith("/files/") for url in detail["images"]["photos"])
+    from app.common import trace, usage
+    trace.add("image", {"prompt": "完整提示词", "api_key": "x"}, task_id=task_id)
+    usage.record("seedream", "doubao-seedream-5-0-flash-260915", "image", images=1, task_id=task_id, step="generate")
+    detail = admin_client.get(f"/api/admin/tasks/{task_id}").json()
+    assert detail["trace"][-1]["prompt"] == "完整提示词" and detail["trace"][-1]["api_key"] == "***"
+    assert detail["usage"]["total"]["cost"] >= 0.12 and {"chat", "fields", "pending_questions"} <= set(detail)
     assert admin_client.get("/api/admin/tasks/t_missing").status_code == 404
 
 

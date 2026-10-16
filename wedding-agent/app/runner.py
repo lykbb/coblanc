@@ -67,9 +67,11 @@ def resume(task_id: str, value) -> None:
 
 
 def forget(task_id: str) -> None:
-    """过期任务：删掉检查点。"""
+    """过期任务：删掉检查点和过程记录。"""
+    from app.common import trace
     from app.graph import checkpointer
     checkpointer.delete_thread(task_id)
+    trace.delete(task_id)
 
 
 def values(task_id: str) -> dict:

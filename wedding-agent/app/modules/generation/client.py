@@ -18,7 +18,7 @@ from contextvars import ContextVar
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from app.common import usage
+from app.common import trace, usage
 from app.common.config import settings
 from app.common.errors import ModuleError
 from app.common.log import get_logger
@@ -302,5 +302,7 @@ def generate_image(photo_urls: list[str], prompt: str, seed: int, references: li
             }
             scope.records.append(event)
             log.info("generation_attempt %s", json.dumps(event, ensure_ascii=False))
+            trace.add("image", {**event, "prompt": prompt, "photos": list(photo_urls),
+                                "references": [{"url": r.get("url"), "role": r.get("role")} for r in references]})
     raise ImageCallFailure("生图服务暂时不可用")
 

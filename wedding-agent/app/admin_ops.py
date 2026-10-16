@@ -40,44 +40,64 @@ def _since(period: str) -> float:
 
 
 def _bucket() -> dict:
-    return {"calls": 0, "input": 0, "output": 0, "total": 0, "images": 0, "backfilled": 0, "cost": None, "currency": None}
+    return {"calls": 0, "input": 0, "cached": 0, "output": 0, "total": 0, "images": 0, "backfilled": 0,
+            "cost": 0.0, "unpriced": 0, "currency": "CNY"}
 
 
-def _add(bucket: dict, entry: dict, priced: tuple[float, str] | None) -> None:
+def _add(bucket: dict, entry: dict, value: float | None) -> None:
     bucket["calls"] += 1
     bucket["backfilled"] += 1 if entry.get("backfilled") else 0
-    for key in ("input", "output", "total", "images"):
-        bucket[key] += entry.get(key, 0)
-    if priced:
-        bucket["cost"] = (bucket["cost"] or 0) + priced[0]
-        bucket["currency"] = priced[1]
+    for key in ("input", "cached", "output", "total", "images"):
+        bucket[key] += entry.get(key, 0) or 0
+    if value is not None:
+        bucket["cost"] += value
+    elif entry.get("total") or entry.get("images"):
+        bucket["unpriced"] += 1
+
+
+def summarize(entries: list[dict]) -> dict:
+    """同一批用量记录按 合计 / 模型 / 步骤 / 步骤×模型 / 任务 / 天 / 天×模型 汇总；费用按 prices.json。"""
+    groups = {name: defaultdict(_bucket) for name in ("models", "steps", "step_models", "tasks", "days", "daily_models")}
+    total = _bucket()
+    for entry in entries:
+        value = usage.cost(entry)
+        day = time.strftime("%Y-%m-%d", time.localtime(entry["at"]))
+        step = entry.get("step") or "-"
+        model = (entry["provider"], entry["model"], entry["kind"])
+        for name, key in (("models", model), ("steps", step), ("step_models", (step,) + model),
+                          ("tasks", entry.get("task_id") or "—"), ("days", day), ("daily_models", (day, entry["model"]))):
+            _add(groups[name][key], entry, value)
+        _add(total, entry, value)
+    return {"total": total, **groups}
 
 
 @router.get("/usage")
 def usage_summary(period: str = "7d"):
     if period not in PERIODS:
         raise PortalError("FILE_INVALID", "时间范围不对")
-    entries = usage.read(_since(period))
-    table = usage.prices()
-    models: dict = defaultdict(_bucket)
-    tasks: dict = defaultdict(_bucket)
-    days: dict = defaultdict(_bucket)
-    daily_models: dict = defaultdict(_bucket)
-    total = _bucket()
-    for entry in entries:
-        priced = usage.cost(entry, table)
-        _add(models[(entry["provider"], entry["model"], entry["kind"])], entry, priced)
-        _add(tasks[entry.get("task_id") or "—"], entry, priced)
-        day = time.strftime("%Y-%m-%d", time.localtime(entry["at"]))
-        _add(days[day], entry, priced)
-        _add(daily_models[(day, entry["model"])], entry, priced)
-        _add(total, entry, priced)
+    data = summarize(usage.read(_since(period)))
+    rows = []
+    seen = set()
+    for item in usage.catalog():  # 已接入的全部模型都列出来，没用量的显示 0
+        key = (item["provider"], item["model"], item["kind"])
+        seen.add(key)
+        rows.append({**item, **data["models"].get(key, _bucket())})
+    for (provider, model, kind), bucket in data["models"].items():
+        if (provider, model, kind) not in seen:
+            price = usage.price_for(provider, model)
+            rows.append({"provider": provider, "model": model, "kind": kind, "active": None, "steps": [],
+                         "step_labels": [], "note": "历史记录里出现、当前配置未接入", "price": price, **bucket})
+    table = usage.price_table()
     return {
-        "period": period, "total": total, "priced_models": sorted(table),
-        "models": [{"provider": p, "model": m, "kind": k, **v} for (p, m, k), v in sorted(models.items(), key=lambda x: -x[1]["total"])],
-        "tasks": [{"task_id": t, **v} for t, v in sorted(tasks.items(), key=lambda x: -x[1]["total"])][:200],
-        "days": [{"day": d, **v} for d, v in sorted(days.items())],
-        "daily_models": [{"day": d, "model": m, **v} for (d, m), v in sorted(daily_models.items())],
+        "period": period, "total": data["total"],
+        "prices": {"version": table["version"], "currency": table["currency"], "file": "wedding-agent/app/common/prices.json"},
+        "models": rows,
+        "steps": [{"step": k, "label": usage.step_label(k), **v} for k, v in sorted(data["steps"].items(), key=lambda x: -x[1]["cost"])],
+        "step_models": [{"step": s, "label": usage.step_label(s), "provider": p, "model": m, "kind": k, **v}
+                        for (s, p, m, k), v in sorted(data["step_models"].items())],
+        "tasks": [{"task_id": t, **v} for t, v in sorted(data["tasks"].items(), key=lambda x: (-x[1]["cost"], -x[1]["total"]))][:200],
+        "days": [{"day": d, **v} for d, v in sorted(data["days"].items())],
+        "daily_models": [{"day": d, "model": m, **v} for (d, m), v in sorted(data["daily_models"].items())],
     }
 
 
@@ -153,7 +173,7 @@ PREVIEW_LIMIT = 512 * 1024
 SKIP_DIRS = {".git", "node_modules", ".venv", "__pycache__"}
 _BLOCKED = re.compile(
     r"(^\.env|\.pem$|\.key$|\.p12$|\.pfx$|\.crt$|^id_(rsa|ed25519|ecdsa|dsa)|htpasswd|^access\.json$|secret|credential|"
-    r"^(?!token_prices).*token.*\.(json|txt|ya?ml)$|password|\.keystore$|^\.netrc$|^\.npmrc$|^\.pypirc$)", re.I)
+    r".*token.*\.(json|txt|ya?ml)$|password|\.keystore$|^\.netrc$|^\.npmrc$|^\.pypirc$)", re.I)
 IMAGE_TYPES = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
 
 

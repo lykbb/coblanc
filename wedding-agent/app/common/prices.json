@@ -1,0 +1,80 @@
+{
+  "version": "2026-10-16",
+  "currency": "CNY",
+  "note": "官方公开价（元）。token 价为每百万 token；图片为每张。改价请改这里并更新 version、checked。verified=false 表示官方页面没有可核实的单价，不计费用。",
+  "models": [
+    {
+      "match": "deepseek-flash",
+      "provider": "DeepSeek",
+      "name": "DeepSeek-V4.1-Flash（deepseek-flash）",
+      "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing",
+      "checked": "2026-10-16",
+      "verified": true,
+      "unit": "per_million_tokens",
+      "tiers": {
+        "peak": {"input": 2.0, "cache_hit": 0.04, "output": 8.0},
+        "offpeak": {"input": 1.0, "cache_hit": 0.02, "output": 4.0}
+      },
+      "peak_hours": "北京时间周一至周五 09:00–12:00、14:00–18:00（官方另排除法定节假日，本表按工作日计）"
+    },
+    {
+      "match": "deepseek-v4-pro",
+      "provider": "DeepSeek",
+      "name": "DeepSeek-V4-Pro",
+      "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing",
+      "checked": "2026-10-16",
+      "verified": true,
+      "unit": "per_million_tokens",
+      "tiers": {
+        "peak": {"input": 9.0, "cache_hit": 0.30, "output": 27.0},
+        "offpeak": {"input": 4.5, "cache_hit": 0.15, "output": 13.5}
+      },
+      "peak_hours": "北京时间周一至周五 09:00–12:00、14:00–18:00"
+    },
+    {
+      "match": "doubao-seedream-5-0-flash",
+      "provider": "火山方舟",
+      "name": "Doubao Seedream 5.0 flash",
+      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing",
+      "checked": "2026-10-16",
+      "verified": true,
+      "unit": "per_image",
+      "per_image": 0.12,
+      "input_image": 0
+    },
+    {
+      "match": "doubao-seedream-5-0-lite",
+      "provider": "火山方舟", "name": "Doubao Seedream 5.0 lite",
+      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing", "checked": "2026-10-16",
+      "verified": true, "unit": "per_image", "per_image": 0.22, "input_image": 0
+    },
+    {
+      "match": "doubao-seedream-5-0-pro",
+      "provider": "火山方舟", "name": "Doubao Seedream 5.0 pro（≤1.5K 单图；>1.5K 为 0.60，输入第 2 张起 0.02）",
+      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing", "checked": "2026-10-16",
+      "verified": true, "unit": "per_image", "per_image": 0.30, "input_image": 0
+    },
+    {
+      "match": "doubao-seedream-4-5",
+      "provider": "火山方舟", "name": "Doubao Seedream 4.5",
+      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing", "checked": "2026-10-16",
+      "verified": true, "unit": "per_image", "per_image": 0.25, "input_image": 0
+    },
+    {
+      "match": "doubao-seedream-4-0",
+      "provider": "火山方舟", "name": "Doubao Seedream 4.0",
+      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing", "checked": "2026-10-16",
+      "verified": true, "unit": "per_image", "per_image": 0.20, "input_image": 0
+    },
+    {
+      "match": "runninghub",
+      "provider": "RunningHub",
+      "name": "RunningHub 工作流",
+      "source": "https://www.runninghub.cn/runninghub-api-doc-cn/",
+      "checked": "2026-10-16",
+      "verified": false,
+      "unit": "per_image",
+      "reason": "官方按 GPU 运行秒数 + 节点模型费计费，公开页面没有单价（第三方费用页显示暂无数据），以账户“任务与账单”为准"
+    }
+  ]
+}

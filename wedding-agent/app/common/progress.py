@@ -112,6 +112,10 @@ class TaskStore:
                 self._save(task_id, loaded)
             return self._tasks[task_id]
 
+    def peek(self, task_id: str) -> TaskInfo | None:
+        """只读：不放进内存、不回写文件（后台查看任务时不刷新任务的更新时间）。"""
+        return self._tasks.get(task_id) or self._load(task_id)
+
     def update(self, task_id: str, **fields) -> None:
         self.get(task_id)
         with self._guard:

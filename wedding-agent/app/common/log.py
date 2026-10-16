@@ -4,6 +4,8 @@ import contextvars
 import logging
 
 current_task: contextvars.ContextVar[str] = contextvars.ContextVar("current_task", default="-")
+# 当前流水线步骤（graph 节点名，如 intake / style / frame / generate / check），用量和过程记录按它归到 agent
+current_step: contextvars.ContextVar[str] = contextvars.ContextVar("current_step", default="-")
 
 
 class _TaskFilter(logging.Filter):
