@@ -126,7 +126,14 @@ export function addLog(who, text, mine = false) {
   if (state.log.length > 40) state.log.splice(0, state.log.length - 40)
 }
 
+const LOST_TEXT = '这个任务找不到了（可能已过期或服务刚更新），照片不会丢在别处，点「重新开始」再来一次就好'
+
 function showError(error) {
+  if (error.code === 'TASK_NOT_FOUND') {
+    if (state.taskId) removeProject(state.taskId)
+    state.error = { code: error.code, lost: true, message: LOST_TEXT }
+    return
+  }
   state.error = { code: error.code || null, message: error.message || '出了点问题，请稍后再试' }
 }
 
@@ -213,7 +220,7 @@ async function poll() {
   } catch (error) {
     if (error.code === 'TASK_NOT_FOUND') {
       removeProject(taskId)
-      state.error = { code: error.code, message: '找不到这个任务了，可能已经过期，我们重新开始吧' }
+      state.error = { code: error.code, lost: true, message: LOST_TEXT }
       return
     }
     showError(error)

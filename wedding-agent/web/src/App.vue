@@ -15,7 +15,7 @@ import LibraryView from './components/LibraryView.vue'
 import DebugPanel from './components/DebugPanel.vue'
 import Icon from './components/Icon.vue'
 import { usingMock } from './api.js'
-import { clearError, refresh, resumeLastTask, state } from './store.js'
+import { clearError, refresh, restart, resumeLastTask, state } from './store.js'
 
 const SIDE_COLLAPSED_W = 76
 const SIDE_MIN = 188
@@ -166,8 +166,9 @@ onBeforeUnmount(() => {
       <TopBar v-if="inStudio" />
       <div v-if="state.error" class="banner error" role="alert">
         <Icon name="alert" />
-        <span><b v-if="state.error.code">{{ state.error.code }}</b>{{ state.error.message }}</span>
-        <button v-if="state.taskId" type="button" class="link-btn" @click="clearError(); refresh()">刷新状态</button>
+        <span><b v-if="state.error.code && !state.error.lost">{{ state.error.code }}</b>{{ state.error.message }}</span>
+        <button v-if="state.error.lost" type="button" class="link-btn" @click="clearError(); restart()">重新开始</button>
+        <button v-else-if="state.taskId" type="button" class="link-btn" @click="clearError(); refresh()">刷新状态</button>
         <button type="button" class="icon-btn" aria-label="关闭提示" @click="clearError"><Icon name="close" :size="16" /></button>
       </div>
       <div v-if="state.notice" class="banner notice" role="status">

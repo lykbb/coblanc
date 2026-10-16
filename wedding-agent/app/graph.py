@@ -16,7 +16,9 @@
 
 import time
 
-from langgraph.checkpoint.memory import InMemorySaver
+import sqlite3
+
+from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
@@ -223,7 +225,18 @@ def build_graph():
     g.add_edge("package", "reveal")
     g.add_edge("reveal", END)
     g.add_edge("fail", END)
-    return g.compile(checkpointer=InMemorySaver())
+    return g.compile(checkpointer=checkpointer)
 
 
+def _make_checkpointer() -> SqliteSaver:
+    """流程检查点存到 SQLite（state_dir 下，不对外公开），服务重启后任务能接着走。"""
+    settings.state_dir.mkdir(parents=True, exist_ok=True)
+    connection = sqlite3.connect(settings.state_dir / "checkpoints.sqlite", check_same_thread=False)
+    connection.execute("PRAGMA journal_mode=WAL")
+    saver = SqliteSaver(connection)
+    saver.setup()
+    return saver
+
+
+checkpointer = _make_checkpointer()
 graph = build_graph()

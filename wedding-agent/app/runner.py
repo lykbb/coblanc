@@ -81,6 +81,12 @@ def resume(task_id: str, value) -> None:
     _spawn(task_id, Command(resume=value))
 
 
+def forget(task_id: str) -> None:
+    """过期任务：删掉检查点。"""
+    from app.graph import checkpointer
+    checkpointer.delete_thread(task_id)
+
+
 def values(task_id: str) -> dict:
     return graph.get_state(_config(task_id)).values
 

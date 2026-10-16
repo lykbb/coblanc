@@ -35,7 +35,30 @@ HTTP_STATUS = {
     "GENERATION_FAILED": 500,
 }
 # file_id → 图片地址。demo 阶段放内存里，服务重启后需要重新上传。
-uploads: dict[str, str] = {}
+class _Uploads(dict):
+    """上传编号 → 地址。内存里没有时按文件名到 storage/upload 里找（服务重启后仍可用）。"""
+
+    def _find(self, file_id: str) -> str | None:
+        if not isinstance(file_id, str) or not file_id.startswith("f_") or not file_id[2:].isalnum():
+            return None
+        folder = settings.storage_dir / "upload"
+        for path in folder.glob(file_id[2:] + ".*") if folder.exists() else []:
+            return f"{settings.public_base_url}/files/upload/{path.name}"
+        return None
+
+    def __contains__(self, file_id) -> bool:
+        return dict.__contains__(self, file_id) or self._find(file_id) is not None
+
+    def __getitem__(self, file_id):
+        if dict.__contains__(self, file_id):
+            return dict.__getitem__(self, file_id)
+        url = self._find(file_id)
+        if url is None:
+            raise KeyError(file_id)
+        return url
+
+
+uploads: dict[str, str] = _Uploads()
 
 
 class ApiError(Exception):
@@ -49,6 +72,11 @@ async def lifespan(_: FastAPI):
     removed = purge_expired()
     if removed:
         log.info("删除了 %d 个过期文件", removed)
+    for task_id in store.purge_expired():
+        try:
+            runner.forget(task_id)
+        except Exception:
+            pass
     yield
 
 

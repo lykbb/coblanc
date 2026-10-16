@@ -54,6 +54,8 @@ class Settings:
     public_base_url: str
     cors_origins: list[str]
     storage_dir: Path
+    # 任务状态和流程检查点（不在 storage_dir 里，因为 storage_dir 通过 /files 对外公开）
+    state_dir: Path
     retention_days: int
     # 流程上限
     max_question_rounds: int
@@ -102,6 +104,7 @@ def load_settings() -> Settings:
         public_base_url=_str("PUBLIC_BASE_URL", "http://127.0.0.1:8000").rstrip("/"),
         cors_origins=_list("CORS_ORIGINS") or ["http://localhost:5173"],
         storage_dir=Path(storage) if storage else ROOT / "storage",
+        state_dir=Path(_str("STATE_DIR")) if _str("STATE_DIR") else (Path(storage + "-state") if storage else ROOT / "state"),
         retention_days=_int("RETENTION_DAYS", 7),
         max_question_rounds=_int("MAX_QUESTION_ROUNDS", 2),
         max_retouch=_int("MAX_RETOUCH", 2),
