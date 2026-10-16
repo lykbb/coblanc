@@ -26,8 +26,9 @@ a.pin-title:hover { text-decoration: underline; }
 .pin-tags { display: flex; flex-wrap: wrap; gap: 4px 8px; }
 .pin-tags button { border: 0; background: none; padding: 0; font-size: 11px; color: var(--lav-ink); cursor: pointer; }
 .pin-tags button:hover { text-decoration: underline; }
-.link-pin .pin-media { cursor: pointer; }
-.pin-placeholder { display: grid; place-items: center; aspect-ratio: 16 / 10; color: var(--dash); }
+.link-pin .pin-media { cursor: pointer; box-shadow: 0 0 0 1px rgba(40, 30, 70, .06); }
+.link-pin .pin-media img { object-fit: cover; object-position: top; }
+.pin-placeholder { display: grid; place-items: center; aspect-ratio: 1280 / 900; color: var(--dash); }
 .link-preview { width: 100%; max-height: 220px; object-fit: cover; border-radius: 12px; }
 .ref-pop-row { display: flex; gap: 8px; }
 .ref-title { font-weight: 500; }

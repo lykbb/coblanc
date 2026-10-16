@@ -168,8 +168,17 @@ def _folder():
     return folder
 
 
+def _size(link_id: str) -> tuple[int, int] | tuple[None, None]:
+    try:
+        with Image.open(_folder() / f"{link_id}.webp") as im:
+            return im.size
+    except Exception:
+        return None, None
+
+
 def _row(row) -> dict:
-    return {"id": row["id"], "title": row["title"], "url": row["url"], "domain": row["domain"], "tags": json.loads(row["tags"] or "[]"),
+    w, h = _size(row["id"]) if row["preview"] else (None, None)
+    return {"preview_width": w, "preview_height": h, "id": row["id"], "title": row["title"], "url": row["url"], "domain": row["domain"], "tags": json.loads(row["tags"] or "[]"),
             "uploader": row["uploader"], "created_at": row["created_at"],
             "preview_url": f"links/{row['id']}/preview?v={row['preview']}" if row["preview"] else None}
 

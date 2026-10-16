@@ -47,7 +47,7 @@ const columns = computed(() => {
   for (const item of items.value) {
     const col = cols.reduce((a, b) => (b.height < a.height ? b : a))
     col.items.push(item)
-    col.height += (isLinks.value ? 0.62 : (item.height || 1) / (item.width || 1)) + 0.18
+    col.height += (isLinks.value ? (item.preview_height || 900) / (item.preview_width || 1280) + 0.3 : (item.height || 1) / (item.width || 1) + 0.18)
   }
   return cols.map((c) => c.items)
 })
@@ -284,7 +284,7 @@ async function removeLink(link) {
         <template v-if="isLinks">
           <article v-for="link in col" :key="link.id" class="pin link-pin">
             <a class="pin-media" :href="link.url" target="_blank" rel="noopener noreferrer">
-              <img v-if="link.preview_url" :src="refs.url(link.preview_url)" :alt="link.title" loading="lazy" decoding="async" />
+              <img v-if="link.preview_url" :src="refs.url(link.preview_url)" :alt="link.title" loading="lazy" decoding="async" :style="{ aspectRatio: (link.preview_width || 1280) + '/' + (link.preview_height || 900) }" />
               <span v-else class="pin-placeholder"><Icon name="link" :size="26" /></span>
             </a>
             <div class="pin-cap">
