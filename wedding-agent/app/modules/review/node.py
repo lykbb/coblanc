@@ -30,6 +30,9 @@ def check(state: WeddingState) -> dict:
 
 def retouch(state: WeddingState) -> dict:
     candidates = _candidates(state)
+    if (state.get("generation") or {}).get("stage") == "set":
+        # 套图不审片、没有评分：用户重做时按重做原因直接退回对应环节
+        return {"retouch_plan": rule_plan([], validate_feedback(state.get("user_feedback"), candidates))}
     scores = _scores(state.get("scores") or [], candidates)
     feedback = validate_feedback(state.get("user_feedback"), candidates)
     if settings.fake_for("review"):

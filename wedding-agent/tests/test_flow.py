@@ -256,3 +256,23 @@ def test_grouped_create_rejects_more_than_ten(png_bytes):
            for _ in range(11)]
     response = client.post("/api/tasks", json={"groom_photo_file_ids": ids, "bride_photo_file_ids": ids[:1]})
     assert response.status_code == 400 and response.json()["error"]["code"] == "PHOTO_INVALID"
+
+
+def test_set_skips_review_and_set_redo_regenerates(png_bytes, monkeypatch):
+    """只审样片：9 张套图生成后不进审片，直接给用户挑主视觉；套图重做也不审片。"""
+    from app.modules.review import node as review_node
+    stages = []
+    original = review_node._fake_scores
+    monkeypatch.setattr(review_node, "_fake_scores", lambda state, c: stages.append(state["generation"]["stage"]) or original(state, c))
+    task_id = start_task(png_bytes)
+    data, _ = answer_questions(task_id)
+    confirm = {"action": "confirm", "image_id": data["previews"][0]["image_id"]}
+    client.post(f"/api/tasks/{task_id}/review", json=confirm)
+    data = wait_for(task_id, "preview_ready")
+    assert data["generation"]["stage"] == "set" and len(data["previews"]) == 9
+    assert data["previews"][0]["is_best"] and data["quality_note"] is None
+    redo = {"action": "redo", "image_id": data["previews"][3]["image_id"], "reason": "hands", "note": "手不对"}
+    assert client.post(f"/api/tasks/{task_id}/review", json=redo).json() == {"status": "running"}
+    data = wait_for(task_id, "preview_ready")
+    assert data["generation"]["stage"] == "set" and len(data["previews"]) == 9
+    assert stages == ["sample"]  # 审片只发生在样片阶段

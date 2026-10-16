@@ -131,6 +131,16 @@ def use_other(state: WeddingState) -> dict:
     return {"best_image_id": state["retouch_plan"]["image_id"], "passed": True}
 
 
+def accept_set(state: WeddingState) -> dict:
+    """9 张套图不审片（样片已经审过并由用户确认方向）：生成后直接给用户挑主视觉。"""
+    first = (state.get("candidates") or [{}])[0].get("image_id")
+    return {"best_image_id": first, "passed": True, "scores": [], "quality_note": None}
+
+
+def after_generate(state: WeddingState) -> str:
+    return "accept_set" if (state.get("generation") or {}).get("stage") == "set" else "check"
+
+
 def accept_best(state: WeddingState) -> dict:
     """修了 max_retouch 次仍没完全通过质检：不算失败，交出得分最高的结果并说明还差在哪，用户可以「重做」。"""
     scores = state.get("scores") or []
@@ -206,6 +216,7 @@ def build_graph():
     g.add_node("package", _module_node("assets", "packaging", package, status="delivering"))
     g.add_node("reveal", _module_node("intake", "packaging", reveal, status="delivering"))
     g.add_node("accept_best", accept_best)
+    g.add_node("accept_set", accept_set)
 
     g.add_edge(START, "intake")
     g.add_conditional_edges("intake", after_intake, ["ask_intake", "styling"])
@@ -215,7 +226,8 @@ def build_graph():
     g.add_conditional_edges("framing", after_framing, ["ask_framing", "compose"])
     g.add_edge("ask_framing", "framing")
     g.add_edge("compose", "generate")
-    g.add_edge("generate", "check")
+    g.add_conditional_edges("generate", after_generate, ["check", "accept_set"])  # 只审样片
+    g.add_edge("accept_set", "make_previews")
     g.add_conditional_edges("check", after_check, ["make_previews", "count_retry", "accept_best"])
     g.add_edge("count_retry", "retouch")
     g.add_conditional_edges("retouch", after_retouch, ["styling", "framing", "compose", "generate", "use_other", "accept_best"])

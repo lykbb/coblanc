@@ -28,10 +28,10 @@ const bubble = computed(() => {
   if (p === 'failed') return { who: null, text: failureText(failure.value) }
   if (photoFix.value) return { who: null, text: task.value?.step_text || task.value?.questions?.[0]?.title || '照片还差一点，补传一下就能继续。' }
   if (p === 'pay') return { who: null, text: '这组照片已经定好了，解锁后就能下载 9 张高清图和婚礼物料。' }
-  // 质检没完全达标不算失败：照样给图，并如实说明还差在哪（quality_note）
+  // 样片质检没完全达标不算失败：照样给图，并如实说明还差在哪（quality_note）；套图不审片
   const note = task.value?.quality_note
   if (p === 'sample_review') return { who: null, text: note ? `样片出来了。${note}` : '样片出来了，先看看方向对不对。满意的话我就安排拍 9 张；不满意告诉我哪里要改。' }
-  if (p === 'set_review') return { who: null, text: note ? `9 张套图拍好了。${note}挑一张做主视觉，请柬和海报都用它。` : '9 张套图都拍好了，修图师已经逐张检查过。挑一张做主视觉，请柬和海报都用它。' }
+  if (p === 'set_review') return { who: null, text: '9 张套图都拍好了。挑一张做主视觉，请柬和海报都用它；哪张不满意也可以重做。' }
   const s = speaker.value
   return { who: s.name === 'Amie' ? null : s, text: task.value?.step_text || '马上就好…' }
 })

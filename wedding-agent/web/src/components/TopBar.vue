@@ -8,11 +8,12 @@ import { activeStage, phase, state } from '../store.js'
 const steps = computed(() => {
   const p = phase.value
   const a = activeStage.value
-  // 同一时间只亮一位：修图师在检查时，生成算做完；等用户确认样片时，亮生成
-  const checking = state.task?.status === 'running' && ['checking', 'retouching'].includes(state.task?.step)
+  // 同一时间只亮一位。审片只审样片：样片确认后进入套图阶段，审片就算完成；套图生成时亮「生成」
+  const setStage = state.task?.generation?.stage === 'set'
+  const checking = !setStage && state.task?.status === 'running' && ['checking', 'retouching'].includes(state.task?.step)
   const generated = checking || ['set_review', 'pay', 'delivering', 'done'].includes(p)
-  const reviewed = ['pay', 'delivering', 'done'].includes(p)
-  const reviewing = checking || p === 'set_review'
+  const reviewed = setStage || ['pay', 'delivering', 'done'].includes(p)
+  const reviewing = checking
   return [
     { label: '妆造', status: a > 3 ? 'done' : a >= 1 ? 'active' : 'todo' },
     { label: '摄影', status: a > 4 ? 'done' : a === 4 ? 'active' : 'todo' },

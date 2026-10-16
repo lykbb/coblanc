@@ -236,13 +236,13 @@ export async function review(taskId, payload) {
   if (payload.action === 'redo') {
     if (task.redoCount >= MAX_REDO) throw apiError('REDO_LIMIT', `已经重做 ${MAX_REDO} 次了，请联系人工帮你调整`, 409)
     task.redoCount += 1
-    generateRound(task, ['retouching', 'composing', 'generating', 'checking'])
+    generateRound(task, task.stage === 'set' ? ['retouching', 'composing', 'generating'] : ['retouching', 'composing', 'generating', 'checking'])
     return { status: 'running' }
   }
   task.best = payload.image_id
   if (payload.action === 'confirm' && task.stage === 'sample') {
     task.stage = 'set'
-    generateRound(task, ['generating', 'checking'])
+    generateRound(task, ['generating'])  // 套图不审片
     return { status: 'running' }
   }
   task.status = 'awaiting_payment'
