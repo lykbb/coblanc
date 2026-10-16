@@ -1,8 +1,14 @@
 // 创作流程的状态：当前任务、轮询、用户操作。所有页面共用这一份。
 // 只通过 api.js 的 6 个接口和后端通信；浏览器里只记当前任务编号和"我的项目"列表。
-import { computed, reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import { api } from './api.js'
 import { speakerOf } from './agents.js'
+
+// 有独立地址的页面（可直接打开、可分享）；其余页面都在 /
+const VIEW_PATHS = { refs: '/gallery' }
+function viewFromPath() {
+  return Object.keys(VIEW_PATHS).find((view) => VIEW_PATHS[view] === location.pathname.replace(/\/$/, '')) || 'overview'
+}
 
 const POLL_MS = 1500
 const STALL_MS = 3 * 60 * 1000 // 超过这么久没进展：提示一句，改成慢速轮询（不停止）
@@ -34,7 +40,7 @@ function writeJson(key, value) {
 }
 
 export const state = reactive({
-  view: 'overview',
+  view: viewFromPath(),
   taskId: null,
   task: null,
   busy: false,
@@ -431,9 +437,20 @@ export function openProject(taskId) {
 
 export function resumeLastTask() {
   const saved = readJson(CURRENT_KEY, null)
-  if (saved) openProject(saved)
+  if (!saved) return
+  const deepLinked = state.view !== 'overview' // 直接打开 /gallery 等地址时留在该页，任务在后台恢复
+  const view = state.view
+  openProject(saved)
+  if (deepLinked) state.view = view
 }
 
 export function refresh() {
   if (state.taskId) startPolling()
 }
+
+// 页面和地址栏同步：切到参考图墙地址变成 /gallery，浏览器前进后退也能切回来
+watch(() => state.view, (view) => {
+  const path = VIEW_PATHS[view] || '/'
+  if (location.pathname !== path) history.pushState(null, '', path + location.search)
+})
+window.addEventListener('popstate', () => { state.view = viewFromPath() })
