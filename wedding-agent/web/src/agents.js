@@ -41,6 +41,8 @@ export const STYLE_ART = {
   french_editorial: ASSET + 'style-french.webp',
   cinematic: ASSET + 'style-cinema.webp',
   retro: ASSET + 'style-film.webp',
+  forest: ASSET + 'style-minimal.webp',
+  keep_original: ASSET + 'style-minimal.webp',
 }
 
 export const MATERIAL_LABELS = {

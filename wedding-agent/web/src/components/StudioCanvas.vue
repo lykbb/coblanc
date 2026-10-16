@@ -34,9 +34,9 @@ const subtitle = computed(() => {
 const subtitles = computed(() => [
   allPhotos.value.length ? `${allPhotos.value.length} 张照片${sorted.value ? ' · 已分组' : ''}` : '等你上传',
   look.value ? styleLabel(look.value.style) : '妆造师会和你们确认',
-  parts.value.bride ? short(parts.value.bride, 14) : '等妆造方案',
-  parts.value.groom ? short(parts.value.groom, 14) : '等妆造方案',
-  shot.value ? short(shot.value.text, 14) : '摄影师会和你们确认',
+  look.value ? styleLabel(look.value.style) || '妆造方案' : '等妆造方案',
+  look.value ? styleLabel(look.value.style) || '妆造方案' : '等妆造方案',
+  shot.value ? short(shot.value.text, 14) || '拍摄方案已定' : '摄影师会和你们确认',
   phase.value === 'sample_review' ? '等你确认' : state.sampleUrl ? '已出样片' : '先拍 1 张看方向',
   phase.value === 'set_review' ? '9 张已完成，等你确认' : phase.value === 'set_gen' ? '正在拍 9 张' : finalPhotos.value.length > 1 ? '9 张已交付' : '样片确认后拍 9 张',
 ])
@@ -98,6 +98,10 @@ const zoom = (url) => { state.lightbox = url }
       <!-- 3 女生造型 / 4 男生造型 -->
       <StageCard v-for="side in [{ i: 2, key: 'bride', who: '新娘' }, { i: 3, key: 'groom', who: '新郎' }]" :key="side.key" :index="side.i" :title="STAGES[side.i].title" :subtitle="subtitles[side.i]" :status="stageStatus(side.i)">
         <div class="look-body">
+          <button v-if="styleArt" type="button" class="thumb-btn look-art" :aria-label="`放大${styleLabel(look?.style)}风格图`" @click="zoom(styleArt)">
+            <img loading="lazy" decoding="async" :src="styleArt" :alt="styleLabel(look?.style)" />
+            <span class="tag">{{ styleLabel(look?.style) }}</span>
+          </button>
           <div class="look-thumbs">
             <button v-if="photos[side.key][0]" type="button" class="thumb-btn" :aria-label="`放大${side.who}照片`" @click="zoom(photos[side.key][0])">
               <img loading="lazy" decoding="async" :src="photos[side.key][0]" :alt="`${side.who}本人照片`" />
@@ -108,7 +112,8 @@ const zoom = (url) => { state.lightbox = url }
               <span class="tag">{{ item.role === 'makeup' ? '妆容' : '服装' }}</span>
             </button>
           </div>
-          <p v-if="parts[side.key]" class="look-text">{{ parts[side.key] }}</p>
+          <p v-if="parts[side.key]" class="look-text clamp2" :title="parts[side.key]">{{ parts[side.key] }}</p>
+          <p v-else-if="look" class="muted">{{ side.who }}造型按「{{ styleLabel(look.style) }}」风格来，细节妆造师会再确认</p>
           <p v-else class="muted">妆造师确认后，这里会写清{{ side.who }}的妆容、发型和服装</p>
         </div>
       </StageCard>
@@ -116,7 +121,7 @@ const zoom = (url) => { state.lightbox = url }
       <!-- 5 摄影场景 -->
       <StageCard :index="4" :title="STAGES[4].title" :subtitle="subtitles[4]" :status="stageStatus(4)">
         <div class="scene-body">
-          <p v-if="shot" class="look-text">{{ short(shot.text, 90) }}</p>
+          <p v-if="shot" class="look-text">{{ short(shot.text, 90) || '摄影师已经定好场景和机位' }}</p>
           <p v-else class="muted">摄影师会和你们确认互动、场景、季节和灯光</p>
           <div v-if="counts.length" class="height-chips">
             <span v-for="c in counts" :key="c.name" class="pill">{{ c.name }} {{ c.count }}</span>
@@ -192,3 +197,9 @@ const zoom = (url) => { state.lightbox = url }
     <JourneyBar />
   </div>
 </template>
+
+<style scoped>
+.look-art { display: block; width: 100%; aspect-ratio: 16 / 9; margin-bottom: 8px; }
+.look-art img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+.clamp2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
