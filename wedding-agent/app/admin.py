@@ -1,4 +1,4 @@
-"""后台管理接口 /api/admin/*（独立站点 admin/，端口 8080；只给 ADMIN_HOLDERS，默认 lyk）：邀请码、任务（只读）、审计。
+"""后台管理接口 /api/admin/*（独立站点 admin/，abordadmin.BASE；只给 ADMIN_HOLDERS，默认 lyk）：邀请码、任务（只读）、审计。
 
 登录、凭证、CSRF、限流、审计见 app/portal.py。
 """

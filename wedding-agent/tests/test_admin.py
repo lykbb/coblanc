@@ -116,3 +116,13 @@ def test_portal_responses_noindex(admin_client):
     for path in ("/api/admin/status", "/api/gallery/status"):
         r = admin_client.get(path)
         assert r.headers["x-robots-tag"].startswith("noindex") and r.headers["cache-control"] == "no-store"
+
+
+def test_csrf_origin_per_subdomain(gallery_client):
+    """各站按子域名部署：Origin 必须是本站子域名，别的子域名（如后台）发来的改动请求一律拦下。"""
+    cookies = dict(gallery_client.cookies)
+    host = "gallery.43.142.59.166.nip.io"
+    same = TestClient(app, cookies=cookies, headers={"X-Portal-CSRF": "1", "Host": host, "Origin": f"http://{host}"})
+    other = TestClient(app, cookies=cookies, headers={"X-Portal-CSRF": "1", "Host": host, "Origin": "http://abordadmin.43.142.59.166.nip.io"})
+    assert other.post("/api/gallery/logout").status_code == 403
+    assert same.post("/api/gallery/logout").status_code == 200

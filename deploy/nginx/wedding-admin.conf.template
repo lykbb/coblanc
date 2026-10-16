@@ -1,0 +1,19 @@
+# 后台管理站点：__SCHEME__://abordadmin.__BASE__（BASE 由 deploy.sh 设置：现在 43.142.59.166.nip.io，以后换真实域名）。
+# 只给管理员（ADMIN_HOLDERS）：nginx 访问密码（/etc/nginx/.htpasswd-admin）+ 站点凭证（app/portal.py）。只暴露 /api/admin 和任务图片 /files。
+limit_req_zone $binary_remote_addr zone=admin_api:10m rate=10r/s;
+limit_req_zone $binary_remote_addr zone=admin_login:10m rate=6r/m;
+
+server {
+  __LISTEN__
+  server_name abordadmin.__BASE__;
+  __SSL__
+  auth_basic "admin";
+  auth_basic_user_file /etc/nginx/.htpasswd-admin;
+  client_max_body_size 1m;
+  root /home/ubuntu/ai-wedding/wedding-agent/admin/dist;
+  include /etc/nginx/snippets/wedding-portal.conf;
+
+  location = /api/admin/redeem { limit_req zone=admin_login burst=3 nodelay; proxy_pass http://127.0.0.1:8000; }
+  location /api/admin/ { limit_req zone=admin_api burst=60 nodelay; proxy_pass http://127.0.0.1:8000; proxy_buffering off; }
+  location /files/ { limit_req zone=admin_api burst=60 nodelay; proxy_pass http://127.0.0.1:8000; }
+}
