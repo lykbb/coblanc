@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000360",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "台阶前相依持白花",
+    "composition": "双人全身，台阶前相依持白花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，台阶前相依持白花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000361",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "圆窗与石景前站立",
+    "composition": "双人中全景，圆窗与石景前站立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，圆窗与石景前站立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000362",
+    "evidence_type": "observed",
+    "shot": "横幅双人全身",
+    "action": "园林中挽臂慢行",
+    "composition": "横幅双人全身，园林中挽臂慢行",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人全身，园林中挽臂慢行",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000363",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "建筑入口处正视镜头",
+    "composition": "双人全身，建筑入口处正视镜头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，建筑入口处正视镜头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000364",
+    "evidence_type": "observed",
+    "shot": "新娘脸部特写",
+    "action": "蕾丝头纱、白花前景",
+    "composition": "新娘脸部特写，蕾丝头纱、白花前景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘脸部特写，蕾丝头纱、白花前景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000365",
+    "evidence_type": "observed",
+    "shot": "横幅环境中全景",
+    "action": "廊柱绿植框景",
+    "composition": "横幅环境中全景，廊柱绿植框景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅环境中全景，廊柱绿植框景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000366",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "并行对望",
+    "composition": "双人全身，并行对望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，并行对望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000367",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘坐窗洞、新郎倚墙",
+    "composition": "双人全身，新娘坐窗洞、新郎倚墙",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘坐窗洞、新郎倚墙",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000368",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "竹叶前景下白墙肖像",
+    "composition": "双人中全景，竹叶前景下白墙肖像",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，竹叶前景下白墙肖像",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

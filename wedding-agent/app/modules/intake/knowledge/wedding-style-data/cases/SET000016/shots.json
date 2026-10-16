@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000106",
+    "evidence_type": "observed",
+    "shot": "双人台阶坐姿全身",
+    "action": "新郎挥手、新娘裙摆铺开",
+    "composition": "双人台阶坐姿全身，新郎挥手、新娘裙摆铺开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人台阶坐姿全身，新郎挥手、新娘裙摆铺开",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000107",
+    "evidence_type": "observed",
+    "shot": "双人全身牵手挥手",
+    "action": "彩纸在前",
+    "composition": "双人全身牵手挥手，彩纸在前",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身牵手挥手，彩纸在前",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000108",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新郎吻脸侧，新娘环肩持花",
+    "composition": "双人中景，新郎吻脸侧，新娘环肩持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新郎吻脸侧，新娘环肩持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000109",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎抱起新娘，新娘抬手",
+    "composition": "双人全身，新郎抱起新娘，新娘抬手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎抱起新娘，新娘抬手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000110",
+    "evidence_type": "observed",
+    "shot": "新娘单人全身",
+    "action": "高举红饰物，拖尾展开",
+    "composition": "新娘单人全身，高举红饰物，拖尾展开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘单人全身，高举红饰物，拖尾展开",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000111",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎仰头抛红布、新娘站旁",
+    "composition": "双人全身，新郎仰头抛红布、新娘站旁",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎仰头抛红布、新娘站旁",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

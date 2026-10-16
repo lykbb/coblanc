@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000112",
+    "file_name": "IMG000112.png",
+    "sha256": "158e7591c12967238e2b32014aa675e620de1112a8776727784fa4a28d515031",
+    "width": 1080,
+    "height": 1620,
+    "format": "PNG",
+    "source_page": 3,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PIr2fNGgoltxnDdRmWBcpIhmnce",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000113",
+    "file_name": "IMG000113.png",
+    "sha256": "7b87ca9d232bab2ed6fbfa5b38f23dc50d07bb09fcdb7aedfbadcf16c3f24380",
+    "width": 1080,
+    "height": 1620,
+    "format": "PNG",
+    "source_page": 5,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PIr2fNGgoltxnDdRmWBcpIhmnce",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000114",
+    "file_name": "IMG000114.png",
+    "sha256": "bd7b86a915e961c2e6e2047ac54b9c26e3a6466cf419137e2a58f95ecab240be",
+    "width": 1080,
+    "height": 1620,
+    "format": "PNG",
+    "source_page": 6,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PIr2fNGgoltxnDdRmWBcpIhmnce",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000115",
+    "file_name": "IMG000115.png",
+    "sha256": "9daf420bb88ab007781ca9a253cf82901521d66e797413e564c26af1271a1415",
+    "width": 1080,
+    "height": 1620,
+    "format": "PNG",
+    "source_page": 7,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PIr2fNGgoltxnDdRmWBcpIhmnce",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000116",
+    "file_name": "IMG000116.png",
+    "sha256": "d811fba48c28d1f219cdc68dd97e75c0c5cad60087b51082bcae168e54e38931",
+    "width": 1080,
+    "height": 1620,
+    "format": "PNG",
+    "source_page": 8,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PIr2fNGgoltxnDdRmWBcpIhmnce",
+    "service_url": null,
+    "reference_constraints": []
+  },
+  {
+    "image_id": "IMG000117",
+    "file_name": "IMG000117.png",
+    "sha256": "54bf637e91056eebac451d4f8676dab20063069e79e377dc50dc9f38e70e8c0a",
+    "width": 1080,
+    "height": 1620,
+    "format": "PNG",
+    "source_page": 9,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/PIr2fNGgoltxnDdRmWBcpIhmnce",
+    "service_url": null,
+    "reference_constraints": []
+  }
+]

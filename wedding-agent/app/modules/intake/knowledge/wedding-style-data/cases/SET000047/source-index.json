@@ -1,0 +1,260 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000047",
+ "name": "清新草坪白纱",
+ "primary_category_id": "04",
+ "secondary_category_id": "04-01",
+ "tags": [
+  "白纱",
+  "斜肩轻婚纱",
+  "白花发饰",
+  "葡萄文竹手捧",
+  "黑西装领结",
+  "草坪绿植户外"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "长沙DSJ婚纱摄影旗舰店",
+  "url": "https://m.weibo.cn/detail/5306401791677547",
+  "published_date": "2026-06-05",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：长沙DSJ婚纱摄影旗舰店）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（斜肩轻婚纱+白花发饰；新郎黑西装+领结）、连贯风格（草坪绿植外景）",
+ "clothing": {
+  "新娘": "斜肩轻婚纱+白花发饰+葡萄文竹小白花手捧",
+  "新郎": "黑西装+领结"
+ },
+ "scene_and_light": "草坪绿树外景，白日自然光",
+ "limitations": [
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000387",
+   "set_id": "SET000047",
+   "file_name": "IMG000387.jpg",
+   "source_page": 1,
+   "width": 1600,
+   "height": 2398,
+   "format": "jpg",
+   "sha256": "179102bcf4848730aa324f5f2b374538ec53075fc0495089dea202e774bd80da",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "斜肩轻婚纱+白花发饰+葡萄文竹小白花手捧",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "草坪绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "179102bcf4848730aa324f5f2b374538ec53075fc0495089dea202e774bd80da",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000388",
+   "set_id": "SET000047",
+   "file_name": "IMG000388.jpg",
+   "source_page": 2,
+   "width": 1600,
+   "height": 2398,
+   "format": "jpg",
+   "sha256": "41a8c31419fb9b7446896c6b415129a8235e3d1adf2b10d6c05207655bfafc99",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "斜肩轻婚纱+白花发饰+葡萄文竹小白花手捧",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "草坪绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "41a8c31419fb9b7446896c6b415129a8235e3d1adf2b10d6c05207655bfafc99",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000389",
+   "set_id": "SET000047",
+   "file_name": "IMG000389.jpg",
+   "source_page": 3,
+   "width": 1600,
+   "height": 2398,
+   "format": "jpg",
+   "sha256": "2e443236afb01c2ff508ff684936d3dc5b5ec03e7b0d0f8bd1e0a351912dfba9",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "斜肩轻婚纱+白花发饰+葡萄文竹小白花手捧",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "草坪绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "2e443236afb01c2ff508ff684936d3dc5b5ec03e7b0d0f8bd1e0a351912dfba9",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000390",
+   "set_id": "SET000047",
+   "file_name": "IMG000390.jpg",
+   "source_page": 4,
+   "width": 1600,
+   "height": 2398,
+   "format": "jpg",
+   "sha256": "bc5102ec0e0198b09b81fdf16afe9ab937f2c16348d01de3bc8b38714f58ca9c",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "斜肩轻婚纱+白花发饰+葡萄文竹小白花手捧",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "草坪绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "bc5102ec0e0198b09b81fdf16afe9ab937f2c16348d01de3bc8b38714f58ca9c",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000391",
+   "set_id": "SET000047",
+   "file_name": "IMG000391.jpg",
+   "source_page": 5,
+   "width": 1600,
+   "height": 2398,
+   "format": "jpg",
+   "sha256": "34936714c9d61785ee3f7399de2bf0fc357bdce433b8a3f692645c521b11f111",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "斜肩轻婚纱+白花发饰+葡萄文竹小白花手捧",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "草坪绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "34936714c9d61785ee3f7399de2bf0fc357bdce433b8a3f692645c521b11f111",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000392",
+   "set_id": "SET000047",
+   "file_name": "IMG000392.jpg",
+   "source_page": 6,
+   "width": 1600,
+   "height": 2398,
+   "format": "jpg",
+   "sha256": "7ce4718a8ec843c5b99c1642635f2862555fff9f70580468a98e7ed2d19cb989",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "斜肩轻婚纱+白花发饰+葡萄文竹小白花手捧",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "草坪绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "7ce4718a8ec843c5b99c1642635f2862555fff9f70580468a98e7ed2d19cb989",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000393",
+   "set_id": "SET000047",
+   "file_name": "IMG000393.jpg",
+   "source_page": 7,
+   "width": 1600,
+   "height": 2398,
+   "format": "jpg",
+   "sha256": "01282a48087b3f20a360e6281493c2f49d1f9b10345a7de9cff6f63b18501d0e",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "斜肩轻婚纱+白花发饰+葡萄文竹小白花手捧",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "草坪绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "01282a48087b3f20a360e6281493c2f49d1f9b10345a7de9cff6f63b18501d0e",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000394",
+   "set_id": "SET000047",
+   "file_name": "IMG000394.jpg",
+   "source_page": 8,
+   "width": 1600,
+   "height": 2398,
+   "format": "jpg",
+   "sha256": "af21a8ca250a70df6b8a61cfb8901fdfbabedb58e8c17652589c8687d0aa66da",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "斜肩轻婚纱+白花发饰+葡萄文竹小白花手捧",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "草坪绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "af21a8ca250a70df6b8a61cfb8901fdfbabedb58e8c17652589c8687d0aa66da",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000395",
+   "set_id": "SET000047",
+   "file_name": "IMG000395.jpg",
+   "source_page": 9,
+   "width": 1600,
+   "height": 2398,
+   "format": "jpg",
+   "sha256": "1df9e2d1c847b594e2ffea6b6e7bd18309d574205c30e99f5e3414f6cc086645",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "斜肩轻婚纱+白花发饰+葡萄文竹小白花手捧",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "草坪绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "1df9e2d1c847b594e2ffea6b6e7bd18309d574205c30e99f5e3414f6cc086645",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

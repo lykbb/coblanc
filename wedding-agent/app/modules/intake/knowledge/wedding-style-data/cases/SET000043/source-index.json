@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000043",
+ "name": "宋制红墙喜嫁",
+ "primary_category_id": "02",
+ "secondary_category_id": "02-06",
+ "tags": [
+  "中式喜服",
+  "宋制婚服",
+  "金凤冠",
+  "红色官服",
+  "黑帽",
+  "囍字",
+  "红灯笼",
+  "红墙影棚"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "雨墨摄影惠州店官微",
+  "url": "https://m.weibo.cn/detail/5328572570931202",
+  "published_date": "2026-08-05",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：雨墨摄影惠州店官微）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（红金宋制婚服+金凤冠；新郎红色官服+黑帽）、连贯风格（红墙喜嫁影棚）",
+ "clothing": {
+  "新娘": "红金宋制婚服+金凤冠流苏",
+  "新郎": "红色官服+黑帽+革带"
+ },
+ "scene_and_light": "复古红墙实景影棚，大红囍字+红灯笼+青花瓷瓶道具，棚拍柔光",
+ "limitations": [
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000351",
+   "set_id": "SET000043",
+   "file_name": "IMG000351.jpg",
+   "source_page": 1,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "b66daba4ae3d1ce968f8183407964498d8680f5ac3e9510ee49144899d778a56",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金宋制婚服+金凤冠流苏",
+    "新郎": "红色官服+黑帽+革带"
+   },
+   "scene_and_light_ref": "复古红墙实景影棚，大红囍字+红灯笼+青花瓷瓶道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "b66daba4ae3d1ce968f8183407964498d8680f5ac3e9510ee49144899d778a56",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000352",
+   "set_id": "SET000043",
+   "file_name": "IMG000352.jpg",
+   "source_page": 2,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "b1b433eb0cd3d9929c70889f8ae1cb858fa3e71602e7c3e28189d56f2089a5e3",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金宋制婚服+金凤冠流苏",
+    "新郎": "红色官服+黑帽+革带"
+   },
+   "scene_and_light_ref": "复古红墙实景影棚，大红囍字+红灯笼+青花瓷瓶道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "b1b433eb0cd3d9929c70889f8ae1cb858fa3e71602e7c3e28189d56f2089a5e3",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000353",
+   "set_id": "SET000043",
+   "file_name": "IMG000353.jpg",
+   "source_page": 3,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "f2c9bc7d37c217bf0e74609e43f4e5a633c4e7b977beee6d3cc5f477c2a8be11",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金宋制婚服+金凤冠流苏",
+    "新郎": "红色官服+黑帽+革带"
+   },
+   "scene_and_light_ref": "复古红墙实景影棚，大红囍字+红灯笼+青花瓷瓶道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "f2c9bc7d37c217bf0e74609e43f4e5a633c4e7b977beee6d3cc5f477c2a8be11",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000354",
+   "set_id": "SET000043",
+   "file_name": "IMG000354.jpg",
+   "source_page": 4,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "7f197aa108c4aeb42ba516b5d3081a92847decca71e00869c11c7a4a38727d7a",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金宋制婚服+金凤冠流苏",
+    "新郎": "红色官服+黑帽+革带"
+   },
+   "scene_and_light_ref": "复古红墙实景影棚，大红囍字+红灯笼+青花瓷瓶道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "7f197aa108c4aeb42ba516b5d3081a92847decca71e00869c11c7a4a38727d7a",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000355",
+   "set_id": "SET000043",
+   "file_name": "IMG000355.jpg",
+   "source_page": 5,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "2cb67d35862008e67c48dc32bd0afa48228cb985b08d44dceef0741e37a3b5ea",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金宋制婚服+金凤冠流苏",
+    "新郎": "红色官服+黑帽+革带"
+   },
+   "scene_and_light_ref": "复古红墙实景影棚，大红囍字+红灯笼+青花瓷瓶道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "2cb67d35862008e67c48dc32bd0afa48228cb985b08d44dceef0741e37a3b5ea",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000356",
+   "set_id": "SET000043",
+   "file_name": "IMG000356.jpg",
+   "source_page": 6,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "618fc6d015e914d561b754181d8227f52b31685276533699fd2d1abc1b7f139f",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金宋制婚服+金凤冠流苏",
+    "新郎": "红色官服+黑帽+革带"
+   },
+   "scene_and_light_ref": "复古红墙实景影棚，大红囍字+红灯笼+青花瓷瓶道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "618fc6d015e914d561b754181d8227f52b31685276533699fd2d1abc1b7f139f",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000357",
+   "set_id": "SET000043",
+   "file_name": "IMG000357.jpg",
+   "source_page": 7,
+   "width": 2000,
+   "height": 1334,
+   "format": "jpg",
+   "sha256": "c10f13eed1da97cd73f75af4a970f5989da64336d5b8f606708beb95c26235de",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金宋制婚服+金凤冠流苏",
+    "新郎": "红色官服+黑帽+革带"
+   },
+   "scene_and_light_ref": "复古红墙实景影棚，大红囍字+红灯笼+青花瓷瓶道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "c10f13eed1da97cd73f75af4a970f5989da64336d5b8f606708beb95c26235de",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000358",
+   "set_id": "SET000043",
+   "file_name": "IMG000358.jpg",
+   "source_page": 8,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "86535ec0dbfea05a3e262f3553827636afda1c0b508731c799391192822f9753",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金宋制婚服+金凤冠流苏",
+    "新郎": "红色官服+黑帽+革带"
+   },
+   "scene_and_light_ref": "复古红墙实景影棚，大红囍字+红灯笼+青花瓷瓶道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "86535ec0dbfea05a3e262f3553827636afda1c0b508731c799391192822f9753",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000359",
+   "set_id": "SET000043",
+   "file_name": "IMG000359.jpg",
+   "source_page": 9,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "28386a8b50b37ffd49596ea940b1a9888414888e7e4287a33785fed5efb9caf0",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红金宋制婚服+金凤冠流苏",
+    "新郎": "红色官服+黑帽+革带"
+   },
+   "scene_and_light_ref": "复古红墙实景影棚，大红囍字+红灯笼+青花瓷瓶道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "28386a8b50b37ffd49596ea940b1a9888414888e7e4287a33785fed5efb9caf0",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

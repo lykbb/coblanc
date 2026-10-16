@@ -1,0 +1,85 @@
+{
+  "purpose": "Repository copy omits local machine paths and source share tokens; original source indexes remain in the local review archive. Image IDs, SHA256, dimensions and observations are unchanged.",
+  "changes": [
+    {
+      "file": "cases/SET000001/source-index.json",
+      "field": "/source/url",
+      "action": "removed_share_query_and_fragment"
+    },
+    {
+      "file": "cases/SET000009/source-index.json",
+      "field": "/source/url",
+      "action": "removed_share_query_and_fragment"
+    },
+    {
+      "file": "cases/SET000013/source-index.json",
+      "field": "/source/url",
+      "action": "removed_share_query_and_fragment"
+    },
+    {
+      "file": "cases/SET000012/source-index.json",
+      "field": "/source/url",
+      "action": "removed_share_query_and_fragment"
+    },
+    {
+      "file": "cases/SET000002/source-index.json",
+      "field": "/source/url",
+      "action": "removed_share_query_and_fragment"
+    },
+    {
+      "file": "cases/SET000003/source-index.json",
+      "field": "/source/url",
+      "action": "removed_share_query_and_fragment"
+    },
+    {
+      "file": "cases/SET000017/source-index.json",
+      "field": "/images/0/processing/plan/source",
+      "action": "replaced_local_absolute_path_with_basename"
+    },
+    {
+      "file": "cases/SET000017/source-index.json",
+      "field": "/images/0/processing/plan/output",
+      "action": "replaced_local_absolute_path_with_basename"
+    },
+    {
+      "file": "cases/SET000017/source-index.json",
+      "field": "/images/2/processing/plan/source",
+      "action": "replaced_local_absolute_path_with_basename"
+    },
+    {
+      "file": "cases/SET000017/source-index.json",
+      "field": "/images/2/processing/plan/output",
+      "action": "replaced_local_absolute_path_with_basename"
+    },
+    {
+      "file": "cases/SET000017/source-index.json",
+      "field": "/images/3/processing/plan/source",
+      "action": "replaced_local_absolute_path_with_basename"
+    },
+    {
+      "file": "cases/SET000017/source-index.json",
+      "field": "/images/3/processing/plan/output",
+      "action": "replaced_local_absolute_path_with_basename"
+    },
+    {
+      "file": "cases/SET000017/source-index.json",
+      "field": "/images/4/processing/plan/source",
+      "action": "replaced_local_absolute_path_with_basename"
+    },
+    {
+      "file": "cases/SET000017/source-index.json",
+      "field": "/images/4/processing/plan/output",
+      "action": "replaced_local_absolute_path_with_basename"
+    },
+    {
+      "file": "cases/SET000017/source-index.json",
+      "field": "/images/5/processing/plan/source",
+      "action": "replaced_local_absolute_path_with_basename"
+    },
+    {
+      "file": "cases/SET000017/source-index.json",
+      "field": "/images/5/processing/plan/output",
+      "action": "replaced_local_absolute_path_with_basename"
+    }
+  ]
+}

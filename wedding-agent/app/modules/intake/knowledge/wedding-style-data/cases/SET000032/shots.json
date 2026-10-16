@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000255",
+    "evidence_type": "observed",
+    "shot": "横幅环境全身",
+    "action": "新郎向新娘走来、长头纱铺地",
+    "composition": "横幅环境全身，新郎向新娘走来、长头纱铺地",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅环境全身，新郎向新娘走来、长头纱铺地",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000256",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "新娘拿册页面向新郎背影",
+    "composition": "横幅双人中景，新娘拿册页面向新郎背影",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，新娘拿册页面向新郎背影",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000257",
+    "evidence_type": "observed",
+    "shot": "横幅双人全身",
+    "action": "桌两侧举杯",
+    "composition": "横幅双人全身，桌两侧举杯",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人全身，桌两侧举杯",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000258",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "桌边举杯对望",
+    "composition": "横幅双人中景，桌边举杯对望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，桌边举杯对望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000259",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新郎亲近新娘脸侧，太阳耀光在后",
+    "composition": "双人中景，新郎亲近新娘脸侧，太阳耀光在后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新郎亲近新娘脸侧，太阳耀光在后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000260",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "背侧牵手，新娘回望",
+    "composition": "横幅双人中景，背侧牵手，新娘回望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，背侧牵手，新娘回望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000261",
+    "evidence_type": "observed",
+    "shot": "横幅环境全身",
+    "action": "湖边白桌旁持花站立",
+    "composition": "横幅环境全身，湖边白桌旁持花站立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅环境全身，湖边白桌旁持花站立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000262",
+    "evidence_type": "observed",
+    "shot": "横幅环境全身",
+    "action": "新郎牵起低位新娘的手",
+    "composition": "横幅环境全身，新郎牵起低位新娘的手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅环境全身，新郎牵起低位新娘的手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000263",
+    "evidence_type": "observed",
+    "shot": "新娘中全景",
+    "action": "湖边桌前持花微笑",
+    "composition": "新娘中全景，湖边桌前持花微笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中全景，湖边桌前持花微笑",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

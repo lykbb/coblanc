@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000039",
+ "name": "草坪花瓣纱幔",
+ "primary_category_id": "04",
+ "secondary_category_id": "04-01",
+ "tags": [
+  "白纱",
+  "草坪",
+  "花瓣纱幔",
+  "抹胸蓬裙",
+  "满天星发冠",
+  "黑西装领结",
+  "户外"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "长沙DSJ婚纱摄影旗舰店",
+  "url": "https://m.weibo.cn/detail/5345615733330070",
+  "published_date": "2026-09-21",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：长沙DSJ婚纱摄影旗舰店）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（抹胸蓬裙白纱+满天星发冠；新郎黑西装+领结）、连贯风格（草坪花瓣纱幔外景）",
+ "clothing": {
+  "新娘": "抹胸蓬裙白纱+满天星发冠+粉白花束",
+  "新郎": "黑西装+领结+粉胸花"
+ },
+ "scene_and_light": "草坪绿树外景，悬垂花瓣纱幔，白日自然光",
+ "limitations": [
+  "超高分辨率6192×8256（专业相机原图）",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000315",
+   "set_id": "SET000039",
+   "file_name": "IMG000315.jpg",
+   "source_page": 1,
+   "width": 6192,
+   "height": 8256,
+   "format": "jpg",
+   "sha256": "4f4e08fa30f0334477f14f8d06d27105baeadacaee7f6466befe56e1b2a3490d",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蓬裙白纱+满天星发冠+粉白花束",
+    "新郎": "黑西装+领结+粉胸花"
+   },
+   "scene_and_light_ref": "草坪绿树外景，悬垂花瓣纱幔，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "4f4e08fa30f0334477f14f8d06d27105baeadacaee7f6466befe56e1b2a3490d",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000316",
+   "set_id": "SET000039",
+   "file_name": "IMG000316.jpg",
+   "source_page": 2,
+   "width": 6192,
+   "height": 8256,
+   "format": "jpg",
+   "sha256": "5750ea27bfd041f1638290a6f99362b2c63a019fc1a0c8f48f69c85d978c001f",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蓬裙白纱+满天星发冠+粉白花束",
+    "新郎": "黑西装+领结+粉胸花"
+   },
+   "scene_and_light_ref": "草坪绿树外景，悬垂花瓣纱幔，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "5750ea27bfd041f1638290a6f99362b2c63a019fc1a0c8f48f69c85d978c001f",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000317",
+   "set_id": "SET000039",
+   "file_name": "IMG000317.jpg",
+   "source_page": 3,
+   "width": 6192,
+   "height": 8256,
+   "format": "jpg",
+   "sha256": "96eaa9e358bf90d4f701c40f3dcd0a40b78a2080178ad8ab6f010daaaa70d0b6",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蓬裙白纱+满天星发冠+粉白花束",
+    "新郎": "黑西装+领结+粉胸花"
+   },
+   "scene_and_light_ref": "草坪绿树外景，悬垂花瓣纱幔，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "96eaa9e358bf90d4f701c40f3dcd0a40b78a2080178ad8ab6f010daaaa70d0b6",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000318",
+   "set_id": "SET000039",
+   "file_name": "IMG000318.jpg",
+   "source_page": 4,
+   "width": 6192,
+   "height": 8256,
+   "format": "jpg",
+   "sha256": "b55f1e79aafd5cdc47c119ed7e1775230eb0026016198ebfec11d6c107095113",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蓬裙白纱+满天星发冠+粉白花束",
+    "新郎": "黑西装+领结+粉胸花"
+   },
+   "scene_and_light_ref": "草坪绿树外景，悬垂花瓣纱幔，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "b55f1e79aafd5cdc47c119ed7e1775230eb0026016198ebfec11d6c107095113",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000319",
+   "set_id": "SET000039",
+   "file_name": "IMG000319.jpg",
+   "source_page": 5,
+   "width": 6192,
+   "height": 8256,
+   "format": "jpg",
+   "sha256": "f5fae7d145f8db8208265b656ad79b25545bd92c5fc1f05104245328a2fe9218",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蓬裙白纱+满天星发冠+粉白花束",
+    "新郎": "黑西装+领结+粉胸花"
+   },
+   "scene_and_light_ref": "草坪绿树外景，悬垂花瓣纱幔，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "f5fae7d145f8db8208265b656ad79b25545bd92c5fc1f05104245328a2fe9218",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000320",
+   "set_id": "SET000039",
+   "file_name": "IMG000320.jpg",
+   "source_page": 6,
+   "width": 8256,
+   "height": 6192,
+   "format": "jpg",
+   "sha256": "3b6cd5f8a6485d251f8ecf2d358e22ba2ea37cdc0df27bd4e817ed8f6a21429f",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蓬裙白纱+满天星发冠+粉白花束",
+    "新郎": "黑西装+领结+粉胸花"
+   },
+   "scene_and_light_ref": "草坪绿树外景，悬垂花瓣纱幔，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "3b6cd5f8a6485d251f8ecf2d358e22ba2ea37cdc0df27bd4e817ed8f6a21429f",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000321",
+   "set_id": "SET000039",
+   "file_name": "IMG000321.jpg",
+   "source_page": 7,
+   "width": 6192,
+   "height": 8256,
+   "format": "jpg",
+   "sha256": "a64cde36c0a5b9ce652f05cc99bc8aba1e1e97199757c17d51d49d73f5b84d14",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蓬裙白纱+满天星发冠+粉白花束",
+    "新郎": "黑西装+领结+粉胸花"
+   },
+   "scene_and_light_ref": "草坪绿树外景，悬垂花瓣纱幔，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "a64cde36c0a5b9ce652f05cc99bc8aba1e1e97199757c17d51d49d73f5b84d14",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000322",
+   "set_id": "SET000039",
+   "file_name": "IMG000322.jpg",
+   "source_page": 8,
+   "width": 6192,
+   "height": 8256,
+   "format": "jpg",
+   "sha256": "9bd92a1a0d66c1777b329a82df170606646f76871849cf62ba0850da20e6f897",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蓬裙白纱+满天星发冠+粉白花束",
+    "新郎": "黑西装+领结+粉胸花"
+   },
+   "scene_and_light_ref": "草坪绿树外景，悬垂花瓣纱幔，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "9bd92a1a0d66c1777b329a82df170606646f76871849cf62ba0850da20e6f897",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000323",
+   "set_id": "SET000039",
+   "file_name": "IMG000323.jpg",
+   "source_page": 9,
+   "width": 6192,
+   "height": 8256,
+   "format": "jpg",
+   "sha256": "ea6669d033dd545a778a36f304bb7acfbafc2e21a509f14353355bfb8c7a0c8e",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸蓬裙白纱+满天星发冠+粉白花束",
+    "新郎": "黑西装+领结+粉胸花"
+   },
+   "scene_and_light_ref": "草坪绿树外景，悬垂花瓣纱幔，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+中部「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "ea6669d033dd545a778a36f304bb7acfbafc2e21a509f14353355bfb8c7a0c8e",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

@@ -1,0 +1,198 @@
+{
+  "schema_version": "0.2",
+  "set_id": "SET000001",
+  "name": "阳光草坪自然浪漫",
+  "primary_category_id": "04",
+  "secondary_category_id": "04-01",
+  "status": "review_draft",
+  "description": "大面积绿色草地、户外明暗层次、白色层叠蓬裙；环境远景与亲密互动交替。",
+  "evidence": {
+    "source_platform": "小红书",
+    "publisher": "北遇 / BEIYU STUDIO",
+    "source_url": "https://www.xiaohongshu.com/explore/683565c4000000000f032990",
+    "cloud_folder": "https://my.feishu.cn/drive/folder/NLPCfwep8ltOigdhjgZcq8wEnyc",
+    "checked_on": "2026-10-16",
+    "review_method": "全部联系表逐格核对，重要差异与代表图另读单图；尚未进行逐像素全图审校",
+    "real_photo_status": "既有发布说明与视觉连贯性支持；未独立认证摄影原片",
+    "source_index": "source-index.json"
+  },
+  "observations": [
+    {
+      "id": "SET000001-F1",
+      "dimension": "服装",
+      "statement": "新娘白色抹胸装饰上身，蓬松层叠裙摆与长头纱；新郎黑色礼服、浅色马甲、领结。",
+      "evidence_images": [
+        "IMG000001",
+        "IMG000006"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000001-F2",
+      "dimension": "场景",
+      "statement": "起伏绿色草地、树木、部分浅色沙地与远处山形。",
+      "evidence_images": [
+        "IMG000001",
+        "IMG000003",
+        "IMG000005"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000001-F3",
+      "dimension": "配色",
+      "statement": "绿底、白纱、黑色礼服形成清晰主次；部分天空浅亮。",
+      "evidence_images": [
+        "IMG000001",
+        "IMG000002"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000001-F4",
+      "dimension": "互动",
+      "statement": "挽臂、回头行进、吻手、拥抱与牵手对望。",
+      "evidence_images": [
+        "IMG000001",
+        "IMG000002",
+        "IMG000003",
+        "IMG000004",
+        "IMG000005",
+        "IMG000006"
+      ],
+      "evidence_type": "observed"
+    },
+    {
+      "id": "SET000001-F5",
+      "dimension": "光影",
+      "statement": "草地和裙摆有明暗变化；部分长阴影及头纱透亮可见。",
+      "evidence_images": [
+        "IMG000002",
+        "IMG000005",
+        "IMG000006"
+      ],
+      "evidence_type": "observed"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "环境留白与轻松身体互动形成自然浪漫感。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "SET000001"
+      ],
+      "status": "needs_cross_case_review"
+    },
+    {
+      "statement": "户外日光观感明显，但准确时段、灯具和补光方式不能从照片确定。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "SET000001"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "具体草坪起伏与沙坑形状",
+    "层叠蓬裙的具体款式",
+    "特定捧花和长头纱",
+    "一模一样的吻手动作与机位"
+  ],
+  "within_session_locks": [
+    "客户身份（独立授权参考，不使用样片模特身份）",
+    "客户确认后的服装和主要妆发",
+    "客户确认后的场景方向、主光逻辑与整体色彩"
+  ],
+  "creative_variables": [
+    {
+      "field": "场景",
+      "options": [
+        "开阔平缓草地",
+        "树边草坪",
+        "起伏草地"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "均为设计候选；不推定拍摄地。"
+    },
+    {
+      "field": "裙型",
+      "options": [
+        "客户选定的层叠蓬裙",
+        "客户选定的轻纱A字裙"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "更换裙型后调整动作与裙摆占地，不声称与样片服装相同。"
+    },
+    {
+      "field": "动作",
+      "options": [
+        "慢行回头",
+        "牵手对望",
+        "轻拥抱"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "按身体接触关系选择，不机械复制6张顺序。"
+    },
+    {
+      "field": "景别",
+      "options": [
+        "环境远景",
+        "全身",
+        "双人中近景"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "允许补充样片缺少的近景，但标为新设计，不伪称来源镜头。"
+    }
+  ],
+  "compatibility_rules": [
+    "大裙摆与拖尾需要足够地面空间。",
+    "人物投影方向应与场景光线一致。",
+    "选定场景、服装和色彩后，在同一套输出中保持连贯。"
+  ],
+  "do_not_inherit": [
+    "把具体山形或沙坑定义成草坪风必备",
+    "把纪实感说成现场抓拍事实",
+    "复制样片模特五官"
+  ],
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "新娘白色抹胸装饰上身，蓬松层叠裙摆与长头纱；新郎黑色礼服、浅色马甲、领结。；起伏绿色草地、树木、部分浅色沙地与远处山形。；绿底、白纱、黑色礼服形成清晰主次；部分天空浅亮。",
+    "template": "客户已确认身份与造型：{{customer_spec}}。已选择的场景、服装和光影方案：{{approved_plan}}。风格方向：{{selected_style_constraints}}。本张分镜：{{shot_fragment}}。",
+    "use_note": "原案例描述只在接近样片模式下作为参考；个性化模式先替换方案变量再组装。不能把全部选项或全部分镜拼进同一条提示词。",
+    "omit": [
+      "品牌水印",
+      "样片人物身份",
+      "未经证实的相机/灯具/Seed参数"
+    ],
+    "exact_text_policy": "准确姓名日期及道具文字由后期排版处理"
+  },
+  "reference_roles": {
+    "style_layout": [
+      "IMG000001",
+      "IMG000003",
+      "IMG000006"
+    ],
+    "customer_identity": [],
+    "pose": "按选定分镜image_id按需读取；本实验未导出姿态控制图",
+    "clothing": "来源图可辅助轮廓理解；客户指定衣服优先，不能保证仅靠文字复现细节"
+  },
+  "limitations": [
+    "缺少独立新郎、戒指和面料微距；远景不能承担身份细节验证。",
+    "局部背景曾做非生成式去字，该区域不能当作精确实景证据。",
+    "旧索引的最低像素门槛已经废止，本实验不继承。"
+  ],
+  "validation": {
+    "data_review": "draft_ready_for_user",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  }
+}

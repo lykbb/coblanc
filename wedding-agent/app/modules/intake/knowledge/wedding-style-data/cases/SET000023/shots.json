@@ -1,0 +1,122 @@
+[
+  {
+    "image_id": "IMG000173",
+    "evidence_type": "observed",
+    "shot": "双人骑马中全景",
+    "action": "黑白马并列对望",
+    "composition": "双人骑马中全景，黑白马并列对望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人骑马中全景，黑白马并列对望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000174",
+    "evidence_type": "observed",
+    "shot": "双人骑马环境全身",
+    "action": "林间前后错位",
+    "composition": "双人骑马环境全身，林间前后错位",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人骑马环境全身，林间前后错位",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000175",
+    "evidence_type": "observed",
+    "shot": "新娘骑黑马中全景",
+    "action": "正视镜头",
+    "composition": "新娘骑黑马中全景，正视镜头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘骑黑马中全景，正视镜头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000176",
+    "evidence_type": "observed",
+    "shot": "双人骑马环境远景",
+    "action": "一前一后相对",
+    "composition": "双人骑马环境远景，一前一后相对",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人骑马环境远景，一前一后相对",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000177",
+    "evidence_type": "observed",
+    "shot": "双人骑马全身",
+    "action": "并列向前",
+    "composition": "双人骑马全身，并列向前",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人骑马全身，并列向前",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000178",
+    "evidence_type": "observed",
+    "shot": "新娘骑马全身",
+    "action": "雾中侧看",
+    "composition": "新娘骑马全身，雾中侧看",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘骑马全身，雾中侧看",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000179",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新郎在前牵黑马，新娘骑坐在后",
+    "composition": "双人中全景，新郎在前牵黑马，新娘骑坐在后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新郎在前牵黑马，新娘骑坐在后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000180",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "新郎牵马站前、新娘在后",
+    "composition": "双人环境全身，新郎牵马站前、新娘在后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，新郎牵马站前、新娘在后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000181",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "新娘骑黑马转身、新郎与白马在后",
+    "composition": "双人环境全身，新娘骑黑马转身、新郎与白马在后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，新娘骑黑马转身、新郎与白马在后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000182",
+    "evidence_type": "observed",
+    "shot": "双人骑马全身",
+    "action": "新郎举起新娘头纱",
+    "composition": "双人骑马全身，新郎举起新娘头纱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人骑马全身，新郎举起新娘头纱",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

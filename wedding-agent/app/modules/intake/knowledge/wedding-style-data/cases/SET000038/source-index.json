@@ -1,0 +1,261 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000038",
+ "name": "红绿撞色喜嫁",
+ "primary_category_id": "02",
+ "secondary_category_id": "02-02",
+ "tags": [
+  "中式喜服",
+  "正红秀禾",
+  "凤冠流苏",
+  "囍字",
+  "红绿撞色",
+  "黑西装",
+  "盖碗茶"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "涵洧视觉",
+  "url": "https://m.weibo.cn/detail/5252532722729729",
+  "published_date": "2026-01-08",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：涵洧视觉）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（正红秀禾+金凤冠流苏+金饰；新郎黑西装+领结）、连贯风格（红绿撞色室内棚拍+囍字）",
+ "clothing": {
+  "新娘": "正红秀禾+金凤冠流苏+金饰+手镯",
+  "新郎": "黑西装+领结"
+ },
+ "scene_and_light": "红绿撞色室内棚拍+大红囍字+盖碗茶，棚拍柔光",
+ "limitations": [
+  "每张带HANWEI水印，不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000306",
+   "set_id": "SET000038",
+   "file_name": "IMG000306.jpg",
+   "source_page": 1,
+   "width": 2000,
+   "height": 2667,
+   "format": "jpg",
+   "sha256": "bdcd8a3c9ca1518e75aa8b30ce15153f2ab3070c624363d9814fa33bd424eaf7",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": "双人圆形画框",
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红秀禾+金凤冠流苏+金饰+手镯",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "红绿撞色室内棚拍+大红囍字+盖碗茶，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「BE MOVIE BE HANWEI」+底部「@涵洧视觉」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "bdcd8a3c9ca1518e75aa8b30ce15153f2ab3070c624363d9814fa33bd424eaf7",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000307",
+   "set_id": "SET000038",
+   "file_name": "IMG000307.jpg",
+   "source_page": 2,
+   "width": 2000,
+   "height": 2667,
+   "format": "jpg",
+   "sha256": "811c01ab2e5d711c1a2f916f50c8746046584e232e0777a5d90eb9e3e3d2cf9d",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": "双人坐椅持茶",
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红秀禾+金凤冠流苏+金饰+手镯",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "红绿撞色室内棚拍+大红囍字+盖碗茶，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「BE MOVIE BE HANWEI」+底部「@涵洧视觉」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "811c01ab2e5d711c1a2f916f50c8746046584e232e0777a5d90eb9e3e3d2cf9d",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000308",
+   "set_id": "SET000038",
+   "file_name": "IMG000308.jpg",
+   "source_page": 3,
+   "width": 2000,
+   "height": 2667,
+   "format": "jpg",
+   "sha256": "791dea61956a95c67415b41379f2ace5477f40b339a0ebdbc377e650f2baf50c",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": "双人特写揭盖碗",
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红秀禾+金凤冠流苏+金饰+手镯",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "红绿撞色室内棚拍+大红囍字+盖碗茶，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「BE MOVIE BE HANWEI」+底部「@涵洧视觉」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "791dea61956a95c67415b41379f2ace5477f40b339a0ebdbc377e650f2baf50c",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000309",
+   "set_id": "SET000038",
+   "file_name": "IMG000309.jpg",
+   "source_page": 4,
+   "width": 2000,
+   "height": 2667,
+   "format": "jpg",
+   "sha256": "403d2fa0128ccee5fff16329feced4c2eba5059cc6edf2a08cbeb74d94937ef0",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红秀禾+金凤冠流苏+金饰+手镯",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "红绿撞色室内棚拍+大红囍字+盖碗茶，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「BE MOVIE BE HANWEI」+底部「@涵洧视觉」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "403d2fa0128ccee5fff16329feced4c2eba5059cc6edf2a08cbeb74d94937ef0",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000310",
+   "set_id": "SET000038",
+   "file_name": "IMG000310.jpg",
+   "source_page": 5,
+   "width": 2000,
+   "height": 2667,
+   "format": "jpg",
+   "sha256": "f23ff324cbc27d74cf55a2a2dccc8d218d9784e21fef011d82da6e83efac037e",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红秀禾+金凤冠流苏+金饰+手镯",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "红绿撞色室内棚拍+大红囍字+盖碗茶，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「BE MOVIE BE HANWEI」+底部「@涵洧视觉」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "f23ff324cbc27d74cf55a2a2dccc8d218d9784e21fef011d82da6e83efac037e",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000311",
+   "set_id": "SET000038",
+   "file_name": "IMG000311.jpg",
+   "source_page": 6,
+   "width": 2000,
+   "height": 2667,
+   "format": "jpg",
+   "sha256": "e7a23a299ec51492acf3b200b3578618f55e0181a20ce0101e021f9559a58d2a",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红秀禾+金凤冠流苏+金饰+手镯",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "红绿撞色室内棚拍+大红囍字+盖碗茶，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「BE MOVIE BE HANWEI」+底部「@涵洧视觉」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "e7a23a299ec51492acf3b200b3578618f55e0181a20ce0101e021f9559a58d2a",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000312",
+   "set_id": "SET000038",
+   "file_name": "IMG000312.jpg",
+   "source_page": 7,
+   "width": 2000,
+   "height": 2667,
+   "format": "jpg",
+   "sha256": "3df5397e15ceafce4d0fd56b4e270d5f0343bb46985a4064fb01ecad3ac402ad",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红秀禾+金凤冠流苏+金饰+手镯",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "红绿撞色室内棚拍+大红囍字+盖碗茶，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「BE MOVIE BE HANWEI」+底部「@涵洧视觉」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "3df5397e15ceafce4d0fd56b4e270d5f0343bb46985a4064fb01ecad3ac402ad",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000313",
+   "set_id": "SET000038",
+   "file_name": "IMG000313.jpg",
+   "source_page": 8,
+   "width": 2000,
+   "height": 2667,
+   "format": "jpg",
+   "sha256": "030e5101b3a019a8e8033e19b5315c2a299b7f8d52b01dd10d35fdf7d59e1a85",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红秀禾+金凤冠流苏+金饰+手镯",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "红绿撞色室内棚拍+大红囍字+盖碗茶，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「BE MOVIE BE HANWEI」+底部「@涵洧视觉」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "030e5101b3a019a8e8033e19b5315c2a299b7f8d52b01dd10d35fdf7d59e1a85",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000314",
+   "set_id": "SET000038",
+   "file_name": "IMG000314.jpg",
+   "source_page": 9,
+   "width": 2000,
+   "height": 2667,
+   "format": "jpg",
+   "sha256": "85a4d2a6f9dbd5ba4f9b142ec9e8d4f34e1567ab1dddb6b4109d0478b8d0bc57",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红秀禾+金凤冠流苏+金饰+手镯",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "红绿撞色室内棚拍+大红囍字+盖碗茶，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「BE MOVIE BE HANWEI」+底部「@涵洧视觉」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "85a4d2a6f9dbd5ba4f9b142ec9e8d4f34e1567ab1dddb6b4109d0478b8d0bc57",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

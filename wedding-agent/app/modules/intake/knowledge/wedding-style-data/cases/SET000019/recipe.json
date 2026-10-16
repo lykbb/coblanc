@@ -1,0 +1,194 @@
+{
+  "schema_version": "0.2",
+  "set_id": "SET000019",
+  "name": "蓝色花神洱海清透",
+  "primary_category_id": "01",
+  "secondary_category_id": "01-01",
+  "status": "review_draft",
+  "description": "阳光湖岸沙地、闪光蓝色水面与远山；蓝色抹胸花饰层叠大蓬裙和长拖尾，蓝花头饰与头纱，新郎灰色西装；明亮蓝调、大裙摆占幅，牵手走动、依偎与坐姿",
+  "evidence": {
+    "source_platform": "weibo（小红书暂无法访问，来源如实记录）",
+    "publisher": "FAN梵旅拍婚纱摄影",
+    "source_url": "https://m.weibo.cn/detail/5286221831996722",
+    "cloud_folder": "https://my.feishu.cn/drive/folder/G522fUcL0lyytpdW2q6cQv0Pn9d",
+    "checked_on": "2026-10-16",
+    "review_method": "全部联系表逐格视觉核对；不是逐像素审校，未从来源索引自动复制镜头结论",
+    "real_photo_status": "既有发布记录与视觉一致性作为依据，未认证摄影原片",
+    "source_index": "source-index.json"
+  },
+  "observations": [
+    {
+      "id": "SET000019-F1",
+      "dimension": "场景或配色",
+      "statement": "阳光湖岸沙地、闪光蓝色水面与远山",
+      "evidence_images": [
+        "IMG000135",
+        "IMG000136",
+        "IMG000137",
+        "IMG000138",
+        "IMG000139",
+        "IMG000140",
+        "IMG000141",
+        "IMG000142",
+        "IMG000143",
+        "IMG000144",
+        "IMG000145",
+        "IMG000146",
+        "IMG000147",
+        "IMG000148",
+        "IMG000149"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    },
+    {
+      "id": "SET000019-F2",
+      "dimension": "服装或造型",
+      "statement": "蓝色抹胸花饰层叠大蓬裙和长拖尾，蓝花头饰与头纱，新郎灰色西装",
+      "evidence_images": [
+        "IMG000135",
+        "IMG000136",
+        "IMG000137",
+        "IMG000138",
+        "IMG000139",
+        "IMG000140",
+        "IMG000141",
+        "IMG000142",
+        "IMG000143",
+        "IMG000144",
+        "IMG000145",
+        "IMG000146",
+        "IMG000147",
+        "IMG000148",
+        "IMG000149"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    },
+    {
+      "id": "SET000019-F3",
+      "dimension": "光影与画面气氛",
+      "statement": "明亮蓝调、大裙摆占幅，牵手走动、依偎与坐姿",
+      "evidence_images": [
+        "IMG000135",
+        "IMG000136",
+        "IMG000137",
+        "IMG000138",
+        "IMG000139",
+        "IMG000140",
+        "IMG000141",
+        "IMG000142",
+        "IMG000143",
+        "IMG000144",
+        "IMG000145",
+        "IMG000146",
+        "IMG000147",
+        "IMG000148",
+        "IMG000149"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "此案例的场景、服装轮廓和互动共同构成所述风格观感；不能据此认定为该分类全部作品的必备规则。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "SET000019"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "阳光湖岸沙地、闪光蓝色水面与远山",
+    "蓝色抹胸花饰层叠大蓬裙和长拖尾，蓝花头饰与头纱，新郎灰色西装",
+    "明亮蓝调、大裙摆占幅，牵手走动、依偎与坐姿"
+  ],
+  "within_session_locks": [
+    "客户身份（独立参考，不使用样片模特身份）",
+    "客户确认后的服装及主要妆发；有明确分镜造型变体时显式标记",
+    "客户确认后的场景方向、主光逻辑与总体色板"
+  ],
+  "creative_variables": [
+    {
+      "field": "蓝纱层叠量与拖尾长度",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    },
+    {
+      "field": "头纱分镜开关",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    },
+    {
+      "field": "坐姿与牵手互动比例",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    }
+  ],
+  "compatibility_rules": [
+    "先选本次造型及场景，再选兼容分镜；不要把多个动作叠给同一只手",
+    "人物接触、服装支撑、裙摆占地与投影方向一致",
+    "采纳妆造师最新明确妆容方案；与客户明确要求冲突时协调"
+  ],
+  "do_not_inherit": [
+    "样片人物身份与五官",
+    "品牌标识、平台水印与无关文字",
+    "未经证实的相机、灯具、模型、Seed或拍摄地点"
+  ],
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "阳光湖岸沙地、闪光蓝色水面与远山；蓝色抹胸花饰层叠大蓬裙和长拖尾，蓝花头饰与头纱，新郎灰色西装；明亮蓝调、大裙摆占幅，牵手走动、依偎与坐姿",
+    "template": "客户身份与确认造型：{{customer_spec}}。已确认场景、服装及光影方案：{{approved_plan}}。所选风格约束：{{selected_style_constraints}}。当前分镜：{{shot_fragment}}。",
+    "use_note": "共享观察是案例描述，不是不可改模板。先替换本次方案，再只装配一张分镜；不把全部选项拼成一条提示词。",
+    "omit": [
+      "来源水印",
+      "样片人物身份",
+      "未知拍摄参数"
+    ],
+    "exact_text_policy": "准确姓名日期和道具文字由后期排版处理"
+  },
+  "reference_roles": {
+    "style_layout": [
+      "IMG000135",
+      "IMG000142",
+      "IMG000149"
+    ],
+    "customer_identity": [],
+    "pose": "按选定image_id按需查阅；未生成姿态控制图",
+    "clothing": "轮廓参考；客户指定造型优先"
+  },
+  "limitations": [
+    "来源索引记录微博，不宣称小红书来源",
+    "裙摆体量大，需要空间与动作适配",
+    "重复上传副本按哈希排重，不能重复计数",
+    "未独立验证是否存在局部合成或AI修饰；不把风格归纳当作真实摄影过程证明",
+    "不由一套样片推导整个二级风格的硬性规则"
+  ],
+  "validation": {
+    "data_review": "draft_ready_for_user",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  }
+}

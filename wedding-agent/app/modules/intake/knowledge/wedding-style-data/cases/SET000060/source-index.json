@@ -1,0 +1,263 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000060",
+ "name": "玫瑰漫境室内主纱",
+ "primary_category_id": "06",
+ "secondary_category_id": "06-12",
+ "tags": [
+  "白纱",
+  "抹胸立体玫瑰蓬裙",
+  "珍珠发箍头纱",
+  "戒指盒",
+  "石膏墙",
+  "白玫瑰花瓣飘落",
+  "欧式木椅",
+  "室内高定"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "长沙DSJ婚纱摄影旗舰店",
+  "url": "https://m.weibo.cn/detail/5315900166899653",
+  "published_date": "2026-07-01",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：长沙DSJ婚纱摄影旗舰店）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（抹胸立体玫瑰蓬裙白纱+珍珠发箍；新郎黑西装+领结）、连贯风格（室内玫瑰漫境高定）",
+ "clothing": {
+  "新娘": "抹胸立体玫瑰蓬裙白纱+珍珠发箍头纱",
+  "新郎": "黑西装+领结+戒指盒"
+ },
+ "scene_and_light": "石膏墙室内棚拍，白玫瑰花瓣飘落，柔光",
+ "limitations": [
+  "超高清原图4371×6553，细节丰富",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000505",
+   "set_id": "SET000060",
+   "file_name": "IMG000505.jpg",
+   "source_page": 1,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "0c1966948ff1381310e2e7e85fd08afa5969c5aca565ccc1bff52f94e6dd3921",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸立体玫瑰蓬裙白纱+珍珠发箍头纱",
+    "新郎": "黑西装+领结+戒指盒"
+   },
+   "scene_and_light_ref": "石膏墙室内棚拍，白玫瑰花瓣飘落，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "0c1966948ff1381310e2e7e85fd08afa5969c5aca565ccc1bff52f94e6dd3921",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000506",
+   "set_id": "SET000060",
+   "file_name": "IMG000506.jpg",
+   "source_page": 2,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "587e9ba602f91ec2ffbf4fece240cb197e1b9dfa49aca6d056df12570e26a65b",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸立体玫瑰蓬裙白纱+珍珠发箍头纱",
+    "新郎": "黑西装+领结+戒指盒"
+   },
+   "scene_and_light_ref": "石膏墙室内棚拍，白玫瑰花瓣飘落，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "587e9ba602f91ec2ffbf4fece240cb197e1b9dfa49aca6d056df12570e26a65b",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000507",
+   "set_id": "SET000060",
+   "file_name": "IMG000507.jpg",
+   "source_page": 3,
+   "width": 6553,
+   "height": 4371,
+   "format": "jpg",
+   "sha256": "a90f973e9582cc084a7a35555ac7c1d70e11e4433c8b0d86474a36e343c6cf1f",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸立体玫瑰蓬裙白纱+珍珠发箍头纱",
+    "新郎": "黑西装+领结+戒指盒"
+   },
+   "scene_and_light_ref": "石膏墙室内棚拍，白玫瑰花瓣飘落，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "a90f973e9582cc084a7a35555ac7c1d70e11e4433c8b0d86474a36e343c6cf1f",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000508",
+   "set_id": "SET000060",
+   "file_name": "IMG000508.jpg",
+   "source_page": 4,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "d4ec5f12ae5496943b474cf5a8ef0d62d7e7f00b52930045d75f8954b25d621f",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸立体玫瑰蓬裙白纱+珍珠发箍头纱",
+    "新郎": "黑西装+领结+戒指盒"
+   },
+   "scene_and_light_ref": "石膏墙室内棚拍，白玫瑰花瓣飘落，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "d4ec5f12ae5496943b474cf5a8ef0d62d7e7f00b52930045d75f8954b25d621f",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000509",
+   "set_id": "SET000060",
+   "file_name": "IMG000509.jpg",
+   "source_page": 5,
+   "width": 6553,
+   "height": 4371,
+   "format": "jpg",
+   "sha256": "98fb4dcdcb93039b9bee218e14e8feeeff7fdaa50e485c815fd1a12c9aa17c54",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸立体玫瑰蓬裙白纱+珍珠发箍头纱",
+    "新郎": "黑西装+领结+戒指盒"
+   },
+   "scene_and_light_ref": "石膏墙室内棚拍，白玫瑰花瓣飘落，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "98fb4dcdcb93039b9bee218e14e8feeeff7fdaa50e485c815fd1a12c9aa17c54",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000510",
+   "set_id": "SET000060",
+   "file_name": "IMG000510.jpg",
+   "source_page": 6,
+   "width": 4300,
+   "height": 6450,
+   "format": "jpg",
+   "sha256": "616f6232df9eb82406dcf5dc3d7ca293b253588c96d620ad08f79f23650f0c2f",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸立体玫瑰蓬裙白纱+珍珠发箍头纱",
+    "新郎": "黑西装+领结+戒指盒"
+   },
+   "scene_and_light_ref": "石膏墙室内棚拍，白玫瑰花瓣飘落，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "616f6232df9eb82406dcf5dc3d7ca293b253588c96d620ad08f79f23650f0c2f",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000511",
+   "set_id": "SET000060",
+   "file_name": "IMG000511.jpg",
+   "source_page": 7,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "d2187cb217137f7fe87f1167f26bfd39bd88fc3209f5c6072af39e0367df1aac",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸立体玫瑰蓬裙白纱+珍珠发箍头纱",
+    "新郎": "黑西装+领结+戒指盒"
+   },
+   "scene_and_light_ref": "石膏墙室内棚拍，白玫瑰花瓣飘落，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "d2187cb217137f7fe87f1167f26bfd39bd88fc3209f5c6072af39e0367df1aac",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000512",
+   "set_id": "SET000060",
+   "file_name": "IMG000512.jpg",
+   "source_page": 8,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "06673872f846dd5fb03a091cd5f3ce3c1732320381cc61063af2b97534c81a7d",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸立体玫瑰蓬裙白纱+珍珠发箍头纱",
+    "新郎": "黑西装+领结+戒指盒"
+   },
+   "scene_and_light_ref": "石膏墙室内棚拍，白玫瑰花瓣飘落，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "06673872f846dd5fb03a091cd5f3ce3c1732320381cc61063af2b97534c81a7d",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000513",
+   "set_id": "SET000060",
+   "file_name": "IMG000513.jpg",
+   "source_page": 9,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "772d51174e94b11dba6be1913f52581c817170e075768797753116f9a2bf573d",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸立体玫瑰蓬裙白纱+珍珠发箍头纱",
+    "新郎": "黑西装+领结+戒指盒"
+   },
+   "scene_and_light_ref": "石膏墙室内棚拍，白玫瑰花瓣飘落，柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「DS视觉婚纱摄影 DSPHOTO」+「@长沙DSJ婚纱摄影旗舰店」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "772d51174e94b11dba6be1913f52581c817170e075768797753116f9a2bf573d",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

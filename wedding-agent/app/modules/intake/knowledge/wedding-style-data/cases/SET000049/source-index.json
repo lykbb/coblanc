@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000049",
+ "name": "红蓝明制华服",
+ "primary_category_id": "02",
+ "secondary_category_id": "02-07",
+ "tags": [
+  "中式喜服",
+  "明制华服",
+  "红蓝配色",
+  "金丝绣纹拖尾大袖",
+  "凤冠霞帔",
+  "团扇",
+  "古建回廊红墙绿树"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "FAN梵旅拍婚纱摄影",
+  "url": "https://m.weibo.cn/detail/5344193880261444",
+  "published_date": "2026-09-17",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：FAN梵旅拍婚纱摄影）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（红蓝明制婚服+凤冠；新郎浅蓝古装+金冠）、连贯风格（古建回廊外景）",
+ "clothing": {
+  "新娘": "红蓝金丝绣纹拖尾大袖婚服+金凤冠+团扇",
+  "新郎": "浅蓝古装+金冠"
+ },
+ "scene_and_light": "古建回廊外景，红柱绿树，白日自然光",
+ "limitations": [
+  "超高清原图7952×5304等，细节丰富",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000405",
+   "set_id": "SET000049",
+   "file_name": "IMG000405.jpg",
+   "source_page": 1,
+   "width": 7952,
+   "height": 5304,
+   "format": "jpg",
+   "sha256": "f2b0b67d21b029edeb4cd082a347199becbe90ff20cfe3fabb1ca80bde11fe4d",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红蓝金丝绣纹拖尾大袖婚服+金凤冠+团扇",
+    "新郎": "浅蓝古装+金冠"
+   },
+   "scene_and_light_ref": "古建回廊外景，红柱绿树，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「FAN梵 TRAVEPAT」+「@FAN梵旅拍婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "f2b0b67d21b029edeb4cd082a347199becbe90ff20cfe3fabb1ca80bde11fe4d",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000406",
+   "set_id": "SET000049",
+   "file_name": "IMG000406.jpg",
+   "source_page": 2,
+   "width": 5058,
+   "height": 7763,
+   "format": "jpg",
+   "sha256": "e9bca613146976fe2a0bfe83255c9514db506e59c48eb04483ef21bad5514609",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红蓝金丝绣纹拖尾大袖婚服+金凤冠+团扇",
+    "新郎": "浅蓝古装+金冠"
+   },
+   "scene_and_light_ref": "古建回廊外景，红柱绿树，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「FAN梵 TRAVEPAT」+「@FAN梵旅拍婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "e9bca613146976fe2a0bfe83255c9514db506e59c48eb04483ef21bad5514609",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000407",
+   "set_id": "SET000049",
+   "file_name": "IMG000407.jpg",
+   "source_page": 3,
+   "width": 5304,
+   "height": 7952,
+   "format": "jpg",
+   "sha256": "5964d6a972ea357e4fae4271fa7470364356be03565c2cb6a17abb4f128348d5",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红蓝金丝绣纹拖尾大袖婚服+金凤冠+团扇",
+    "新郎": "浅蓝古装+金冠"
+   },
+   "scene_and_light_ref": "古建回廊外景，红柱绿树，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「FAN梵 TRAVEPAT」+「@FAN梵旅拍婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "5964d6a972ea357e4fae4271fa7470364356be03565c2cb6a17abb4f128348d5",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000408",
+   "set_id": "SET000049",
+   "file_name": "IMG000408.jpg",
+   "source_page": 4,
+   "width": 5304,
+   "height": 7952,
+   "format": "jpg",
+   "sha256": "9b047ac953816a0b36aca9f70c4a2d0e7304d2e5d435ded3e6bf9ac29e813ac8",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红蓝金丝绣纹拖尾大袖婚服+金凤冠+团扇",
+    "新郎": "浅蓝古装+金冠"
+   },
+   "scene_and_light_ref": "古建回廊外景，红柱绿树，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「FAN梵 TRAVEPAT」+「@FAN梵旅拍婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "9b047ac953816a0b36aca9f70c4a2d0e7304d2e5d435ded3e6bf9ac29e813ac8",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000409",
+   "set_id": "SET000049",
+   "file_name": "IMG000409.jpg",
+   "source_page": 5,
+   "width": 5152,
+   "height": 7724,
+   "format": "jpg",
+   "sha256": "94dade30d6828809194614d19010fa6a852cb51dc5b40b3181bad24a320ea8eb",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红蓝金丝绣纹拖尾大袖婚服+金凤冠+团扇",
+    "新郎": "浅蓝古装+金冠"
+   },
+   "scene_and_light_ref": "古建回廊外景，红柱绿树，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「FAN梵 TRAVEPAT」+「@FAN梵旅拍婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "94dade30d6828809194614d19010fa6a852cb51dc5b40b3181bad24a320ea8eb",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000410",
+   "set_id": "SET000049",
+   "file_name": "IMG000410.jpg",
+   "source_page": 6,
+   "width": 5304,
+   "height": 7952,
+   "format": "jpg",
+   "sha256": "81becc4d89570148ce4ebe05493ab2c8463ef449ac8ab16d8a165874887383dd",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红蓝金丝绣纹拖尾大袖婚服+金凤冠+团扇",
+    "新郎": "浅蓝古装+金冠"
+   },
+   "scene_and_light_ref": "古建回廊外景，红柱绿树，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「FAN梵 TRAVEPAT」+「@FAN梵旅拍婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "81becc4d89570148ce4ebe05493ab2c8463ef449ac8ab16d8a165874887383dd",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000411",
+   "set_id": "SET000049",
+   "file_name": "IMG000411.jpg",
+   "source_page": 7,
+   "width": 5193,
+   "height": 7786,
+   "format": "jpg",
+   "sha256": "378f073d9d7c98fa982d38335b612d27b183b5f7ed26082109009c8b9001a7e5",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红蓝金丝绣纹拖尾大袖婚服+金凤冠+团扇",
+    "新郎": "浅蓝古装+金冠"
+   },
+   "scene_and_light_ref": "古建回廊外景，红柱绿树，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「FAN梵 TRAVEPAT」+「@FAN梵旅拍婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "378f073d9d7c98fa982d38335b612d27b183b5f7ed26082109009c8b9001a7e5",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000412",
+   "set_id": "SET000049",
+   "file_name": "IMG000412.jpg",
+   "source_page": 8,
+   "width": 5205,
+   "height": 7804,
+   "format": "jpg",
+   "sha256": "4850d518c55425464c19bbb70bdec2d602d52bd8479ddeade4c8cf3addd47bf2",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红蓝金丝绣纹拖尾大袖婚服+金凤冠+团扇",
+    "新郎": "浅蓝古装+金冠"
+   },
+   "scene_and_light_ref": "古建回廊外景，红柱绿树，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「FAN梵 TRAVEPAT」+「@FAN梵旅拍婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "4850d518c55425464c19bbb70bdec2d602d52bd8479ddeade4c8cf3addd47bf2",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000413",
+   "set_id": "SET000049",
+   "file_name": "IMG000413.jpg",
+   "source_page": 9,
+   "width": 7952,
+   "height": 5304,
+   "format": "jpg",
+   "sha256": "e54194055de7cba7ae44c92285c1803e235f0180657f927b06b9ca9b08f4f661",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "红蓝金丝绣纹拖尾大袖婚服+金凤冠+团扇",
+    "新郎": "浅蓝古装+金冠"
+   },
+   "scene_and_light_ref": "古建回廊外景，红柱绿树，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「FAN梵 TRAVEPAT」+「@FAN梵旅拍婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "e54194055de7cba7ae44c92285c1803e235f0180657f927b06b9ca9b08f4f661",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

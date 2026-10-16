@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000505",
+    "evidence_type": "observed",
+    "shot": "双人坐姿中景",
+    "action": "展示戒盒与手部",
+    "composition": "双人坐姿中景，展示戒盒与手部",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿中景，展示戒盒与手部",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000506",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "一起张臂抛花瓣",
+    "composition": "双人全身，一起张臂抛花瓣",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，一起张臂抛花瓣",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000507",
+    "evidence_type": "observed",
+    "shot": "横幅双人全身依偎",
+    "action": "头纱向后延伸",
+    "composition": "横幅双人全身依偎，头纱向后延伸",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人全身依偎，头纱向后延伸",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000508",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘旋展裙摆、新郎背向扬纱",
+    "composition": "双人全身，新娘旋展裙摆、新郎背向扬纱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘旋展裙摆、新郎背向扬纱",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000509",
+    "evidence_type": "observed",
+    "shot": "俯视新娘环境全身",
+    "action": "坐在圆形大裙摆中央",
+    "composition": "俯视新娘环境全身，坐在圆形大裙摆中央",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "俯视新娘环境全身，坐在圆形大裙摆中央",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000510",
+    "evidence_type": "observed",
+    "shot": "新娘全身",
+    "action": "长沙发前回身、窗光斜入",
+    "composition": "新娘全身，长沙发前回身、窗光斜入",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘全身，长沙发前回身、窗光斜入",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000511",
+    "evidence_type": "observed",
+    "shot": "双人俯视环境全身",
+    "action": "沙发前依偎、裙摆铺满地",
+    "composition": "双人俯视环境全身，沙发前依偎、裙摆铺满地",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人俯视环境全身，沙发前依偎、裙摆铺满地",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000512",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "新郎在沙发上方、新娘低位",
+    "composition": "双人环境全身，新郎在沙发上方、新娘低位",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，新郎在沙发上方、新娘低位",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000513",
+    "evidence_type": "observed",
+    "shot": "双人坐姿全身",
+    "action": "头纱罩两人，捧脸微笑",
+    "composition": "双人坐姿全身，头纱罩两人，捧脸微笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿全身，头纱罩两人，捧脸微笑",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

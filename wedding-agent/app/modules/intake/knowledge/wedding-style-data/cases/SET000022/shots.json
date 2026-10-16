@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000164",
+    "evidence_type": "observed",
+    "shot": "双人中近景",
+    "action": "新郎在新娘两侧举红色小饰物，新娘闭眼笑并持捧花",
+    "composition": "男左女右，人物占画面主体",
+    "caution": "饰物靠近脸侧但不遮五官；不推断精确手指位置",
+    "source_annotation_review": "既有索引大意接近",
+    "prompt_fragment_draft": "双人中近景；新郎在新娘两侧举红色小饰物，新娘闭眼笑并持捧花；男左女右，人物占画面主体。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000165",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "二人各持一把浅色囍字扇，靠近面向镜头微笑",
+    "composition": "双人脸与扇面并列，红花背景",
+    "caution": "可见扇形非标准圆形，不直接称圆团扇",
+    "source_annotation_review": "原索引为中景，更新为近景",
+    "prompt_fragment_draft": "双人近景；二人各持一把浅色囍字扇，靠近面向镜头微笑；双人脸与扇面并列，红花背景。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000166",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎抬起与新娘相连的手，新娘另一手持扇，衣袖与衣摆展开",
+    "composition": "二人间有空间，上方留出暖色背景",
+    "caution": "有动态模糊；不能把模糊纹样补成事实",
+    "source_annotation_review": "原索引为中景且写对视；新娘实际面向镜头",
+    "prompt_fragment_draft": "双人全身；新郎抬起与新娘相连的手，新娘另一手持扇，衣袖与衣摆展开；二人间有空间，上方留出暖色背景。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000167",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "并排面向镜头，共持系有花球的红绸",
+    "composition": "红绸斜线贯穿两人，完整长袍与裙摆",
+    "caution": "红绸花球是此分镜道具，不是全组硬要求",
+    "source_annotation_review": "保留原动作大意",
+    "prompt_fragment_draft": "双人全身；并排面向镜头，共持系有花球的红绸；红绸斜线贯穿两人，完整长袍与裙摆。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000168",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎看向新娘，新娘转身抬脚，二人牵持红绸",
+    "composition": "红绸与展开袖摆形成动线",
+    "caution": "抬脚与长裙需物理连贯",
+    "source_annotation_review": "原索引过于笼统，补充转身抬脚",
+    "prompt_fragment_draft": "双人全身；新郎看向新娘，新娘转身抬脚，二人牵持红绸；红绸与展开袖摆形成动线。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000169",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "二人贴近并持两幅祝福卷轴，面向镜头笑",
+    "composition": "卷轴位于人物前方，木屏红花背景",
+    "caution": "文字作为后期任务，不将原文设为每次必须内容",
+    "source_annotation_review": "保留卷轴互动，来源文字另记",
+    "prompt_fragment_draft": "双人中景；二人贴近并持两幅祝福卷轴，面向镜头笑；卷轴位于人物前方，木屏红花背景。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000170",
+    "evidence_type": "observed",
+    "shot": "双人全身／高低站位",
+    "action": "新郎站后侧俯身挥手，新娘在前方低位双手张开挥手",
+    "composition": "人物高低错落，衣摆与地面可见",
+    "caution": "新娘为低位姿势，遮挡下不强断言蹲或跪",
+    "source_annotation_review": "原索引误写持红绸并肩；已据原图纠正",
+    "prompt_fragment_draft": "双人全身／高低站位；新郎站后侧俯身挥手，新娘在前方低位双手张开挥手；人物高低错落，衣摆与地面可见。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000171",
+    "evidence_type": "observed",
+    "shot": "双人中近景",
+    "action": "两人闭眼依偎，头部靠近；新娘持红色花卉扇",
+    "composition": "暖橙虚化前景遮挡下部，脸部清楚",
+    "caution": "不作为开放眼睛身份特征的唯一参考",
+    "source_annotation_review": "原索引误写双人比心；已据原图纠正",
+    "prompt_fragment_draft": "双人中近景；两人闭眼依偎，头部靠近；新娘持红色花卉扇；暖橙虚化前景遮挡下部，脸部清楚。",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000172",
+    "evidence_type": "observed",
+    "shot": "新娘单人中近景",
+    "action": "新娘持花卉扇，面向镜头微笑",
+    "composition": "发饰、脸、扇面为重点，下半身裁切",
+    "caution": "不作为全身服装轮廓参考",
+    "source_annotation_review": "原索引误写单人全身；已据原图纠正",
+    "prompt_fragment_draft": "新娘单人中近景；新娘持花卉扇，面向镜头微笑；发饰、脸、扇面为重点，下半身裁切。",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

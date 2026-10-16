@@ -1,0 +1,10 @@
+{
+  "set_id": "SET000075",
+  "checked_on": "2026-10-16",
+  "result": "same_name_one_empty_one_populated",
+  "empty_folder": "https://my.feishu.cn/drive/folder/UF8sfuY2mlYvOpdxSs6cdzi4nSg",
+  "canonical_folder": "https://my.feishu.cn/drive/folder/R9KOfz5GxlYmxqdPV5Yc3T1fnSc",
+  "canonical_images": 6,
+  "canonical_index": 1,
+  "action": "Use populated folder once; no cloud changes"
+}

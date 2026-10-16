@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000351",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "新郎举卷轴状道具靠近新娘",
+    "composition": "横幅双人中景，新郎举卷轴状道具靠近新娘",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，新郎举卷轴状道具靠近新娘",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000352",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "牵红绸球正视",
+    "composition": "双人全身，牵红绸球正视",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，牵红绸球正视",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000353",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "桌前头部贴近、新娘持团形饰物",
+    "composition": "双人中景，桌前头部贴近、新娘持团形饰物",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，桌前头部贴近、新娘持团形饰物",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000354",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "扇面遮挡亲近",
+    "composition": "横幅双人中景，扇面遮挡亲近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，扇面遮挡亲近",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000355",
+    "evidence_type": "observed",
+    "shot": "双人坐姿中全景",
+    "action": "一起看册页",
+    "composition": "双人坐姿中全景，一起看册页",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿中全景，一起看册页",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000356",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新郎掀红盖头",
+    "composition": "双人中景，新郎掀红盖头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新郎掀红盖头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000357",
+    "evidence_type": "observed",
+    "shot": "横幅双人全身",
+    "action": "红幕灯笼间正面站立",
+    "composition": "横幅双人全身，红幕灯笼间正面站立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人全身，红幕灯笼间正面站立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000358",
+    "evidence_type": "observed",
+    "shot": "双人坐姿中景",
+    "action": "手部相握对望",
+    "composition": "双人坐姿中景，手部相握对望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿中景，手部相握对望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000359",
+    "evidence_type": "observed",
+    "shot": "新娘中景低头",
+    "action": "拉着红绸球",
+    "composition": "新娘中景低头，拉着红绸球",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中景低头，拉着红绸球",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000054",
+ "name": "民国花窗园林白纱",
+ "primary_category_id": "02",
+ "secondary_category_id": "02-08",
+ "tags": [
+  "民国海派",
+  "米白蕾丝长裙",
+  "头纱花饰",
+  "白西装浅棕马甲",
+  "中式花格窗",
+  "园林绿植",
+  "复古民国风"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "成都婚纱摄影工作室-源画摄影",
+  "url": "https://m.weibo.cn/detail/5291897905480077",
+  "published_date": "2026-04-26",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：成都婚纱摄影工作室-源画摄影）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（米白蕾丝长裙+头纱花饰；新郎白西装浅棕马甲）、连贯风格（中式花窗园林）",
+ "clothing": {
+  "新娘": "米白蕾丝长裙+头纱+花饰+白花手捧",
+  "新郎": "白西装+浅棕马甲+黑裤"
+ },
+ "scene_and_light": "中式花格窗+园林绿植外景，复古民国风，自然光",
+ "limitations": [
+  "超高清原图5464×8192，细节丰富",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000450",
+   "set_id": "SET000054",
+   "file_name": "IMG000450.jpg",
+   "source_page": 1,
+   "width": 5464,
+   "height": 8192,
+   "format": "jpg",
+   "sha256": "3639b077589b3bbecb17a856d1559731293494dbb3dba0e29d6fda141d4a8408",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "米白蕾丝长裙+头纱+花饰+白花手捧",
+    "新郎": "白西装+浅棕马甲+黑裤"
+   },
+   "scene_and_light_ref": "中式花格窗+园林绿植外景，复古民国风，自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「YUANHUA STUDIO 源画摄影」+「@成都婚纱摄影工作室-源画摄影」水印，右下角竖排装饰文字+红印章，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "3639b077589b3bbecb17a856d1559731293494dbb3dba0e29d6fda141d4a8408",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000451",
+   "set_id": "SET000054",
+   "file_name": "IMG000451.jpg",
+   "source_page": 2,
+   "width": 1200,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "8a435e9f752fecb0088d99ab58a690bb0cca66d4f5a6b65a48872094dca55458",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "米白蕾丝长裙+头纱+花饰+白花手捧",
+    "新郎": "白西装+浅棕马甲+黑裤"
+   },
+   "scene_and_light_ref": "中式花格窗+园林绿植外景，复古民国风，自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「YUANHUA STUDIO 源画摄影」+「@成都婚纱摄影工作室-源画摄影」水印，右下角竖排装饰文字+红印章，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "8a435e9f752fecb0088d99ab58a690bb0cca66d4f5a6b65a48872094dca55458",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000452",
+   "set_id": "SET000054",
+   "file_name": "IMG000452.jpg",
+   "source_page": 3,
+   "width": 5464,
+   "height": 8192,
+   "format": "jpg",
+   "sha256": "6342e87dd2a74383355a1c559352bab24d0c2bb6cc68e24da68bc130a59bea0e",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "米白蕾丝长裙+头纱+花饰+白花手捧",
+    "新郎": "白西装+浅棕马甲+黑裤"
+   },
+   "scene_and_light_ref": "中式花格窗+园林绿植外景，复古民国风，自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「YUANHUA STUDIO 源画摄影」+「@成都婚纱摄影工作室-源画摄影」水印，右下角竖排装饰文字+红印章，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "6342e87dd2a74383355a1c559352bab24d0c2bb6cc68e24da68bc130a59bea0e",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000453",
+   "set_id": "SET000054",
+   "file_name": "IMG000453.jpg",
+   "source_page": 4,
+   "width": 5464,
+   "height": 8192,
+   "format": "jpg",
+   "sha256": "bb279ed63eaa25b3611632a7a2b5b8de2e0a23afbfe40403c606b2e6b3a78e92",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "米白蕾丝长裙+头纱+花饰+白花手捧",
+    "新郎": "白西装+浅棕马甲+黑裤"
+   },
+   "scene_and_light_ref": "中式花格窗+园林绿植外景，复古民国风，自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「YUANHUA STUDIO 源画摄影」+「@成都婚纱摄影工作室-源画摄影」水印，右下角竖排装饰文字+红印章，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "bb279ed63eaa25b3611632a7a2b5b8de2e0a23afbfe40403c606b2e6b3a78e92",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000454",
+   "set_id": "SET000054",
+   "file_name": "IMG000454.jpg",
+   "source_page": 5,
+   "width": 5464,
+   "height": 8192,
+   "format": "jpg",
+   "sha256": "a3807e6d3ceb96922c379d254020eb8f2d2c0fe2a97b8dc1eec162e0dd9b4dbe",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "米白蕾丝长裙+头纱+花饰+白花手捧",
+    "新郎": "白西装+浅棕马甲+黑裤"
+   },
+   "scene_and_light_ref": "中式花格窗+园林绿植外景，复古民国风，自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「YUANHUA STUDIO 源画摄影」+「@成都婚纱摄影工作室-源画摄影」水印，右下角竖排装饰文字+红印章，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "a3807e6d3ceb96922c379d254020eb8f2d2c0fe2a97b8dc1eec162e0dd9b4dbe",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000455",
+   "set_id": "SET000054",
+   "file_name": "IMG000455.jpg",
+   "source_page": 6,
+   "width": 5464,
+   "height": 8192,
+   "format": "jpg",
+   "sha256": "76802598ef32e5b3097f067233f931cf3b1ad060e14f4fb8d9b570711864245e",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "米白蕾丝长裙+头纱+花饰+白花手捧",
+    "新郎": "白西装+浅棕马甲+黑裤"
+   },
+   "scene_and_light_ref": "中式花格窗+园林绿植外景，复古民国风，自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「YUANHUA STUDIO 源画摄影」+「@成都婚纱摄影工作室-源画摄影」水印，右下角竖排装饰文字+红印章，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "76802598ef32e5b3097f067233f931cf3b1ad060e14f4fb8d9b570711864245e",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000456",
+   "set_id": "SET000054",
+   "file_name": "IMG000456.jpg",
+   "source_page": 7,
+   "width": 3000,
+   "height": 13573,
+   "format": "jpg",
+   "sha256": "e13804e5e93fc8917b6cdb45376777a53552baa971fa8ff2c2783ba4b21d7266",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "米白蕾丝长裙+头纱+花饰+白花手捧",
+    "新郎": "白西装+浅棕马甲+黑裤"
+   },
+   "scene_and_light_ref": "中式花格窗+园林绿植外景，复古民国风，自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「YUANHUA STUDIO 源画摄影」+「@成都婚纱摄影工作室-源画摄影」水印，右下角竖排装饰文字+红印章，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "e13804e5e93fc8917b6cdb45376777a53552baa971fa8ff2c2783ba4b21d7266",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000457",
+   "set_id": "SET000054",
+   "file_name": "IMG000457.jpg",
+   "source_page": 8,
+   "width": 5464,
+   "height": 8192,
+   "format": "jpg",
+   "sha256": "a46e039cc177234e4b1e9af1047771eb48b15b2cf022646cba88fea8260b5b95",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "米白蕾丝长裙+头纱+花饰+白花手捧",
+    "新郎": "白西装+浅棕马甲+黑裤"
+   },
+   "scene_and_light_ref": "中式花格窗+园林绿植外景，复古民国风，自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「YUANHUA STUDIO 源画摄影」+「@成都婚纱摄影工作室-源画摄影」水印，右下角竖排装饰文字+红印章，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "a46e039cc177234e4b1e9af1047771eb48b15b2cf022646cba88fea8260b5b95",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000458",
+   "set_id": "SET000054",
+   "file_name": "IMG000458.jpg",
+   "source_page": 9,
+   "width": 5464,
+   "height": 8192,
+   "format": "jpg",
+   "sha256": "9f5cb1e506f393a1bf3d0bd8056ea91458c8ff06d3ad3e5ac39f3f9c7c273f3e",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "米白蕾丝长裙+头纱+花饰+白花手捧",
+    "新郎": "白西装+浅棕马甲+黑裤"
+   },
+   "scene_and_light_ref": "中式花格窗+园林绿植外景，复古民国风，自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「YUANHUA STUDIO 源画摄影」+「@成都婚纱摄影工作室-源画摄影」水印，右下角竖排装饰文字+红印章，均不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "9f5cb1e506f393a1bf3d0bd8056ea91458c8ff06d3ad3e5ac39f3f9c7c273f3e",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

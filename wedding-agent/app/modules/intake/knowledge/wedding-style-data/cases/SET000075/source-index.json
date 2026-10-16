@@ -1,0 +1,67 @@
+{
+ "set_id": "SET000075",
+ "set_name": "DSJ黑背景缎面主纱",
+ "primary_category_id": "06",
+ "secondary_category_id": "06-01",
+ "secondary_category_name": "极简缎面高定",
+ "source_url": "https://m.weibo.cn/detail/5305053267364297",
+ "author": "长沙D视觉婚纱摄影机构",
+ "description": "抹胸缎面蓬裙+重工银线刺绣+白色透明手捧花，新郎黑西装+领结+马甲，纯黑背景",
+ "people": "双人（新娘+新郎）",
+ "consistency": "同一对人物同一造型",
+ "image_count": 6,
+ "images": [
+  {
+   "image_id": "IMG000641",
+   "file": "IMG000641.jpg",
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "2b3ea3bfdb953182d01dd085bf1492f97594bec5605ab5284b0feb3dc91da085"
+  },
+  {
+   "image_id": "IMG000642",
+   "file": "IMG000642.jpg",
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "d81600a7d88fe44a5a76579ad672e63d45f3620417d29e4d4d6aff8dea15dea7"
+  },
+  {
+   "image_id": "IMG000643",
+   "file": "IMG000643.jpg",
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "735efbfed58e0b226ee64228933ffa74b6e0e3dd8076b5c7c68eff14fa5178b5"
+  },
+  {
+   "image_id": "IMG000644",
+   "file": "IMG000644.jpg",
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "e9f55e18ab42bdb64357623d3c27cc89e667756c8189b0fa5d9ea52564aad464"
+  },
+  {
+   "image_id": "IMG000645",
+   "file": "IMG000645.jpg",
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "39ddbb2f938f0cd272544125f37daadc778eb502613a40bee3ee155f4dae688b"
+  },
+  {
+   "image_id": "IMG000646",
+   "file": "IMG000646.jpg",
+   "width": 1280,
+   "height": 1920,
+   "format": "jpg",
+   "sha256": "8093595daf5f6f1fd3258ccfabfd103677ff1f7b3d3003ff178b42a234b6222e"
+  }
+ ],
+ "text_status": "保留工作室角标水印，未遮挡主体",
+ "processing": "未做去字/美颜/换脸，保留源格式",
+ "limits": "中等分辨率已标注",
+ "usage": "Agent数据库"
+}

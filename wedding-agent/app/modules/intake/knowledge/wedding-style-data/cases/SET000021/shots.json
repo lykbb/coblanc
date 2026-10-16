@@ -1,0 +1,62 @@
+[
+  {
+    "image_id": "IMG000159",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "分站对看，新娘持花饰弓",
+    "composition": "双人全身，分站对看，新娘持花饰弓",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，分站对看，新娘持花饰弓",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000160",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "向镜头伸手，广角近大远小",
+    "composition": "双人中全景，向镜头伸手，广角近大远小",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，向镜头伸手，广角近大远小",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000161",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘举花弓，新郎环抱",
+    "composition": "双人中全景，新娘举花弓，新郎环抱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘举花弓，新郎环抱",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000162",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "草坪相拥对望",
+    "composition": "双人全身，草坪相拥对望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，草坪相拥对望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000163",
+    "evidence_type": "observed",
+    "shot": "新娘中全景",
+    "action": "侧身举花弓微笑",
+    "composition": "新娘中全景，侧身举花弓微笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中全景，侧身举花弓微笑",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

@@ -1,0 +1,502 @@
+{
+  "schema_version": "1.1",
+  "set_id": "SET000003",
+  "name": "灰底光影缎面主纱",
+  "primary_category_id": "06",
+  "primary_category_name": "主婚纱",
+  "secondary_category_id": "06-01",
+  "secondary_category_name": "极简缎面高定",
+  "tags": [
+    "主婚纱",
+    "室内棚拍",
+    "光影",
+    "极简灰背景",
+    "白缎蓬裙",
+    "俏皮互动",
+    "圆形聚光"
+  ],
+  "source": {
+    "platform": "小红书",
+    "publisher": "ONLYYOU婚纱摄影店",
+    "publisher_verification": "本次Arc检索确认显示名称；账号认证未独立核实",
+    "url": "https://www.xiaohongshu.com/explore/699ac1810000000015022337",
+    "title": "把我的光影婚纱照拍出电影感啦‼️又甜又酷",
+    "published_date": null,
+    "published_date_display": "02-23（完整发布日期未核实）",
+    "collected_date": "2026-10-14"
+  },
+  "real_photo_verification": {
+    "evidence": "源笔记明确标注婚纱摄影拍摄；同组手部、头纱、散落纸屑、衣料褶皱与投影具备连续摄影逻辑。逐张未见明显AI生成或换脸迹象。面部有婚纱摄影常规精修。",
+    "limitations": "未独立取得摄影师原片或拍摄证据；不能证明完全无AI参与。"
+  },
+  "collector": "Codex（按负责人已确认标准批量采集）",
+  "review_status": "待负责人复核",
+  "upload_status": "待云端核验",
+  "cloud_folder": "https://my.feishu.cn/drive/folder/NczjffFXnl95hkd5yzDcVPfZncc",
+  "image_count": 7,
+  "set_consistency": "同一对人物、同一套服装、同一灰色棚拍背景；统一圆形聚光、黑白礼服及自然俏皮互动。",
+  "clothing": {
+    "bride": "白色抹胸缎面蓬裙、白色包边中长头纱、白色捧花；部分照片佩戴墨镜。",
+    "groom": "黑色双排扣礼服、白衬衫、黑领结、白色胸花；部分照片佩戴墨镜。"
+  },
+  "scene_and_light": "灰色室内棚拍背景、圆形聚光亮区及明显人物投影；具体地点和拍摄日期未知。",
+  "limitations": [
+    "实际短边1080，只达到最低门槛，未达到主婚纱优选2000",
+    "缺少面料、戒指、配饰独立特写",
+    "部分图佩戴墨镜，需与页4等无遮挡面部一起使用",
+    "平台发布文件，非摄影师原始相机文件；采集及去字不表示已取得训练、商用或公开传播许可。",
+    "缺少新郎单人肖像；部分构图原本裁切人物下部，未扩图补全。"
+  ],
+  "processing": "实拍发布照片经非生成式局部去字；仅修补右下角背景平台角标，原尺寸与比例保留，人物、婚纱、头纱及保护区域解码像素零变化。",
+  "images": [
+    {
+      "image_id": "IMG000013",
+      "set_id": "SET000003",
+      "file_name": "IMG000013.png",
+      "source_page": 3,
+      "width": 1080,
+      "height": 1619,
+      "format": "PNG",
+      "sha256": "b912609e193ab664d40971ae1dd1b9632daa8bef078baa34b87dc3a7c0d00772",
+      "quality": "实际尺寸、解码、去重和本地视觉验收通过；待负责人复核",
+      "shot": "双人全身",
+      "pose_and_interaction": "站姿比心、墨镜造型",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": "双人全身；站姿比心、墨镜造型；新娘裙摆接近画面右边缘，裙摆轮廓可辨；墨镜遮挡部分眼睛",
+      "limitations": [
+        "新娘裙摆接近画面右边缘，裙摆轮廓可辨；墨镜遮挡部分眼睛"
+      ],
+      "text_and_marks": "右下角小红书平台角标已清除；本地逐张查看未见无关叠加文字及修补接缝。",
+      "processing": {
+        "version": 1,
+        "method": "OpenCV Navier-Stokes非生成式局部修补",
+        "regions": [
+          {
+            "kind": "inpaint",
+            "rect": [
+              1030,
+              1590,
+              1076,
+              1613
+            ],
+            "radius": 4
+          }
+        ],
+        "protected_rects": [
+          [
+            0,
+            0,
+            1027,
+            1619
+          ],
+          [
+            1027,
+            0,
+            1080,
+            1584
+          ]
+        ],
+        "protection_note": "保护区域覆盖人物、婚纱、头纱、配饰、捧花及肢体；编辑区仅背景角标。",
+        "visual_review": "原尺寸逐张查看；角标已清除，未见明显接缝或字样残留，主体保护范围覆盖人物、服装、头纱、配饰、捧花、肢体"
+      },
+      "original_file_name": "page03.webp",
+      "original_sha256": "22b70509cdfef3281f933d826612e9061d7b95be26a5651bf848571884095689",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "edited_pixels": 971,
+        "dimensions_unchanged": true,
+        "icc_preserved": true
+      }
+    },
+    {
+      "image_id": "IMG000014",
+      "set_id": "SET000003",
+      "file_name": "IMG000014.png",
+      "source_page": 4,
+      "width": 1080,
+      "height": 1619,
+      "format": "PNG",
+      "sha256": "131fbbacfa2af66e808fb594c56e6be0110f66f27ca3f3d7b626dcb69f451458",
+      "quality": "实际尺寸、解码、去重和本地视觉验收通过；待负责人复核",
+      "shot": "双人中景",
+      "pose_and_interaction": "新郎轻触新娘脸、新娘握其手对望",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": "双人中景；新郎轻触新娘脸、新娘握其手对望；双方下部服装由原画面裁切，非后期强裁",
+      "limitations": [
+        "双方下部服装由原画面裁切，非后期强裁"
+      ],
+      "text_and_marks": "右下角小红书平台角标已清除；本地逐张查看未见无关叠加文字及修补接缝。",
+      "processing": {
+        "version": 1,
+        "method": "OpenCV Navier-Stokes非生成式局部修补",
+        "regions": [
+          {
+            "kind": "inpaint",
+            "rect": [
+              1030,
+              1590,
+              1076,
+              1613
+            ],
+            "radius": 4
+          }
+        ],
+        "protected_rects": [
+          [
+            0,
+            0,
+            1027,
+            1619
+          ],
+          [
+            1027,
+            0,
+            1080,
+            1584
+          ]
+        ],
+        "protection_note": "保护区域覆盖人物、婚纱、头纱、配饰、捧花及肢体；编辑区仅背景角标。",
+        "visual_review": "原尺寸逐张查看；角标已清除，未见明显接缝或字样残留，主体保护范围覆盖人物、服装、头纱、配饰、捧花、肢体"
+      },
+      "original_file_name": "page04.webp",
+      "original_sha256": "1345e2c9cc5df4528fde30d1553bd0aaa657bedf3958ecf2ace48e653e2d6f40",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "edited_pixels": 949,
+        "dimensions_unchanged": true,
+        "icc_preserved": true
+      }
+    },
+    {
+      "image_id": "IMG000015",
+      "set_id": "SET000003",
+      "file_name": "IMG000015.png",
+      "source_page": 8,
+      "width": 1080,
+      "height": 1619,
+      "format": "PNG",
+      "sha256": "035a3c359705ea4ccc85060140956e96a9e17918bdebad7954c9f3dc628d7a0c",
+      "quality": "实际尺寸、解码、去重和本地视觉验收通过；待负责人复核",
+      "shot": "双人全身",
+      "pose_and_interaction": "牵手大笑、持捧花",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": "双人全身；牵手大笑、持捧花；人物全身与裙摆结构清楚",
+      "limitations": [
+        "人物全身与裙摆结构清楚"
+      ],
+      "text_and_marks": "右下角小红书平台角标已清除；本地逐张查看未见无关叠加文字及修补接缝。",
+      "processing": {
+        "version": 1,
+        "method": "OpenCV Navier-Stokes非生成式局部修补",
+        "regions": [
+          {
+            "kind": "inpaint",
+            "rect": [
+              1030,
+              1590,
+              1076,
+              1613
+            ],
+            "radius": 4
+          }
+        ],
+        "protected_rects": [
+          [
+            0,
+            0,
+            1027,
+            1619
+          ],
+          [
+            1027,
+            0,
+            1080,
+            1584
+          ]
+        ],
+        "protection_note": "保护区域覆盖人物、婚纱、头纱、配饰、捧花及肢体；编辑区仅背景角标。",
+        "visual_review": "原尺寸逐张查看；角标已清除，未见明显接缝或字样残留，主体保护范围覆盖人物、服装、头纱、配饰、捧花、肢体"
+      },
+      "original_file_name": "page08.webp",
+      "original_sha256": "b371dc1aae96db49f8a0f56de6112c947d2f5db4880cd13b899b22eb875f37bd",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "edited_pixels": 979,
+        "dimensions_unchanged": true,
+        "icc_preserved": true
+      }
+    },
+    {
+      "image_id": "IMG000016",
+      "set_id": "SET000003",
+      "file_name": "IMG000016.png",
+      "source_page": 9,
+      "width": 1080,
+      "height": 1619,
+      "format": "PNG",
+      "sha256": "28318a2ac0b15f7cc38153525cffadab9e115d6d206da520d61be53f5c68c417",
+      "quality": "实际尺寸、解码、去重和本地视觉验收通过；待负责人复核",
+      "shot": "新娘单人全身",
+      "pose_and_interaction": "托脸微笑、举捧花",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": "新娘单人全身；托脸微笑、举捧花；无新郎，新娘全身与裙摆清楚",
+      "limitations": [
+        "无新郎，新娘全身与裙摆清楚"
+      ],
+      "text_and_marks": "右下角小红书平台角标已清除；本地逐张查看未见无关叠加文字及修补接缝。",
+      "processing": {
+        "version": 1,
+        "method": "OpenCV Navier-Stokes非生成式局部修补",
+        "regions": [
+          {
+            "kind": "inpaint",
+            "rect": [
+              1030,
+              1590,
+              1076,
+              1613
+            ],
+            "radius": 4
+          }
+        ],
+        "protected_rects": [
+          [
+            0,
+            0,
+            1027,
+            1619
+          ],
+          [
+            1027,
+            0,
+            1080,
+            1584
+          ]
+        ],
+        "protection_note": "保护区域覆盖人物、婚纱、头纱、配饰、捧花及肢体；编辑区仅背景角标。",
+        "visual_review": "原尺寸逐张查看；角标已清除，未见明显接缝或字样残留，主体保护范围覆盖人物、服装、头纱、配饰、捧花、肢体"
+      },
+      "original_file_name": "page09.webp",
+      "original_sha256": "331369690efd3a0ebd3769eb9ca55bc9424ebf44d1f71fad8e5674f215256f3b",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "edited_pixels": 975,
+        "dimensions_unchanged": true,
+        "icc_preserved": true
+      }
+    },
+    {
+      "image_id": "IMG000017",
+      "set_id": "SET000003",
+      "file_name": "IMG000017.png",
+      "source_page": 10,
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "e77f8eab1fbe6db8af5d4fab9cfb553a001d7c9844a5ab4e4d58c231e37fab2c",
+      "quality": "实际尺寸、解码、去重和本地视觉验收通过；待负责人复核",
+      "shot": "双人俯视中全景",
+      "pose_and_interaction": "新郎前景背对机位举手、新娘掩嘴笑",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": "双人俯视中全景；新郎前景背对机位举手、新娘掩嘴笑；新郎前景虚化、背面不可用作脸部细节；属于原摄影构图",
+      "limitations": [
+        "新郎前景虚化、背面不可用作脸部细节；属于原摄影构图"
+      ],
+      "text_and_marks": "右下角小红书平台角标已清除；本地逐张查看未见无关叠加文字及修补接缝。",
+      "processing": {
+        "version": 1,
+        "method": "OpenCV Navier-Stokes非生成式局部修补",
+        "regions": [
+          {
+            "kind": "inpaint",
+            "rect": [
+              1030,
+              1591,
+              1076,
+              1614
+            ],
+            "radius": 4
+          }
+        ],
+        "protected_rects": [
+          [
+            0,
+            0,
+            1027,
+            1620
+          ],
+          [
+            1027,
+            0,
+            1080,
+            1585
+          ]
+        ],
+        "protection_note": "保护区域覆盖人物、婚纱、头纱、配饰、捧花及肢体；编辑区仅背景角标。",
+        "visual_review": "原尺寸逐张查看；角标已清除，未见明显接缝或字样残留，主体保护范围覆盖人物、服装、头纱、配饰、捧花、肢体"
+      },
+      "original_file_name": "page10.webp",
+      "original_sha256": "64806bb5fbc293765a5bcd81c5852b84fbb4e9fc4ac72eea95a129f2db5787b6",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "edited_pixels": 1015,
+        "dimensions_unchanged": true,
+        "icc_preserved": true
+      }
+    },
+    {
+      "image_id": "IMG000018",
+      "set_id": "SET000003",
+      "file_name": "IMG000018.png",
+      "source_page": 11,
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "c5e42bf55a2502be5875a3b38985a9e2357b7ba97fa8027ba4a58da1532bf917",
+      "quality": "实际尺寸、解码、去重和本地视觉验收通过；待负责人复核",
+      "shot": "双人全身",
+      "pose_and_interaction": "大笑、身体倾斜、比心与持捧花",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": "双人全身；大笑、身体倾斜、比心与持捧花；部分新郎下肢被婚纱遮挡，人物关系明确",
+      "limitations": [
+        "部分新郎下肢被婚纱遮挡，人物关系明确"
+      ],
+      "text_and_marks": "右下角小红书平台角标已清除；本地逐张查看未见无关叠加文字及修补接缝。",
+      "processing": {
+        "version": 1,
+        "method": "OpenCV Navier-Stokes非生成式局部修补",
+        "regions": [
+          {
+            "kind": "inpaint",
+            "rect": [
+              1030,
+              1591,
+              1076,
+              1614
+            ],
+            "radius": 4
+          }
+        ],
+        "protected_rects": [
+          [
+            0,
+            0,
+            1027,
+            1620
+          ],
+          [
+            1027,
+            0,
+            1080,
+            1585
+          ]
+        ],
+        "protection_note": "保护区域覆盖人物、婚纱、头纱、配饰、捧花及肢体；编辑区仅背景角标。",
+        "visual_review": "原尺寸逐张查看；角标已清除，未见明显接缝或字样残留，主体保护范围覆盖人物、服装、头纱、配饰、捧花、肢体"
+      },
+      "original_file_name": "page11.webp",
+      "original_sha256": "ec5107742f6a848e09dd70579abd74a2efeb870feb6adac093c8ae668fa1663e",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "edited_pixels": 755,
+        "dimensions_unchanged": true,
+        "icc_preserved": true
+      }
+    },
+    {
+      "image_id": "IMG000019",
+      "set_id": "SET000003",
+      "file_name": "IMG000019.png",
+      "source_page": 12,
+      "width": 1080,
+      "height": 1620,
+      "format": "PNG",
+      "sha256": "f0b859d1a0227b4c744a148c485270613d0a6042785a8bb66c7bf9d2da398344",
+      "quality": "实际尺寸、解码、去重和本地视觉验收通过；待负责人复核",
+      "shot": "双人全身",
+      "pose_and_interaction": "抬手俏皮张臂、墨镜造型",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": "双人全身；抬手俏皮张臂、墨镜造型；墨镜遮挡眼睛；新娘裙摆轮廓清楚",
+      "limitations": [
+        "墨镜遮挡眼睛；新娘裙摆轮廓清楚"
+      ],
+      "text_and_marks": "右下角小红书平台角标已清除；本地逐张查看未见无关叠加文字及修补接缝。",
+      "processing": {
+        "version": 1,
+        "method": "OpenCV Navier-Stokes非生成式局部修补",
+        "regions": [
+          {
+            "kind": "inpaint",
+            "rect": [
+              1030,
+              1591,
+              1076,
+              1614
+            ],
+            "radius": 4
+          }
+        ],
+        "protected_rects": [
+          [
+            0,
+            0,
+            1027,
+            1620
+          ],
+          [
+            1027,
+            0,
+            1080,
+            1585
+          ]
+        ],
+        "protection_note": "保护区域覆盖人物、婚纱、头纱、配饰、捧花及肢体；编辑区仅背景角标。",
+        "visual_review": "原尺寸逐张查看；角标已清除，未见明显接缝或字样残留，主体保护范围覆盖人物、服装、头纱、配饰、捧花、肢体"
+      },
+      "original_file_name": "page12.webp",
+      "original_sha256": "6225f7f090fadd85ee7f598609654106b4ada388a6a7ef074aecb9de1cbc2c93",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "edited_pixels": 989,
+        "dimensions_unchanged": true,
+        "icc_preserved": true
+      }
+    }
+  ],
+  "excluded_source_pages": [
+    {
+      "page": 1,
+      "reason": "平台角标压在婚纱裙摆，清除会改变主体像素"
+    },
+    {
+      "page": 2,
+      "reason": "平台角标压在婚纱裙摆，清除会改变主体像素"
+    },
+    {
+      "page": 5,
+      "reason": "平台角标压在婚纱裙摆，清除会改变主体像素"
+    },
+    {
+      "page": 7,
+      "reason": "平台角标压在婚纱裙摆，清除会改变主体像素"
+    },
+    {
+      "page": 6,
+      "reason": "玻璃道具书写及边框压主体，非生成式清除不能同时保证主体像素不变"
+    }
+  ]
+}

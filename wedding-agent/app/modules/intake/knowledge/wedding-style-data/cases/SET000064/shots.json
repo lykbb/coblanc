@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000543",
+    "evidence_type": "observed",
+    "shot": "双人全身正面并列",
+    "action": "长披帛铺地",
+    "composition": "双人全身正面并列，长披帛铺地",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身正面并列，长披帛铺地",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000544",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "红幕间站立，新娘持花饰",
+    "composition": "双人全身，红幕间站立，新娘持花饰",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，红幕间站立，新娘持花饰",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000545",
+    "evidence_type": "observed",
+    "shot": "双人背侧中全景",
+    "action": "亲近额头，金披帛展示",
+    "composition": "双人背侧中全景，亲近额头，金披帛展示",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人背侧中全景，亲近额头，金披帛展示",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000546",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "掀红盖头对望",
+    "composition": "双人中全景，掀红盖头对望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，掀红盖头对望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000547",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "掀盖头互动",
+    "composition": "双人中景，掀盖头互动",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，掀盖头互动",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000548",
+    "evidence_type": "observed",
+    "shot": "新娘脸部近景",
+    "action": "手拨金冠流苏",
+    "composition": "新娘脸部近景，手拨金冠流苏",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘脸部近景，手拨金冠流苏",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000549",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "二人持红色大花饰",
+    "composition": "双人全身，二人持红色大花饰",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，二人持红色大花饰",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000550",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新郎在后整理头饰附近",
+    "composition": "双人中景，新郎在后整理头饰附近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新郎在后整理头饰附近",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000551",
+    "evidence_type": "observed",
+    "shot": "新娘中全景",
+    "action": "手持盖头边缘",
+    "composition": "新娘中全景，手持盖头边缘",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中全景，手持盖头边缘",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

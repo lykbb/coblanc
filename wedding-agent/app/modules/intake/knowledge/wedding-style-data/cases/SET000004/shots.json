@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000020",
+    "evidence_type": "observed",
+    "shot": "双人远景",
+    "action": "长头纱铺展开，轨道引导线",
+    "composition": "双人远景，长头纱铺展开，轨道引导线",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人远景，长头纱铺展开，轨道引导线",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000021",
+    "evidence_type": "observed",
+    "shot": "新娘背向全身",
+    "action": "回头，轨道中央",
+    "composition": "新娘背向全身，回头，轨道中央",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘背向全身，回头，轨道中央",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000022",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "持白伞回望",
+    "composition": "双人中景，持白伞回望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，持白伞回望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000023",
+    "evidence_type": "observed",
+    "shot": "双人背向虚焦",
+    "action": "焦点在林间路径",
+    "composition": "双人背向虚焦，焦点在林间路径",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人背向虚焦，焦点在林间路径",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000024",
+    "evidence_type": "observed",
+    "shot": "双人下肢与交叠手部局部",
+    "action": "坐在轨道边",
+    "composition": "双人下肢与交叠手部局部，坐在轨道边",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人下肢与交叠手部局部，坐在轨道边",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000025",
+    "evidence_type": "observed",
+    "shot": "双人全身背靠背",
+    "action": "新郎持花",
+    "composition": "双人全身背靠背，新郎持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身背靠背，新郎持花",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

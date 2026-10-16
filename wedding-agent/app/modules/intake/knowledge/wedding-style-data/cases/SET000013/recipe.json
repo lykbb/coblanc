@@ -1,0 +1,166 @@
+{
+  "schema_version": "0.2",
+  "set_id": "SET000013",
+  "name": "雪山粉色童话城堡",
+  "primary_category_id": "07",
+  "secondary_category_id": "07-07",
+  "status": "review_draft",
+  "description": "粉色尖塔城堡式布景、雪山背景与密集粉白花艺；白色蓬裙叠加粉色大蝴蝶结装饰，粉色蝶形道具，新郎棕礼服；高亮童话配色，晴日与暖色山景分镜并存",
+  "evidence": {
+    "source_platform": "小红书",
+    "publisher": "北岸映画摄影工作室",
+    "source_url": "https://www.xiaohongshu.com/explore/6a0af01f0000000007023bdc",
+    "cloud_folder": "https://my.feishu.cn/drive/folder/XUL8fqM0blDIAidbud8cvpFvnrc",
+    "checked_on": "2026-10-16",
+    "review_method": "全部联系表逐格视觉核对；不是逐像素审校，未从来源索引自动复制镜头结论",
+    "real_photo_status": "既有发布记录与视觉一致性作为依据，未认证摄影原片",
+    "source_index": "source-index.json"
+  },
+  "observations": [
+    {
+      "id": "SET000013-F1",
+      "dimension": "场景或配色",
+      "statement": "粉色尖塔城堡式布景、雪山背景与密集粉白花艺",
+      "evidence_images": [
+        "IMG000088",
+        "IMG000089",
+        "IMG000090",
+        "IMG000091",
+        "IMG000092",
+        "IMG000093"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    },
+    {
+      "id": "SET000013-F2",
+      "dimension": "服装或造型",
+      "statement": "白色蓬裙叠加粉色大蝴蝶结装饰，粉色蝶形道具，新郎棕礼服",
+      "evidence_images": [
+        "IMG000088",
+        "IMG000089",
+        "IMG000090",
+        "IMG000091",
+        "IMG000092",
+        "IMG000093"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    },
+    {
+      "id": "SET000013-F3",
+      "dimension": "光影与画面气氛",
+      "statement": "高亮童话配色，晴日与暖色山景分镜并存",
+      "evidence_images": [
+        "IMG000088",
+        "IMG000089",
+        "IMG000090",
+        "IMG000091",
+        "IMG000092",
+        "IMG000093"
+      ],
+      "evidence_type": "observed",
+      "evidence_scope": "图组归纳，部分元素仅见个别帧；具体帧见shots.json"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "此案例的场景、服装轮廓和互动共同构成所述风格观感；不能据此认定为该分类全部作品的必备规则。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "SET000013"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "粉色尖塔城堡式布景、雪山背景与密集粉白花艺",
+    "白色蓬裙叠加粉色大蝴蝶结装饰，粉色蝶形道具，新郎棕礼服",
+    "高亮童话配色，晴日与暖色山景分镜并存"
+  ],
+  "within_session_locks": [
+    "客户身份（独立参考，不使用样片模特身份）",
+    "客户确认后的服装及主要妆发；有明确分镜造型变体时显式标记",
+    "客户确认后的场景方向、主光逻辑与总体色板"
+  ],
+  "creative_variables": [
+    {
+      "field": "粉色装饰浓度",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    },
+    {
+      "field": "蝶形道具开关",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    },
+    {
+      "field": "环境远景与人物中景比例",
+      "options": [
+        "保留案例方向",
+        "按客户偏好调整，并同步检查相关服装、动作和光线"
+      ],
+      "evidence_type": "proposed",
+      "constraints": "可变化并非全部同时变化；调整方案后在同组保持连贯，未经生图验证"
+    }
+  ],
+  "compatibility_rules": [
+    "先选本次造型及场景，再选兼容分镜；不要把多个动作叠给同一只手",
+    "人物接触、服装支撑、裙摆占地与投影方向一致",
+    "采纳妆造师最新明确妆容方案；与客户明确要求冲突时协调"
+  ],
+  "do_not_inherit": [
+    "样片人物身份与五官",
+    "品牌标识、平台水印与无关文字",
+    "未经证实的相机、灯具、模型、Seed或拍摄地点"
+  ],
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "粉色尖塔城堡式布景、雪山背景与密集粉白花艺；白色蓬裙叠加粉色大蝴蝶结装饰，粉色蝶形道具，新郎棕礼服；高亮童话配色，晴日与暖色山景分镜并存",
+    "template": "客户身份与确认造型：{{customer_spec}}。已确认场景、服装及光影方案：{{approved_plan}}。所选风格约束：{{selected_style_constraints}}。当前分镜：{{shot_fragment}}。",
+    "use_note": "共享观察是案例描述，不是不可改模板。先替换本次方案，再只装配一张分镜；不把全部选项拼成一条提示词。",
+    "omit": [
+      "来源水印",
+      "样片人物身份",
+      "未知拍摄参数"
+    ],
+    "exact_text_policy": "准确姓名日期和道具文字由后期排版处理"
+  },
+  "reference_roles": {
+    "style_layout": [
+      "IMG000088",
+      "IMG000091",
+      "IMG000093"
+    ],
+    "customer_identity": [],
+    "pose": "按选定image_id按需查阅；未生成姿态控制图",
+    "clothing": "轮廓参考；客户指定造型优先"
+  },
+  "limitations": [
+    "城堡属于画面可见布景，不推断是真实历史城堡",
+    "雪山和灯光可能有后期加工，无法由成片确认合成程度",
+    "未独立验证是否存在局部合成或AI修饰；不把风格归纳当作真实摄影过程证明",
+    "不由一套样片推导整个二级风格的硬性规则"
+  ],
+  "validation": {
+    "data_review": "draft_ready_for_user",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  }
+}

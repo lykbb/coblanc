@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000333",
+    "evidence_type": "observed",
+    "shot": "横幅双人中全景",
+    "action": "庭院中手搭肩侧",
+    "composition": "横幅双人中全景，庭院中手搭肩侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中全景，庭院中手搭肩侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000334",
+    "evidence_type": "observed",
+    "shot": "横幅服装手部局部",
+    "action": "前后牵手",
+    "composition": "横幅服装手部局部，前后牵手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅服装手部局部，前后牵手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000335",
+    "evidence_type": "observed",
+    "shot": "新娘侧面近景",
+    "action": "发饰与高领细节",
+    "composition": "新娘侧面近景，发饰与高领细节",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘侧面近景，发饰与高领细节",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000336",
+    "evidence_type": "observed",
+    "shot": "新娘全身",
+    "action": "抱扇侧看",
+    "composition": "新娘全身，抱扇侧看",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘全身，抱扇侧看",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000337",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "面对面站立，新娘抱扇",
+    "composition": "双人全身，面对面站立，新娘抱扇",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，面对面站立，新娘抱扇",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000338",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "背侧相拥",
+    "composition": "双人中全景，背侧相拥",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，背侧相拥",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000339",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新郎吻近额侧并托脸",
+    "composition": "双人近景，新郎吻近额侧并托脸",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新郎吻近额侧并托脸",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000340",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新娘闭眼靠在新郎背侧",
+    "composition": "双人近景，新娘闭眼靠在新郎背侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新娘闭眼靠在新郎背侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000341",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新郎从后环抱，新娘持扇",
+    "composition": "双人中全景，新郎从后环抱，新娘持扇",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新郎从后环抱，新娘持扇",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

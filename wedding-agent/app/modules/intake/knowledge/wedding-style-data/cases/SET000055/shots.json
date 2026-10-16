@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000459",
+    "evidence_type": "observed",
+    "shot": "横幅双人坐姿中全景",
+    "action": "假山花丛前聊天",
+    "composition": "横幅双人坐姿中全景，假山花丛前聊天",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人坐姿中全景，假山花丛前聊天",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000460",
+    "evidence_type": "observed",
+    "shot": "新娘全身",
+    "action": "石上低头持圆包",
+    "composition": "新娘全身，石上低头持圆包",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘全身，石上低头持圆包",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000461",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "亭廊框景中并立",
+    "composition": "双人中全景，亭廊框景中并立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，亭廊框景中并立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000462",
+    "evidence_type": "observed",
+    "shot": "新娘环境全身",
+    "action": "廊柱旁侧站回望",
+    "composition": "新娘环境全身，廊柱旁侧站回望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘环境全身，廊柱旁侧站回望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000463",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "廊内对站，门洞框景",
+    "composition": "双人全身，廊内对站，门洞框景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，廊内对站，门洞框景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000464",
+    "evidence_type": "observed",
+    "shot": "横幅环境全身",
+    "action": "假山旁牵手",
+    "composition": "横幅环境全身，假山旁牵手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅环境全身，假山旁牵手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000465",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "廊柱旁前后站位",
+    "composition": "双人中全景，廊柱旁前后站位",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，廊柱旁前后站位",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000466",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "白墙假山边聊天",
+    "composition": "双人环境全身，白墙假山边聊天",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，白墙假山边聊天",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000467",
+    "evidence_type": "observed",
+    "shot": "双人坐姿中景",
+    "action": "新郎举小物、新娘扶藤编箱笑",
+    "composition": "双人坐姿中景，新郎举小物、新娘扶藤编箱笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿中景，新郎举小物、新娘扶藤编箱笑",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

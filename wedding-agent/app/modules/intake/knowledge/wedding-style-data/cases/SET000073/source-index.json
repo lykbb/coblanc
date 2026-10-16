@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000073",
+ "name": "纱花帽高定主纱",
+ "primary_category_id": "06",
+ "secondary_category_id": "06-12",
+ "tags": [
+  "白纱",
+  "抹胸浅粉蓬裙",
+  "夸张纱花帽",
+  "黑西装领结",
+  "灰调背景",
+  "室内高定",
+  "杂志封面感"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "长沙DSJ婚纱摄影旗舰店",
+  "url": "https://m.weibo.cn/detail/5317334040055881",
+  "published_date": "2026-07-04",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：长沙DSJ婚纱摄影旗舰店）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（抹胸浅粉蓬裙+纱花帽；新郎黑西装领结）、连贯风格（纱花帽高定主纱）",
+ "clothing": {
+  "新娘": "抹胸浅粉蓬裙+夸张纱花帽",
+  "新郎": "黑西装+领结"
+ },
+ "scene_and_light": "灰调纯色背景室内棚拍，柔焦朦胧，高定杂志感",
+ "limitations": [
+  "超高清原图4371×6553",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000623",
+   "set_id": "SET000073",
+   "file_name": "IMG000623.jpg",
+   "source_page": 1,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "c755774736f22885a261fa461072daf3b8dc630407e8605fefd55b35035d47d1",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸浅粉蓬裙+夸张纱花帽",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调纯色背景室内棚拍，柔焦朦胧，高定杂志感",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@长沙DSJ婚纱摄影旗舰店」中部+「DS视觉婚纱摄影 DSPHOTO」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "c755774736f22885a261fa461072daf3b8dc630407e8605fefd55b35035d47d1",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000624",
+   "set_id": "SET000073",
+   "file_name": "IMG000624.jpg",
+   "source_page": 2,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "7c59b2481531baa61a0565541c1ab73a5f47fef043f30dcce150afd3f5dd7ba1",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸浅粉蓬裙+夸张纱花帽",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调纯色背景室内棚拍，柔焦朦胧，高定杂志感",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@长沙DSJ婚纱摄影旗舰店」中部+「DS视觉婚纱摄影 DSPHOTO」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "7c59b2481531baa61a0565541c1ab73a5f47fef043f30dcce150afd3f5dd7ba1",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000625",
+   "set_id": "SET000073",
+   "file_name": "IMG000625.jpg",
+   "source_page": 3,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "35a7a37a111fa99228a1051a123737c09cc314122769dfaf558e04b4732871c9",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸浅粉蓬裙+夸张纱花帽",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调纯色背景室内棚拍，柔焦朦胧，高定杂志感",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@长沙DSJ婚纱摄影旗舰店」中部+「DS视觉婚纱摄影 DSPHOTO」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "35a7a37a111fa99228a1051a123737c09cc314122769dfaf558e04b4732871c9",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000626",
+   "set_id": "SET000073",
+   "file_name": "IMG000626.jpg",
+   "source_page": 4,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "2ad6dd70923329d04bca83ddba3fd1849ff33836b73bec5800181c4028e057cc",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸浅粉蓬裙+夸张纱花帽",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调纯色背景室内棚拍，柔焦朦胧，高定杂志感",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@长沙DSJ婚纱摄影旗舰店」中部+「DS视觉婚纱摄影 DSPHOTO」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "2ad6dd70923329d04bca83ddba3fd1849ff33836b73bec5800181c4028e057cc",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000627",
+   "set_id": "SET000073",
+   "file_name": "IMG000627.jpg",
+   "source_page": 5,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "96a860848989a8d61db5a83fa551c96149b2ab1807bb66d7ad449219ee3c221f",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸浅粉蓬裙+夸张纱花帽",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调纯色背景室内棚拍，柔焦朦胧，高定杂志感",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@长沙DSJ婚纱摄影旗舰店」中部+「DS视觉婚纱摄影 DSPHOTO」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "96a860848989a8d61db5a83fa551c96149b2ab1807bb66d7ad449219ee3c221f",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000628",
+   "set_id": "SET000073",
+   "file_name": "IMG000628.jpg",
+   "source_page": 6,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "9b4cd2c50e6fe3594fae841cbcda4ce39f92a5cfeeeb2bf96c672982c323ad26",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸浅粉蓬裙+夸张纱花帽",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调纯色背景室内棚拍，柔焦朦胧，高定杂志感",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@长沙DSJ婚纱摄影旗舰店」中部+「DS视觉婚纱摄影 DSPHOTO」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "9b4cd2c50e6fe3594fae841cbcda4ce39f92a5cfeeeb2bf96c672982c323ad26",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000629",
+   "set_id": "SET000073",
+   "file_name": "IMG000629.jpg",
+   "source_page": 7,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "7c81718d0807d92276ce8929c50a54e37eca2de7fce7683b4d386fad2d02c581",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸浅粉蓬裙+夸张纱花帽",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调纯色背景室内棚拍，柔焦朦胧，高定杂志感",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@长沙DSJ婚纱摄影旗舰店」中部+「DS视觉婚纱摄影 DSPHOTO」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "7c81718d0807d92276ce8929c50a54e37eca2de7fce7683b4d386fad2d02c581",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000630",
+   "set_id": "SET000073",
+   "file_name": "IMG000630.jpg",
+   "source_page": 8,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "5d5c6b605fcbd5a0149f0608866b6faa1abbe034a3735e4dd03ae4d683c4ef55",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸浅粉蓬裙+夸张纱花帽",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调纯色背景室内棚拍，柔焦朦胧，高定杂志感",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@长沙DSJ婚纱摄影旗舰店」中部+「DS视觉婚纱摄影 DSPHOTO」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "5d5c6b605fcbd5a0149f0608866b6faa1abbe034a3735e4dd03ae4d683c4ef55",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000631",
+   "set_id": "SET000073",
+   "file_name": "IMG000631.jpg",
+   "source_page": 9,
+   "width": 4371,
+   "height": 6553,
+   "format": "jpg",
+   "sha256": "61eb259f2b6c505091000d8cb75d2ff751066b56eb561fd1a70965529bc20b34",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "抹胸浅粉蓬裙+夸张纱花帽",
+    "新郎": "黑西装+领结"
+   },
+   "scene_and_light_ref": "灰调纯色背景室内棚拍，柔焦朦胧，高定杂志感",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「@长沙DSJ婚纱摄影旗舰店」中部+「DS视觉婚纱摄影 DSPHOTO」底部水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "61eb259f2b6c505091000d8cb75d2ff751066b56eb561fd1a70965529bc20b34",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000226",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "圆洞框景，新娘手靠唇侧",
+    "composition": "双人近景，圆洞框景，新娘手靠唇侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，圆洞框景，新娘手靠唇侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000227",
+    "evidence_type": "observed",
+    "shot": "上下拼版：靠近额头与桌边坐姿",
+    "action": "上下拼版：靠近额头与桌边坐姿",
+    "composition": "上下拼版：靠近额头与桌边坐姿",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json；拼版仅作来源记录，先选其中一个画面再单独定义分镜，不把拼版整体当一张摄影镜头。",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": null,
+    "generation_tested": false,
+    "is_composite": true
+  },
+  {
+    "image_id": "IMG000228",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "正面并立",
+    "composition": "双人全身，正面并立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，正面并立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000229",
+    "evidence_type": "observed",
+    "shot": "双人坐姿全身",
+    "action": "隔桌各持茶碗",
+    "composition": "双人坐姿全身，隔桌各持茶碗",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿全身，隔桌各持茶碗",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000230",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新郎低坐、新娘持扇站靠",
+    "composition": "双人中全景，新郎低坐、新娘持扇站靠",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新郎低坐、新娘持扇站靠",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000231",
+    "evidence_type": "observed",
+    "shot": "上下拼版：圆洞近景与双人坐姿",
+    "action": "上下拼版：圆洞近景与双人坐姿",
+    "composition": "上下拼版：圆洞近景与双人坐姿",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json；拼版仅作来源记录，先选其中一个画面再单独定义分镜，不把拼版整体当一张摄影镜头。",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": null,
+    "generation_tested": false,
+    "is_composite": true
+  },
+  {
+    "image_id": "IMG000232",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新娘端茶，新郎侧看",
+    "composition": "双人近景，新娘端茶，新郎侧看",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新娘端茶，新郎侧看",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000233",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "圆形框景中持红扇",
+    "composition": "双人中全景，圆形框景中持红扇",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，圆形框景中持红扇",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000234",
+    "evidence_type": "observed",
+    "shot": "双人坐姿全身",
+    "action": "新娘倾身靠近新郎",
+    "composition": "双人坐姿全身，新娘倾身靠近新郎",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿全身，新娘倾身靠近新郎",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

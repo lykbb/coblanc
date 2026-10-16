@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000044",
+ "name": "园林蕾丝鱼尾",
+ "primary_category_id": "04",
+ "secondary_category_id": "04-01",
+ "tags": [
+  "白纱",
+  "蕾丝鱼尾",
+  "一字肩",
+  "头纱",
+  "浅蓝西装",
+  "园林白墙黛瓦",
+  "竹林回廊"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "520婚纱摄影",
+  "url": "https://m.weibo.cn/detail/5327248569931062",
+  "published_date": "2026-08-01",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：520婚纱摄影）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（一字肩蕾丝鱼尾白纱+蝴蝶兰；新郎浅蓝西装）、连贯风格（园林白墙黛瓦外景）",
+ "clothing": {
+  "新娘": "一字肩蕾丝鱼尾白纱+蝴蝶兰手捧花+头纱",
+  "新郎": "浅蓝西装"
+ },
+ "scene_and_light": "江南园林白墙黛瓦+石阶回廊+竹林绿树外景，白日自然光",
+ "limitations": [
+  "分辨率1067×1600（中等）",
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000360",
+   "set_id": "SET000044",
+   "file_name": "IMG000360.jpg",
+   "source_page": 1,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "de1c34ea559e0959dfa5aae866455a493bba7ea83de38b4993dc8e191ce2fe35",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝鱼尾白纱+蝴蝶兰手捧花+头纱",
+    "新郎": "浅蓝西装"
+   },
+   "scene_and_light_ref": "江南园林白墙黛瓦+石阶回廊+竹林绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影 年轻·有趣·潮流」+底部「@520婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "de1c34ea559e0959dfa5aae866455a493bba7ea83de38b4993dc8e191ce2fe35",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000361",
+   "set_id": "SET000044",
+   "file_name": "IMG000361.jpg",
+   "source_page": 2,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "b6930173e686852c3aac836184db20d89bd6619bcb252d4205ad713dade233f0",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝鱼尾白纱+蝴蝶兰手捧花+头纱",
+    "新郎": "浅蓝西装"
+   },
+   "scene_and_light_ref": "江南园林白墙黛瓦+石阶回廊+竹林绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影 年轻·有趣·潮流」+底部「@520婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "b6930173e686852c3aac836184db20d89bd6619bcb252d4205ad713dade233f0",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000362",
+   "set_id": "SET000044",
+   "file_name": "IMG000362.jpg",
+   "source_page": 3,
+   "width": 1600,
+   "height": 1067,
+   "format": "jpg",
+   "sha256": "62c4703e9666025002b56aa4e1eddc946dfd73a3c978b6fcac17b40b2d940cea",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝鱼尾白纱+蝴蝶兰手捧花+头纱",
+    "新郎": "浅蓝西装"
+   },
+   "scene_and_light_ref": "江南园林白墙黛瓦+石阶回廊+竹林绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影 年轻·有趣·潮流」+底部「@520婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "62c4703e9666025002b56aa4e1eddc946dfd73a3c978b6fcac17b40b2d940cea",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000363",
+   "set_id": "SET000044",
+   "file_name": "IMG000363.jpg",
+   "source_page": 4,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "bbc3c20a350134a31c4776886db89d70c1c0efaa364223bb3098c53b0f808480",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝鱼尾白纱+蝴蝶兰手捧花+头纱",
+    "新郎": "浅蓝西装"
+   },
+   "scene_and_light_ref": "江南园林白墙黛瓦+石阶回廊+竹林绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影 年轻·有趣·潮流」+底部「@520婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "bbc3c20a350134a31c4776886db89d70c1c0efaa364223bb3098c53b0f808480",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000364",
+   "set_id": "SET000044",
+   "file_name": "IMG000364.jpg",
+   "source_page": 5,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "c552b453c3b304777e30171720a80706dc6003f4c1f003da137883967003d83a",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝鱼尾白纱+蝴蝶兰手捧花+头纱",
+    "新郎": "浅蓝西装"
+   },
+   "scene_and_light_ref": "江南园林白墙黛瓦+石阶回廊+竹林绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影 年轻·有趣·潮流」+底部「@520婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "c552b453c3b304777e30171720a80706dc6003f4c1f003da137883967003d83a",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000365",
+   "set_id": "SET000044",
+   "file_name": "IMG000365.jpg",
+   "source_page": 6,
+   "width": 1600,
+   "height": 1067,
+   "format": "jpg",
+   "sha256": "83c0738a6f3aa4ccbdd6da02c3290be5e7d7b8aa0e7f1d9e4a35f4e9fe7753e1",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝鱼尾白纱+蝴蝶兰手捧花+头纱",
+    "新郎": "浅蓝西装"
+   },
+   "scene_and_light_ref": "江南园林白墙黛瓦+石阶回廊+竹林绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影 年轻·有趣·潮流」+底部「@520婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "83c0738a6f3aa4ccbdd6da02c3290be5e7d7b8aa0e7f1d9e4a35f4e9fe7753e1",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000366",
+   "set_id": "SET000044",
+   "file_name": "IMG000366.jpg",
+   "source_page": 7,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "99b2df400f790a7830b88b202808f302fd4c548f3165c512965e5a2f0b81a1a6",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝鱼尾白纱+蝴蝶兰手捧花+头纱",
+    "新郎": "浅蓝西装"
+   },
+   "scene_and_light_ref": "江南园林白墙黛瓦+石阶回廊+竹林绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影 年轻·有趣·潮流」+底部「@520婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "99b2df400f790a7830b88b202808f302fd4c548f3165c512965e5a2f0b81a1a6",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000367",
+   "set_id": "SET000044",
+   "file_name": "IMG000367.jpg",
+   "source_page": 8,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "b263bbfd95999794690983e72efa65c20ae4d097175d214f34faebbbdecd8a69",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝鱼尾白纱+蝴蝶兰手捧花+头纱",
+    "新郎": "浅蓝西装"
+   },
+   "scene_and_light_ref": "江南园林白墙黛瓦+石阶回廊+竹林绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影 年轻·有趣·潮流」+底部「@520婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "b263bbfd95999794690983e72efa65c20ae4d097175d214f34faebbbdecd8a69",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000368",
+   "set_id": "SET000044",
+   "file_name": "IMG000368.jpg",
+   "source_page": 9,
+   "width": 1067,
+   "height": 1600,
+   "format": "jpg",
+   "sha256": "ebcb700076098b4b331e865918902ab136dad77a010e4f6da88ab3e2b741c628",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "一字肩蕾丝鱼尾白纱+蝴蝶兰手捧花+头纱",
+    "新郎": "浅蓝西装"
+   },
+   "scene_and_light_ref": "江南园林白墙黛瓦+石阶回廊+竹林绿树外景，白日自然光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「520摄影 年轻·有趣·潮流」+底部「@520婚纱摄影」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "ebcb700076098b4b331e865918902ab136dad77a010e4f6da88ab3e2b741c628",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

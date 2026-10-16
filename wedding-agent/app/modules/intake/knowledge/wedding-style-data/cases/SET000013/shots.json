@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000088",
+    "evidence_type": "observed",
+    "shot": "新娘中景托脸",
+    "action": "大蝶形道具居前",
+    "composition": "新娘中景托脸，大蝶形道具居前",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中景托脸，大蝶形道具居前",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000089",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "城堡花道中抬牵手",
+    "composition": "双人环境全身，城堡花道中抬牵手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，城堡花道中抬牵手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000090",
+    "evidence_type": "observed",
+    "shot": "双人环境全身相拥",
+    "action": "虚化树枝框景",
+    "composition": "双人环境全身相拥，虚化树枝框景",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身相拥，虚化树枝框景",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000091",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新郎吻脸侧，暖色雪山",
+    "composition": "双人中全景，新郎吻脸侧，暖色雪山",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新郎吻脸侧，暖色雪山",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000092",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "新郎举蝶形道具",
+    "composition": "双人环境全身，新郎举蝶形道具",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，新郎举蝶形道具",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000093",
+    "evidence_type": "observed",
+    "shot": "双人全身对望抬手",
+    "action": "蝶形道具位于裙前",
+    "composition": "双人全身对望抬手，蝶形道具位于裙前",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身对望抬手，蝶形道具位于裙前",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

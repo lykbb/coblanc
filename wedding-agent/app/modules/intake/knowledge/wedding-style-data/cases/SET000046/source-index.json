@@ -1,0 +1,262 @@
+{
+ "schema_version": "1.1",
+ "set_id": "SET000046",
+ "name": "改良旗袍喜嫁",
+ "primary_category_id": "02",
+ "secondary_category_id": "02-02",
+ "tags": [
+  "中式喜服",
+  "改良旗袍",
+  "正红旗袍",
+  "红花发饰",
+  "黑西装",
+  "囍字串",
+  "青花瓷瓶",
+  "驼色背景"
+ ],
+ "source": {
+  "platform": "weibo",
+  "publisher": "雨墨摄影惠州店官微",
+  "url": "https://m.weibo.cn/detail/5338004279264915",
+  "published_date": "2026-08-31",
+  "collected_date": "2026-10-15"
+ },
+ "real_photo_verification": {
+  "evidence": "微博m站详情页（发布者：雨墨摄影惠州店官微）客片；同对新人、造型一致；真人实拍人脸自然",
+  "limitations": "来源为摄影工作室官微客片分享"
+ },
+ "collector": "豆包MainAgent",
+ "review_status": "候选待确认",
+ "upload_status": "未上传",
+ "cloud_folder": null,
+ "image_count": 9,
+ "set_consistency": "同一对人物、同一套造型（正红改良旗袍+红花发饰；新郎黑西装+金饰）、连贯风格（驼色喜嫁棚拍）",
+ "clothing": {
+  "新娘": "正红改良旗袍+红花发饰+红花篮",
+  "新郎": "黑西装+金饰"
+ },
+ "scene_and_light": "驼色背景影棚，大红囍字串+青花瓷瓶+花艺道具，棚拍柔光",
+ "limitations": [
+  "水印不遮挡主体，保留"
+ ],
+ "processing": null,
+ "images": [
+  {
+   "image_id": "IMG000378",
+   "set_id": "SET000046",
+   "file_name": "IMG000378.jpg",
+   "source_page": 1,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "f11c1237ae9dc02d4889c6a20a57f8af065725d0e2461605575f370f2e86df42",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红改良旗袍+红花发饰+红花篮",
+    "新郎": "黑西装+金饰"
+   },
+   "scene_and_light_ref": "驼色背景影棚，大红囍字串+青花瓷瓶+花艺道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w01.jpg",
+   "original_sha256": "f11c1237ae9dc02d4889c6a20a57f8af065725d0e2461605575f370f2e86df42",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000379",
+   "set_id": "SET000046",
+   "file_name": "IMG000379.jpg",
+   "source_page": 2,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "825022595e77c97b1273571b2c8f307acb8560efa143567c26c3599def0675fa",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红改良旗袍+红花发饰+红花篮",
+    "新郎": "黑西装+金饰"
+   },
+   "scene_and_light_ref": "驼色背景影棚，大红囍字串+青花瓷瓶+花艺道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w02.jpg",
+   "original_sha256": "825022595e77c97b1273571b2c8f307acb8560efa143567c26c3599def0675fa",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000380",
+   "set_id": "SET000046",
+   "file_name": "IMG000380.jpg",
+   "source_page": 3,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "1aad512e7867db4992ac10af07de894a762dd656ae47d5f3a04f4727260435e1",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红改良旗袍+红花发饰+红花篮",
+    "新郎": "黑西装+金饰"
+   },
+   "scene_and_light_ref": "驼色背景影棚，大红囍字串+青花瓷瓶+花艺道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w03.jpg",
+   "original_sha256": "1aad512e7867db4992ac10af07de894a762dd656ae47d5f3a04f4727260435e1",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000381",
+   "set_id": "SET000046",
+   "file_name": "IMG000381.jpg",
+   "source_page": 4,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "7fe381697b2545803b94d46fda1564c9cb69016035f10972c1c11ea0fa67a677",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红改良旗袍+红花发饰+红花篮",
+    "新郎": "黑西装+金饰"
+   },
+   "scene_and_light_ref": "驼色背景影棚，大红囍字串+青花瓷瓶+花艺道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w04.jpg",
+   "original_sha256": "7fe381697b2545803b94d46fda1564c9cb69016035f10972c1c11ea0fa67a677",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000382",
+   "set_id": "SET000046",
+   "file_name": "IMG000382.jpg",
+   "source_page": 5,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "f82edc8d110a2a780ebfa65fc4bc2c7d0b1ad3ea8069a466d651305eea8a5b1b",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红改良旗袍+红花发饰+红花篮",
+    "新郎": "黑西装+金饰"
+   },
+   "scene_and_light_ref": "驼色背景影棚，大红囍字串+青花瓷瓶+花艺道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w05.jpg",
+   "original_sha256": "f82edc8d110a2a780ebfa65fc4bc2c7d0b1ad3ea8069a466d651305eea8a5b1b",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000383",
+   "set_id": "SET000046",
+   "file_name": "IMG000383.jpg",
+   "source_page": 6,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "23b7184c88510940da9c885d28d2f124d12714b6036dc0e21a70a388cb2f6cc1",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红改良旗袍+红花发饰+红花篮",
+    "新郎": "黑西装+金饰"
+   },
+   "scene_and_light_ref": "驼色背景影棚，大红囍字串+青花瓷瓶+花艺道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w06.jpg",
+   "original_sha256": "23b7184c88510940da9c885d28d2f124d12714b6036dc0e21a70a388cb2f6cc1",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000384",
+   "set_id": "SET000046",
+   "file_name": "IMG000384.jpg",
+   "source_page": 7,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "0f0d25d9f78a96207ce9829408277508120cf7fda0dd84858dfea4e7294089d1",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红改良旗袍+红花发饰+红花篮",
+    "新郎": "黑西装+金饰"
+   },
+   "scene_and_light_ref": "驼色背景影棚，大红囍字串+青花瓷瓶+花艺道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w07.jpg",
+   "original_sha256": "0f0d25d9f78a96207ce9829408277508120cf7fda0dd84858dfea4e7294089d1",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000385",
+   "set_id": "SET000046",
+   "file_name": "IMG000385.jpg",
+   "source_page": 8,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "a9d3bd4684a4943aa95008767c8cb3b2db2eb9e5e8791a31533758f801f3e447",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红改良旗袍+红花发饰+红花篮",
+    "新郎": "黑西装+金饰"
+   },
+   "scene_and_light_ref": "驼色背景影棚，大红囍字串+青花瓷瓶+花艺道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w08.jpg",
+   "original_sha256": "a9d3bd4684a4943aa95008767c8cb3b2db2eb9e5e8791a31533758f801f3e447",
+   "pixel_verification": null
+  },
+  {
+   "image_id": "IMG000386",
+   "set_id": "SET000046",
+   "file_name": "IMG000386.jpg",
+   "source_page": 9,
+   "width": 2000,
+   "height": 2998,
+   "format": "jpg",
+   "sha256": "a98da8d513fca9e305ab53aea0d2cafaad3f420e09bfbb670262dba3670e496c",
+   "quality": "微博large原图（细节可辨，无损坏；真人实拍人脸自然）",
+   "shot": null,
+   "pose_and_interaction": null,
+   "clothing_ref": {
+    "新娘": "正红改良旗袍+红花发饰+红花篮",
+    "新郎": "黑西装+金饰"
+   },
+   "scene_and_light_ref": "驼色背景影棚，大红囍字串+青花瓷瓶+花艺道具，棚拍柔光",
+   "useful_visual_information": null,
+   "text_and_marks": "每张带「Yumo PHOTOGRAPHY」+底部「@雨墨摄影惠州店官微」水印，不遮挡主体，保留",
+   "processing": null,
+   "original_file_name": "w09.jpg",
+   "original_sha256": "a98da8d513fca9e305ab53aea0d2cafaad3f420e09bfbb670262dba3670e496c",
+   "pixel_verification": null
+  }
+ ],
+ "image_record_template": null
+}

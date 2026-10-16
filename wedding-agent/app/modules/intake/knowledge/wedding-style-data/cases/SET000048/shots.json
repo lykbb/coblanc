@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000396",
+    "evidence_type": "observed",
+    "shot": "新娘全身持长花束",
+    "action": "裙摆左右展开",
+    "composition": "新娘全身持长花束，裙摆左右展开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘全身持长花束，裙摆左右展开",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000397",
+    "evidence_type": "observed",
+    "shot": "双人背侧全身",
+    "action": "展示裙摆背后大蝴蝶结",
+    "composition": "双人背侧全身，展示裙摆背后大蝴蝶结",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人背侧全身，展示裙摆背后大蝴蝶结",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000398",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "向镜头伸手展示手部",
+    "composition": "双人中景，向镜头伸手展示手部",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，向镜头伸手展示手部",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000399",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新娘穿蕾丝肩颈罩层",
+    "composition": "双人近景，新娘穿蕾丝肩颈罩层",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新娘穿蕾丝肩颈罩层",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000400",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "举牵手、持花束",
+    "composition": "双人全身，举牵手、持花束",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，举牵手、持花束",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000401",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "各自用手比心",
+    "composition": "双人全身，各自用手比心",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，各自用手比心",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000402",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新娘手托脸，泡袖与头纱",
+    "composition": "双人中景，新娘手托脸，泡袖与头纱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新娘手托脸，泡袖与头纱",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000403",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "二人指脸微笑",
+    "composition": "双人中景，二人指脸微笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，二人指脸微笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000404",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘坐低位、新郎站后",
+    "composition": "双人全身，新娘坐低位、新郎站后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘坐低位、新郎站后",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

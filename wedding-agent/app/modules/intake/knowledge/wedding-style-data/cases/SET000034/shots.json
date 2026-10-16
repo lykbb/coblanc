@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000273",
+    "evidence_type": "observed",
+    "shot": "新娘中景",
+    "action": "窗旁持花看镜头",
+    "composition": "新娘中景，窗旁持花看镜头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中景，窗旁持花看镜头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000274",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎从后环抱吻近脸侧",
+    "composition": "双人全身，新郎从后环抱吻近脸侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎从后环抱吻近脸侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000275",
+    "evidence_type": "observed",
+    "shot": "横幅双人近景",
+    "action": "透窗纱观察人物",
+    "composition": "横幅双人近景，透窗纱观察人物",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人近景，透窗纱观察人物",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000276",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "新娘掩嘴笑，新郎靠近",
+    "composition": "横幅双人中景，新娘掩嘴笑，新郎靠近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，新娘掩嘴笑，新郎靠近",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000277",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新娘托脸、新郎侧看",
+    "composition": "双人中景，新娘托脸、新郎侧看",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新娘托脸、新郎侧看",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000278",
+    "evidence_type": "observed",
+    "shot": "双人脸部近景",
+    "action": "靠头，新娘轻触纱",
+    "composition": "双人脸部近景，靠头，新娘轻触纱",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人脸部近景，靠头，新娘轻触纱",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000279",
+    "evidence_type": "observed",
+    "shot": "双人脸部极近景",
+    "action": "裁切半脸",
+    "composition": "双人脸部极近景，裁切半脸",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人脸部极近景，裁切半脸",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000280",
+    "evidence_type": "observed",
+    "shot": "黑白双人近景",
+    "action": "新郎亲近新娘脸侧",
+    "composition": "黑白双人近景，新郎亲近新娘脸侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "黑白双人近景，新郎亲近新娘脸侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000281",
+    "evidence_type": "observed",
+    "shot": "黑白双人中近景",
+    "action": "新郎从后靠近",
+    "composition": "黑白双人中近景，新郎从后靠近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "黑白双人中近景，新郎从后靠近",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

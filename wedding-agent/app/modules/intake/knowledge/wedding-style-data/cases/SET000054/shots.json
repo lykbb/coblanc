@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000450",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "花窗旁并立，新娘回头",
+    "composition": "双人全身，花窗旁并立，新娘回头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，花窗旁并立，新娘回头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000451",
+    "evidence_type": "observed",
+    "shot": "上下拼版：窗边高低站位与廊下牵手",
+    "action": "上下拼版：窗边高低站位与廊下牵手",
+    "composition": "上下拼版：窗边高低站位与廊下牵手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json；拼版仅作来源记录，先选其中一个画面再单独定义分镜，不把拼版整体当一张摄影镜头。",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": null,
+    "generation_tested": false,
+    "is_composite": true
+  },
+  {
+    "image_id": "IMG000452",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "窗边额头贴近",
+    "composition": "双人近景，窗边额头贴近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，窗边额头贴近",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000453",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "门前牵手迈步",
+    "composition": "双人全身，门前牵手迈步",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，门前牵手迈步",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000454",
+    "evidence_type": "observed",
+    "shot": "新娘中景",
+    "action": "头纱罩头，张开双手",
+    "composition": "新娘中景，头纱罩头，张开双手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中景，头纱罩头，张开双手",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000455",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "廊柱旁持花依偎",
+    "composition": "双人中景，廊柱旁持花依偎",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，廊柱旁持花依偎",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000456",
+    "evidence_type": "observed",
+    "shot": "三幅竖向拼版：窗边双人、新娘坐姿、廊下牵手",
+    "action": "三幅竖向拼版：窗边双人、新娘坐姿、廊下牵手",
+    "composition": "三幅竖向拼版：窗边双人、新娘坐姿、廊下牵手",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json；拼版仅作来源记录，先选其中一个画面再单独定义分镜，不把拼版整体当一张摄影镜头。",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": null,
+    "generation_tested": false,
+    "is_composite": true
+  },
+  {
+    "image_id": "IMG000457",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "花窗下正视持花",
+    "composition": "双人中全景，花窗下正视持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，花窗下正视持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000458",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎坐窗台、新娘站旁仰头",
+    "composition": "双人全身，新郎坐窗台、新娘站旁仰头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎坐窗台、新娘站旁仰头",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000007",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "抬头看飘动红布",
+    "composition": "双人中景，抬头看飘动红布",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，抬头看飘动红布",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000008",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新郎举红气球、新娘抬脚持花",
+    "composition": "双人全身，新郎举红气球、新娘抬脚持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新郎举红气球、新娘抬脚持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000009",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "透明伞与红花瓣，新娘抬脚",
+    "composition": "双人中全景，透明伞与红花瓣，新娘抬脚",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，透明伞与红花瓣，新娘抬脚",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000010",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "张臂抛彩带",
+    "composition": "双人全身，张臂抛彩带",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，张臂抛彩带",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000011",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "面向镜头举手致意，红布在后",
+    "composition": "双人中全景，面向镜头举手致意，红布在后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，面向镜头举手致意，红布在后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000012",
+    "evidence_type": "observed",
+    "shot": "新娘中景",
+    "action": "侧身举花，头纱飘起",
+    "composition": "新娘中景，侧身举花，头纱飘起",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中景，侧身举花，头纱飘起",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

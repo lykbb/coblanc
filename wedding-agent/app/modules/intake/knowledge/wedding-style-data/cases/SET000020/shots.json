@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000150",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "相机三脚架两侧站立",
+    "composition": "双人全身，相机三脚架两侧站立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，相机三脚架两侧站立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000151",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘看相机，新郎背侧向她",
+    "composition": "双人全身，新娘看相机，新郎背侧向她",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘看相机，新郎背侧向她",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000152",
+    "evidence_type": "observed",
+    "shot": "双人全身倾身亲吻",
+    "action": "裙拖尾展开",
+    "composition": "双人全身倾身亲吻，裙拖尾展开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身倾身亲吻，裙拖尾展开",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000153",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "持双镜头相机和花束靠头笑",
+    "composition": "双人中景，持双镜头相机和花束靠头笑",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，持双镜头相机和花束靠头笑",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000154",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘环新郎肩，新郎持相机",
+    "composition": "双人中全景，新娘环新郎肩，新郎持相机",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘环新郎肩，新郎持相机",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000155",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "新娘侧身靠近耳侧说话",
+    "composition": "双人中景，新娘侧身靠近耳侧说话",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，新娘侧身靠近耳侧说话",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000156",
+    "evidence_type": "observed",
+    "shot": "新娘单人中全景",
+    "action": "正面捧相机",
+    "composition": "新娘单人中全景，正面捧相机",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘单人中全景，正面捧相机",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000157",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘靠新郎肩、各持道具",
+    "composition": "双人中全景，新娘靠新郎肩、各持道具",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘靠新郎肩、各持道具",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000158",
+    "evidence_type": "observed",
+    "shot": "新郎单人中景",
+    "action": "低头看相机",
+    "composition": "新郎单人中景，低头看相机",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新郎单人中景，低头看相机",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

@@ -1,0 +1,362 @@
+{
+  "schema_version": "1.1",
+  "set_id": "SET000004",
+  "name": "阿里山静谧森林",
+  "primary_category_id": "04",
+  "secondary_category_id": "04-03",
+  "tags": [
+    "阿里山",
+    "森林",
+    "自然浪漫",
+    "长头纱",
+    "户外柔光",
+    "深绿棕色调",
+    "白伞",
+    "轨道构图"
+  ],
+  "source": {
+    "platform": "摄影工作室官网",
+    "publisher": "心映像影像工作室",
+    "url": "https://heartimpression.com/mountains-wedding-dress-4/",
+    "published_date": "2023-10-06",
+    "collected_date": "2026-10-14",
+    "photographer": "康康（官网署名）"
+  },
+  "real_photo_verification": {
+    "evidence": "工作室官网展示同一次拍摄连续照片并署名摄影师康康；人物肤质、发丝、衣料及互动自然，未见明显AI或换脸迹象。",
+    "limitation": "未取得相机原片独立认证，不能从网站展示独立证明完全无AI参与。"
+  },
+  "collector": "Codex",
+  "review_status": "本地验收通过，待用户复核",
+  "upload_status": "待上传",
+  "cloud_folder": "https://my.feishu.cn/drive/folder/MJDAfyijxlzlZxd0GdOcJuvUnrh",
+  "image_count": 6,
+  "set_consistency": {
+    "same_people": true,
+    "same_main_outfit": true,
+    "same_scene_style": true,
+    "variation": "同造型内增减长头纱、白伞、捧花；不混入加披肩或新郎脱西装的后段造型"
+  },
+  "clothing": {
+    "bride": "白色抹胸A字婚纱，叶片状裙摆细节，白色长头纱按画面增减，白色高跟鞋，花形耳饰、手镯",
+    "groom": "灰色西装和长裤，白衬衫、深色领结、深色系带皮鞋、手表",
+    "props": "白伞、粉白捧花"
+  },
+  "scene_and_light": "阿里山森林（官网说明），树干、苔藓与林间轨道背景，户外散射光；保持原图深绿棕色调",
+  "limitations": [
+    "实际短边1080，仅达到1024最低门槛，未达到1500优选",
+    "只有页3、17提供清楚双人面部；没有标准正面大近景或身份肖像",
+    "页10刻意人物虚焦，仅适用于场景、构图与情绪，不适合身份细节",
+    "缺少清晰戒指独立特写",
+    "页14为同套白高跟鞋、灰裤与深色皮鞋的细节，无完整人脸",
+    "源品牌标记所遮背景为传统修补，不是摄影原像素恢复"
+  ],
+  "processing": {
+    "version": "clean-v2",
+    "method": "同图纯背景克隆、OpenCV Poisson融合，非生成式",
+    "resized": false,
+    "cropped": false,
+    "colour_changed": false,
+    "subject_edited": false,
+    "preserved_dimensions": true,
+    "quality_check": "逐张原尺寸和标记区域放大检查；不保留背景仍有涂抹、接缝或轨道结构缺损的失败修补"
+  },
+  "images": [
+    {
+      "image_id": "IMG000020",
+      "set_id": "SET000004",
+      "file_name": "IMG000020.png",
+      "source_page": 1,
+      "source_image_url": "https://heartimpression.com/wp-content/uploads/2023/10/012-3.jpg",
+      "width": 1623,
+      "height": 1080,
+      "format": "PNG",
+      "sha256": "e8163d009c9ab78ea22d72cd5fb04a2fedf4fb1bdc266a90ab63c3cdb59aa261",
+      "quality": "本地最低分辨率与逐张视觉验收通过",
+      "shot": "双人全身",
+      "pose_and_interaction": "头纱下亲吻、相拥",
+      "clothing_ref": "组级 clothing",
+      "scene_and_light_ref": "组级 scene_and_light",
+      "useful_visual_information": "头纱下亲吻、相拥；长头纱遮挡面部，不能作为正脸细节",
+      "text_and_marks": "背景 Heart impression 文字及羽毛品牌标记已清除，无其他叠字残留",
+      "processing": {
+        "version": "clean-v2",
+        "method": "同一来源照片纯背景克隆＋OpenCV Poisson融合，非生成式",
+        "allowed_edit_rects": [
+          [
+            1225,
+            532,
+            1450,
+            615
+          ]
+        ],
+        "background_donor_rect": [
+          1225,
+          412,
+          1450,
+          495
+        ],
+        "subject_protection": "全部人物、服装、长头纱、肢体、配饰及捧花位于保护区；两矩形均为人工确认纯背景，供体未改变",
+        "protected_mask_sha256": "68c85227e93529134844e891053cdd661b5dabf9dfc153408c52feadeddec108",
+        "edited_pixels": 16772
+      },
+      "original_file_name": "page01.jpg",
+      "original_sha256": "48ad448c0c349ae4da9058b55d9cbd975d7224a6dbaf0e2bded2589ed88920bd",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "dimensions_unchanged": true
+      },
+      "limitations": [
+        "长头纱遮挡面部，不能作为正脸细节"
+      ]
+    },
+    {
+      "image_id": "IMG000021",
+      "set_id": "SET000004",
+      "file_name": "IMG000021.png",
+      "source_page": 2,
+      "source_image_url": "https://heartimpression.com/wp-content/uploads/2023/10/013-2.jpg",
+      "width": 1623,
+      "height": 1080,
+      "format": "PNG",
+      "sha256": "7ed356bc232e4a57c3eddfade315c24e6a2325a007bc13042fb2ff31c1eec675",
+      "quality": "本地最低分辨率与逐张视觉验收通过",
+      "shot": "新娘单人全身",
+      "pose_and_interaction": "背对机位侧脸回望",
+      "clothing_ref": "组级 clothing",
+      "scene_and_light_ref": "组级 scene_and_light",
+      "useful_visual_information": "背对机位侧脸回望；不包含新郎；侧脸角度",
+      "text_and_marks": "背景 Heart impression 文字及羽毛品牌标记已清除，无其他叠字残留",
+      "processing": {
+        "version": "clean-v2",
+        "method": "同一来源照片纯背景克隆＋OpenCV Poisson融合，非生成式",
+        "allowed_edit_rects": [
+          [
+            1160,
+            551,
+            1390,
+            632
+          ]
+        ],
+        "background_donor_rect": [
+          1160,
+          425,
+          1390,
+          506
+        ],
+        "subject_protection": "全部人物、服装、长头纱、肢体、配饰及捧花位于保护区；两矩形均为人工确认纯背景，供体未改变",
+        "protected_mask_sha256": "c411df05d7f221f088c7a865d634c2cb2c3eb54cc8c1304431b87d7b62ecab63",
+        "edited_pixels": 16888
+      },
+      "original_file_name": "page02.jpg",
+      "original_sha256": "9dc39314b2bbc56f50d9142e47c3a64cea8ccefee4c2a2190c9271d4886b0009",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "dimensions_unchanged": true
+      },
+      "limitations": [
+        "不包含新郎；侧脸角度"
+      ]
+    },
+    {
+      "image_id": "IMG000022",
+      "set_id": "SET000004",
+      "file_name": "IMG000022.png",
+      "source_page": 3,
+      "source_image_url": "https://heartimpression.com/wp-content/uploads/2023/10/014-2.jpg",
+      "width": 1623,
+      "height": 1080,
+      "format": "PNG",
+      "sha256": "5f7ddb199d6698b7ea6762be1861f8e84512b352738cf11c69ed010f8a401567",
+      "quality": "本地最低分辨率与逐张视觉验收通过",
+      "shot": "双人中全景",
+      "pose_and_interaction": "白伞下相依、新娘回望",
+      "clothing_ref": "组级 clothing",
+      "scene_and_light_ref": "组级 scene_and_light",
+      "useful_visual_information": "白伞下相依、新娘回望；人物腿部由源构图裁切",
+      "text_and_marks": "背景 Heart impression 文字及羽毛品牌标记已清除，无其他叠字残留",
+      "processing": {
+        "version": "clean-v2",
+        "method": "同一来源照片纯背景克隆＋OpenCV Poisson融合，非生成式",
+        "allowed_edit_rects": [
+          [
+            1140,
+            568,
+            1380,
+            641
+          ]
+        ],
+        "background_donor_rect": [
+          1140,
+          448,
+          1380,
+          521
+        ],
+        "subject_protection": "全部人物、服装、长头纱、肢体、配饰及捧花位于保护区；两矩形均为人工确认纯背景，供体未改变",
+        "protected_mask_sha256": "336fdc614da0ba8e311daeca513ba5cdee8e6465441cd15b19477efa6b7c1b62",
+        "edited_pixels": 15618
+      },
+      "original_file_name": "page03.jpg",
+      "original_sha256": "3fd00a1639121db8544a7b00fba1f7a3d22c086c27e098aefe241a6b7ea9a5d4",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "dimensions_unchanged": true
+      },
+      "limitations": [
+        "人物腿部由源构图裁切"
+      ]
+    },
+    {
+      "image_id": "IMG000023",
+      "set_id": "SET000004",
+      "file_name": "IMG000023.png",
+      "source_page": 10,
+      "source_image_url": "https://heartimpression.com/wp-content/uploads/2023/10/018-2.jpg",
+      "width": 1623,
+      "height": 1080,
+      "format": "PNG",
+      "sha256": "7e25a4d6be8cc68468f3fcf330fa5abda4730e7d5c0418d3f3e22ffe5b443ac1",
+      "quality": "本地最低分辨率与逐张视觉验收通过",
+      "shot": "双人中景、环境对焦",
+      "pose_and_interaction": "前景相依亲吻、后方林间轨道对焦",
+      "clothing_ref": "组级 clothing",
+      "scene_and_light_ref": "组级 scene_and_light",
+      "useful_visual_information": "前景相依亲吻、后方林间轨道对焦；有意人物虚焦，供构图情绪而非脸部细节",
+      "text_and_marks": "背景 Heart impression 文字及羽毛品牌标记已清除，无其他叠字残留",
+      "processing": {
+        "version": "clean-v2",
+        "method": "同一来源照片纯背景克隆＋OpenCV Poisson融合，非生成式",
+        "allowed_edit_rects": [
+          [
+            283,
+            537,
+            537,
+            619
+          ]
+        ],
+        "background_donor_rect": [
+          283,
+          425,
+          537,
+          507
+        ],
+        "subject_protection": "全部人物、服装、长头纱、肢体、配饰及捧花位于保护区；两矩形均为人工确认纯背景，供体未改变",
+        "protected_mask_sha256": "ec42a49af430fbba4521025eb1121f47e29e98bf0340631ffe31947ee1403994",
+        "edited_pixels": 19481
+      },
+      "original_file_name": "page10.jpg",
+      "original_sha256": "d839938a9e314b14da0928d16b49b57dd66b155f88693a14997ae7214fc91fa2",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "dimensions_unchanged": true
+      },
+      "limitations": [
+        "有意人物虚焦，供构图情绪而非脸部细节"
+      ]
+    },
+    {
+      "image_id": "IMG000024",
+      "set_id": "SET000004",
+      "file_name": "IMG000024.png",
+      "source_page": 14,
+      "source_image_url": "https://heartimpression.com/wp-content/uploads/2023/10/011-3.jpg",
+      "width": 1623,
+      "height": 1080,
+      "format": "PNG",
+      "sha256": "3d37a98e242c425a5dfdcfd1e62fa981be5da2a900589b7fbb15e5fc89ed3798",
+      "quality": "本地最低分辨率与逐张视觉验收通过",
+      "shot": "双人鞋子及裙摆细节",
+      "pose_and_interaction": "并排坐姿、鞋履与裙摆、手臂触碰",
+      "clothing_ref": "组级 clothing",
+      "scene_and_light_ref": "组级 scene_and_light",
+      "useful_visual_information": "并排坐姿、鞋履与裙摆、手臂触碰；画面以鞋及衣料为主，不包含完整脸部",
+      "text_and_marks": "背景 Heart impression 文字及羽毛品牌标记已清除，无其他叠字残留",
+      "processing": {
+        "version": "clean-v2",
+        "method": "同一来源照片纯背景克隆＋OpenCV Poisson融合，非生成式",
+        "allowed_edit_rects": [
+          [
+            1155,
+            526,
+            1420,
+            626
+          ]
+        ],
+        "background_donor_rect": [
+          1155,
+          411,
+          1420,
+          511
+        ],
+        "subject_protection": "全部人物、服装、长头纱、肢体、配饰及捧花位于保护区；两矩形均为人工确认纯背景，供体未改变",
+        "protected_mask_sha256": "c233d8684469a895b595983fa865b9014ee850821b0a2220b2b48229be49e664",
+        "edited_pixels": 24527
+      },
+      "original_file_name": "page14.jpg",
+      "original_sha256": "9ae2370419bb83a8a703c4316c7792f751690fa7b0fd3568b5b0f070a34519a1",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "dimensions_unchanged": true
+      },
+      "limitations": [
+        "画面以鞋及衣料为主，不包含完整脸部"
+      ]
+    },
+    {
+      "image_id": "IMG000025",
+      "set_id": "SET000004",
+      "file_name": "IMG000025.png",
+      "source_page": 17,
+      "source_image_url": "https://heartimpression.com/wp-content/uploads/2023/10/0122-1.jpg",
+      "width": 1623,
+      "height": 1080,
+      "format": "PNG",
+      "sha256": "a310e23d41c42a4f05d53298c54a62160593aa8968fb9dd60735d14e88ec2666",
+      "quality": "本地最低分辨率与逐张视觉验收通过",
+      "shot": "双人中全景",
+      "pose_and_interaction": "背靠背站姿、持捧花、侧脸抬头",
+      "clothing_ref": "组级 clothing",
+      "scene_and_light_ref": "组级 scene_and_light",
+      "useful_visual_information": "背靠背站姿、持捧花、侧脸抬头；下部服装由原图构图裁切；面部结构清楚但非正脸肖像",
+      "text_and_marks": "背景 Heart impression 文字及羽毛品牌标记已清除，无其他叠字残留",
+      "processing": {
+        "version": "clean-v2",
+        "method": "同一来源照片纯背景克隆＋OpenCV Poisson融合，非生成式",
+        "allowed_edit_rects": [
+          [
+            254,
+            513,
+            526,
+            606
+          ]
+        ],
+        "background_donor_rect": [
+          254,
+          385,
+          526,
+          478
+        ],
+        "subject_protection": "全部人物、服装、长头纱、肢体、配饰及捧花位于保护区；两矩形均为人工确认纯背景，供体未改变",
+        "protected_mask_sha256": "01c7adf4f41d9f632125f1dc828f3118ec5462723d66d0cc42e45c7818e16ee6",
+        "edited_pixels": 23578
+      },
+      "original_file_name": "page17.jpg",
+      "original_sha256": "5e143947b8a25572fe62e4b6fac9d119314f2b6a9637d1cec680b4026ac531c1",
+      "pixel_verification": {
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0,
+        "dimensions_unchanged": true
+      },
+      "limitations": [
+        "下部服装由原图构图裁切；面部结构清楚但非正脸肖像"
+      ]
+    }
+  ],
+  "primary_category_name": "草坪与森林纪实自然浪漫",
+  "secondary_category_name": "深林静谧童话"
+}

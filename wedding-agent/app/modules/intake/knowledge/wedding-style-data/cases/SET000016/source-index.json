@@ -1,0 +1,374 @@
+{
+  "schema_version": "1.1",
+  "set_id": "SET000016",
+  "name": "红金庭院国风大婚",
+  "primary_category_id": "02",
+  "primary_category_name": "中式风与喜嫁",
+  "secondary_category_id": "02-01",
+  "secondary_category_name": "传统红金喜嫁",
+  "tags": [
+    "国风大婚",
+    "新中式",
+    "红金",
+    "古庭院",
+    "刺绣",
+    "拖尾披肩",
+    "彩纸",
+    "喜庆互动"
+  ],
+  "source": {
+    "platform": "小红书",
+    "publisher": "喜欢你工作室",
+    "url": "https://www.xiaohongshu.com/board/6acf2ea2000000001100146f/6ab61c16000000001403882f",
+    "note_id": "6ab61c16000000001403882f",
+    "title": "红金贵气感♥️国风大婚新中式婚纱照",
+    "board_id": "6acf2ea2000000001100146f",
+    "published_date": null,
+    "date_displayed": "09-25，年份未核实",
+    "collected_date": "2026-10-14",
+    "total_pages": 16,
+    "reviewed_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "real_photo_verification": {
+    "evidence": "摄影工作室发布；正文描述服饰与庭院拍摄布景；所选照片中人物、造型与场景连续；未见明确AI生成说明。",
+    "limitations": "依据发布内容及图组目视核验，未取得摄影原片或拍摄现场独立证明；原发布图片有妆容及商业修图。"
+  },
+  "collector": "Codex，用户提供收藏板",
+  "review_status": "本地质量核验通过，待负责人复核",
+  "upload_status": "本索引随本组上传；最终上传结果以全库入库登记及飞书目录为准",
+  "cloud_folder": "https://my.feishu.cn/drive/folder/BoeVfKctQlQoiZdZpfcceFtXnOe",
+  "image_count": 6,
+  "set_consistency": "同一对人物、同一套红金礼服与黑色刺绣男装、同一庭院布景；五张双人，一张新娘单人。",
+  "clothing": {
+    "bride": "红金刺绣修身礼服、大拖尾披肩、盘发金色发饰、耳饰、红色圆形捧花",
+    "groom": "黑色立领盘扣刺绣套装、黑色鞋"
+  },
+  "scene_and_light": "中式木门庭院、红地毯与台阶、囍字、灯笼、花艺、迎亲牌；日间光线，局部亮光与彩纸虚化。",
+  "limitations": [
+    "缺少新郎单人近景、戒指细节及背面服装细节",
+    "原发布文件经过平台压缩，不是摄影师原片",
+    "像素尺寸仅记录，不作准入门槛",
+    "来源与清理记录不代表已取得训练或对外使用许可"
+  ],
+  "processing": "仅清理右下角平台标识；不改人物、礼服、捧花、头饰，不裁切、放大、锐化或生成补画。",
+  "images": [
+    {
+      "image_id": "IMG000106",
+      "set_id": "SET000016",
+      "file_name": "IMG000106.png",
+      "source_page": 1,
+      "width": 1080,
+      "height": 1440,
+      "format": "PNG",
+      "sha256": "8528c28dc7a3afd08b58a235ee50f737e6f23fd56c2ae6b83678e22ef2afc9fd",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官轮廓与服饰纹样可辨，无严重遮挡；保留原发布版修图质感",
+        "face_occlusion": "无严重遮挡，第6页为自然侧脸互动"
+      },
+      "shot": "双人全身",
+      "pose_and_interaction": "新娘坐姿持捧花，新郎身后坐姿举手微笑",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "红金风格",
+        "服装纹样与轮廓",
+        "人物姿势",
+        "婚礼布景"
+      ],
+      "text_and_marks": "右下角平台标识已局部清理；实景囍字、迎亲牌、灯笼及道具文字保留",
+      "original_file_name": "01.jpg",
+      "original_sha256": "ee19617d9ae4388b2b856801bb97e38442dffdfc27cc361a094518d95a32f5f4",
+      "processing": {
+        "method": "非生成式同图背景纹理克隆与泊松融合",
+        "version": "clean_v2",
+        "edited_region": [
+          1032,
+          1407,
+          1076,
+          1437
+        ],
+        "donor_rect": [
+          1032,
+          1367,
+          1076,
+          1397
+        ],
+        "subject_changed": false,
+        "resize_or_crop": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1037,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000107",
+      "set_id": "SET000016",
+      "file_name": "IMG000107.png",
+      "source_page": 4,
+      "width": 1080,
+      "height": 1440,
+      "format": "PNG",
+      "sha256": "f71511323a7966d15c6f39327879cecf358b2871446c73cc0a6db49b11b343e1",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官轮廓与服饰纹样可辨，无严重遮挡；保留原发布版修图质感",
+        "face_occlusion": "无严重遮挡，第6页为自然侧脸互动"
+      },
+      "shot": "双人全身",
+      "pose_and_interaction": "并肩站立举手，新娘持捧花",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "红金风格",
+        "服装纹样与轮廓",
+        "人物姿势",
+        "婚礼布景"
+      ],
+      "text_and_marks": "右下角平台标识已局部清理；实景囍字、迎亲牌、灯笼及道具文字保留",
+      "original_file_name": "04.jpg",
+      "original_sha256": "1b9364f8f616c6a6f935d42bf90f5b09342f3e565292c969deb2f6f67f5282fa",
+      "processing": {
+        "method": "非生成式同图背景纹理克隆与泊松融合",
+        "version": "clean_v3",
+        "edited_region": [
+          1032,
+          1407,
+          1076,
+          1437
+        ],
+        "donor_rect": [
+          220,
+          1000,
+          264,
+          1030
+        ],
+        "subject_changed": false,
+        "resize_or_crop": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1016,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000108",
+      "set_id": "SET000016",
+      "file_name": "IMG000108.png",
+      "source_page": 6,
+      "width": 1080,
+      "height": 1440,
+      "format": "PNG",
+      "sha256": "6e10552cd1ffe9f8e5bd3c1dc3d7fe848d867a881eb0ee6dfcfa9e3ad779b881",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官轮廓与服饰纹样可辨，无严重遮挡；保留原发布版修图质感",
+        "face_occlusion": "无严重遮挡，第6页为自然侧脸互动"
+      },
+      "shot": "双人中近景",
+      "pose_and_interaction": "拥抱贴近对视，新娘搭肩，新郎扶腰",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "红金风格",
+        "服装纹样与轮廓",
+        "人物姿势",
+        "婚礼布景"
+      ],
+      "text_and_marks": "右下角平台标识已局部清理；实景囍字、迎亲牌、灯笼及道具文字保留",
+      "original_file_name": "06.jpg",
+      "original_sha256": "bec7f60bbf583c0c9e6124942dcfd8fe57ddc4d8bfd9db93609aa12ac337c894",
+      "processing": {
+        "method": "非生成式同图背景纹理克隆与泊松融合",
+        "version": "clean_v2",
+        "edited_region": [
+          1032,
+          1407,
+          1076,
+          1437
+        ],
+        "donor_rect": [
+          1032,
+          1367,
+          1076,
+          1397
+        ],
+        "subject_changed": false,
+        "resize_or_crop": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1031,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000109",
+      "set_id": "SET000016",
+      "file_name": "IMG000109.png",
+      "source_page": 7,
+      "width": 1080,
+      "height": 1440,
+      "format": "PNG",
+      "sha256": "a6909af50d859e69ae2ab1e60f38d80061c74c8b008e14dcf7e9e428fd4a4497",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官轮廓与服饰纹样可辨，无严重遮挡；保留原发布版修图质感",
+        "face_occlusion": "无严重遮挡，第6页为自然侧脸互动"
+      },
+      "shot": "双人全身",
+      "pose_and_interaction": "公主抱，新娘举手微笑",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "红金风格",
+        "服装纹样与轮廓",
+        "人物姿势",
+        "婚礼布景"
+      ],
+      "text_and_marks": "右下角平台标识已局部清理；实景囍字、迎亲牌、灯笼及道具文字保留",
+      "original_file_name": "07.jpg",
+      "original_sha256": "173e1b6d0b78dbbf616e1ce7e9a71339e256c821b962868807f815995fe69ee6",
+      "processing": {
+        "method": "非生成式同图背景纹理克隆与泊松融合",
+        "version": "clean_v3",
+        "edited_region": [
+          1032,
+          1407,
+          1076,
+          1437
+        ],
+        "donor_rect": [
+          300,
+          1340,
+          344,
+          1370
+        ],
+        "subject_changed": false,
+        "resize_or_crop": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1040,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000110",
+      "set_id": "SET000016",
+      "file_name": "IMG000110.png",
+      "source_page": 9,
+      "width": 1080,
+      "height": 1440,
+      "format": "PNG",
+      "sha256": "f97df28a2b9947d96411e678abbca9b646ecd80693e8888ff919fa21c49f9f85",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官轮廓与服饰纹样可辨，无严重遮挡；保留原发布版修图质感",
+        "face_occlusion": "无严重遮挡，第6页为自然侧脸互动"
+      },
+      "shot": "新娘全身",
+      "pose_and_interaction": "单人站立举捧花，展示拖尾",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "红金风格",
+        "服装纹样与轮廓",
+        "人物姿势",
+        "婚礼布景"
+      ],
+      "text_and_marks": "右下角平台标识已局部清理；实景囍字、迎亲牌、灯笼及道具文字保留",
+      "original_file_name": "09.jpg",
+      "original_sha256": "2aca37fe0940d742bb2e5692acdb143b3521d44571899f4ab2cb0684e1150642",
+      "processing": {
+        "method": "非生成式同图背景纹理克隆与泊松融合",
+        "version": "clean_v3",
+        "edited_region": [
+          1032,
+          1407,
+          1076,
+          1437
+        ],
+        "donor_rect": [
+          120,
+          1396,
+          164,
+          1426
+        ],
+        "subject_changed": false,
+        "resize_or_crop": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1038,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000111",
+      "set_id": "SET000016",
+      "file_name": "IMG000111.png",
+      "source_page": 10,
+      "width": 1080,
+      "height": 1440,
+      "format": "PNG",
+      "sha256": "248d97bc55a8b231eaaa0db37828213fdf79f7ae7131f70b49598acf11da3c15",
+      "quality": {
+        "result": "本地核验通过，待负责人复核",
+        "clarity": "五官轮廓与服饰纹样可辨，无严重遮挡；保留原发布版修图质感",
+        "face_occlusion": "无严重遮挡，第6页为自然侧脸互动"
+      },
+      "shot": "双人全身",
+      "pose_and_interaction": "新郎抛红绸，新娘展开披肩",
+      "clothing_ref": "group.clothing",
+      "scene_and_light_ref": "group.scene_and_light",
+      "useful_visual_information": [
+        "红金风格",
+        "服装纹样与轮廓",
+        "人物姿势",
+        "婚礼布景"
+      ],
+      "text_and_marks": "右下角平台标识已局部清理；实景囍字、迎亲牌、灯笼及道具文字保留",
+      "original_file_name": "10.jpg",
+      "original_sha256": "2a2c8cab69c71dda078bb9d75fd4cb8e94d75257c18357d350e41bccf17c16cd",
+      "processing": {
+        "method": "非生成式同图背景纹理克隆与泊松融合",
+        "version": "clean_v2",
+        "edited_region": [
+          1032,
+          1407,
+          1076,
+          1437
+        ],
+        "donor_rect": [
+          1032,
+          1367,
+          1076,
+          1397
+        ],
+        "subject_changed": false,
+        "resize_or_crop": false
+      },
+      "pixel_verification": {
+        "edited_pixels": 1040,
+        "protected_subject_changed_pixels": 0,
+        "outside_allowed_region_changed_pixels": 0
+      }
+    }
+  ]
+}

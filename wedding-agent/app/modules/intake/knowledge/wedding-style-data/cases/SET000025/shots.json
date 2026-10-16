@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000190",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "相拥额头靠近",
+    "composition": "双人中景，相拥额头靠近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，相拥额头靠近",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000191",
+    "evidence_type": "observed",
+    "shot": "双人坐姿中景",
+    "action": "新郎俯身亲近额头",
+    "composition": "双人坐姿中景，新郎俯身亲近额头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿中景，新郎俯身亲近额头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000192",
+    "evidence_type": "observed",
+    "shot": "双人坐姿中全景",
+    "action": "正视镜头、新郎持花",
+    "composition": "双人坐姿中全景，正视镜头、新郎持花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿中全景，正视镜头、新郎持花",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000193",
+    "evidence_type": "observed",
+    "shot": "双人坐姿中景",
+    "action": "侧向对望",
+    "composition": "双人坐姿中景，侧向对望",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人坐姿中景，侧向对望",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000194",
+    "evidence_type": "observed",
+    "shot": "横幅双人中景",
+    "action": "持玫瑰互动",
+    "composition": "横幅双人中景，持玫瑰互动",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "横幅双人中景，持玫瑰互动",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000195",
+    "evidence_type": "observed",
+    "shot": "双人高低中景",
+    "action": "新郎举手，新娘展示戒盒状道具",
+    "composition": "双人高低中景，新郎举手，新娘展示戒盒状道具",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人高低中景，新郎举手，新娘展示戒盒状道具",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000196",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "一起比小心手势",
+    "composition": "双人近景，一起比小心手势",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，一起比小心手势",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000197",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "牵手正视，完整裙摆",
+    "composition": "双人全身，牵手正视，完整裙摆",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，牵手正视，完整裙摆",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000198",
+    "evidence_type": "observed",
+    "shot": "双人中全景面对面",
+    "action": "新郎举小盒、新娘持玫瑰",
+    "composition": "双人中全景面对面，新郎举小盒、新娘持玫瑰",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景面对面，新郎举小盒、新娘持玫瑰",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

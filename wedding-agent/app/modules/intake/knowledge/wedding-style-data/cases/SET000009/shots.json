@@ -1,0 +1,74 @@
+[
+  {
+    "image_id": "IMG000064",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "湖畔相拥舞姿",
+    "composition": "双人环境全身，湖畔相拥舞姿",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，湖畔相拥舞姿",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000065",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "牵手对望，黑帽显著",
+    "composition": "双人中全景，牵手对望，黑帽显著",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，牵手对望，黑帽显著",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000066",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "手臂相接，拖尾展开",
+    "composition": "双人全身，手臂相接，拖尾展开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，手臂相接，拖尾展开",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000067",
+    "evidence_type": "observed",
+    "shot": "双人中景",
+    "action": "搂腰相视",
+    "composition": "双人中景，搂腰相视",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中景，搂腰相视",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000068",
+    "evidence_type": "observed",
+    "shot": "双人草地坐卧",
+    "action": "新郎前景半躺、新娘在后",
+    "composition": "双人草地坐卧，新郎前景半躺、新娘在后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人草地坐卧，新郎前景半躺、新娘在后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000069",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "暮色湖岸相对持大束粉花",
+    "composition": "双人中全景，暮色湖岸相对持大束粉花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，暮色湖岸相对持大束粉花",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

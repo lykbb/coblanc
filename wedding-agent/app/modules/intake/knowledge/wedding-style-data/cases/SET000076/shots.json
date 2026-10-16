@@ -1,0 +1,50 @@
+[
+  {
+    "image_id": "IMG000647",
+    "evidence_type": "observed",
+    "shot": "双人环境全身",
+    "action": "背侧相对、头纱拖尾铺开",
+    "composition": "双人环境全身，背侧相对、头纱拖尾铺开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人环境全身，背侧相对、头纱拖尾铺开",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000648",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新郎吻额头，头纱被侧光照亮",
+    "composition": "双人近景，新郎吻额头，头纱被侧光照亮",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新郎吻额头，头纱被侧光照亮",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000649",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "窗旁持花对望，暗色装饰虚化在前",
+    "composition": "双人中全景，窗旁持花对望，暗色装饰虚化在前",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，窗旁持花对望，暗色装饰虚化在前",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000650",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "新娘坐前、新郎站后，裙摆对称铺开",
+    "composition": "双人全身，新娘坐前、新郎站后，裙摆对称铺开",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，新娘坐前、新郎站后，裙摆对称铺开",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]

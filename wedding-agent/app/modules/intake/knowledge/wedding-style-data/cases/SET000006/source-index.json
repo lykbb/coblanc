@@ -1,0 +1,359 @@
+{
+  "schema_version": "1.1",
+  "set_id": "SET000006",
+  "name": "蓝底叶影韩式互动",
+  "primary_category_id": "03",
+  "primary_category_name": "03_韩式柔光肖像",
+  "secondary_category_id": "03-08",
+  "secondary_category_name": "韩式甜蜜互动",
+  "tags": [
+    "韩式",
+    "蓝色背景",
+    "叶影",
+    "甜蜜互动"
+  ],
+  "source": {
+    "platform": "摄影工作室官网",
+    "publisher": "尼鹿摄影",
+    "url": "https://japanweddingphoto.com/stories/qingdao-blue-studio-wedding/",
+    "published_date": null,
+    "collected_date": "2026-10-14"
+  },
+  "real_photo_verification": {
+    "evidence": "来源网站作为摄影作品发布；逐张比较人物、服装、场景及光线连续性，未发现明显生成或换脸迹象。",
+    "limitations": "发布者拍摄说明及目视核验，不等于相机原片或独立实拍认证。"
+  },
+  "collector": "Codex",
+  "review_status": "本地验收通过，待负责人检查",
+  "upload_status": "待云端核验；实际上传结果以批次回执为准",
+  "cloud_folder": "https://my.feishu.cn/drive/folder/Edunf1ErplAzKIdp62UcpSutn1e",
+  "image_count": 9,
+  "set_consistency": "组内同一对人物、同一服装造型；景别与互动不同。",
+  "clothing": {
+    "bride": "白色抹胸短裙与透明花朵长裙层、白色发夹、项链",
+    "groom": "米白短袖衬衫、白色长裤、深色皮鞋"
+  },
+  "scene_and_light": "蓝底室内外布景，部分自然阳光与叶影",
+  "limitations": [
+    "无戒指特写；新郎不是西装造型；部分自然刘海和眨眼，五官仍可辨"
+  ],
+  "quality_policy": "不设尺寸门槛，逐张核验画质、清晰度、五官遮挡和主体细节。",
+  "processing": "去除集合中的不合格/近重复候选和营销信息；选中图无叠字，无需像素修补；原JPEG字节复制，仅更名，无放大、裁切或重编码。",
+  "images": [
+    {
+      "image_id": "IMG000040",
+      "set_id": "SET000006",
+      "file_name": "IMG000040.jpg",
+      "source_page": 1,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-blue-studio-wedding/01-406A0926.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "64e6021e3b3736762bbf21e679b1d8832cfa8158103dcf838ec7452cad07fd76",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "新娘近景眨眼",
+      "pose_and_interaction": "新娘近景眨眼",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page01.jpg",
+      "original_sha256": "64e6021e3b3736762bbf21e679b1d8832cfa8158103dcf838ec7452cad07fd76",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000041",
+      "set_id": "SET000006",
+      "file_name": "IMG000041.jpg",
+      "source_page": 3,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-blue-studio-wedding/03-406A1016.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "60411f1af9d702bce91d8734c8fdd7b93fccdbe7c2d027ad4c5dd71c69a9dbdb",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人并肩半身",
+      "pose_and_interaction": "双人并肩半身",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page03.jpg",
+      "original_sha256": "60411f1af9d702bce91d8734c8fdd7b93fccdbe7c2d027ad4c5dd71c69a9dbdb",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000042",
+      "set_id": "SET000006",
+      "file_name": "IMG000042.jpg",
+      "source_page": 5,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-blue-studio-wedding/05-406A1214.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "8e63d552018671f224cda06b12687ecf8a622be757bcec169942aa179a76f1b9",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人全身拥抱",
+      "pose_and_interaction": "双人全身拥抱",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page05.jpg",
+      "original_sha256": "8e63d552018671f224cda06b12687ecf8a622be757bcec169942aa179a76f1b9",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000043",
+      "set_id": "SET000006",
+      "file_name": "IMG000043.jpg",
+      "source_page": 6,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-blue-studio-wedding/06-406A1233.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "0063d218c5718f57fdaec9948c895fbbe1c689fab69106d94a2184cac1fa6f65",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "新娘蹲姿与猫",
+      "pose_and_interaction": "新娘蹲姿与猫",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page06.jpg",
+      "original_sha256": "0063d218c5718f57fdaec9948c895fbbe1c689fab69106d94a2184cac1fa6f65",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000044",
+      "set_id": "SET000006",
+      "file_name": "IMG000044.jpg",
+      "source_page": 7,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-blue-studio-wedding/07-406A1288.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "7d52355af60a0df854343fa68b5e17f7eeed8d3adf90e25543872a044b4a0f4b",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人全身站姿",
+      "pose_and_interaction": "双人全身站姿",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page07.jpg",
+      "original_sha256": "7d52355af60a0df854343fa68b5e17f7eeed8d3adf90e25543872a044b4a0f4b",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000045",
+      "set_id": "SET000006",
+      "file_name": "IMG000045.jpg",
+      "source_page": 8,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-blue-studio-wedding/08-406A1434.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "746b291c2d262c66891d5f4e299e7d7077c6b2b278823b85d407485613cbad58",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人蹲姿",
+      "pose_and_interaction": "双人蹲姿",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page08.jpg",
+      "original_sha256": "746b291c2d262c66891d5f4e299e7d7077c6b2b278823b85d407485613cbad58",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000046",
+      "set_id": "SET000006",
+      "file_name": "IMG000046.jpg",
+      "source_page": 9,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-blue-studio-wedding/09-406A1455.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "eb25adc3bffaf4c5774985c29cf23776da4e981a2853817546d761cb78783a4e",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "新娘半身肖像",
+      "pose_and_interaction": "新娘半身肖像",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page09.jpg",
+      "original_sha256": "eb25adc3bffaf4c5774985c29cf23776da4e981a2853817546d761cb78783a4e",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000047",
+      "set_id": "SET000006",
+      "file_name": "IMG000047.jpg",
+      "source_page": 10,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-blue-studio-wedding/10-406A1491.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "fa3044c94f71400fcb87f72dd0e02114ef1c325551619bbf14a359131a55a1d0",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "新娘全身站姿",
+      "pose_and_interaction": "新娘全身站姿",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page10.jpg",
+      "original_sha256": "fa3044c94f71400fcb87f72dd0e02114ef1c325551619bbf14a359131a55a1d0",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    },
+    {
+      "image_id": "IMG000048",
+      "set_id": "SET000006",
+      "file_name": "IMG000048.jpg",
+      "source_page": 12,
+      "source_asset_url": "https://japanweddingphoto.com/assets/images/stories/qingdao-blue-studio-wedding/12-406A1565.jpg",
+      "width": 2000,
+      "height": 3000,
+      "format": "JPEG",
+      "sha256": "4014ca33c2fe66ee3bfc4edb97fe8932d197889648630219d85bd9d6e2cd5248",
+      "quality": {
+        "visual_review": "通过",
+        "detail": "五官和服装结构可辨，无严重压缩破坏",
+        "severe_face_occlusion": false,
+        "dimension_threshold": null
+      },
+      "shot": "双人半身微笑",
+      "pose_and_interaction": "双人半身微笑",
+      "clothing_ref": "set.clothing",
+      "scene_and_light_ref": "set.scene_and_light",
+      "useful_visual_information": [
+        "风格色彩",
+        "服装与配饰",
+        "人物姿态",
+        "构图与互动"
+      ],
+      "text_and_marks": "未发现叠加文字或标识",
+      "processing": "原文件字节保留，仅更名",
+      "original_file_name": "page12.jpg",
+      "original_sha256": "4014ca33c2fe66ee3bfc4edb97fe8932d197889648630219d85bd9d6e2cd5248",
+      "pixel_verification": {
+        "whole_file_bytes_identical": true,
+        "changed_pixels": 0
+      }
+    }
+  ]
+}

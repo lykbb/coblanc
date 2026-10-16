@@ -1,0 +1,110 @@
+[
+  {
+    "image_id": "IMG000342",
+    "evidence_type": "observed",
+    "shot": "新娘中全景",
+    "action": "持兰花靠脸侧正视",
+    "composition": "新娘中全景，持兰花靠脸侧正视",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中全景，持兰花靠脸侧正视",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000343",
+    "evidence_type": "observed",
+    "shot": "双人近景",
+    "action": "新娘手搭胸前，新郎靠近额侧",
+    "composition": "双人近景，新娘手搭胸前，新郎靠近额侧",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人近景，新娘手搭胸前，新郎靠近额侧",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000344",
+    "evidence_type": "observed",
+    "shot": "新娘中全景",
+    "action": "侧看、花束垂在裙面",
+    "composition": "新娘中全景，侧看、花束垂在裙面",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘中全景，侧看、花束垂在裙面",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000345",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "侧身相拥、额头靠近",
+    "composition": "双人全身，侧身相拥、额头靠近",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，侧身相拥、额头靠近",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000346",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "新娘坐前、新郎站后",
+    "composition": "双人中全景，新娘坐前、新郎站后",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，新娘坐前、新郎站后",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000347",
+    "evidence_type": "observed",
+    "shot": "双人全身",
+    "action": "并立正视、持垂坠花束",
+    "composition": "双人全身，并立正视、持垂坠花束",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人全身，并立正视、持垂坠花束",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000348",
+    "evidence_type": "observed",
+    "shot": "新娘全身",
+    "action": "长头纱盖头，居中站立",
+    "composition": "新娘全身，长头纱盖头，居中站立",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘全身，长头纱盖头，居中站立",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000349",
+    "evidence_type": "observed",
+    "shot": "双人中全景",
+    "action": "牵手贴近、新娘看镜头",
+    "composition": "双人中全景，牵手贴近、新娘看镜头",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "双人中全景，牵手贴近、新娘看镜头",
+    "generation_tested": false,
+    "is_composite": false
+  },
+  {
+    "image_id": "IMG000350",
+    "evidence_type": "observed",
+    "shot": "新娘背侧中景",
+    "action": "露背线条与肩侧兰花",
+    "composition": "新娘背侧中景，露背线条与肩侧兰花",
+    "caution": "按本帧可见内容使用，未描述的细节保持未知；组级限制见recipe.json",
+    "source_annotation_review": "已按联系表重新观察，原索引作为独立来源记录保留",
+    "prompt_fragment_draft": "新娘背侧中景，露背线条与肩侧兰花",
+    "generation_tested": false,
+    "is_composite": false
+  }
+]
