@@ -45,6 +45,7 @@ const canEdit = (item) => isAdmin.value || item.uploader === me.value
 const columns = computed(() => {
   const cols = Array.from({ length: columnCount.value }, () => ({ height: 0, items: [] }))
   for (const item of items.value) {
+    if (item.kind !== (isLinks.value ? 'link' : 'image')) continue // 只画当前标签页类型的卡片
     const col = cols.reduce((a, b) => (b.height < a.height ? b : a))
     col.items.push(item)
     col.height += (isLinks.value ? (item.preview_height || 900) / (item.preview_width || 1280) + 0.3 : (item.height || 1) / (item.width || 1) + 0.18)
@@ -52,25 +53,32 @@ const columns = computed(() => {
   return cols.map((c) => c.items)
 })
 
+let loadSeq = 0
 async function load(append = false) {
   if (loading.value && append) return
+  const seq = ++loadSeq // 只认最后一次请求：切换标签页时慢的旧响应直接丢弃
+  const forLinks = isLinks.value
+  if (!append) { items.value = []; total.value = 0 }
   loading.value = true
   try {
-    if (isLinks.value) {
+    if (forLinks) {
       const data = await links.list({ q: filter.q, tag: filter.tag })
-      items.value = data.items
+      if (seq !== loadSeq) return
+      items.value = data.items.map((i) => ({ ...i, kind: 'link' }))
       total.value = data.items.length
     } else {
       const data = await refs.list({ ...params.value, offset: append ? items.value.length : 0, limit: PAGE })
-      items.value = append ? [...items.value, ...data.items] : data.items
+      if (seq !== loadSeq) return
+      const got = data.items.map((i) => ({ ...i, kind: 'image' }))
+      items.value = append ? [...items.value, ...got] : got
       total.value = data.total
       counts.value = data.counts
     }
     error.value = ''
   } catch (e) {
-    error.value = e.message
+    if (seq === loadSeq) error.value = e.message
   } finally {
-    loading.value = false
+    if (seq === loadSeq) loading.value = false
   }
 }
 async function loadTags() {
