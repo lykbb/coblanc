@@ -130,3 +130,5 @@ td .mark { margin-right: 8px; vertical-align: middle; }
 .price-line a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .data-table td, .data-table th { font-variant-numeric: tabular-nums; }
 .data-table th.right, .data-table td.right { text-align: right; }
+.table-wrap .data-table th, .table-wrap .data-table td { padding-left: 12px; padding-right: 12px; }
+.table-wrap .data-table td.ell { max-width: 180px; }
