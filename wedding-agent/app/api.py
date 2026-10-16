@@ -169,10 +169,11 @@ def _client_ip(request: Request) -> str:
 
 @app.get("/api/access/status")
 def access_status(request: Request):
+    account = access.holder_for(request.cookies.get(access.LOGIN_COOKIES["front"]), kind="front")  # 前台登录账号（账号菜单显示）
     if not access.required():
-        return {"authorized": True, "holder": None}
+        return {"authorized": True, "holder": None, "account": account}
     holder = access.holder_for(request.cookies.get(access.COOKIE))
-    return {"authorized": holder is not None, "holder": holder}
+    return {"authorized": holder is not None, "holder": holder, "account": account}
 
 
 class RedeemBody(BaseModel):

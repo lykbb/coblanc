@@ -7,6 +7,7 @@ import threading
 import time
 from pathlib import Path
 
+from app.common import trace
 from app.common.config import settings
 from app.common.errors import ModuleError
 from app.common.log import current_task
@@ -135,6 +136,10 @@ def generate(state: WeddingState) -> dict:
             })
     except Exception:
         raise ModuleError("GENERATION_FAILED", "候选图保存失败，请稍后重试")
+    # 过程记录：每张图对应的镜头和完整提示词（后台「生成记录」按图展示）
+    trace.add("candidates", {"stage": stage, "items": [
+        {"image_id": c["image_id"], "url": c["url"], "slot": slot, "seed": c["seed"], "prompt": slot_prompts[slot]}
+        for slot, c in enumerate(candidates)]})
     step_text = f"正在生成 {count} 张样片" if stage == "sample" else f"正在生成 {count} 张婚礼套图"
     return {
         "candidates": candidates,

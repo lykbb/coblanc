@@ -72,3 +72,29 @@ td .mark { margin-right: 8px; vertical-align: middle; }
 .task-detail details + details { margin-top: 6px; }
 .task-detail summary { cursor: pointer; font-size: 13px; }
 .task-detail .qa { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 13px; }
+.link-btn { font-size: 12px; color: var(--peach-ink); text-decoration: none; white-space: nowrap; }
+.link-btn:hover { text-decoration: underline; }
+.file-btn { position: relative; }
+.file-btn.busy { opacity: .5; pointer-events: none; }
+.filters { display: flex; gap: 8px; }
+.filters select, .filters input { height: 34px; border: 1px solid var(--line); border-radius: 10px; padding: 0 10px; background: var(--panel); font: inherit; font-size: 13px; color: var(--ink); }
+.out-person { margin-top: 18px; }
+.out-task { border-radius: 14px; background: var(--panel); box-shadow: 0 0 0 1px var(--line); margin-top: 10px; overflow: hidden; }
+.out-head { display: flex; align-items: center; gap: 14px; padding: 10px 14px; cursor: pointer; }
+.out-head:hover { background: #fbf9fb; }
+.out-cover { width: 56px; height: 56px; border-radius: 10px; object-fit: cover; flex: none; background: #f3eff3; }
+.out-meta { display: grid; gap: 2px; min-width: 0; }
+.out-body { padding: 4px 14px 16px; display: grid; gap: 14px; }
+.out-cat h3 { margin: 0 0 8px; font-size: 13px; }
+.out-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.out-fig { margin: 0; display: grid; gap: 6px; align-content: start; }
+.out-fig img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 10px; cursor: zoom-in; background: #f3eff3; }
+.out-fig.best img { box-shadow: 0 0 0 2px var(--peach-ink); }
+.out-prompt { margin: 0; font-size: 12px; line-height: 1.45; max-height: 7.2em; overflow: auto; white-space: pre-wrap; color: var(--ink); }
+.out-text { border-radius: 10px; box-shadow: 0 0 0 1px var(--line); padding: 8px 12px; }
+.out-text summary { cursor: pointer; font-size: 13px; }
+.out-text pre { margin: 8px 0 0; white-space: pre-wrap; word-break: break-word; font-size: 12px; max-height: 420px; overflow: auto; }
+.out-lightbox { display: flex; gap: 18px; align-items: center; justify-content: center; padding: 24px; }
+.out-lightbox img { max-width: min(70vw, 900px); max-height: 92vh; border-radius: 10px; }
+.out-lightbox aside { max-width: 360px; max-height: 92vh; overflow: auto; background: #fff; border-radius: 12px; padding: 12px 14px; }
+.out-lightbox aside pre { white-space: pre-wrap; font-size: 12px; margin: 6px 0 0; }

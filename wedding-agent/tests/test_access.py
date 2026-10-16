@@ -27,7 +27,7 @@ def test_code_is_single_use_and_binds_device(gated):
     assert r.status_code == 200 and r.json()["holder"] == "小王"
     cookie = r.headers["set-cookie"].lower()
     assert "httponly" in cookie and "samesite=lax" in cookie
-    assert gated.get("/api/access/status").json() == {"authorized": True, "holder": "小王"}
+    assert gated.get("/api/access/status").json() == {"authorized": True, "holder": "小王", "account": None}
     assert gated.get("/api/tasks/t_x").status_code == 404  # 放行到业务层
     other = TestClient(app)
     assert other.post("/api/access/redeem", json={"code": code}).status_code == 403

@@ -66,16 +66,28 @@ def revoke_device(device_id: str, request: Request, holder: str = Depends(admin.
 # ---- 任务（只读） ----
 
 
-def _relative(value):
-    """任务里的图片地址是用户站的绝对地址；改成相对路径，后台站点自己代理 /files。"""
-    if isinstance(value, str):
-        base = settings.public_base_url
-        return value[len(base):] if value.startswith(base + "/files/") else None
-    if isinstance(value, dict):
-        return [url for item in value.values() for url in (_relative(item) or [])] or None
-    if isinstance(value, list):
-        return [url for item in value for url in ([_relative(item)] if isinstance(item, str) else (_relative(item) or [])) if url] or None
-    return None
+def _rel(url) -> str | None:
+    """用户站图片绝对地址 → 相对路径 /files/...（后台站点自己代理）；不是本站图片返回 None。"""
+    base = settings.public_base_url
+    return url[len(base):] if isinstance(url, str) and url.startswith(base + "/files/") else None
+
+
+def _relative(value) -> list[str]:
+    """从字符串 / 列表 / 字典里按顺序取出所有本站图片地址（去重）。"""
+    found: list[str] = []
+    def walk(item):
+        if isinstance(item, str):
+            url = _rel(item)
+            if url and url not in found:
+                found.append(url)
+        elif isinstance(item, dict):
+            for v in item.values():
+                walk(v)
+        elif isinstance(item, list):
+            for v in item:
+                walk(v)
+    walk(value)
+    return found
 
 
 @router.get("/tasks")
@@ -118,6 +130,10 @@ def _local(value):
     return walk(mask(value))
 
 
+def _uploads(values: dict) -> list[str]:
+    return _relative([values.get("photo_urls"), values.get("groom_photo_urls"), values.get("bride_photo_urls")])
+
+
 def _questions(task_id: str) -> dict:
     """问过用户的问题：从检查点历史里收集（工单里只留当前这轮）。"""
     from app import runner
@@ -152,10 +168,10 @@ def task_detail(task_id: str):
         "operator": info.operator, "operator_source": info.operator_source, "user_redo_count": info.user_redo_count,
         "generation": values.get("generation"),
         "images": {
-            "photos": _relative(values.get("photo_urls")) or (_relative(values.get("groom_photo_urls")) or []) + (_relative(values.get("bride_photo_urls")) or []),
-            "candidates": _relative(values.get("candidates")) or [],
-            "previews": _relative(values.get("previews")) or [],
-            "deliverables": _relative(values.get("deliverables")) or [],
+            "photos": _uploads(values),
+            "candidates": _relative(values.get("candidates")),
+            "previews": _relative(values.get("previews")),
+            "deliverables": _relative(values.get("deliverables")),
         },
         "chat": _local(chat),
         "pending_questions": _local(values.get("questions") or []),
@@ -170,6 +186,116 @@ def task_detail(task_id: str):
             "records": [{**e, "label": usage.step_label(e.get("step")), "cost": usage.cost(e)} for e in entries],
         },
     }
+
+
+# ---- 生成记录（只读）：按 操作人 → 任务 → 分类 浏览所有产出 ----
+
+PROMPT_FIELDS = [("brief", "小囍·需求单"), ("look", "妆造师·造型方案"), ("shot", "摄影师·镜头方案"),
+                 ("shots", "摄影师·分镜表"), ("prompt", "小囍·最终提示词（给生图 agent）"),
+                 ("shot_prompts", "小囍·分镜提示词"), ("message", "小囍·揭幕寄语")]
+REVIEW_FIELDS = [("passed", "是否合格"), ("best_image_id", "选中"), ("quality_note", "说明"), ("retouch_plan", "修图方案")]
+
+
+def _text(value) -> str:
+    """方案字段转成好读的文字：有 text 就用 text；列表逐项；其余缩进 JSON。"""
+    import json
+
+    if isinstance(value, str):
+        return value
+    if isinstance(value, dict) and isinstance(value.get("text"), str):
+        rest = {k: v for k, v in value.items() if k != "text" and v not in (None, "", [], {})}
+        return value["text"] + ("\n\n" + json.dumps(rest, ensure_ascii=False, indent=2) if rest else "")
+    if isinstance(value, list) and value and all(isinstance(v, dict) for v in value):
+        return "\n\n".join(f"#{v.get('slot', i)} " + (v.get("prompt") or v.get("text") or json.dumps(v, ensure_ascii=False))
+                            for i, v in enumerate(value))
+    return json.dumps(value, ensure_ascii=False, indent=2)
+
+
+def _outputs(task_id: str, values: dict) -> dict:
+    """一个任务的全部产出。每张候选图尽量配上产生它的提示词：过程记录里有就用（上线后的任务，含各轮），
+    否则按当前一轮的位置 = 镜头号取分镜提示词（旧任务只知道当前一轮）。"""
+    from app.common import trace
+
+    by_url: dict[str, dict] = {}
+    for event in trace.read(task_id):
+        if event.get("kind") == "candidates":
+            for item in event.get("items") or []:
+                url = _rel(item.get("url"))
+                if url:
+                    by_url[url] = {"prompt": item.get("prompt"), "slot": item.get("slot"), "stage": event.get("stage"),
+                                   "at": event.get("at"), "source": "过程记录"}
+    slots = {item.get("slot"): item.get("prompt") for item in values.get("shot_prompts") or []}
+    stage = (values.get("generation") or {}).get("stage")
+    scores = {s.get("image_id"): s for s in values.get("scores") or [] if isinstance(s, dict)}
+    best = values.get("best_image_id")
+    candidates, by_id = [], {}
+    for slot, item in enumerate(values.get("candidates") or []):
+        url = _rel(item.get("url"))
+        if not url:
+            continue
+        known = by_url.pop(url, None) or {"prompt": slots.get(slot, values.get("prompt")), "slot": slot, "stage": stage,
+                                          "source": "当前一轮（按镜头号）"}
+        entry = {"url": url, "image_id": item.get("image_id"), "seed": item.get("seed"), **known,
+                 "score": _local(scores.get(item.get("image_id"))), "best": item.get("image_id") == best, "current": True}
+        candidates.append(entry)
+        by_id[item.get("image_id")] = entry
+    candidates += [{"url": url, **info, "current": False} for url, info in sorted(by_url.items(), key=lambda x: x[1].get("at") or 0)]
+    for entry in candidates:
+        entry["prompt"] = _local(entry.get("prompt"))
+    previews = [{"url": _rel(p.get("url")), "label": "预览" + (" · 选中" if p.get("is_best") else ""),
+                 "prompt": (by_id.get(p.get("image_id")) or {}).get("prompt")}
+                for p in values.get("previews") or [] if _rel(p.get("url"))]
+    deliverables = []
+    delivered = values.get("deliverables") or {}
+    ordered = [by_id.get(best)] + [c for c in candidates if c.get("current") and c.get("image_id") != best]
+    for key, value in delivered.items():
+        urls = value if isinstance(value, list) else [value]
+        for index, url in enumerate(urls):
+            url = _rel(url)
+            if not url:
+                continue
+            source = ordered[index] if key == "photos" and index < len(ordered) else by_id.get(best)
+            deliverables.append({"url": url, "label": key if len(urls) == 1 else f"{key} #{index + 1}",
+                                 "prompt": (source or {}).get("prompt")})
+    prompts = [{"label": label, "text": _local(_text(values[key]))} for key, label in PROMPT_FIELDS
+               if values.get(key) not in (None, "", [], {})]
+    review = [{"label": f"质检 · {s.get('image_id')}", "text": _text(_local(s))} for s in scores.values()]
+    review += [{"label": label, "text": _text(_local(values[key]))} for key, label in REVIEW_FIELDS
+               if values.get(key) not in (None, "", [], {})]
+    return {"uploads": _uploads(values), "candidates": candidates, "previews": previews,
+            "deliverables": deliverables, "prompts": prompts, "review": review}
+
+
+@router.get("/outputs")
+def outputs(limit: int = 300):
+    from app import runner
+
+    items = []
+    for task_id, updated, info in store.recent(max(1, min(limit, 1000))):
+        try:
+            values = runner.values(task_id)
+        except Exception:
+            values = {}
+        uploads = _uploads(values)
+        candidates = _relative(values.get("candidates"))
+        delivered = _relative(values.get("deliverables"))
+        items.append({"task_id": task_id, "updated_at": updated, "status": info.status, "step_text": info.step_text,
+                      "operator": info.operator, "operator_source": info.operator_source,
+                      "cover": (delivered or candidates or uploads or [None])[0],
+                      "counts": {"uploads": len(uploads), "candidates": len(candidates), "deliverables": len(delivered),
+                                 "prompts": sum(1 for k, _ in PROMPT_FIELDS if values.get(k)),
+                                 "review": len(values.get("scores") or [])}})
+    return {"items": items}
+
+
+@router.get("/outputs/{task_id}")
+def task_outputs(task_id: str):
+    from app import runner
+
+    info = store.peek(task_id)
+    if info is None:
+        raise PortalError("TASK_NOT_FOUND", "找不到这个任务")
+    return {"task_id": task_id, "status": info.status, "operator": info.operator, **_outputs(task_id, runner.values(task_id))}
 
 
 # ---- 审计 ----

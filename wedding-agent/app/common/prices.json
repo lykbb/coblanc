@@ -12,10 +12,22 @@
       "verified": true,
       "unit": "per_million_tokens",
       "tiers": {
-        "peak": {"input": 2.0, "cache_hit": 0.04, "output": 8.0},
-        "offpeak": {"input": 1.0, "cache_hit": 0.02, "output": 4.0}
+        "peak": {
+          "input": 2.0,
+          "cache_hit": 0.04,
+          "output": 8.0
+        },
+        "offpeak": {
+          "input": 1.0,
+          "cache_hit": 0.02,
+          "output": 4.0
+        }
       },
-      "peak_hours": "北京时间周一至周五 09:00–12:00、14:00–18:00（官方另排除法定节假日，本表按工作日计）"
+      "peak_hours": "北京时间周一至周五 09:00–12:00、14:00–18:00（官方另排除法定节假日，本表按工作日计）",
+      "aliases": [
+        "deepseek-v4.1-flash",
+        "deepseek-v4-1-flash"
+      ]
     },
     {
       "match": "deepseek-v4-pro",
@@ -26,8 +38,16 @@
       "verified": true,
       "unit": "per_million_tokens",
       "tiers": {
-        "peak": {"input": 9.0, "cache_hit": 0.30, "output": 27.0},
-        "offpeak": {"input": 4.5, "cache_hit": 0.15, "output": 13.5}
+        "peak": {
+          "input": 9.0,
+          "cache_hit": 0.3,
+          "output": 27.0
+        },
+        "offpeak": {
+          "input": 4.5,
+          "cache_hit": 0.15,
+          "output": 13.5
+        }
       },
       "peak_hours": "北京时间周一至周五 09:00–12:00、14:00–18:00"
     },
@@ -44,27 +64,47 @@
     },
     {
       "match": "doubao-seedream-5-0-lite",
-      "provider": "火山方舟", "name": "Doubao Seedream 5.0 lite",
-      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing", "checked": "2026-10-16",
-      "verified": true, "unit": "per_image", "per_image": 0.22, "input_image": 0
+      "provider": "火山方舟",
+      "name": "Doubao Seedream 5.0 lite",
+      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing",
+      "checked": "2026-10-16",
+      "verified": true,
+      "unit": "per_image",
+      "per_image": 0.22,
+      "input_image": 0
     },
     {
       "match": "doubao-seedream-5-0-pro",
-      "provider": "火山方舟", "name": "Doubao Seedream 5.0 pro（≤1.5K 单图；>1.5K 为 0.60，输入第 2 张起 0.02）",
-      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing", "checked": "2026-10-16",
-      "verified": true, "unit": "per_image", "per_image": 0.30, "input_image": 0
+      "provider": "火山方舟",
+      "name": "Doubao Seedream 5.0 pro（≤1.5K 单图；>1.5K 为 0.60，输入第 2 张起 0.02）",
+      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing",
+      "checked": "2026-10-16",
+      "verified": true,
+      "unit": "per_image",
+      "per_image": 0.3,
+      "input_image": 0
     },
     {
       "match": "doubao-seedream-4-5",
-      "provider": "火山方舟", "name": "Doubao Seedream 4.5",
-      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing", "checked": "2026-10-16",
-      "verified": true, "unit": "per_image", "per_image": 0.25, "input_image": 0
+      "provider": "火山方舟",
+      "name": "Doubao Seedream 4.5",
+      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing",
+      "checked": "2026-10-16",
+      "verified": true,
+      "unit": "per_image",
+      "per_image": 0.25,
+      "input_image": 0
     },
     {
       "match": "doubao-seedream-4-0",
-      "provider": "火山方舟", "name": "Doubao Seedream 4.0",
-      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing", "checked": "2026-10-16",
-      "verified": true, "unit": "per_image", "per_image": 0.20, "input_image": 0
+      "provider": "火山方舟",
+      "name": "Doubao Seedream 4.0",
+      "source": "https://ark.volcengine.com/region:cn-beijing/docs/model-pricing",
+      "checked": "2026-10-16",
+      "verified": true,
+      "unit": "per_image",
+      "per_image": 0.2,
+      "input_image": 0
     },
     {
       "match": "runninghub",

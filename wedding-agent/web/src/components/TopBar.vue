@@ -1,5 +1,7 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import AccountMenu from './AccountMenu.vue'
+import { accessStatus } from '../api.js'
 import Icon from './Icon.vue'
 import { AMIE } from '../agents.js'
 import { activeStage, phase, state } from '../store.js'
@@ -21,9 +23,8 @@ const steps = computed(() => {
     { label: '审片', status: reviewed ? 'done' : reviewing ? 'active' : 'todo' },
   ]
 })
-function confirmOut(e) {
-  if (!window.confirm('退出登录？')) e.preventDefault()
-}
+const account = ref('')
+onMounted(() => accessStatus().then((s) => (account.value = s.account || s.holder || '')).catch(() => {}))
 </script>
 
 <template>
@@ -40,8 +41,6 @@ function confirmOut(e) {
         <span class="relay-label">{{ step.label }}<span class="sr-only">{{ step.status === 'done' ? '，已完成' : step.status === 'active' ? '，进行中' : '' }}</span></span>
       </li>
     </ol>
-    <form class="topbar-logout" method="post" action="/logout" @submit="confirmOut">
-      <button type="submit" class="icon-btn" aria-label="退出" title="退出"><Icon name="close" :size="16" /></button>
-    </form>
+    <AccountMenu class="topbar-logout" :name="account" action="/logout" />
   </header>
 </template>

@@ -13,17 +13,33 @@ async function load() {
 }
 onMounted(load)
 watch(period, load)
+const importing = ref(false)
+const imported = ref('')
+async function upload(e) {
+  const file = e.target.files?.[0]
+  e.target.value = ''
+  if (!file) return
+  importing.value = true
+  error.value = ''
+  try {
+    const r = await ops.importUsage(file)
+    imported.value = `已导入 ${r.rows} 行（${r.days[0]}${r.days.length > 1 ? ' ~ ' + r.days[r.days.length - 1] : ''}）`
+    await load()
+  } catch (err) { error.value = err.message } finally { importing.value = false }
+}
 </script>
 
 <template>
   <section class="portal-page">
     <header class="page-head">
       <h1>Token 用量</h1>
-      <div class="seg push">
+      <label class="ghost-btn push file-btn" :class="{ busy: importing }">导入 DeepSeek 账单 CSV<input type="file" accept=".csv,text/csv" hidden @change="upload" /></label>
+      <div class="seg">
         <button v-for="p in PERIODS" :key="p.key" type="button" :class="{ on: period === p.key }" @click="period = p.key">{{ p.label }}</button>
       </div>
     </header>
     <p v-if="error" class="page-error" role="alert">{{ error }}</p>
+    <p v-if="imported" class="muted-s">{{ imported }}</p>
     <template v-if="data?.total">
       <div class="stat-row">
         <div class="stat-card"><span>调用</span><strong>{{ num(data.total.calls) }}</strong></div>
@@ -33,7 +49,8 @@ watch(period, load)
         <div class="stat-card"><span>生图</span><strong>{{ num(data.total.images) }}</strong></div>
         <div class="stat-card"><span>费用</span><strong>{{ money(data.total) }}</strong></div>
       </div>
-      <p v-if="data.total.backfilled" class="muted-s">含 {{ data.total.backfilled }} 条回填（上线记录前的任务，仅生图张数下限）</p>
+      <p v-if="data.total.backfilled" class="muted-s">含 {{ data.total.backfilled }} 条回填</p>
+      <p v-if="data.imports?.length" class="muted-s">DeepSeek 账单已导入：{{ data.imports.join('、') }}<template v-if="data.total.superseded">；这些日子的合计以账单为准，自记的 {{ data.total.superseded }} 条只计入按步骤、按任务</template></p>
 
       <h2 class="sub-h">按模型</h2>
       <table class="data-table">

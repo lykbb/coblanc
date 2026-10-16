@@ -16,7 +16,7 @@ import time
 from collections import defaultdict
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, File, Request, UploadFile
 from fastapi.responses import FileResponse
 
 from app import reference_wall
@@ -45,7 +45,7 @@ def _bucket() -> dict:
 
 
 def _add(bucket: dict, entry: dict, value: float | None) -> None:
-    bucket["calls"] += 1
+    bucket["calls"] += entry.get("requests") or 1
     bucket["backfilled"] += 1 if entry.get("backfilled") else 0
     for key in ("input", "cached", "output", "total", "images"):
         bucket[key] += entry.get(key, 0) or 0
@@ -55,19 +55,34 @@ def _add(bucket: dict, entry: dict, value: float | None) -> None:
         bucket["unpriced"] += 1
 
 
+TOTAL_GROUPS = ("models", "days", "daily_models")  # 合计口径：有账单导入的日子用账单
+DETAIL_GROUPS = ("steps", "step_models", "tasks")  # 明细口径：只有自己记的（带任务、步骤）
+
+
 def summarize(entries: list[dict]) -> dict:
-    """同一批用量记录按 合计 / 模型 / 步骤 / 步骤×模型 / 任务 / 天 / 天×模型 汇总；费用按 prices.json。"""
-    groups = {name: defaultdict(_bucket) for name in ("models", "steps", "step_models", "tasks", "days", "daily_models")}
+    """同一批用量记录按 合计 / 模型 / 天 / 天×模型 和 步骤 / 步骤×模型 / 任务 汇总；费用按 prices.json（账单导入用账单金额）。
+    导入了 DeepSeek 账单的日子（北京时间），合计以账单为准，自己记的对话用量只进明细（避免重复计）。"""
+    groups = {name: defaultdict(_bucket) for name in TOTAL_GROUPS + DETAIL_GROUPS}
     total = _bucket()
+    total["superseded"] = 0
+    covered = {usage._beijing_day(e["at"]) for e in entries if e.get("source") == "deepseek_export"}
     for entry in entries:
         value = usage.cost(entry)
         day = time.strftime("%Y-%m-%d", time.localtime(entry["at"]))
         step = entry.get("step") or "-"
         model = (entry["provider"], entry["model"], entry["kind"])
-        for name, key in (("models", model), ("steps", step), ("step_models", (step,) + model),
-                          ("tasks", entry.get("task_id") or "—"), ("days", day), ("daily_models", (day, entry["model"]))):
+        imported = entry.get("source") == "deepseek_export"
+        superseded = entry["provider"] == "chat" and usage._beijing_day(entry["at"]) in covered
+        keys = {"models": model, "days": day, "daily_models": (day, entry["model"]),
+                "steps": step, "step_models": (step,) + model, "tasks": entry.get("task_id") or "—"}
+        for name, key in keys.items():
+            if (name in TOTAL_GROUPS and superseded) or (name in DETAIL_GROUPS and imported):
+                continue
             _add(groups[name][key], entry, value)
-        _add(total, entry, value)
+        if superseded:
+            total["superseded"] += 1
+        else:
+            _add(total, entry, value)
     return {"total": total, **groups}
 
 
@@ -98,7 +113,26 @@ def usage_summary(period: str = "7d"):
         "tasks": [{"task_id": t, **v} for t, v in sorted(data["tasks"].items(), key=lambda x: (-x[1]["cost"], -x[1]["total"]))][:200],
         "days": [{"day": d, **v} for d, v in sorted(data["days"].items())],
         "daily_models": [{"day": d, "model": m, **v} for (d, m), v in sorted(data["daily_models"].items())],
+        "imports": sorted({usage._beijing_day(e["at"]) for e in usage.read() if e.get("source") == "deepseek_export"}),
     }
+
+
+@router.post("/usage/import")
+async def usage_import(request: Request, file: UploadFile = File(...), holder: str = Depends(admin.require)):
+    """导入 DeepSeek 用量导出（CSV）；同一天重复导入会替换。"""
+    data = await file.read(5 * 1024 * 1024 + 1)
+    if len(data) > 5 * 1024 * 1024:
+        raise PortalError("FILE_INVALID", "文件超过 5 MB")
+    try:
+        text = data.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        text = data.decode("gbk", errors="replace")
+    try:
+        result = usage.import_deepseek(text)
+    except ValueError as error:
+        raise PortalError("FILE_INVALID", str(error))
+    admin.audit(request, holder, "usage_imported", {"file": (file.filename or "")[:80], "rows": result["rows"], "days": result["days"][:31]})
+    return result
 
 
 # ---- 服务器 ----

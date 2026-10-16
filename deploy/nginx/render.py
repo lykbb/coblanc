@@ -11,7 +11,7 @@ from pathlib import Path
 HERE = Path(__file__).parent
 SITES = {  # 站点：(path 前缀, 前端目录, 名称, 谁能用, 上传上限)
     "gallery": ("/gallery/", "gallery", "图墙", "只认团队 IP 白名单，无登录。", "12m"),
-    "admin": ("/abordadmin/", "admin", "后台管理", "团队 IP 白名单 + 账号密码登录页。", "1m"),
+    "admin": ("/abordadmin/", "admin", "后台管理", "团队 IP 白名单 + 账号密码登录页。", "6m"),
 }
 ADMIN_LOGIN = ("  error_page 401 = @admin_login;\n"
                "  location = /abordadmin/login { auth_request /_gate_team; limit_req zone=admin_login burst=6 nodelay; proxy_pass http://127.0.0.1:8000/auth/admin/login; }\n"

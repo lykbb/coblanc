@@ -46,15 +46,17 @@ def _path():
 
 def record(provider: str, model: str, kind: str, input_tokens: int = 0, output_tokens: int = 0,
            total_tokens: int | None = None, images: int = 0, *, cached_tokens: int = 0, at: float | None = None,
-           task_id: str | None = None, step: str | None = None, backfilled: bool = False) -> None:
-    """backfilled=True：上线用量记录前的任务，事后从任务存档里还原（只有能确定的数，如生图张数），页面上会标出。"""
+           task_id: str | None = None, step: str | None = None, backfilled: bool = False, **extra) -> None:
+    """backfilled=True：事后还原的记录（页面标「回填」）；extra 可带 source（journal / archive / deepseek_export）、
+    request_id、requests（账单里的请求次数）、billed（账单金额，元）。"""
     task = task_id or current_task.get()
     stage = step or current_step.get()
     entry = {"at": at or time.time(), "task_id": None if task == "-" else task, "step": None if stage == "-" else stage,
              "provider": provider, "model": model or "?", "kind": kind,
              "input": int(input_tokens or 0), "cached": int(cached_tokens or 0), "output": int(output_tokens or 0),
              "total": int(total_tokens if total_tokens is not None else (input_tokens or 0) + (output_tokens or 0)),
-             "images": int(images or 0), **({"backfilled": True} if backfilled else {})}
+             "images": int(images or 0), **({"backfilled": True} if backfilled else {}),
+             **{k: v for k, v in extra.items() if k in EXTRA and v is not None}}
     try:
         with _lock:
             path = _path()
@@ -63,6 +65,35 @@ def record(provider: str, model: str, kind: str, input_tokens: int = 0, output_t
                 f.write(json.dumps(entry, ensure_ascii=False) + "\n")
     except OSError:
         pass  # 记账失败不影响业务
+
+
+EXTRA = {"source", "request_id", "requests", "billed"}
+
+
+def rewrite(keep, add: list[dict]) -> int:
+    """改写用量文件（回填、导入用）：保留 keep(entry) 为真的条目，追加 add；先备份为 usage.jsonl.bak-<时间>。返回去掉的条数。"""
+    with _lock:
+        path = _path()
+        lines = path.read_text(encoding="utf-8").splitlines() if path.exists() else []
+        if lines:
+            path.with_name(f"usage.jsonl.bak-{time.strftime('%Y%m%d-%H%M%S')}").write_text("\n".join(lines) + "\n", encoding="utf-8")
+        kept, dropped = [], 0
+        for line in lines:
+            try:
+                entry = json.loads(line)
+            except ValueError:
+                kept.append(line)
+                continue
+            if keep(entry):
+                kept.append(line)
+            else:
+                dropped += 1
+        kept += [json.dumps(e, ensure_ascii=False) for e in add]
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_suffix(".tmp")
+        tmp.write_text("\n".join(kept) + ("\n" if kept else ""), encoding="utf-8")
+        tmp.replace(path)
+    return dropped
 
 
 def read(since: float = 0, task_id: str | None = None) -> list[dict]:
@@ -94,7 +125,8 @@ def price_table() -> dict:
 
 def price_for(provider: str, model: str) -> dict | None:
     for item in price_table()["models"]:
-        if (model or "").startswith(item["match"]) or provider == item["match"]:
+        names = [item["match"], *item.get("aliases", [])]
+        if any((model or "").startswith(name) for name in names) or provider == item["match"]:
             return item
     return None
 
@@ -106,7 +138,9 @@ def is_peak(at: float) -> bool:
 
 
 def cost(entry: dict) -> float | None:
-    """这一条的费用（元）；没有可核实的官方单价返回 None。"""
+    """这一条的费用（元）：账单导入的用账单金额；否则按官方单价；没有可核实的官方单价返回 None。"""
+    if entry.get("billed") is not None:
+        return float(entry["billed"])
     price = price_for(entry.get("provider", ""), entry.get("model", ""))
     if not price or not price.get("verified"):
         return None
@@ -116,6 +150,90 @@ def cost(entry: dict) -> float | None:
     cached = min(entry.get("cached", 0), entry.get("input", 0))
     return ((entry.get("input", 0) - cached) * tier["input"] + cached * tier["cache_hit"]
             + entry.get("output", 0) * tier["output"]) / 1e6
+
+
+# ---- DeepSeek 账单导入（platform.deepseek.com 用量导出，唯一权威来源） ----
+
+_COLUMNS = [  # (字段, 表头关键词)；先匹配前面的
+    ("cached", ("缓存命中", "命中缓存", "cache hit", "cache_hit", "hit")),
+    ("miss", ("未命中", "cache miss", "cache_miss", "miss")),
+    ("output", ("输出", "output", "completion")),
+    ("input", ("输入", "input", "prompt")),
+    ("requests", ("请求", "次数", "request", "calls")),
+    ("billed", ("金额", "费用", "花费", "消费", "cost", "amount", "price")),
+    ("model", ("模型", "model")),
+    ("date", ("日期", "时间", "date", "time", "day")),
+]
+
+
+def _number(value: str) -> float:
+    value = (value or "").replace(",", "").replace("¥", "").replace("￥", "").strip()
+    try:
+        return float(value) if value else 0.0
+    except ValueError:
+        return 0.0
+
+
+def parse_deepseek_export(text: str) -> list[dict]:
+    """解析 DeepSeek 用量导出 CSV：按（日期, 模型）汇总成用量条目（provider=deepseek-export，按天，无任务/步骤）。
+    认表头关键词（中英文）；缺日期或模型列、没有任何 token 列时报 ValueError。"""
+    import csv
+    import io
+
+    rows = list(csv.reader(io.StringIO(text.lstrip("\ufeff"))))
+    if not rows:
+        raise ValueError("文件是空的")
+    columns: dict[str, int] = {}
+    for index, header in enumerate(rows[0]):
+        name = header.strip().lower()
+        for field, words in _COLUMNS:
+            if field not in columns and any(w in name for w in words):
+                columns[field] = index
+                break
+    if "date" not in columns or "model" not in columns or not ({"input", "miss", "cached", "output"} & set(columns)):
+        raise ValueError("认不出表头：需要日期、模型和 token 列（输入/缓存命中/未命中/输出）")
+    merged: dict[tuple, dict] = {}
+    for row in rows[1:]:
+        if len(row) < len(rows[0]) or not row[columns["date"]].strip():
+            continue
+        raw = row[columns["date"]].strip().replace("/", "-")[:10]
+        try:
+            day = datetime.strptime(raw, "%Y-%m-%d").date()
+        except ValueError:
+            continue
+        model = row[columns["model"]].strip() or "?"
+        get = lambda f: _number(row[columns[f]]) if f in columns else 0.0
+        cached = get("cached")
+        entry = merged.setdefault((day, model), {"day": day, "model": model, "input": 0, "cached": 0, "output": 0,
+                                                 "requests": 0, "billed": 0.0, "has_billed": "billed" in columns})
+        entry["input"] += int(get("input") or (get("miss") + cached))
+        entry["cached"] += int(cached)
+        entry["output"] += int(get("output"))
+        entry["requests"] += int(get("requests"))
+        entry["billed"] += get("billed")
+    result = []
+    for (day, model), item in sorted(merged.items()):
+        at = datetime(day.year, day.month, day.day, 12, tzinfo=BEIJING).timestamp()
+        result.append({"at": at, "task_id": None, "step": None, "provider": "deepseek-export", "model": model, "kind": "chat",
+                       "input": item["input"], "cached": item["cached"], "output": item["output"],
+                       "total": item["input"] + item["output"], "images": 0, "backfilled": True,
+                       "source": "deepseek_export", "requests": item["requests"] or None,
+                       "billed": round(item["billed"], 6) if item["has_billed"] else None})
+    if not result:
+        raise ValueError("没有可导入的行")
+    return result
+
+
+def import_deepseek(text: str) -> dict:
+    """导入账单：同一天已导入过的先替换（重复导入不重复计）。"""
+    entries = [{k: v for k, v in e.items() if v is not None} for e in parse_deepseek_export(text)]
+    days = {_beijing_day(e["at"]) for e in entries}
+    dropped = rewrite(lambda e: not (e.get("source") == "deepseek_export" and _beijing_day(e["at"]) in days), entries)
+    return {"rows": len(entries), "days": sorted(days), "replaced": dropped}
+
+
+def _beijing_day(at: float) -> str:
+    return datetime.fromtimestamp(at, BEIJING).strftime("%Y-%m-%d")
 
 
 # ---- 已接入的全部模型（含未启用） ----

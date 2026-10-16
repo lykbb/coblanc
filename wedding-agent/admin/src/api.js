@@ -14,10 +14,15 @@ export const tasks = {
   list: () => call('/tasks'),
   get: (id) => call(`/tasks/${id}`),
 }
+export const outputs = {
+  list: () => call('/outputs'),
+  get: (id) => call(`/outputs/${id}`),
+}
 export const auditLog = () => call('/audit')
 export { when } from '@web/portal.js'
 export const ops = {
   usage: (period) => call('/usage?period=' + period),
+  importUsage: (file) => { const body = new FormData(); body.append('file', file); return call('/usage/import', { method: 'POST', body }) },
   server: () => call('/server'),
   list: (path) => call('/files/list?' + new URLSearchParams({ path })),
   view: (path) => call('/files/view?' + new URLSearchParams({ path })),

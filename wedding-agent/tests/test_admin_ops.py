@@ -126,3 +126,27 @@ def test_usage_backfilled_and_daily_models(admin_client):
     r = admin_client.get("/api/admin/usage?period=7d").json()
     assert r["total"]["backfilled"] == 1 and r["total"]["images"] == 3
     assert {(d["model"], d["total"], d["images"]) for d in r["daily_models"]} == {("seedream-x", 0, 3), ("deepseek-chat", 15, 0)}
+
+
+def test_deepseek_import_replaces_day_and_supersedes_live(admin_client):
+    from datetime import datetime
+    day = datetime.fromtimestamp(__import__("time").time(), usage.BEIJING).strftime("%Y-%m-%d")
+    usage.record("chat", "deepseek-flash", "agent", 100, 10, task_id="t_live", step="style")
+    csv = f"日期,模型,请求次数,输入(缓存命中) tokens,输入(缓存未命中) tokens,输出 tokens,金额(元)\n{day},deepseek-v4.1-flash,3,400,600,200,0.0021\n"
+    r = admin_client.post("/api/admin/usage/import", files={"file": ("u.csv", csv.encode(), "text/csv")}, headers={"X-Portal-CSRF": "1"})
+    assert r.status_code == 200 and r.json()["rows"] == 1
+    admin_client.post("/api/admin/usage/import", files={"file": ("u.csv", csv.encode(), "text/csv")}, headers={"X-Portal-CSRF": "1"})
+    data = admin_client.get("/api/admin/usage?period=7d").json()  # 账单按北京时间正午记，测试机时区不同
+    assert data["total"]["input"] == 1000 and data["total"]["cached"] == 400 and data["total"]["calls"] == 3  # 重复导入不重复计
+    assert data["total"]["cost"] == pytest.approx(0.0021) and data["total"]["superseded"] == 1
+    assert {s["step"] for s in data["steps"]} == {"style"} and day in data["imports"]  # 明细仍是自己记的
+    bad = admin_client.post("/api/admin/usage/import", files={"file": ("x.csv", b"a,b\n1,2\n", "text/csv")}, headers={"X-Portal-CSRF": "1"})
+    assert bad.status_code == 400
+
+
+def test_backfill_attempt_line_parses():
+    from app.scripts.backfill_history import ATTEMPT
+    line = ('2026-10-16T10:18:30+08:00 VM uvicorn[1]: 2026-10-16 10:18:30,774 INFO [t_0f88a601] wedding.generation: generation_attempt '
+            '{"engine": "seedream", "status": "succeeded", "response": {"usage": {"generated_images": 1, "output_tokens": 16428}, "request_id": "r1"}}')
+    m = ATTEMPT.match(line)
+    assert m and m.group(2) == "t_0f88a601" and json.loads(m.group(3))["response"]["usage"]["output_tokens"] == 16428

@@ -78,8 +78,9 @@ const costLine = computed(() => chart.value.bars.map((b, i) => `${cx(i)},${y(b.c
     <template v-if="usage">
       <template v-if="usage.total">
         <div class="stat-row">
-          <div class="stat-card"><span>token</span><strong>{{ num(usage.total.total) }}</strong></div>
+          <div class="stat-card"><span>输入 token</span><strong>{{ num(usage.total.input) }}</strong></div>
           <div class="stat-card"><span>缓存命中</span><strong>{{ num(usage.total.cached) }}</strong></div>
+          <div class="stat-card"><span>输出 token</span><strong>{{ num(usage.total.output) }}</strong></div>
           <div class="stat-card"><span>生图</span><strong>{{ num(usage.total.images) }} 张</strong></div>
           <div class="stat-card"><span>费用</span><strong>{{ money(usage.total) }}</strong></div>
         </div>
@@ -108,11 +109,11 @@ const costLine = computed(() => chart.value.bars.map((b, i) => `${cx(i)},${y(b.c
           </div>
         </div>
         <table class="data-table">
-          <thead><tr><th>模型</th><th>步骤</th><th>状态</th><th>调用</th><th>token</th><th>生图</th><th>费用</th></tr></thead>
+          <thead><tr><th>模型</th><th>步骤</th><th>状态</th><th>调用</th><th>输入</th><th>缓存</th><th>输出</th><th>生图</th><th>费用</th></tr></thead>
           <tbody>
             <tr v-for="m in usage.models" :key="m.provider + m.model + m.kind" :class="{ dim: m.active === false && !m.calls }">
               <td class="mono">{{ m.model }}</td><td>{{ m.step_labels.join('、') || '—' }}</td><td>{{ m.active ? '在用' : m.active === false ? '未启用' : '历史' }}</td>
-              <td class="right">{{ num(m.calls) }}</td><td class="right">{{ num(m.total) }}</td><td class="right">{{ num(m.images) }}<span v-if="m.backfilled" class="tag">含回填</span></td><td class="right">{{ money(m) }}</td>
+              <td class="right">{{ num(m.calls) }}</td><td class="right">{{ num(m.input) }}</td><td class="right">{{ num(m.cached) }}</td><td class="right">{{ num(m.output) }}</td><td class="right">{{ num(m.images) }}<span v-if="m.backfilled" class="tag">含回填</span></td><td class="right">{{ money(m) }}</td>
             </tr>
           </tbody>
         </table>

@@ -103,6 +103,10 @@ def test_tasks_readonly(admin_client):
     detail = admin_client.get(f"/api/admin/tasks/{task_id}").json()
     assert detail["trace"][-1]["prompt"] == "完整提示词" and detail["trace"][-1]["api_key"] == "***"
     assert detail["usage"]["total"]["cost"] >= 0.12 and {"chat", "fields", "pending_questions"} <= set(detail)
+    listing = admin_client.get("/api/admin/outputs").json()["items"]
+    assert listing[0]["task_id"] == task_id and listing[0]["counts"]["uploads"] == len(detail["images"]["photos"])
+    out = admin_client.get(f"/api/admin/outputs/{task_id}").json()
+    assert out["uploads"] == detail["images"]["photos"] and {"candidates", "deliverables", "prompts", "review"} <= set(out)
     assert admin_client.get("/api/admin/tasks/t_missing").status_code == 404
 
 

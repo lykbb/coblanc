@@ -5,6 +5,7 @@ import { KINDS, money, num } from '../usage.js'
 
 const STATUS = { running: '进行中', waiting_user: '等用户回答', preview_ready: '待确认', awaiting_payment: '待支付', delivering: '交付中', done: '完成', failed: '失败' }
 const ASKERS = { intake: '小囍', style: '妆造师', styling: '妆造师', frame: '摄影师', framing: '摄影师' }
+const props = defineProps({ target: { type: String, default: '' } })
 const items = ref([])
 const error = ref('')
 const open = ref(null)
@@ -18,7 +19,13 @@ async function load() {
     error.value = e.message
   }
 }
-onMounted(load)
+onMounted(async () => {
+  await load()
+  if (props.target) {
+    await view({ task_id: props.target })
+    document.querySelector('tr.detail')?.scrollIntoView({ block: 'start' })
+  }
+})
 
 async function view(item) {
   if (open.value?.task_id === item.task_id) return (open.value = null)
@@ -58,6 +65,7 @@ function title(t) {
           <tr v-if="open?.task_id === t.task_id" class="detail">
             <td colspan="6">
               <div class="task-detail">
+                <a class="link-btn" :href="'#outputs/' + open.task_id">在生成记录中查看 →</a>
                 <div v-if="open.error"><h3>错误</h3><pre class="err">{{ fmt(open.error) }}</pre></div>
 
                 <div v-for="[key, label] in GROUPS" :key="key">

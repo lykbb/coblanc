@@ -1,5 +1,6 @@
 <script setup>
-// 内部站点外框：有栏目时左侧导航（后台），否则顶栏（图墙）；访问人；退出（仅后台：表单 POST 到 <前缀>logout）。
+// 内部站点外框：有栏目时左侧导航（后台），否则顶栏（图墙）；访问人；账号菜单里退出（仅后台：确认后表单 POST 到 <前缀>logout）。
+import AccountMenu from './components/AccountMenu.vue'
 import Icon from './components/Icon.vue'
 
 defineProps({
@@ -11,9 +12,6 @@ defineProps({
 })
 const LOGOUT = import.meta.env.BASE_URL + 'logout'
 const emit = defineEmits(['go'])
-function confirmOut(e) {
-  if (!confirm('退出登录？')) e.preventDefault()
-}
 </script>
 
 <template>
@@ -26,10 +24,8 @@ function confirmOut(e) {
         </button>
       </nav>
       <div class="portal-side-user">
-        <span class="portal-who">{{ holder }}</span>
-        <form v-if="logout" method="post" :action="LOGOUT" @submit="confirmOut">
-          <button type="submit" class="icon-btn" aria-label="退出" title="退出"><Icon name="close" :size="16" /></button>
-        </form>
+        <AccountMenu v-if="logout" :name="holder" :action="LOGOUT" up />
+        <span v-else class="portal-who">{{ holder }}</span>
       </div>
     </aside>
     <main class="portal-main"><slot /></main>
@@ -37,10 +33,8 @@ function confirmOut(e) {
   <div v-else class="portal">
     <header class="portal-bar">
       <strong class="portal-brand">COBLANC<span>{{ brand }}</span></strong>
-      <span class="portal-who">{{ holder }}</span>
-      <form v-if="logout" method="post" :action="LOGOUT" @submit="confirmOut">
-        <button type="submit" class="icon-btn" aria-label="退出" title="退出"><Icon name="close" :size="16" /></button>
-      </form>
+      <AccountMenu v-if="logout" class="portal-who" :name="holder" :action="LOGOUT" />
+      <span v-else class="portal-who">{{ holder }}</span>
     </header>
     <main class="portal-main"><slot /></main>
   </div>

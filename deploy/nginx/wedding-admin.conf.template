@@ -5,7 +5,7 @@ server {
   server_name abordadmin.__BASE__;
   __SSL__
   server_tokens off;
-  client_max_body_size 1m;
+  client_max_body_size 6m;  # 后台导入 DeepSeek 用量 CSV（≤5 MB）
   root /home/ubuntu/ai-wedding/wedding-agent/admin/dist;
   include /etc/nginx/snippets/wedding-portal-admin.conf;
   include /etc/nginx/snippets/wedding-portal-ip-check.conf;
