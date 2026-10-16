@@ -7,6 +7,7 @@ const ACTIONS = {
   codes_created: '生成邀请码', holder_revoked: '作废持有人', device_revoked: '踢掉设备',
   refs_uploaded: '上传参考图', ref_edited: '编辑参考图', ref_deleted: '删除参考图', refs_zipped: '打包下载', refs_exported: '导出元数据', file_viewed: '查看文件', file_downloaded: '下载文件',
   link_added: '添加链接', link_edited: '编辑链接', link_deleted: '删除链接', link_preview_uploaded: '上传链接预览图',
+  style_added: '新增风格分类', style_renamed: '重命名风格分类', style_deleted: '删除风格分类', usage_imported: '导入用量账单',
 }
 const SITES = { admin: '后台', gallery: '图墙', front: '前台' }
 const WARN = new Set(['login_failed', 'login_locked', 'forbidden', 'csrf_rejected'])
