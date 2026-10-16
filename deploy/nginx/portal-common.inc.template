@@ -1,5 +1,6 @@
 # 内部站点（图墙、后台）共用：版本号、限流状态码、安全头、反代头。由 deploy.sh --nginx 渲染后 include。
 server_tokens off;
+include /etc/nginx/wedding-allow-ips.conf;  # 来源 IP 白名单（deploy/nginx/allow-ips.conf）
 limit_req_status 429;
 add_header X-Frame-Options "DENY" always;
 add_header X-Content-Type-Options "nosniff" always;
@@ -14,7 +15,7 @@ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 proxy_set_header X-Forwarded-Proto $scheme;  # https 时后端给凭证加 Secure
 proxy_read_timeout 600s;
 proxy_send_timeout 600s;
-location ^~ /.well-known/acme-challenge/ { auth_basic off; root /var/www/certbot; }  # certbot 验证
+location ^~ /.well-known/acme-challenge/ { allow all; auth_basic off; root /var/www/certbot; }  # certbot 验证
 location /api/ { return 404; }  # 只开放本站自己的 /api/<站点>/（在站点配置里），其余接口一律 404
 location = /robots.txt { default_type text/plain; return 200 "User-agent: *\nDisallow: /\n"; }
 location / {

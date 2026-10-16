@@ -34,6 +34,7 @@ def render(base: str, mode: str) -> dict[str, str]:
             text = text.replace(key, value)
         out[dest] = text.replace("__BASE__", base)
         assert "__" not in out[dest].replace("__init__", ""), f"{dest} 有未替换的占位符"
+    out["wedding-allow-ips.conf"] = (HERE / "allow-ips.conf").read_text(encoding="utf-8")
     return out
 
 

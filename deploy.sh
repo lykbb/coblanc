@@ -17,11 +17,14 @@ if [[ "$1" == "--nginx" ]]; then
   $SSH $H 'set -e; cd /tmp/wedding-nginx; TS=$(date +%Y%m%d%H%M%S); sudo mkdir -p /etc/nginx/snippets /var/www/certbot /etc/nginx/backup-$TS
     for f in wedding wedding-gallery wedding-admin; do [ -f /etc/nginx/sites-available/$f ] && sudo cp /etc/nginx/sites-available/$f /etc/nginx/backup-$TS/; sudo install -m 644 $f /etc/nginx/sites-available/$f; sudo ln -sf /etc/nginx/sites-available/$f /etc/nginx/sites-enabled/$f; done
     [ -f /etc/nginx/snippets/wedding-portal.conf ] && sudo cp /etc/nginx/snippets/wedding-portal.conf /etc/nginx/backup-$TS/
+    [ -f /etc/nginx/wedding-allow-ips.conf ] && sudo cp /etc/nginx/wedding-allow-ips.conf /etc/nginx/backup-$TS/
     sudo install -m 644 wedding-portal.conf /etc/nginx/snippets/wedding-portal.conf
+    sudo install -m 644 wedding-allow-ips.conf /etc/nginx/wedding-allow-ips.conf
     for f in admin gallery; do [ -f /etc/nginx/.htpasswd-$f ] || echo "提醒：还没有 /etc/nginx/.htpasswd-$f（sudo htpasswd -c /etc/nginx/.htpasswd-$f 用户名）"; done
     if sudo nginx -t; then sudo systemctl reload nginx && echo "nginx 已更新（备份在 /etc/nginx/backup-$TS）"; else
       echo "nginx -t 失败，还原旧配置"; for f in wedding wedding-gallery wedding-admin; do if [ -f /etc/nginx/backup-$TS/$f ]; then sudo cp /etc/nginx/backup-$TS/$f /etc/nginx/sites-available/$f; else sudo rm -f /etc/nginx/sites-enabled/$f /etc/nginx/sites-available/$f; fi; done
-      [ -f /etc/nginx/backup-$TS/wedding-portal.conf ] && sudo cp /etc/nginx/backup-$TS/wedding-portal.conf /etc/nginx/snippets/; sudo nginx -t; exit 1; fi
+      [ -f /etc/nginx/backup-$TS/wedding-portal.conf ] && sudo cp /etc/nginx/backup-$TS/wedding-portal.conf /etc/nginx/snippets/
+      [ -f /etc/nginx/backup-$TS/wedding-allow-ips.conf ] && sudo cp /etc/nginx/backup-$TS/wedding-allow-ips.conf /etc/nginx/; sudo nginx -t; exit 1; fi
     rm -rf /tmp/wedding-nginx'
   exit 0
 fi
