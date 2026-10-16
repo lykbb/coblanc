@@ -263,7 +263,7 @@ def _real_intake(state: WeddingState) -> dict:
             "brief": _brief_from_answers(working, answers, force_defaults=False).model_dump(),
             "questions": _upload_questions(failures),
             "consent": consent,
-            "step_text": _photo_step_text(failures),
+            "step_text": _photo_step_text(failures, _photo_ask_count(working)),
         }
         update.update(replacement)
         return update
@@ -273,7 +273,13 @@ def _real_intake(state: WeddingState) -> dict:
         "consent": consent,
     }
     update.update(replacement)
-    pet_note = _pet_keep_feature({**working, **replacement})
+    merged = {**working, **replacement}
+    if _compose_from_solo(merged):
+        update["brief"]["compose_from_solo"] = True
+        note = "没有合照：用新郎、新娘的单人照合成双人画面，保持两人真实身高比例、光线方向和色调一致"
+        if note not in update["brief"]["keep_features"]:
+            update["brief"]["keep_features"].append(note)
+    pet_note = _pet_keep_feature(merged)
     if pet_note and pet_note not in update["brief"]["keep_features"]:
         update["brief"]["keep_features"].append(pet_note)
     identity = _identity_from_mixed_checks({**working, **replacement})
@@ -282,6 +288,16 @@ def _real_intake(state: WeddingState) -> dict:
     if update["questions"]:
         update["step_text"] = "我是小囍，你们这次拍摄的项目经理，再确认几项关键信息就可以交给妆造师了。"
     return update
+
+
+def _compose_from_solo(state: WeddingState) -> bool:
+    groom, bride = state.get("groom_photo_urls"), state.get("bride_photo_urls")
+    urls = list(state.get("photo_urls") or [])
+    if groom is not None or bride is not None or not urls:
+        return False
+    pet_ok = _pet_consent(state)
+    usable = [r for r in _cached_photo_check(tuple(urls), 0, "照片") if _mixed_usable(r, pet_ok)]
+    return bool(usable) and not any(_is_couple(r) for r in usable)
 
 
 def _pet_keep_feature(state: WeddingState) -> str:
@@ -397,7 +413,7 @@ def _brief_from_llm(state: WeddingState, answers: dict[str, dict]) -> Brief:
     values.update({
         "style": "undecided", "background": "undecided", "makeup": "undecided",
         "outfit_bride": "undecided", "outfit_groom": "undecided", "expression": "undecided", "pose": "undecided",
-        "heights_cm": fallback.heights_cm, "materials": fallback.materials,
+        "heights_cm": fallback.heights_cm, "materials": fallback.materials, "compose_from_solo": False,
         "invitation": fallback.invitation, "missing": fallback.missing,
     })
     source = _brief_source_text(state, answers).lower()
@@ -559,6 +575,21 @@ def _pet_consent(state: WeddingState) -> bool:
     return any(word in text for word in PET_WORDS)
 
 
+NO_COUPLE_WORDS = ("没有合照", "没合照", "无合照", "没有双人照", "没双人照", "不想传合照", "不想上传合照",
+                   "不传合照", "只有单人照", "只有单人", "都是单人照", "没有两个人的", "没有我们俩的", "没有一起的照片")
+
+
+def _no_couple_intent(state: WeddingState) -> bool:
+    """用户明确表示没有/不想传合照：允许只用单人照，生图时合成双人画面。"""
+    text = _brief_source_text(state, _answers(state)).replace(" ", "")
+    return any(word in text for word in NO_COUPLE_WORDS)
+
+
+def _photo_ask_count(state: WeddingState) -> int:
+    """已经问过几轮补传照片（用来换说法，避免重复同一句）。"""
+    return sum(1 for item in state.get("answers", []) if item.get("question_id") == "q_photos")
+
+
 def _pet_name(result: dict) -> str:
     return result.get("pet_kind") or "小动物"
 
@@ -672,8 +703,9 @@ def _missing_role_failures(state: WeddingState) -> list[dict]:
         elif result.get("tag") in {"groom", "bride"}:
             present.add(result["tag"])
     missing = []
-    if not any(_is_couple(r) for r in usable):
-        missing.append({"label": "照片", "question_id": "q_photos", "index": None, "reason": "还需要至少 1 张你们俩的合照"})
+    if not any(_is_couple(r) for r in usable) and not _no_couple_intent(state):
+        missing.append({"label": "照片", "question_id": "q_photos", "index": None,
+                        "reason": "还需要至少 1 张你们俩的合照（没有合照也可以直接告诉我，我用单人照帮你们合成）"})
     if "groom" not in present:
         missing.append({"label": "照片", "question_id": "q_photos", "index": None, "reason": "还缺新郎的清晰照片，单人照或合照都行"})
     if "bride" not in present:
@@ -760,8 +792,15 @@ def _describe_failures(items: list[dict]) -> str:
     return "；".join(overall + per_photo)
 
 
-def _photo_step_text(failures: list[dict]) -> str:
-    return f"照片还差一点：{_describe_failures(failures)}。直接在下方对话框补传照片或告诉我就行。"
+def _photo_step_text(failures: list[dict], asked: int = 0) -> str:
+    detail = _describe_failures(failures)
+    if asked == 0:
+        return f"照片还差一点：{detail}。直接在下方对话框补传照片或告诉我就行。"
+    if asked == 1:
+        return (f"我再说清楚一点：{detail}。合照能让两人的身高比例和神态更自然；"
+                "如果真的没有合照，直接回复「没有合照」，我就用你们的单人照来合成。")
+    return (f"还是卡在这里：{detail}。可以点左下角回形针补传照片，"
+            "或者直接回复「没有合照」「小狗要一起入镜」这类说明，我会按你的意思继续。")
 
 
 def _upload_questions(failures: list[dict]) -> list[dict]:

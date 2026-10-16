@@ -254,7 +254,7 @@ def _check(monkeypatch, results, description=""):
 
 def test_rule_all_solo_asks_for_couple(monkeypatch):
     failures, _ = _check(monkeypatch, [_solo(1, "groom"), _solo(2, "bride")])
-    assert [f["reason"] for f in failures] == ["还需要至少 1 张你们俩的合照"]
+    assert [f["reason"] for f in failures] == ["还需要至少 1 张你们俩的合照（没有合照也可以直接告诉我，我用单人照帮你们合成）"]
     node._cached_photo_check.cache_clear()
 
 
@@ -314,3 +314,39 @@ def test_wants_to_ask_upload_ignores_round_limit():
     from app import graph
     state = {"questions": [{"type": "upload"}], "question_rounds": {"intake": 99}}
     assert graph._wants_to_ask(state, "intake")
+
+
+def test_solo_only_with_no_couple_intent_passes_with_flag(monkeypatch):
+    node._cached_photo_check.cache_clear()
+    _real_llm(monkeypatch, [_solo(1, "bride"), _solo(2, "bride"), _solo(3, "groom"), _solo(4, "groom")], [])
+    state = {"task_id": "t", "photo_urls": ["b1", "b2", "g1", "g2"], "description": "",
+             "answers": [{"question_id": "q_photos_note", "value": "没有合照", "asker": "intake", "round": 1}],
+             "question_rounds": {"intake": 1}, "consent": node.DEFAULT_CONSENT}
+    assert node._photo_failures(state) == []
+    update = intake(state)
+    assert not any(q.get("type") == "upload" for q in update.get("questions") or [])
+    assert update["brief"]["compose_from_solo"] is True
+    assert {p["role"] for p in update["identity"]} == {"groom", "bride"}
+    node._cached_photo_check.cache_clear()
+
+
+def test_solo_only_without_intent_asks_with_hint_then_rephrases(monkeypatch):
+    node._cached_photo_check.cache_clear()
+    _real_llm(monkeypatch, [_solo(1, "bride"), _solo(2, "groom")], [])
+    state = {"task_id": "t", "photo_urls": ["b", "g"], "description": "", "answers": [],
+             "question_rounds": {"intake": 0}, "consent": node.DEFAULT_CONSENT}
+    first = intake(state)
+    assert "没有合照也可以直接告诉我" in first["questions"][0]["title"]
+    state["answers"] = [{"question_id": "q_photos", "value": [], "asker": "intake", "round": 1}]
+    state["question_rounds"] = {"intake": 1}
+    second = intake(state)
+    assert second["questions"][0]["type"] == "upload"
+    assert second["step_text"] != first["step_text"] and "没有合照" in second["step_text"]
+    node._cached_photo_check.cache_clear()
+
+
+def test_no_couple_intent_but_missing_bride_still_blocks(monkeypatch):
+    failures, _ = _check(monkeypatch, [_solo(1, "groom"), _solo(2, "groom")], description="我们没有合照")
+    reasons = [f["reason"] for f in failures]
+    assert any("还缺新娘" in r for r in reasons) and not any("合照" in r and "至少" in r for r in reasons)
+    node._cached_photo_check.cache_clear()
