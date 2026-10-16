@@ -201,3 +201,11 @@ td .mark { margin-right: 8px; vertical-align: middle; }
 .sub-h .st-legend { margin-left: 12px; vertical-align: 1px; }
 .legend-row { display: flex; justify-content: flex-end; margin: 14px 0 8px; }
 .task-id { margin: 0; color: var(--muted); font-size: 13px; }
+/* DeepSeek 实时余额 */
+.balance-row { margin-bottom: 12px; }
+.balance-ago { margin-left: 8px; font-style: normal; }
+.balance-main { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-width: 0; }
+.balance-spark { flex: none; overflow: visible; }
+.balance-spark polyline { fill: none; stroke: var(--lav-ink, #7a68b3); stroke-width: 1.5; stroke-linejoin: round; }
+.stat-card.balance-warn { box-shadow: 0 0 0 1px #e6b85c; background: #fffaf0; }
+.stat-card.balance-warn strong { color: #a87a1c; }

@@ -24,6 +24,7 @@ export const ops = {
   usage: (period) => call('/usage?period=' + period),
   importUsage: (file) => { const body = new FormData(); body.append('file', file); return call('/usage/import', { method: 'POST', body }) },
   server: () => call('/server'),
+  balance: () => call('/balance'),
   list: (path) => call('/files/list?' + new URLSearchParams({ path })),
   view: (path) => call('/files/view?' + new URLSearchParams({ path })),
   raw: (path, download = false) => portal.url('files/raw?' + new URLSearchParams(download ? { path, download: 1 } : { path })),

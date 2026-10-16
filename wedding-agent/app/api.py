@@ -16,7 +16,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app import access, admin, admin_ops, login, portal, reference_links, reference_wall, runner
+from app import access, admin, admin_ops, balance, login, portal, reference_links, reference_wall, runner
 from app.modules.intake import photo_rules
 from app.common.config import settings
 from app.common.errors import ModuleError
@@ -109,6 +109,8 @@ async def lifespan(_: FastAPI):
             purge_all()
 
     threading.Thread(target=loop, daemon=True, name="purge").start()
+    if balance.enabled():
+        threading.Thread(target=balance.run, args=(stop,), daemon=True, name="balance").start()
     yield
     stop.set()
 

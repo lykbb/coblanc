@@ -19,7 +19,7 @@ from pathlib import Path
 from fastapi import APIRouter, Depends, File, Request, UploadFile
 from fastapi.responses import FileResponse
 
-from app import reference_wall
+from app import balance, reference_wall
 from app.common import usage
 from app.common.config import ROOT, settings
 from app.common.progress import store
@@ -88,6 +88,7 @@ def summarize(entries: list[dict]) -> dict:
 
 @router.get("/usage")
 def usage_summary(period: str = "7d"):
+    balance.viewed()
     if period not in PERIODS:
         raise PortalError("FILE_INVALID", "时间范围不对")
     data = summarize(usage.read(_since(period)))
@@ -115,6 +116,14 @@ def usage_summary(period: str = "7d"):
         "daily_models": [{"day": d, "model": m, **v} for (d, m), v in sorted(data["daily_models"].items())],
         "imports": sorted({usage._beijing_day(e["at"]) for e in usage.read() if e.get("source") == "deepseek_export"}),
     }
+
+
+@router.get("/balance")
+def balance_summary():
+    """DeepSeek 实时余额：今日实际花费（余额下降）对照我们算的 DeepSeek 费用。看这个接口 = 页面开着，轮询切快档。"""
+    balance.viewed()
+    models = summarize(usage.read(_since("today")))["models"]
+    return balance.summary(sum(v["cost"] for (provider, _, _), v in models.items() if provider == "chat"))
 
 
 @router.post("/usage/import")

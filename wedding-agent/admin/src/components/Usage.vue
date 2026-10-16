@@ -1,9 +1,10 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { ops } from '../api.js'
 import { computed } from 'vue'
 import { KINDS, money, num, priceSources, priceTitle } from '../usage.js'
 import StatusLegend from './StatusLegend.vue'
+import BalanceCards from './BalanceCards.vue'
 import StatusBar from './StatusBar.vue'
 
 const PERIODS = [{ key: 'today', label: '今天' }, { key: '7d', label: '7 天' }, { key: '30d', label: '30 天' }]
@@ -14,7 +15,9 @@ async function load() {
   error.value = ''
   try { data.value = await ops.usage(period.value) } catch (e) { error.value = e.message }
 }
-onMounted(load)
+let timer
+onMounted(() => { load(); timer = setInterval(load, 10000) }) // 用量每次调用后就记，10 秒刷新一次
+onUnmounted(() => clearInterval(timer))
 watch(period, load)
 const showUnused = ref(false)
 const used = computed(() => (data.value?.models || []).filter((m) => m.active !== false || m.calls))
@@ -46,6 +49,7 @@ async function upload(e) {
     </header>
     <p v-if="error" class="page-error" role="alert">{{ error }}</p>
     <p v-if="imported" class="muted-s">{{ imported }}</p>
+    <BalanceCards />
     <template v-if="data?.total">
       <div class="stat-row">
         <div class="stat-card"><span>调用</span><strong>{{ num(data.total.calls) }}</strong></div>

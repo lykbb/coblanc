@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { bytes, ops } from '../api.js'
+import BalanceCards from './BalanceCards.vue'
 import StatusBar from './StatusBar.vue'
 import StatusLegend from './StatusLegend.vue'
 import { KINDS, money, num, priceSources, priceTitle, short, ticks, yuan } from '../usage.js'
@@ -18,7 +19,7 @@ async function loadServer() {
 async function loadUsage() {
   try { usage.value = await ops.usage(period.value) } catch (e) { error.value = e.message }
 }
-onMounted(() => { loadServer(); loadUsage(); timer = setInterval(loadServer, 10000) })
+onMounted(() => { loadServer(); loadUsage(); timer = setInterval(() => { loadServer(); loadUsage() }, 10000) }) // 用量每次调用后就记，10 秒刷新一次
 onUnmounted(() => clearInterval(timer))
 watch(period, loadUsage)
 
@@ -86,6 +87,7 @@ const costLine = computed(() => chart.value.bars.map((b, i) => `${cx(i)},${y(b.c
         <button type="button" :class="{ on: period === '30d' }" @click="period = '30d'">30 天</button>
       </div>
     </header>
+    <BalanceCards />
     <template v-if="usage">
       <template v-if="usage.total">
         <div class="stat-row">
