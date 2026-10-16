@@ -115,7 +115,7 @@ app = FastAPI(title="小囍 API", description="字段和错误码以《小囍接
 
 @app.middleware("http")
 async def _require_access(request: Request, call_next):
-    if access.needs_check(request.url.path) and not access.allowed(request.cookies):
+    if access.needs_check(request.url.path) and not access.allowed(request.cookies, _client_ip(request)):
         return JSONResponse({"error": {"code": "ACCESS_DENIED", "message": "请先输入邀请码"}}, status_code=401)
     response = await call_next(request)
     if request.url.path.startswith(access.PORTAL_PREFIXES):
@@ -155,6 +155,13 @@ def _take(task_id: str, expected: str, new: str = "running") -> None:
 
 
 # ---- 0. 邀请码 ----
+
+
+@app.get("/internal/portal-ip-check", include_in_schema=False)
+def portal_ip_check(request: Request):
+    """nginx auth_request 用（只在服务器内部调用，前台不转发 /internal）：来源 IP 在白名单 204，否则 403。"""
+    ip = request.headers.get("x-original-ip", "")
+    return Response(status_code=204 if ip in access.portal_ips() else 403)
 
 
 def _client_ip(request: Request) -> str:

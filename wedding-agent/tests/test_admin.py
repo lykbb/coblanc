@@ -126,3 +126,20 @@ def test_csrf_origin_per_subdomain(gallery_client):
     other = TestClient(app, cookies=cookies, headers={"X-Portal-CSRF": "1", "Host": host, "Origin": "http://abordadmin.43.142.59.166.nip.io"})
     assert other.post("/api/gallery/logout").status_code == 403
     assert same.post("/api/gallery/logout").status_code == 200
+
+
+def test_path_mode_cookie_scoped_and_referer_checked(portal_env):
+    """path 模式：nginx 传 X-Forwarded-Prefix；Cookie Path 限定前缀；改动请求的 Referer 必须来自本站前缀。"""
+    host = "43.142.59.166"
+    base = {"Host": host, "X-Forwarded-Prefix": "/gallery/", "X-Portal-CSRF": "1", "Origin": f"http://{host}"}
+    client = TestClient(app, headers=base)
+    [(_, code)] = access.create(["刘静"])
+    r = client.post("/api/gallery/redeem", json={"code": code}, headers={"Referer": f"http://{host}/gallery/"})
+    assert r.status_code == 200 and "Path=/gallery;" in r.headers["set-cookie"] and "SameSite=strict" in r.headers["set-cookie"]
+    token = r.cookies.get("xx_gallery") or client.cookies.get("xx_gallery")
+    c = TestClient(app, headers=base, cookies={"xx_gallery": token})
+    assert c.post("/api/gallery/logout", headers={"Referer": f"http://{host}/"}).status_code == 403  # 前台页面发的
+    assert c.post("/api/gallery/logout", headers={"Referer": f"http://{host}/abordadmin/"}).status_code == 403
+    assert c.post("/api/gallery/logout").status_code == 403  # 没有 Referer
+    r = c.post("/api/gallery/logout", headers={"Referer": f"http://{host}/gallery/"})
+    assert r.status_code == 200 and "Path=/gallery;" in r.headers["set-cookie"]

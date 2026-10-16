@@ -1,0 +1,15 @@
+# __LABEL__：__PREFIX__（path 模式，挂在前台 server 下）。__WHO__
+location = __PATHNAME__ { return 301 __PREFIX__; }
+location ^~ __PREFIX__ {
+  auth_basic "__SITE__";
+  auth_basic_user_file /etc/nginx/.htpasswd-__SITE__;
+  client_max_body_size __BODY__;
+  include /etc/nginx/snippets/wedding-portal-__SITE__.conf;
+  alias /home/ubuntu/ai-wedding/wedding-agent/__APP__/dist/;
+  expires -1;
+  try_files $uri __PREFIX__index.html;
+  location ^~ __PREFIX__assets/ { alias /home/ubuntu/ai-wedding/wedding-agent/__APP__/dist/assets/; expires 1y; }
+  location = __PREFIX__robots.txt { default_type text/plain; return 200 "User-agent: *\nDisallow: /\n"; }
+  location = __PREFIX__api/redeem { limit_req zone=__SITE___login burst=3 nodelay; proxy_pass http://127.0.0.1:8000/api/__SITE__/redeem; }
+  location ^~ __PREFIX__api/ { limit_req zone=__SITE___api burst=60 nodelay; proxy_buffering off; proxy_pass http://127.0.0.1:8000/api/__SITE__/; }
+__FILES__}

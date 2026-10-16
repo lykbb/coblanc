@@ -1,5 +1,6 @@
 # 前台（/etc/nginx/sites-available/wedding）：默认站点，现在用裸 IP 访问，以后是主域名（BASE）。
-# 图墙、后台按子域名分到 wedding-gallery / wedding-admin。与原配置一致，另加：屏蔽内部接口、隐藏版本号。
+# 图墙、后台：path 模式（默认）挂在本 server 的 /gallery/、/abordadmin/；subdomain 模式分到 wedding-gallery / wedding-admin。
+# 与原配置一致，另加：屏蔽内部接口、隐藏版本号。前台页面不链接内部站点。
 __HTTPS_REDIRECT__
 server {
   __LISTEN_DEFAULT__
@@ -14,7 +15,7 @@ server {
   location ^~ /api/admin/ { return 404; }
   location ^~ /api/gallery/ { return 404; }
   location ^~ /.well-known/acme-challenge/ { auth_basic off; root /var/www/certbot; }  # certbot 验证
-  location = /coblanc-film { return 301 /coblanc-film/; }
+__PORTALS__  location = /coblanc-film { return 301 /coblanc-film/; }
   location /coblanc-film/ { try_files $uri $uri/ /coblanc-film/index.html; }
   location ~ ^/(api|files|templates|docs|openapi.json|redoc)(/|$) {
     proxy_pass http://127.0.0.1:8000;

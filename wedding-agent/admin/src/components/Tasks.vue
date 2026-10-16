@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { tasks, when } from '../api.js'
+import { portal, tasks, when } from '../api.js'
 
 const STATUS = { running: '进行中', waiting_user: '等用户回答', preview_ready: '待确认', awaiting_payment: '待支付', delivering: '交付中', done: '完成', failed: '失败' }
 const items = ref([])
@@ -51,7 +51,7 @@ const GROUPS = [['photos', '用户照片'], ['previews', '样片 / 预览'], ['d
                 <template v-if="open.images[key].length">
                   <span class="muted-s">{{ label }} · {{ open.images[key].length }}</span>
                   <div class="task-thumbs">
-                    <img v-for="url in open.images[key]" :key="url" :src="url" alt="" loading="lazy" @click="big = url" />
+                    <img v-for="url in open.images[key]" :key="url" :src="portal.asset(url)" alt="" loading="lazy" @click="big = portal.asset(url)" />
                   </div>
                 </template>
               </div>

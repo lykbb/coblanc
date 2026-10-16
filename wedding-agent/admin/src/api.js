@@ -1,7 +1,7 @@
 // 后台管理接口（/api/admin）
 import { makePortal } from '@web/portal.js'
 
-export const portal = makePortal('admin')
+export const portal = makePortal()
 const { call, json } = portal
 
 export const invites = {

@@ -35,6 +35,7 @@ MAX_FAILS, FAIL_WINDOW = 10, 600  # 同一 IP 10 分钟内最多输错 10 次
 
 _lock = threading.Lock()
 _fails: dict[str, list[float]] = {}
+_ip_cache: dict = {}
 
 
 def _hash(value: str) -> str:
@@ -73,12 +74,33 @@ def needs_check(path: str) -> bool:
     return required() and path.startswith(PROTECTED) and path not in OPEN and not path.startswith(PORTAL_PREFIXES)
 
 
-def allowed(cookies: dict) -> bool:
+def allowed(cookies: dict, ip: str = "") -> bool:
     """用户站接口和文件：用户站设备凭证有效即可；后台凭证也能看文件（后台任务页要显示图片）。"""
-    return bool(holder_for(cookies.get(COOKIE)) or holder_for(cookies.get(PORTAL_COOKIES["admin"]), kind="admin"))
+    return bool(holder_for(cookies.get(COOKIE), ip=ip) or holder_for(cookies.get(PORTAL_COOKIES["admin"]), kind="admin"))
 
 
-def holder_for(token: str | None, kind: str = "site") -> str | None:
+def portal_ips() -> set[str]:
+    """内部站点（图墙、后台）的来源 IP 白名单：团队成员（ADMIN_HOLDERS ∪ GALLERY_MEMBERS ∪ grokbot）有效用户站设备
+    最近使用的 IP + 手工补充文件 + 本机。其他持有人（公开邀请等）兑换前台码后 IP 也不会进白名单。
+
+    nginx 用 auth_request 问 /internal/portal-ip-check；作废持有人（删设备）后其 IP 自动移除。按文件修改时间缓存。
+    手工补充：state_dir/portal-extra-ips.txt，一行一个 IP，# 开头为注释，改完即时生效。
+    """
+    paths = (_path(), settings.state_dir / "portal-extra-ips.txt")
+    key = tuple(p.stat().st_mtime_ns if p.exists() else 0 for p in paths) + (tuple(settings.admin_holders), tuple(settings.gallery_members))
+    if _ip_cache.get("key") != key or time.time() - _ip_cache.get("at", 0) > 60:  # 每分钟也刷新一次（设备过期）
+        now = time.time()
+        ips = {"127.0.0.1"}
+        team = set(settings.admin_holders) | set(settings.gallery_members) | {"grokbot"}
+        ips |= {d.get("ip") for d in _load()["devices"].values()
+                if d.get("kind", "site") == "site" and d["holder"] in team and d["expires"] > now and d.get("ip")}
+        if paths[1].exists():
+            ips |= {line.split("#")[0].strip() for line in paths[1].read_text(encoding="utf-8").splitlines()} - {""}
+        _ip_cache.update(key=key, at=now, ips=ips)
+    return _ip_cache["ips"]
+
+
+def holder_for(token: str | None, kind: str = "site", ip: str = "") -> str | None:
     """凭证有效就返回持有人，否则 None。kind：site 用户站 / admin 后台 / gallery 图墙；内部站点另有空闲超时。"""
     if not token:
         return None
@@ -91,8 +113,10 @@ def holder_for(token: str | None, kind: str = "site") -> str | None:
         idle_hours = {"admin": settings.admin_session_hours, "gallery": settings.gallery_session_hours}.get(kind)
         if idle_hours and now - device.get("last_seen", 0) > idle_hours * 3600:
             return None
-        if now - device.get("last_seen", 0) > (60 if idle_hours else 3600):  # 少写盘
+        if now - device.get("last_seen", 0) > (60 if idle_hours else 3600) or (ip and device.get("ip") != ip):  # 少写盘；IP 变了立即记
             device["last_seen"] = now
+            if ip:
+                device["ip"] = ip
             _save(data)
         return device["holder"]
 

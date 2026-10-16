@@ -1,0 +1,5 @@
+# 内部站点限流区（http 级，sites-enabled/wedding-zones）。两种部署方式共用。
+limit_req_zone $binary_remote_addr zone=gallery_api:10m rate=10r/s;
+limit_req_zone $binary_remote_addr zone=gallery_login:10m rate=6r/m;
+limit_req_zone $binary_remote_addr zone=admin_api:10m rate=10r/s;
+limit_req_zone $binary_remote_addr zone=admin_login:10m rate=6r/m;

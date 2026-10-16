@@ -144,7 +144,7 @@ async function remove() {
 
     <div v-if="items.length" class="refwall-grid">
       <button v-for="item in items" :key="item.id" type="button" class="ref-tile" :class="item.verdict" @click="view(item)">
-        <img :src="item.thumb_url" :alt="item.note || styleName(item.style)" loading="lazy" decoding="async" :style="{ aspectRatio: item.width + '/' + item.height }" />
+        <img :src="refs.url(item.thumb_url)" :alt="item.note || styleName(item.style)" loading="lazy" decoding="async" :style="{ aspectRatio: item.width + '/' + item.height }" />
         <i class="mark" :class="item.verdict"></i>
       </button>
     </div>
@@ -175,7 +175,7 @@ async function remove() {
     <!-- 大图 -->
     <div v-if="open" class="modal dark" @click.self="save(); open = null" @keydown.esc="open = null">
       <div class="ref-view">
-        <img :src="open.large_url" :alt="open.note || styleName(open.style)" />
+        <img :src="refs.url(open.large_url)" :alt="open.note || styleName(open.style)" />
         <aside class="ref-side">
           <div class="ref-meta">{{ open.uploader }} · {{ when(open.created_at) }}</div>
           <select v-model="draft.style" class="field" @change="save">
@@ -189,7 +189,7 @@ async function remove() {
           <a v-if="open.source_url" class="ref-link" :href="open.source_url" target="_blank" rel="noopener noreferrer">{{ open.source_url }}</a>
           <textarea v-model="draft.note" class="field" rows="3" maxlength="200" placeholder="备注" @change="save"></textarea>
           <div class="ref-side-foot">
-            <a class="ghost-btn" :href="open.original_url + '&download=1'"><Icon name="download" :size="16" />原图</a>
+            <a class="ghost-btn" :href="refs.url(open.original_url) + '&download=1'"><Icon name="download" :size="16" />原图</a>
             <button type="button" class="ghost-btn danger" @click="remove">删除</button>
           </div>
         </aside>

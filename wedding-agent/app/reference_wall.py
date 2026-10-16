@@ -3,7 +3,7 @@
 - 存在 settings.reference_dir（默认 wedding-agent/reference_library/），和任务文件分开，不受 7 天清理影响。
 - 每张图存三份：原图（去掉 EXIF 等元数据）、大图 webp（长边 ≤ 2048）、缩略图 webp（长边 ≤ 400）。
 - 元数据在同目录 refs.sqlite。总容量上限 REFERENCE_CAP_GB（默认 15 GB）。
-- 图墙站点（gallery/，gallery.BASE）专用：接口在 /api/gallery/refs，只给 GALLERY_MEMBERS（app/portal.py）；上传人取自登录人；改动和导出写审计。
+- 图墙站点（gallery/，/gallery/ 或 gallery.BASE）专用：接口在 /api/gallery/refs，只给 GALLERY_MEMBERS（app/portal.py）；上传人取自登录人；改动和导出写审计。
 
 导出元数据（在 wedding-agent 目录）：
   uv run python -m app.reference_wall export json > refs.json
@@ -94,7 +94,7 @@ def _files(ref_id: str, ext: str) -> dict[str, Path]:
 
 def _row(row: sqlite3.Row) -> dict:
     item = {key: row[key] for key in FIELDS}
-    base = f"/api/gallery/refs/{row['id']}/image"
+    base = f"refs/{row['id']}/image"  # 相对站点接口根（前端拼 <站点前缀>api/）
     item.update(thumb_url=f"{base}?size=thumb", large_url=f"{base}?size=large", original_url=f"{base}?size=original")
     return item
 

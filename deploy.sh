@@ -1,36 +1,38 @@
 #!/bin/zsh
 # 一键重新部署到 43.142.59.166（不传 .env；要更新 .env 用：./deploy.sh --env）
-# 三个站点：前台（裸 IP / 以后主域名）、图墙 gallery.$BASE、后台管理 abordadmin.$BASE。
-# 更新 nginx：./deploy.sh --nginx（http）；有真实域名和证书后：BASE=域名 ./deploy.sh --nginx --https
+# 三个站点：前台（裸 IP / 以后主域名）；图墙、后台管理按 SITE_MODE 部署：
+#   path（默认）：http://IP/gallery/、http://IP/abordadmin/（不需要域名、不开新端口）
+#   subdomain：gallery.$BASE、abordadmin.$BASE（需要已备案域名）
+# 更新 nginx：./deploy.sh --nginx；有域名和证书后：SITE_MODE=subdomain BASE=域名 ./deploy.sh --nginx --https
 set -e
 export PATH=/opt/homebrew/bin:$PATH
 cd "$(dirname "$0")"
 KEY=~/.ssh/wedding_server.pem; H=ubuntu@43.142.59.166
 SSH=(ssh -i $KEY -o IdentitiesOnly=yes)
-BASE=${BASE:-43.142.59.166.nip.io}  # 内部站点的根域名（nip.io 通配解析到服务器 IP），以后换真实域名
+SITE_MODE=${SITE_MODE:-path}; export SITE_MODE  # 前端构建（vite base）和 nginx 渲染都用它
+BASE=${BASE:-43.142.59.166.nip.io}  # subdomain 模式的根域名；以后换真实域名
 
 if [[ "$1" == "--nginx" ]]; then
-  # 渲染 deploy/nginx/*.template → 上传 → 备份旧配置 → 安装 → nginx -t 通过才 reload，失败自动还原
-  MODE=http; [[ "$2" == "--https" ]] && MODE=https
-  OUT=$(mktemp -d); python3 deploy/nginx/render.py "$BASE" $MODE "$OUT"
-  rsync -a -e "${SSH[*]}" "$OUT/" ${H}:/tmp/wedding-nginx/ && rm -rf "$OUT"
-  $SSH $H 'set -e; cd /tmp/wedding-nginx; TS=$(date +%Y%m%d%H%M%S); sudo mkdir -p /etc/nginx/snippets /var/www/certbot /etc/nginx/backup-$TS
-    for f in wedding wedding-gallery wedding-admin; do [ -f /etc/nginx/sites-available/$f ] && sudo cp /etc/nginx/sites-available/$f /etc/nginx/backup-$TS/; sudo install -m 644 $f /etc/nginx/sites-available/$f; sudo ln -sf /etc/nginx/sites-available/$f /etc/nginx/sites-enabled/$f; done
-    [ -f /etc/nginx/snippets/wedding-portal.conf ] && sudo cp /etc/nginx/snippets/wedding-portal.conf /etc/nginx/backup-$TS/
-    [ -f /etc/nginx/wedding-allow-ips.conf ] && sudo cp /etc/nginx/wedding-allow-ips.conf /etc/nginx/backup-$TS/
-    sudo install -m 644 wedding-portal.conf /etc/nginx/snippets/wedding-portal.conf
-    sudo install -m 644 wedding-allow-ips.conf /etc/nginx/wedding-allow-ips.conf
+  # 渲染 deploy/nginx 模板 → 上传 → 整体备份 /etc/nginx → 安装 → nginx -t 通过才 reload，失败整体还原
+  SCHEME=http; [[ "$2" == "--https" ]] && SCHEME=https
+  OUT=$(mktemp -d); python3 deploy/nginx/render.py $SITE_MODE $SCHEME "$BASE" "$OUT"
+  rsync -a --delete -e "${SSH[*]}" "$OUT/" ${H}:/tmp/wedding-nginx/ && rm -rf "$OUT"
+  $SSH $H 'set -e; cd /tmp/wedding-nginx; BK=/etc/nginx/backup-$(date +%Y%m%d%H%M%S).tgz
+    sudo tar czf $BK -C /etc nginx/sites-available nginx/sites-enabled nginx/snippets $(cd /etc && ls nginx/wedding-allow-ips.conf 2>/dev/null)
+    sudo mkdir -p /etc/nginx/snippets /var/www/certbot
+    # 先清掉本项目的旧配置（换部署方式时不留残余），再装这次渲染的
+    sudo rm -f /etc/nginx/sites-enabled/wedding-gallery /etc/nginx/sites-enabled/wedding-admin /etc/nginx/sites-available/wedding-gallery /etc/nginx/sites-available/wedding-admin /etc/nginx/snippets/wedding-portal*.conf /etc/nginx/wedding-allow-ips.conf
+    for f in sites/*; do n=$(basename $f); sudo install -m 644 $f /etc/nginx/sites-available/$n; sudo ln -sf /etc/nginx/sites-available/$n /etc/nginx/sites-enabled/$n; done
+    for f in snippets/*; do sudo install -m 644 $f /etc/nginx/snippets/$(basename $f); done
     for f in admin gallery; do [ -f /etc/nginx/.htpasswd-$f ] || echo "提醒：还没有 /etc/nginx/.htpasswd-$f（sudo htpasswd -c /etc/nginx/.htpasswd-$f 用户名）"; done
-    if sudo nginx -t; then sudo systemctl reload nginx && echo "nginx 已更新（备份在 /etc/nginx/backup-$TS）"; else
-      echo "nginx -t 失败，还原旧配置"; for f in wedding wedding-gallery wedding-admin; do if [ -f /etc/nginx/backup-$TS/$f ]; then sudo cp /etc/nginx/backup-$TS/$f /etc/nginx/sites-available/$f; else sudo rm -f /etc/nginx/sites-enabled/$f /etc/nginx/sites-available/$f; fi; done
-      [ -f /etc/nginx/backup-$TS/wedding-portal.conf ] && sudo cp /etc/nginx/backup-$TS/wedding-portal.conf /etc/nginx/snippets/
-      [ -f /etc/nginx/backup-$TS/wedding-allow-ips.conf ] && sudo cp /etc/nginx/backup-$TS/wedding-allow-ips.conf /etc/nginx/; sudo nginx -t; exit 1; fi
+    if sudo nginx -t; then sudo systemctl reload nginx && echo "nginx 已更新（备份 $BK）"; else
+      echo "nginx -t 失败，整体还原"; sudo rm -rf /etc/nginx/sites-available /etc/nginx/sites-enabled /etc/nginx/snippets; sudo tar xzf $BK -C /etc; sudo nginx -t; exit 1; fi
     rm -rf /tmp/wedding-nginx'
   exit 0
 fi
 
 (cd wedding-agent/web && npm run build)
-# 内部站点：图墙 gallery、后台 admin，按子域名各自独立 nginx server，见 deploy/nginx/
+# 内部站点：图墙 gallery、后台 admin（vite base 随 SITE_MODE），nginx 见 deploy/nginx/
 for APP in admin gallery; do (cd wedding-agent/$APP && { [ -d node_modules ] || npm ci --no-audit --no-fund; } && npm run build); done
 # 后端代码指纹：只有它变了（或 --env / --restart）才重启后端，避免无谓重启打断正在跑的任务
 SUM='cd ~/ai-wedding 2>/dev/null && find wedding-agent/app wedding-agent/pyproject.toml wedding-agent/uv.lock pi-wedding -path pi-wedding/node_modules -prune -o -type f ! -name "*.pyc" -print0 2>/dev/null | sort -z | xargs -0 md5sum | md5sum'

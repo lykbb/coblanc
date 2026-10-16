@@ -3,7 +3,10 @@
 每个站点：独立接口前缀、独立凭证 Cookie（HttpOnly、SameSite=Strict；经 HTTPS 或 COOKIE_SECURE=1 时加 Secure）、
 独立名单、空闲超时。凭证用名单里的人的邀请码在该站点兑换；不在名单里的码按无效处理且不作废。
 - 每次请求重新核对名单，移出立即失效；不在名单 403 并记审计。
-- CSRF：改动类请求必须带 X-Portal-CSRF: 1（跨站表单发不了自定义头），Origin 若存在须与 Host 一致。
+- 部署方式（deploy.sh 的 SITE_MODE）：path（默认，同一 IP 下 /gallery/、/abordadmin/）或 subdomain（gallery.BASE、abordadmin.BASE）。
+  nginx 把站点的 <前缀>api/ 转到后端 /api/<站点>/，并用 X-Forwarded-Prefix 告诉后端站点前缀；凭证 Cookie 的 Path 限定在该前缀。
+- CSRF：改动类请求必须带 X-Portal-CSRF: 1（跨站表单发不了自定义头），Origin 若存在须与 Host 一致；
+  path 模式下 Referer 还必须来自本站前缀（站点页面 Referrer-Policy: same-origin），同 IP 下的其他页面发不了。
 - 限流：兑换失败按 IP 锁定（app/access.py）；nginx 另有 limit_req。
 - 审计：登录成败、越权、拦截、所有改动和导出都写 state_dir/portal_audit.jsonl（带站点名），后台可查看。
 """
@@ -15,6 +18,7 @@ import threading
 import time
 from dataclasses import dataclass
 from typing import Callable
+import re
 from urllib.parse import urlsplit
 
 from fastapi import APIRouter, Depends, Request, Response
@@ -59,6 +63,16 @@ def read_audit(limit: int) -> list[dict]:
     return [json.loads(line) for line in reversed(lines) if line.strip()]
 
 
+def site_prefix(request: Request) -> str:
+    """nginx 传来的站点前缀，如 /gallery/；子域名模式或直连后端时是 /。"""
+    prefix = request.headers.get("x-forwarded-prefix", "/")
+    return prefix if re.fullmatch(r"/(?:[a-z]+/)?", prefix) else "/"
+
+
+def cookie_path(request: Request) -> str:
+    return site_prefix(request).rstrip("/") or "/"
+
+
 class RedeemBody(BaseModel):
     code: str = Field(max_length=64)
 
@@ -83,7 +97,13 @@ class Portal:
         if request.method in SAFE_METHODS:
             return
         origin = request.headers.get("origin")
-        if request.headers.get(CSRF_HEADER) != "1" or (origin and urlsplit(origin).netloc != request.headers.get("host")):
+        host = request.headers.get("host")
+        bad = request.headers.get(CSRF_HEADER) != "1" or (origin and urlsplit(origin).netloc != host)
+        prefix = site_prefix(request)
+        if not bad and prefix != "/":
+            referer = urlsplit(request.headers.get("referer", ""))
+            bad = referer.netloc != host or not referer.path.startswith(prefix)
+        if bad:
             self.audit(request, None, "csrf_rejected", {"path": request.url.path, "origin": origin})
             raise PortalError("PORTAL_CSRF", "请求来源不对，请刷新页面再试")
 
@@ -125,14 +145,14 @@ class Portal:
             token, holder = result
             https = settings.cookie_secure or request.headers.get("x-forwarded-proto") == "https"
             response.set_cookie(self.cookie, token, max_age=settings.portal_max_days * 86400,
-                                httponly=True, samesite="strict", secure=https, path="/")
+                                httponly=True, samesite="strict", secure=https, path=cookie_path(request))
             self.audit(request, holder, "login")
             return {"authorized": True, "holder": holder}
 
         @router.post("/logout")
         def logout(request: Request, response: Response, holder: str = Depends(self.require)):
             access.revoke_token(request.cookies.get(self.cookie))
-            response.delete_cookie(self.cookie, path="/")
+            response.delete_cookie(self.cookie, path=cookie_path(request))
             self.audit(request, holder, "logout")
             return {"ok": True}
 

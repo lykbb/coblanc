@@ -1,7 +1,7 @@
 // 图墙接口（/api/gallery）
 import { makePortal } from '@web/portal.js'
 
-export const portal = makePortal('gallery')
+export const portal = makePortal()
 const { call, json } = portal
 
 export const refs = {
@@ -15,6 +15,7 @@ export const refs = {
   },
   update: (id, changes) => json('PATCH', `/refs/${id}`, changes),
   remove: (id) => call(`/refs/${id}`, { method: 'DELETE' }),
-  zipUrl: (params) => portal.prefix + '/refs/zip?' + new URLSearchParams(params),
+  zipUrl: (params) => portal.url('refs/zip?' + new URLSearchParams(params)),
+  url: portal.url,
 }
 export { when } from '@web/portal.js'

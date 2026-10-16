@@ -25,6 +25,10 @@ def client(gallery_client):
     return gallery_client
 
 
+def api(rel: str) -> str:
+    return "/api/gallery/" + rel
+
+
 def upload(c, verdict="good", style="02", n=1, **extra):
     files = [("files", (f"p{i}.jpg", jpeg_with_exif(), "image/jpeg")) for i in range(n)]
     return c.post("/api/gallery/refs", files=files, data={"style": style, "verdict": verdict, **extra})
@@ -51,13 +55,13 @@ def test_upload_converts_and_strips_exif(client):
     assert r.status_code == 200
     item = r.json()["items"][0]
     assert item["uploader"] == "刘静" and item["note"] == "光线好" and item["style"] == "02"
-    large = Image.open(io.BytesIO(client.get(item["large_url"]).content))
-    thumb = Image.open(io.BytesIO(client.get(item["thumb_url"]).content))
-    original = Image.open(io.BytesIO(client.get(item["original_url"]).content))
+    large = Image.open(io.BytesIO(client.get(api(item["large_url"])).content))
+    thumb = Image.open(io.BytesIO(client.get(api(item["thumb_url"])).content))
+    original = Image.open(io.BytesIO(client.get(api(item["original_url"])).content))
     assert large.format == "WEBP" and max(large.size) == 2048
     assert thumb.format == "WEBP" and max(thumb.size) == 400
     assert original.size == (3000, 1500) and not original.getexif()
-    assert b"SecretCam" not in client.get(item["original_url"]).content
+    assert b"SecretCam" not in client.get(api(item["original_url"])).content
 
 
 def test_rejects_bad_input(client):
@@ -89,7 +93,7 @@ def test_filter_edit_delete(client):
     edited = client.patch(f"/api/gallery/refs/{bad['id']}", json={"style": "00", "note": "手崩了"}).json()
     assert edited["style"] == "00" and edited["note"] == "手崩了"
     assert client.delete(f"/api/gallery/refs/{bad['id']}").status_code == 200
-    assert client.get(bad["thumb_url"]).status_code == 404
+    assert client.get(api(bad["thumb_url"])).status_code == 404
     assert not list((settings.reference_dir / "images").glob(bad["id"] + "*"))
 
 
@@ -103,7 +107,7 @@ def test_zip_and_export(client):
     csv_text = client.get("/api/gallery/refs/export?format=csv").text
     assert csv_text.splitlines()[0].startswith("id,style,verdict") and len(csv_text.strip().splitlines()) == 4
     assert len(client.get("/api/gallery/refs/export").json()) == 3
-    single = client.get(client.get("/api/gallery/refs").json()["items"][0]["large_url"] + "&download=1")
+    single = client.get(api(client.get("/api/gallery/refs").json()["items"][0]["large_url"]) + "&download=1")
     assert "attachment" in single.headers["content-disposition"]
 
 
