@@ -2,8 +2,9 @@
 import { onMounted, ref } from 'vue'
 import { portal, tasks, when } from '../api.js'
 import { KINDS, money, num } from '../usage.js'
+import { TASK_LEGEND, TASK_STATUS as STATUS, bar, taskTone } from '../status.js'
+import StatusLegend from './StatusLegend.vue'
 
-const STATUS = { running: '进行中', waiting_user: '等用户回答', preview_ready: '待确认', awaiting_payment: '待支付', delivering: '交付中', done: '完成', failed: '失败' }
 const ASKERS = { intake: '小囍', style: '妆造师', styling: '妆造师', frame: '摄影师', framing: '摄影师' }
 const props = defineProps({ target: { type: String, default: '' } })
 const items = ref([])
@@ -48,15 +49,15 @@ function title(t) {
 <template>
   <section class="portal-page">
     <header class="page-head"><h1>任务</h1><span class="page-count">{{ items.length }}</span>
-      <button type="button" class="ghost-btn push" @click="load">刷新</button></header>
+      <StatusLegend :items="TASK_LEGEND" /><button type="button" class="ghost-btn" @click="load">刷新</button></header>
     <p v-if="error" class="page-error" role="alert">{{ error }}</p>
     <table class="data-table">
       <thead><tr><th>操作人</th><th>状态</th><th>步骤</th><th>错误</th><th>更新</th><th>任务</th></tr></thead>
       <tbody>
         <template v-for="t in items" :key="t.task_id">
-          <tr class="clickable" :class="{ on: open?.task_id === t.task_id }" @click="view(t)">
+          <tr class="clickable" :class="[bar(taskTone(t.status)), { on: open?.task_id === t.task_id }]" @click="view(t)">
             <td>{{ t.operator || '—' }}<span v-if="t.operator && t.operator_source === 'backfill'" class="tag" title="按 IP 推断">推断</span></td>
-            <td><i class="mark" :class="t.status === 'failed' ? 'bad' : t.status === 'done' ? 'good' : 'idle'"></i>{{ STATUS[t.status] || t.status }}</td>
+            <td>{{ STATUS[t.status] || t.status }}</td>
             <td>{{ t.step_text || t.step || '—' }}</td>
             <td class="err">{{ t.error ? (t.error.title || t.error.code) + (t.error.message ? '：' + t.error.message : '') : '—' }}</td>
             <td class="muted-s">{{ when(t.updated_at) }}</td>

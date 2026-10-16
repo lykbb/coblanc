@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import { bytes, ops, when } from '../api.js'
+import { bar } from '../status.js'
+import StatusLegend from './StatusLegend.vue'
 
 const data = ref(null)
 const error = ref('')
@@ -46,12 +48,12 @@ function uptime(s) {
         <div class="stat-card"><span>运行时间</span><strong>{{ uptime(data.uptime_seconds) }}</strong></div>
         <div class="stat-card"><span>任务</span><strong>进行中 {{ data.tasks.running }} · 排队 {{ data.tasks.queued }}</strong></div>
       </div>
-      <h2 class="sub-h">服务</h2>
+      <h2 class="sub-h">服务<StatusLegend :items="[['ok', '运行中'], ['fail', '停止 / 异常']]" /></h2>
       <table class="data-table">
         <tbody>
-          <tr v-for="(state, name) in data.services" :key="name">
+          <tr v-for="(state, name) in data.services" :key="name" :class="bar(state === 'active' ? 'ok' : 'fail')">
             <td class="mono">{{ name }}</td>
-            <td><span class="mark" :class="state === 'active' ? 'good' : 'idle'" />{{ STATE[state] || state }}</td>
+            <td>{{ STATE[state] || state }}</td>
           </tr>
         </tbody>
       </table>

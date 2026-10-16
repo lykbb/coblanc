@@ -1,6 +1,8 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { auditLog } from '../api.js'
+import { bar } from '../status.js'
+import StatusLegend from './StatusLegend.vue'
 import { SITES, TYPES, avatar, category, clock, dayKey, dayLabel, device, group, inferred, status, relative, sentence, who } from '../audit.js'
 
 const TABS = [['all', '全部'], ['front', '前台'], ['gallery', '图墙'], ['admin', '后台'], ['security', '安全异常']]
@@ -112,7 +114,7 @@ const clear = () => { person.value = ''; type.value = ''; day.value = ''; q.valu
       <input v-model="day" type="date" />
       <input v-model="q" type="search" placeholder="搜索 IP、任务、文件…" class="grow" />
       <button v-if="person || type || day || q" class="link-btn" @click="clear">清除</button>
-      <span class="audit-legend"><i class="st-ok" />成功<i class="st-fail" />失败 / 被拒</span>
+      <StatusLegend :items="[['ok', '成功'], ['fail', '失败 / 被拒']]" />
     </div>
 
     <p v-if="loading" class="empty-s">加载中…</p>
@@ -120,7 +122,7 @@ const clear = () => { person.value = ''; type.value = ''; day.value = ''; q.valu
     <div v-for="d in days" :key="d.key" class="audit-day">
       <h3 class="audit-day-h">{{ d.label }}<span>{{ d.groups.length }}</span></h3>
       <ol class="audit-list">
-        <li v-for="g in d.groups" :key="gid(g)" class="audit-item" :class="['st-' + status(g), { sec: category(g) === 'security', open: open.has(gid(g)) }]" @click="toggle(g)">
+        <li v-for="g in d.groups" :key="gid(g)" class="audit-item" :class="[bar(status(g)), { sec: category(g) === 'security', open: open.has(gid(g)) }]" @click="toggle(g)">
           <i class="avatar" :class="{ anon: !who(g) }" :style="{ background: who(g) ? avatar(who(g)).color : null }">{{ who(g) ? avatar(who(g)).text : (category(g) === 'security' ? '!' : '?') }}</i>
           <div class="audit-body">
             <p class="audit-line">{{ sentence(g) }}</p>

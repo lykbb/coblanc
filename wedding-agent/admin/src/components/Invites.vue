@@ -1,6 +1,8 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { invites, when } from '../api.js'
+import { bar } from '../status.js'
+import StatusLegend from './StatusLegend.vue'
 
 const data = ref({ codes: [], devices: [], admins: [], members: [], system: [] })
 const error = ref('')
@@ -78,7 +80,7 @@ const browser = (ua) => {
 
 <template>
   <section class="portal-page">
-    <header class="page-head"><h1>邀请码</h1><span class="page-count">{{ team.length }}</span></header>
+    <header class="page-head"><h1>邀请码</h1><span class="page-count">{{ team.length }}</span><StatusLegend :items="[['ok', '有效'], ['info', '未使用'], ['fail', '已作废']]" /></header>
 
     <form class="inv-form-row" @submit.prevent="create">
       <input v-model="form.names" class="field grow" placeholder="持有人（空格或逗号分隔）" />
@@ -107,13 +109,13 @@ const browser = (ua) => {
         <thead><tr><th>持有人</th><th>类型</th><th class="right">未用码</th><th class="right">设备数</th><th>最近使用</th><th>状态</th><th></th></tr></thead>
         <tbody>
           <template v-for="h in list" :key="h.holder">
-            <tr :class="{ dim: h.status === '已失效' }">
+            <tr :class="[bar(h.status === '有效' ? 'ok' : h.status === '待使用' ? 'info' : 'fail'), { dim: h.status === '已失效' }]">
               <td>{{ h.holder }}<span v-if="data.admins.includes(h.holder)" class="tag">管理员</span><span v-if="data.members.includes(h.holder)" class="tag">图墙</span></td>
               <td class="muted-s">{{ kinds(h) }}</td>
               <td class="right">{{ h.unused || '—' }}</td>
               <td class="right"><button v-if="h.devices.length" type="button" class="link-s" @click="expanded[h.holder] = !expanded[h.holder]">{{ h.devices.length }} {{ expanded[h.holder] ? '▾' : '▸' }}</button><span v-else>—</span></td>
               <td class="muted-s">{{ h.last ? when(h.last.last_seen) + ' · ' + (h.last.ip || '—') : '—' }}</td>
-              <td><i class="mark" :class="h.status === '有效' ? 'good' : h.status === '待使用' ? 'idle' : 'bad'" />{{ h.status }}</td>
+              <td>{{ h.status }}</td>
               <td class="menu-cell" @click.stop>
                 <button type="button" class="dots-btn" :class="{ on: menu === h.holder }" aria-label="操作" @click="menu = menu === h.holder ? '' : h.holder">⋯</button>
                 <div v-if="menu === h.holder" class="row-menu" role="menu">
