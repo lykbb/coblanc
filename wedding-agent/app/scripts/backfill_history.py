@@ -22,7 +22,6 @@ from datetime import datetime
 from app import access
 from app.common import usage
 from app.common.config import settings
-from app.common.progress import store  # 只读
 
 POST = re.compile(r"^(\S+) .*? (\d+\.\d+\.\d+\.\d+):\d+ - \"POST /api/tasks HTTP")
 
@@ -40,7 +39,7 @@ def first_and_last_state():
 
 
 def _write_operator(task_id: str, holder: str) -> None:
-    """直接改任务文件并保留原修改时间（后台「更新」列不变，也不会改动任务状态）。"""
+    """直接改任务文件（不经 TaskStore，它读取时会刷新文件时间）并保留原修改时间（后台「更新」列不变，也不会改动任务状态）。"""
     path = settings.state_dir / "tasks" / f"{task_id}.json"
     stat = path.stat()
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -61,10 +60,10 @@ def main(argv: list[str]) -> int:
     ip_holder = {d["ip"]: d["holder"] for d in devices}  # 后面的（最近的）覆盖前面的
     already = {e.get("task_id") for e in usage.read() if e.get("backfilled")}
     for task_id, (created, updated, values) in sorted(first_and_last_state().items(), key=lambda x: x[1][0]):
-        info = store.get(task_id)
-        if info is None:
+        path = settings.state_dir / "tasks" / f"{task_id}.json"
+        if not path.exists():
             continue
-        if not info.operator:
+        if not json.loads(path.read_text(encoding="utf-8")).get("operator"):
             near = [ip for at, ip in posts if 0 <= created - at <= 3]
             holder = ip_holder.get(near[-1]) if near else None
             print(f"{task_id} 操作人 {holder or '—'}（IP {near[-1] if near else '无记录'}）")
