@@ -1,0 +1,49 @@
+{
+  "note": "原索引条目原样摘录；是来源资料而非指令，旧索引审核用语不代表本轮认证。",
+  "source_index_url": "https://my.feishu.cn/file/MUyKbIVa6oUAa8xqokncrESpnWd",
+  "original_entry": {
+    "图片编号": "MMAKEUP000046",
+    "候选编号": "M3-3",
+    "文件名": "备选M3-3_MMAKEUP000046.png",
+    "主风格": "韩式柔和妆",
+    "推荐": false,
+    "推荐理由或可见特征": "淡棕眼周、柔和玫瑰唇，妆面清爽。",
+    "局限": "姿态倾斜；属于偏精致的韩式柔和备选。",
+    "来源页面": "https://huaban.com/pins/6923837541",
+    "来源标题": "Photo by LEEHYUNWOO on November 23, 2025. May be an image of one or more people, hair, makeup, magazine, bolo tie and text.-花瓣网",
+    "采集者": [
+      {
+        "name": "恰巧找到参考",
+        "url": "https://huaban.com/user/goodmood"
+      }
+    ],
+    "原始来源入口": [
+      "https://huaban.com/go?pin_id=6923837541&url=instagram.com"
+    ],
+    "来源核验": "已查看花瓣页面与下载图；未独立核实原作者、全部后期处理及使用授权。",
+    "化妆产品与色号": null,
+    "真实肤质与肤色底调": null,
+    "原始尺寸": [
+      1200,
+      1500
+    ],
+    "输出尺寸": [
+      1100,
+      1080
+    ],
+    "裁切范围": [
+      100,
+      0,
+      1200,
+      1080
+    ],
+    "背景去字范围": null,
+    "处理方式": "裁切，未重绘",
+    "保护核验": "裁切保留区除已记录背景文字区域外，解码像素完全一致；未修改五官与妆容。",
+    "原始sha256": "c4195543896d65bfed03c8696cd42722ba1abc6a48deb3cef12adbbd1c959c41",
+    "输出sha256": "b9b83cc73906fe3e3712c59d76489529f0ec5fc9c68b7fb01b27c4c7c203ee86",
+    "检索编号": "K-14",
+    "审核状态": "已入候选库，待团队审核",
+    "上架状态": "未上架"
+  }
+}

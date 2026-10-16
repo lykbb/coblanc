@@ -1,0 +1,26 @@
+[
+  {
+    "image_id": "MMAKEUP000050",
+    "file_name": "MMAKEUP000050.png",
+    "package_file": "review-images/MMAKEUP000050.png",
+    "source_file_name": "备选M4-3_MMAKEUP000050.png",
+    "sha256": "09d81e60b3ce3dee5fa3469187db9d376664804553dcedecb41797faab1af26a",
+    "width": 920,
+    "height": 1150,
+    "format": "PNG",
+    "mode": "RGB",
+    "has_alpha": false,
+    "cloud_folder": "https://my.feishu.cn/drive/folder/EvFBfr4EilTnPmd5tm2cFieEncb",
+    "cloud_file": "https://my.feishu.cn/file/ABA9bqRvxo5qt2x2QSUcEVDbnDc",
+    "service_url": null,
+    "storage_object_id": null,
+    "access_mode": null,
+    "source_truth_status": "unverified",
+    "default_retrieval_eligible": true,
+    "reference_constraints": [
+      "not_customer_identity_reference",
+      "actual_makeup_application_unknown",
+      "source_authenticity_unverified"
+    ]
+  }
+]

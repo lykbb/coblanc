@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.2",
+  "case_id": "MMAKEUP000036",
+  "name": "保留肤面纹理的自然裸感",
+  "audience": "新郎",
+  "category_id": "01",
+  "category_name": "自然裸感妆",
+  "status": "review_draft",
+  "production_ready": false,
+  "source_truth_status": "unverified",
+  "case_unit": "single_independent_reference",
+  "description": "肤面纹理与自然色差仍可见，眉毛毛流明显、眼唇修饰克制；是否实际化妆未知。",
+  "evidence": {
+    "cloud_folder": "https://my.feishu.cn/drive/folder/ZdgCfthRylORDOdaNpzcA9jYnch",
+    "cloud_file": "https://my.feishu.cn/file/TBb7b6iC1oLlf6xFv8ucgQSinZb",
+    "source_index_url": "https://my.feishu.cn/file/VnS6bpRUYoLUxMx2Jnoc96wKnvb",
+    "source_record": "source-record.json",
+    "checked_on": "2026-10-16",
+    "review_method": "直接查看下载原文件；尺寸、SHA256 与索引核对",
+    "source_verification": "仅核对当前飞书索引和文件；未访问或认证原始发布者",
+    "real_photo_status": "unverified"
+  },
+  "observations": [
+    {
+      "id": "MMAKEUP000036-F1",
+      "dimension": "肤面观感",
+      "statement": "额头、面颊和下巴仍可见细小明暗与纹理，没有呈现整脸完全抹平的效果。",
+      "evidence_images": [
+        "MMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "MMAKEUP000036-F2",
+      "dimension": "局部光泽",
+      "statement": "鼻尖、鼻梁及部分面颊有反光，脸侧与颈部有明暗过渡；不是完全均匀的哑光表面。",
+      "evidence_images": [
+        "MMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "high"
+    },
+    {
+      "id": "MMAKEUP000036-F3",
+      "dimension": "眉毛",
+      "statement": "眉毛较深且浓密，能看到毛流，眉头没有整块实心填满的观感。",
+      "evidence_images": [
+        "MMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "high"
+    },
+    {
+      "id": "MMAKEUP000036-F4",
+      "dimension": "眼部",
+      "statement": "上眼缘有自然深色轮廓、眼下保留轻微暗部；没有清楚可辨的彩色眼影或夸张拉长眼线。",
+      "evidence_images": [
+        "MMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "MMAKEUP000036-F5",
+      "dimension": "面颊与轮廓",
+      "statement": "面颊未见明显高饱和彩色腮红；鼻侧、脸侧的深浅变化无法确定是骨相、灯光还是修容。",
+      "evidence_images": [
+        "MMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "MMAKEUP000036-F6",
+      "dimension": "唇部",
+      "statement": "唇色低饱和、偏自然粉棕，唇纹可见，未见厚重高光唇釉或明显超出原唇的描边。",
+      "evidence_images": [
+        "MMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "high"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "这一候选可表达“修饰克制但面部结构清楚”的裸感方向；不等于证明人物素颜或已化裸妆。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "MMAKEUP000036"
+      ],
+      "status": "needs_cross_case_review"
+    },
+    {
+      "statement": "保留自然纹理和轻微色差，有助于避免把“干净”误写成无纹理、统一漂白的皮肤。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "MMAKEUP000036"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "黑色蓬松分缝短发与额前碎发",
+    "样片人物浓眉、眼型、鼻梁和下颌轮廓",
+    "白色背景与裸露肩颈的拍摄方式",
+    "正面平静表情"
+  ],
+  "within_session_locks": [
+    "客户身份、自然肤色、五官比例及明确保留特征不随样片改变。",
+    "客户与妆造师确认后，固定本次妆效方向、配色范围与主要强度；修改需显式记录。",
+    "同一套成片保持已确认妆效逻辑；并非要求每张图亮度和反光完全相同。"
+  ],
+  "creative_variables": [
+    {
+      "field": "修饰与遮瑕程度",
+      "options": [
+        "保留大部分自然纹理和色差",
+        "仅局部调整经客户确认需要修饰的区域"
+      ],
+      "constraints": "不能据本图断言遮瑕厚度或默认消除客户痣、胡须等身份特征。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "眉毛修整",
+      "options": [
+        "保留客户毛流、轻整理边界",
+        "在客户同意时少量填补空隙"
+      ],
+      "constraints": "不把每位客户的眉毛加粗成样片同款。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "光泽控制",
+      "options": [
+        "减轻 T 区明显反光",
+        "保留适度自然光泽"
+      ],
+      "constraints": "不能把灯光反光误判为必须复制的高光产品。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "唇部观感",
+      "options": [
+        "保留自然唇色并呈轻润感",
+        "在同意后做低强度色差修饰"
+      ],
+      "constraints": "不改变嘴唇轮廓，不默认使用显色唇妆。",
+      "evidence_type": "proposed"
+    }
+  ],
+  "compatibility_rules": [
+    "妆容与发型、服装、场景分别确认；不由目录名自动锁定。",
+    "妆造师最新明确方案优先于样片默认，客户冲突需协调。",
+    "调整程度依据客户意愿与可见参考，不从图片推断皮肤疾病、种族或产品功效。",
+    "不得把候选库标签或一次观察当作整类风格的普遍规律。"
+  ],
+  "do_not_inherit": [
+    "样片身份、脸型、五官比例、虹膜色和原生肤色",
+    "品牌标识、准确文字、透明抠图边缘及压缩瑕疵",
+    "未经证实的化妆步骤、产品、色号、拍摄参数"
+  ],
+  "unknowns": {
+    "是否实际上妆": null,
+    "是否 AI 生成及原始摄影证据": null,
+    "化妆产品和色号": null,
+    "真实肤质与肤色底调": null,
+    "鼻侧阴影是否来自修容": null,
+    "原作者": null,
+    "完整同妆多角度效果": null,
+    "是否 AI 生成": null
+  },
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "肤面纹理与自然色差仍可见，眉毛毛流明显、眼唇修饰克制；是否实际化妆未知。",
+    "template": "客户身份与保留特征：{{customer_identity_constraints}}。妆造师确认方案：{{approved_makeup_plan}}。本次采用的案例特征：{{selected_observations}}。调整变量：{{approved_variables}}。",
+    "example_draft": "保留客户原有五官、肤色、眉毛基础和明确保留特征，以自然裸感为目标：肤面不过度抹平，眉毛保留毛流，眼部不添加明显彩色或夸张延伸，唇部保持接近客户自然唇色。遮瑕、控油与眉部填补程度由客户及妆造师确认，不复制样片浓眉或骨相。",
+    "use_note": "这是方案表达草稿，不是原始提示词或可直接套用的产品工单；仅在确认与来源复核后适配。"
+  },
+  "reference_roles": {
+    "makeup": [
+      "MMAKEUP000036"
+    ],
+    "customer_identity": [],
+    "hairstyle": "仅上下文，不默认继承"
+  },
+  "limitations": [
+    "实际是否上妆、使用何种产品与步骤均未知，只可描述裸感视觉目标。",
+    "来源为花瓣转载索引，原作者、完整后期和实拍真实性未独立核实。",
+    "单张正面图不提供侧面、动态或不同灯光下的效果证据。",
+    "眉毛浓密、鼻梁与下颌形状属于样片人物外貌，不能作为妆容目标复刻。"
+  ],
+  "validation": {
+    "data_review": "user_accepted_feature_extraction",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null,
+    "production_ready": false,
+    "review_scope": "用户确认特征提取与数据结构；不表示来源认证或生成效果验证。"
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  },
+  "default_retrieval_eligible": true,
+  "retrieval_scope": "review_only",
+  "source_kind": "repost_index"
+}

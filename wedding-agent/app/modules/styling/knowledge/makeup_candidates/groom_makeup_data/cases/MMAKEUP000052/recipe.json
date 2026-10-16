@@ -1,0 +1,183 @@
+{
+  "schema_version": "0.2",
+  "case_id": "MMAKEUP000052",
+  "name": "自然毛流眉与柔红棕唇",
+  "audience": "新郎",
+  "category_id": "05",
+  "category_name": "复古绅士妆",
+  "status": "review_draft",
+  "production_ready": false,
+  "source_truth_status": "unverified",
+  "case_unit": "single_independent_reference",
+  "description": "眼周浅棕，未见夸张上扬眼线；唇色柔红棕偏珊瑚，呈缎光。",
+  "evidence": {
+    "cloud_folder": "https://my.feishu.cn/drive/folder/FaXEfr1Z7lOtezdk2YrcBjndn9c",
+    "cloud_file": "https://my.feishu.cn/file/LHMQbhTwnofGoHxMn1pciPt6nTg",
+    "source_index_url": "https://my.feishu.cn/file/RLTkbC0V6oBqrxx2U7xcRy4fnSf",
+    "source_record": "source-record.json",
+    "checked_on": "2026-10-16",
+    "review_method": "逐张查看由下载原文件制作的分类联系表；读取原索引并核对文件尺寸及 SHA256；不据联系表推断微小像素细节",
+    "source_verification": "本轮核对飞书文件及索引；未独立访问或认证原始发布者",
+    "real_photo_status": "unverified"
+  },
+  "observations": [
+    {
+      "id": "MMAKEUP000052-F1",
+      "dimension": "肤面观感",
+      "statement": "鼻颊有光泽，肤面仍可见小纹理。",
+      "evidence_images": [
+        "MMAKEUP000052"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "MMAKEUP000052-F2",
+      "dimension": "眉毛",
+      "statement": "深色眉毛毛流明显，边缘不呈实心块。",
+      "evidence_images": [
+        "MMAKEUP000052"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "MMAKEUP000052-F3",
+      "dimension": "眼部",
+      "statement": "眼周浅棕，未见夸张上扬眼线。",
+      "evidence_images": [
+        "MMAKEUP000052"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "MMAKEUP000052-F4",
+      "dimension": "面颊与轮廓",
+      "statement": "面颊暖色克制。",
+      "evidence_images": [
+        "MMAKEUP000052"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "MMAKEUP000052-F5",
+      "dimension": "唇部",
+      "statement": "唇色柔红棕偏珊瑚，呈缎光。",
+      "evidence_images": [
+        "MMAKEUP000052"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "此单图可用于讨论“自然毛流眉与柔红棕唇”这一视觉方向；不能外推为整个复古绅士妆的必备特征。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "MMAKEUP000052"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "黑色梳发、皮衣与手持唇膏为画面上下文。"
+  ],
+  "within_session_locks": [
+    "客户身份、自然肤色、五官比例及明确保留特征不随样片改变。",
+    "客户与妆造师确认后，固定本次妆效方向、配色范围与主要强度；修改需显式记录。",
+    "同一套成片保持确认后的妆效逻辑，不要求不同光线下反光完全相同。"
+  ],
+  "creative_variables": [
+    {
+      "field": "红棕唇浓度",
+      "options": [
+        "保留本案例可见方向",
+        "降低该项强调程度",
+        "按客户偏好与妆造师方案调整"
+      ],
+      "constraints": "颜色和程度由客户资料与妆造师共同确认；不改变客户五官、肤色及明确保留特征，不推定产品或色号。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "眉部修整强度",
+      "options": [
+        "保留本案例可见方向",
+        "降低该项强调程度",
+        "按客户偏好与妆造师方案调整"
+      ],
+      "constraints": "颜色和程度由客户资料与妆造师共同确认；不改变客户五官、肤色及明确保留特征，不推定产品或色号。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "局部光泽",
+      "options": [
+        "保留本案例可见方向",
+        "降低该项强调程度",
+        "按客户偏好与妆造师方案调整"
+      ],
+      "constraints": "颜色和程度由客户资料与妆造师共同确认；不改变客户五官、肤色及明确保留特征，不推定产品或色号。",
+      "evidence_type": "proposed"
+    }
+  ],
+  "compatibility_rules": [
+    "妆造师最新明确方案优先于样片默认，客户明确要求冲突时协调。",
+    "发型、服装、配饰、场景与妆容分别确认。",
+    "适配建议尚未验证，不从单张样片断言适合所有肤色、眼型或拍摄环境。",
+    "灯光和后期会影响妆效，不能把所有阴影与亮区解释为化妆步骤。"
+  ],
+  "do_not_inherit": [
+    "样片身份、脸型、五官比例、虹膜色与原生肤色",
+    "品牌文字、水印、抠图边缘和压缩瑕疵",
+    "未经证实的化妆步骤、产品色号、摄影参数",
+    "未经客户确认的痣、雀斑、胡须等特征修改"
+  ],
+  "unknowns": {
+    "原作者与原始拍摄证据": null,
+    "实际化妆步骤": null,
+    "化妆产品与色号": null,
+    "真实肤质与肤色底调": null,
+    "完整后期程度": null,
+    "同人同妆多角度效果": null,
+    "是否实际上妆": null,
+    "是否 AI 生成": null
+  },
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "眼周浅棕，未见夸张上扬眼线；唇色柔红棕偏珊瑚，呈缎光。",
+    "template": "客户身份与保留特征：{{customer_identity_constraints}}。妆造师确认方案：{{approved_makeup_plan}}。本次采用的案例特征：{{selected_observations}}。调整变量：{{approved_variables}}。",
+    "example_draft": "保留客户本人五官、自然肤色与明确保留特征。可讨论的参考方向为：眼周浅棕，未见夸张上扬眼线；唇色柔红棕偏珊瑚，呈缎光。仅采用客户与妆造师确认的部分，调整红棕唇浓度、眉部修整强度、局部光泽。不复制样片身份、发型、服饰或摄影光线。",
+    "use_note": "未执行的方案表达草稿；不是原始提示词，不直接构成生成工单。"
+  },
+  "reference_roles": {
+    "makeup": [
+      "MMAKEUP000052"
+    ],
+    "customer_identity": [],
+    "hairstyle": "仅上下文，不默认继承"
+  },
+  "limitations": [
+    "拿着唇膏不证明实际使用同一品牌或色号；复古感部分来自造型。",
+    "仅有一张 1030×1410 参考，无法验证动态与多角度一致性。",
+    "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。"
+  ],
+  "validation": {
+    "data_review": "pending_user_review",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null,
+    "production_ready": false
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  },
+  "default_retrieval_eligible": true,
+  "retrieval_scope": "review_only",
+  "source_kind": "repost_index"
+}

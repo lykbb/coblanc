@@ -1,0 +1,12 @@
+[
+  {
+    "image_id": "MMAKEUP000036",
+    "evidence_type": "observed",
+    "shot": "单人正面竖幅头肩近景；额前发丝局部接近眉区，面部主要区域可辨。",
+    "makeup_visibility": "眉、眼、颊、唇主要区域可辨；细节可信范围见 limitations",
+    "is_composite": false,
+    "prompt_fragment_draft": null,
+    "generation_tested": false,
+    "note": "此处仅记录观察条件，不是必须复刻的摄影分镜。"
+  }
+]

@@ -1,0 +1,581 @@
+{
+  "status": "structural_and_file_checks_only",
+  "image_count": 56,
+  "new_case_count": 54,
+  "prior_accepted_pilot_count": 2,
+  "category_count": 14,
+  "skill_count": 72,
+  "source_hash_match_count": 56,
+  "byte_duplicate_count": 0,
+  "held_ai_label_ids": [
+    "FMAKEUP000036",
+    "FMAKEUP000043"
+  ],
+  "source_authenticity_verified": false,
+  "generation_tested": false,
+  "cloud_modified": false,
+  "github_submitted": false,
+  "cases": [
+    {
+      "case_id": "FMAKEUP000036",
+      "sha256": "4e133ebde39a285a381f89dd4032636add1c88f20705a4db9263beb8bfc80e3c",
+      "source_hash_match": true,
+      "width": 658,
+      "height": 1110,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000037",
+      "sha256": "48355ad83593d2e3f50e88ee172734d5d28abac81dcf15e79b418deeec9f6b69",
+      "source_hash_match": true,
+      "width": 480,
+      "height": 853,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000038",
+      "sha256": "a5b837c29dbe7c80b6570255db00c43534d8587bf378cfadbc73afa8b4085aad",
+      "source_hash_match": true,
+      "width": 480,
+      "height": 672,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000039",
+      "sha256": "41a9d785a2fb8aa2483d66a3496090b93accceee52bbfda29551aebec35c223e",
+      "source_hash_match": true,
+      "width": 480,
+      "height": 643,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000040",
+      "sha256": "67bffe0ade2a3240ab9c44af9d32cf1563e0eb532617cd3dd48f64ed86b05b5d",
+      "source_hash_match": true,
+      "width": 480,
+      "height": 640,
+      "pilot_preserved": true,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000041",
+      "sha256": "5c2c12fb676568fa19dd36983a6678b00e695322bdc645987b9f91e5981b940e",
+      "source_hash_match": true,
+      "width": 480,
+      "height": 720,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000042",
+      "sha256": "8dd239e7c1dbdc7125f1272b605f970fb7ccbd58638e92dbdbaaf6c744e11ccc",
+      "source_hash_match": true,
+      "width": 480,
+      "height": 640,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000043",
+      "sha256": "0bd1834cfca1e89d5a346da3d2c4e3500305d21594b63866e1e7cb79b86add6f",
+      "source_hash_match": true,
+      "width": 480,
+      "height": 800,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000044",
+      "sha256": "08ae82feb8bf760003c2aea5d6dce932392a8e666e278ee91ab5a27a0de276d6",
+      "source_hash_match": true,
+      "width": 480,
+      "height": 640,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000045",
+      "sha256": "6d2ff79dfdf36eda32381338e479346f02e8c7742e844438d6388da86bbfd62f",
+      "source_hash_match": true,
+      "width": 735,
+      "height": 985,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000046",
+      "sha256": "27f5651f898d4014907aee4c991aabeb99801186996cd46252c1b1b29990978d",
+      "source_hash_match": true,
+      "width": 736,
+      "height": 735,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000047",
+      "sha256": "834cb4fea67b4ce252c7695b20ea77ae981fe0c106af5fc3e64eb67bf76684be",
+      "source_hash_match": true,
+      "width": 736,
+      "height": 900,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000048",
+      "sha256": "f3f0980a4f8c0b9c6127ba70abdf72d26cf2ff36bf80dadaaa65eba6f2db36e9",
+      "source_hash_match": true,
+      "width": 770,
+      "height": 640,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000049",
+      "sha256": "513945ef50541dbc9128a8cdd3294062f35e2bb755e4f4a998cd26607b68d814",
+      "source_hash_match": true,
+      "width": 1080,
+      "height": 1410,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000050",
+      "sha256": "74b2ac9e3561395de0beed288c32fd6284aff8f1d5c61a640ecfc4fd52d0214c",
+      "source_hash_match": true,
+      "width": 750,
+      "height": 1107,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000051",
+      "sha256": "41d4cf731ef2e4412cfbbcb6f06d9e83ecea637262b31a020e0170ec2310d89a",
+      "source_hash_match": true,
+      "width": 1200,
+      "height": 1350,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000052",
+      "sha256": "801472152da17de27df7be08aa7b189f3e7f1e022b2b8d3a5ad6df47297160cf",
+      "source_hash_match": true,
+      "width": 1080,
+      "height": 1440,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000053",
+      "sha256": "6d91a62a12df68d9397b4c988057d9ba1deb846cc724f08525d7e1a49f574c55",
+      "source_hash_match": true,
+      "width": 530,
+      "height": 670,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000054",
+      "sha256": "321fa165f391168b476f8806e89b34b6c931c93ffdb752d22d0f4395d5289c18",
+      "source_hash_match": true,
+      "width": 870,
+      "height": 1050,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000055",
+      "sha256": "01ee65f4f043fad143bb953dbf06f766471aa637bc9a9fa7f49500c6fd9df29e",
+      "source_hash_match": true,
+      "width": 930,
+      "height": 1310,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000056",
+      "sha256": "9a5d4210fea1647e2ed92f28366966940321041d203e1f13f34a772bbfe5082f",
+      "source_hash_match": true,
+      "width": 940,
+      "height": 1200,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000057",
+      "sha256": "508c9b2c76c1bd8f401cabb231616dbce99ede5eb6bfa5734a8120de0246e000",
+      "source_hash_match": true,
+      "width": 761,
+      "height": 1066,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000058",
+      "sha256": "65a98515f185899522f77268aca1e636ce16603e0b29d7acbf6c0ae1fa65e07f",
+      "source_hash_match": true,
+      "width": 1080,
+      "height": 1619,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000059",
+      "sha256": "8b6926620ff74581ea163f1519cf3963e8bf727f6dbe3d8fd3b79c7b4996d4a5",
+      "source_hash_match": true,
+      "width": 1100,
+      "height": 1290,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000060",
+      "sha256": "2fe2d6ea4875a0e4f8315c1254ff2f412ae695485eaf9adaa674749f877f1ae0",
+      "source_hash_match": true,
+      "width": 1200,
+      "height": 1700,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000061",
+      "sha256": "03431cbc9f48ea0be7922447bbfb2dda1a3068a957ef3bf647ca010ceeac0ef2",
+      "source_hash_match": true,
+      "width": 940,
+      "height": 1160,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000062",
+      "sha256": "c6352b2855328763a3981bd1232851b439cf1b21a8065dafa48dfb23708c57e9",
+      "source_hash_match": true,
+      "width": 1200,
+      "height": 1570,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "FMAKEUP000063",
+      "sha256": "f9b923edabd2038492f0a874dcacfe05262fe56f8d553bd3d42df186b7a39a20",
+      "source_hash_match": true,
+      "width": 940,
+      "height": 1285,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000036",
+      "sha256": "ae0301cc3778087be96c0c055fcba6a1706a9e3487dc87e90c602f40b434413b",
+      "source_hash_match": true,
+      "width": 720,
+      "height": 990,
+      "pilot_preserved": true,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000037",
+      "sha256": "1398f2fc63d9cbdfcf643b62ff0d77d2076a759ab06066bb658cc25cf8e91dec",
+      "source_hash_match": true,
+      "width": 900,
+      "height": 1180,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000038",
+      "sha256": "a294e4bffcc3557ba0a70ae3ae460145621159822b28774f1129d3b5a2f1ebe7",
+      "source_hash_match": true,
+      "width": 405,
+      "height": 607,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000039",
+      "sha256": "790831d2694a0dc8267dd56f7166a42f6b23875c989f6c6c3374562a364352d9",
+      "source_hash_match": true,
+      "width": 500,
+      "height": 540,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000040",
+      "sha256": "9debd4691d28856a536157a334d24fd63cf9bb946cb7f7a1e0a852e043dba0ce",
+      "source_hash_match": true,
+      "width": 1000,
+      "height": 1250,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000041",
+      "sha256": "762b987ce1236ff7a2d13f569d1bcc98d787d72f03ca92bbea4f3d47662c78cc",
+      "source_hash_match": true,
+      "width": 1000,
+      "height": 1200,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000042",
+      "sha256": "90e869da8664852ed2f982ce72db6666b921e6b871ce7e9789c3d5a69d2aae50",
+      "source_hash_match": true,
+      "width": 1200,
+      "height": 1450,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000043",
+      "sha256": "66c3b760692130d6a35cd2004b30d528133a0329c29e6e0539b35cf90345c573",
+      "source_hash_match": true,
+      "width": 880,
+      "height": 730,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000044",
+      "sha256": "40072d15027af264a9d834ed43a4a3bb6274e2abf7ccf9f306012e1b39d4fef8",
+      "source_hash_match": true,
+      "width": 670,
+      "height": 900,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000045",
+      "sha256": "76fe0974789b0f6b9f3186b95aaf8158a2e3ff4bb0e8712f32bc99f2438a9d28",
+      "source_hash_match": true,
+      "width": 1068,
+      "height": 1416,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000046",
+      "sha256": "b9b83cc73906fe3e3712c59d76489529f0ec5fc9c68b7fb01b27c4c7c203ee86",
+      "source_hash_match": true,
+      "width": 1100,
+      "height": 1080,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000047",
+      "sha256": "c430dc37d3d89b5124d8622d51190c015fe21c87f3a11696abcfc4c0c49d303a",
+      "source_hash_match": true,
+      "width": 680,
+      "height": 700,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000048",
+      "sha256": "f25a958a3498632f0fb2017ded1ef4bf38c3fdaa5751463f45e6a24541f36af4",
+      "source_hash_match": true,
+      "width": 800,
+      "height": 1015,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000049",
+      "sha256": "f079dfb80467b69960b25e2f83a8822677920131d1cd46e3d73b8a9130827f4b",
+      "source_hash_match": true,
+      "width": 970,
+      "height": 890,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000050",
+      "sha256": "09d81e60b3ce3dee5fa3469187db9d376664804553dcedecb41797faab1af26a",
+      "source_hash_match": true,
+      "width": 920,
+      "height": 1150,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000051",
+      "sha256": "afece9ef2d2608ad9991a75ac17681a125f3bba091cc6e93aaa5d605a5c035c7",
+      "source_hash_match": true,
+      "width": 700,
+      "height": 1050,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000052",
+      "sha256": "77896e3963ee1fe7e08edadb0b921fcb5955794cff8dd14a499d026b42704ad7",
+      "source_hash_match": true,
+      "width": 1030,
+      "height": 1410,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000053",
+      "sha256": "a28e5549533e9db9f1423f69d0db015914dadae0bffd92b3a5b195128f2dc90d",
+      "source_hash_match": true,
+      "width": 940,
+      "height": 1320,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000054",
+      "sha256": "f5ae2e25c1d1a3cbc534601775aa7e6d892579c2a4b3fdf76bd4546571833605",
+      "source_hash_match": true,
+      "width": 564,
+      "height": 720,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000055",
+      "sha256": "0cc25ac8effff9664837b4713ee83319a89041998a7546003eea13620e2a1955",
+      "source_hash_match": true,
+      "width": 770,
+      "height": 1020,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000056",
+      "sha256": "c263aecd168fe1ca7e70316e7a8f453d200e04da5e77416d3b92c0ebcf815835",
+      "source_hash_match": true,
+      "width": 1118,
+      "height": 1340,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000057",
+      "sha256": "3d08e1ac7e1a97bbf19d81563cb301de7ea20307ec384184b6c11d798cd0ed81",
+      "source_hash_match": true,
+      "width": 1000,
+      "height": 1190,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000058",
+      "sha256": "f0e20367d3f45dbefb0999f5b76b7db3aef2743bd78ae7a293fd5ccf8378d31b",
+      "source_hash_match": true,
+      "width": 928,
+      "height": 1232,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000059",
+      "sha256": "1d89077da151f29bda4c3e75c6cb2ad7e8198d8ffbacff47e0ca3b91d96d70c2",
+      "source_hash_match": true,
+      "width": 1040,
+      "height": 1300,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000060",
+      "sha256": "338c1ba36a9fa26e49824d485bdae74a6a1dcc039caf8bea07ba103bed1ab3cd",
+      "source_hash_match": true,
+      "width": 726,
+      "height": 900,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000061",
+      "sha256": "b6486adc43b10fc89c3248a59c64f5fabb1d24ee33f3094d09bcb99c4e72f1f6",
+      "source_hash_match": true,
+      "width": 1005,
+      "height": 910,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000062",
+      "sha256": "2026b30762bc1956e18a3023715142e8d4a220b883817e37e87e885cf1315240",
+      "source_hash_match": true,
+      "width": 900,
+      "height": 1090,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    },
+    {
+      "case_id": "MMAKEUP000063",
+      "sha256": "a88388301d5cd544ffcc71fb1e2d926a7f5bbbd5a583084d08a94e6ea8bc0f57",
+      "source_hash_match": true,
+      "width": 490,
+      "height": 470,
+      "pilot_preserved": false,
+      "source_authenticity_verified": false,
+      "production_ready": false
+    }
+  ],
+  "record_scope": "离线交接包创建时的文件核验快照；github_submitted=false 指该快照时刻，当前PR状态以GitHub为准。"
+}

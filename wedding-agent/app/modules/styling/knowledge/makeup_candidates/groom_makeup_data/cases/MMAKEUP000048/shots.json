@@ -1,0 +1,12 @@
+[
+  {
+    "image_id": "MMAKEUP000048",
+    "evidence_type": "observed",
+    "shot": "侧转头肩近景，主要妆区可见。",
+    "makeup_visibility": "仅采用 observations 中可辨区域；遮挡与细节不足见 limitations",
+    "is_composite": false,
+    "prompt_fragment_draft": null,
+    "generation_tested": false,
+    "note": "记录参考图观察条件，不是要求复刻的摄影分镜。"
+  }
+]

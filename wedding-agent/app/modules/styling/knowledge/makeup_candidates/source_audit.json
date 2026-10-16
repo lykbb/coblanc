@@ -1,0 +1,791 @@
+{
+  "checked_on": "2026-10-16",
+  "original_publisher_verified": false,
+  "ai_label_recorded_ids": [
+    "FMAKEUP000036",
+    "FMAKEUP000043"
+  ],
+  "source_unverified_count": 54,
+  "items": [
+    {
+      "case_id": "FMAKEUP000036",
+      "audience": "新娘",
+      "category": "韩式水光妆",
+      "source_truth_status": "ai_label_recorded",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/TfsSbso8Vot7UoxyvJQcdK3Cn6e",
+      "cloud_file": "https://my.feishu.cn/file/KjeKb84WiouEpFx0Y7JcirKUnBe",
+      "notes": "源索引明确记录 AI/即梦 AI 标识；即使现文件已清除标识也不能认定为真人。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000037",
+      "audience": "新娘",
+      "category": "韩式水光妆",
+      "source_truth_status": "unverified",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/TfsSbso8Vot7UoxyvJQcdK3Cn6e",
+      "cloud_file": "https://my.feishu.cn/file/X92Jbg3PBo3tsNxx1yicHvbgnKg",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000038",
+      "audience": "新娘",
+      "category": "韩式水光妆",
+      "source_truth_status": "unverified",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/TfsSbso8Vot7UoxyvJQcdK3Cn6e",
+      "cloud_file": "https://my.feishu.cn/file/YRqwbU1PuoeqruxhkkfcwjIhnYY",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000039",
+      "audience": "新娘",
+      "category": "韩式水光妆",
+      "source_truth_status": "unverified",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/TfsSbso8Vot7UoxyvJQcdK3Cn6e",
+      "cloud_file": "https://my.feishu.cn/file/BwnrbyGsuo5p7qxvnNAckUAlnId",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000040",
+      "audience": "新娘",
+      "category": "法式复古妆",
+      "source_truth_status": "unverified",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/Gk11bQsyBoXFNjxV9M5cMAMCnKh",
+      "cloud_file": "https://my.feishu.cn/file/IIn7bFJSUoZDXcx7LA7cv6tNnwe",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000041",
+      "audience": "新娘",
+      "category": "法式复古妆",
+      "source_truth_status": "unverified",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/Gk11bQsyBoXFNjxV9M5cMAMCnKh",
+      "cloud_file": "https://my.feishu.cn/file/BHIFb0h6ZopNNyxbm6VcloGdnLh",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000042",
+      "audience": "新娘",
+      "category": "法式复古妆",
+      "source_truth_status": "unverified",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/Gk11bQsyBoXFNjxV9M5cMAMCnKh",
+      "cloud_file": "https://my.feishu.cn/file/KoASbEcwvoRRq8xB72Bcg3qnnde",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000043",
+      "audience": "新娘",
+      "category": "法式复古妆",
+      "source_truth_status": "ai_label_recorded",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/Gk11bQsyBoXFNjxV9M5cMAMCnKh",
+      "cloud_file": "https://my.feishu.cn/file/QGeEbUK2Uo9Qyfx1pOqcbkjUnag",
+      "notes": "源索引明确记录 AI/即梦 AI 标识；即使现文件已清除标识也不能认定为真人。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000044",
+      "audience": "新娘",
+      "category": "浓颜轻泰妆",
+      "source_truth_status": "unverified",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/O4JrbRAdyo2AlYxifX2cvDSinqb",
+      "cloud_file": "https://my.feishu.cn/file/XPYlb0dzqoDzrSxwOO4cUYjLnfc",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000045",
+      "audience": "新娘",
+      "category": "浓颜轻泰妆",
+      "source_truth_status": "unverified",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/O4JrbRAdyo2AlYxifX2cvDSinqb",
+      "cloud_file": "https://my.feishu.cn/file/EsF3bR0khoAhpoxjCnmcgV97ngc",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000046",
+      "audience": "新娘",
+      "category": "浓颜轻泰妆",
+      "source_truth_status": "unverified",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/O4JrbRAdyo2AlYxifX2cvDSinqb",
+      "cloud_file": "https://my.feishu.cn/file/Bn7abYh5dolgmvxeytNcfLyVn8d",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000047",
+      "audience": "新娘",
+      "category": "浓颜轻泰妆",
+      "source_truth_status": "unverified",
+      "source_kind": "user_supplied_original_unknown",
+      "source_url": null,
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/O4JrbRAdyo2AlYxifX2cvDSinqb",
+      "cloud_file": "https://my.feishu.cn/file/DXSob2NvRoTsXSxoBCvcKYZnnYd",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000048",
+      "audience": "新娘",
+      "category": "贵气千金妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/5098410136",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/GqvPbCpYroQNaIxgd83cPGmbntb",
+      "cloud_file": "https://my.feishu.cn/file/IZEJbe0T9otwoSxMnWlcDWPxnbc",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000049",
+      "audience": "新娘",
+      "category": "贵气千金妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6971989645",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/GqvPbCpYroQNaIxgd83cPGmbntb",
+      "cloud_file": "https://my.feishu.cn/file/ByhvbSk6ho3F8hxynK1ch3qpnAe",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000050",
+      "audience": "新娘",
+      "category": "贵气千金妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6779290788",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/GqvPbCpYroQNaIxgd83cPGmbntb",
+      "cloud_file": "https://my.feishu.cn/file/H9imbMwreoIgvOxnTxXcLL8unah",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000051",
+      "audience": "新娘",
+      "category": "贵气千金妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6145262972",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/GqvPbCpYroQNaIxgd83cPGmbntb",
+      "cloud_file": "https://my.feishu.cn/file/THlgbAEd2oXzIKxRG3Tc1jHWnae",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000052",
+      "audience": "新娘",
+      "category": "新中式妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6748159978",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6748159978&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/AAs9bRQBOoaoDKxLWfHcwKxXnxc",
+      "cloud_file": "https://my.feishu.cn/file/Q4w6bwVxaoUXgzx0qKfcz25tnxf",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000053",
+      "audience": "新娘",
+      "category": "新中式妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/5994747949",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=5994747949&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/AAs9bRQBOoaoDKxLWfHcwKxXnxc",
+      "cloud_file": "https://my.feishu.cn/file/M8EzbQXqYoPLhrxMUuacrkjMnMg",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000054",
+      "audience": "新娘",
+      "category": "新中式妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/7271065752",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=7271065752&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/AAs9bRQBOoaoDKxLWfHcwKxXnxc",
+      "cloud_file": "https://my.feishu.cn/file/MZJZb24PIo9d47x2u4hcqfD6nMf",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000055",
+      "audience": "新娘",
+      "category": "新中式妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6415368557",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/AAs9bRQBOoaoDKxLWfHcwKxXnxc",
+      "cloud_file": "https://my.feishu.cn/file/GUygbcqMQob7eOxKTJ9c28rZnmg",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000056",
+      "audience": "新娘",
+      "category": "低饱和柔雾妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6028557903",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6028557903&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/KCHNbUk3Zo4IKRxAMFBchzSInae",
+      "cloud_file": "https://my.feishu.cn/file/RdvRbj1WOoiV4exzoZ7cPqtInCw",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000057",
+      "audience": "新娘",
+      "category": "低饱和柔雾妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6386197012",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6386197012&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/KCHNbUk3Zo4IKRxAMFBchzSInae",
+      "cloud_file": "https://my.feishu.cn/file/Vlewb60LJo41Wqxfh4OcDI6Snqf",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000058",
+      "audience": "新娘",
+      "category": "低饱和柔雾妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6742038919",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6742038919&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/KCHNbUk3Zo4IKRxAMFBchzSInae",
+      "cloud_file": "https://my.feishu.cn/file/Prw6b4CrNoZY1JxZJOMcnFMSnxg",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000059",
+      "audience": "新娘",
+      "category": "低饱和柔雾妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6575694783",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/KCHNbUk3Zo4IKRxAMFBchzSInae",
+      "cloud_file": "https://my.feishu.cn/file/YqSgbUzTKoy9qexJ5JNcOzvpnle",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000060",
+      "audience": "新娘",
+      "category": "氛围感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6534371878",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/OiFrbfObiozKsUxW3r8cPPnYnaf",
+      "cloud_file": "https://my.feishu.cn/file/XojsbxjwaoGxsJx3MYXcDtKVnrg",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000061",
+      "audience": "新娘",
+      "category": "氛围感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/7053426780",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=7053426780&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/OiFrbfObiozKsUxW3r8cPPnYnaf",
+      "cloud_file": "https://my.feishu.cn/file/ByCLbgotdoOtmtxauB1cxnjWnPg",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000062",
+      "audience": "新娘",
+      "category": "氛围感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6007636402",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/OiFrbfObiozKsUxW3r8cPPnYnaf",
+      "cloud_file": "https://my.feishu.cn/file/DdHwbpujSoCTqnxfId6cmmy7nve",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "FMAKEUP000063",
+      "audience": "新娘",
+      "category": "氛围感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/7098342117",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/OiFrbfObiozKsUxW3r8cPPnYnaf",
+      "cloud_file": "https://my.feishu.cn/file/U1WXbuW8yovsOZxqiPxcmM6kn3e",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000036",
+      "audience": "新郎",
+      "category": "自然裸感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/7066104578",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/VnS6bpRUYoLUxMx2Jnoc96wKnvb",
+      "cloud_file": "https://my.feishu.cn/file/TBb7b6iC1oLlf6xFv8ucgQSinZb",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000037",
+      "audience": "新郎",
+      "category": "自然裸感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6673467303",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/VnS6bpRUYoLUxMx2Jnoc96wKnvb",
+      "cloud_file": "https://my.feishu.cn/file/Ah6Rb1Drxong46x9sKGcgzPdncd",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000038",
+      "audience": "新郎",
+      "category": "自然裸感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/4908687615",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=4908687615&url=pinterest.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/VnS6bpRUYoLUxMx2Jnoc96wKnvb",
+      "cloud_file": "https://my.feishu.cn/file/B7MtbQfZNoqOM2xaOJocycmTnUh",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000039",
+      "audience": "新郎",
+      "category": "自然裸感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6242693896",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6242693896&url=weibo.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/VnS6bpRUYoLUxMx2Jnoc96wKnvb",
+      "cloud_file": "https://my.feishu.cn/file/BoFPbXFhWoJQ7exuDObcLSlEnNd",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000040",
+      "audience": "新郎",
+      "category": "清爽柔雾妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/3524461002",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/F46nbmDSmoUm57xsFhfcG9m3nBe",
+      "cloud_file": "https://my.feishu.cn/file/SDnEbcvQboPgLExFCuCcjQlqnkc",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000041",
+      "audience": "新郎",
+      "category": "清爽柔雾妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6785761661",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6785761661&url=weibo.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/F46nbmDSmoUm57xsFhfcG9m3nBe",
+      "cloud_file": "https://my.feishu.cn/file/HBF2brmY4od1EHxiI1JcBjwHnGh",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000042",
+      "audience": "新郎",
+      "category": "清爽柔雾妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6919804269",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/F46nbmDSmoUm57xsFhfcG9m3nBe",
+      "cloud_file": "https://my.feishu.cn/file/GmOVbnCuLoG5Q4xlWckcHBxKn6g",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000043",
+      "audience": "新郎",
+      "category": "清爽柔雾妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6800305107",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6800305107&url=weibo.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/F46nbmDSmoUm57xsFhfcG9m3nBe",
+      "cloud_file": "https://my.feishu.cn/file/JCLfbsk2ooZSFyxBvZXcXhHKnqg",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000044",
+      "audience": "新郎",
+      "category": "韩式柔和妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6850563946",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6850563946&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/MUyKbIVa6oUAa8xqokncrESpnWd",
+      "cloud_file": "https://my.feishu.cn/file/UNoIbkIGzoTsJrxzcAPcQjs5nOb",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000045",
+      "audience": "新郎",
+      "category": "韩式柔和妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/7114317074",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=7114317074&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/MUyKbIVa6oUAa8xqokncrESpnWd",
+      "cloud_file": "https://my.feishu.cn/file/RIX9bTobBoFQGaxhnWLc0E5EnXe",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000046",
+      "audience": "新郎",
+      "category": "韩式柔和妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6923837541",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6923837541&url=instagram.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/MUyKbIVa6oUAa8xqokncrESpnWd",
+      "cloud_file": "https://my.feishu.cn/file/V3LRbDdHKo1aBmxx97kcL86Mn1c",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000047",
+      "audience": "新郎",
+      "category": "韩式柔和妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/7010658444",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=7010658444&url=weibo.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/MUyKbIVa6oUAa8xqokncrESpnWd",
+      "cloud_file": "https://my.feishu.cn/file/XLK8bTQacoJr33xHRCycYntZnZd",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000048",
+      "audience": "新郎",
+      "category": "精致立体妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/7012514767",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/T4aZbwVL0ol35LxBs8echuK0nLg",
+      "cloud_file": "https://my.feishu.cn/file/BAUWbhDppo2MU8xAfHlcXqDSnhe",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000049",
+      "audience": "新郎",
+      "category": "精致立体妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/7079860858",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=7079860858&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/T4aZbwVL0ol35LxBs8echuK0nLg",
+      "cloud_file": "https://my.feishu.cn/file/Tlqxbv59HoGaIZxVICxcrsURnpe",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000050",
+      "audience": "新郎",
+      "category": "精致立体妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6892710997",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6892710997&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/T4aZbwVL0ol35LxBs8echuK0nLg",
+      "cloud_file": "https://my.feishu.cn/file/ABA9bqRvxo5qt2x2QSUcEVDbnDc",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000051",
+      "audience": "新郎",
+      "category": "精致立体妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/4692693623",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=4692693623&url=shopping.naver.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/T4aZbwVL0ol35LxBs8echuK0nLg",
+      "cloud_file": "https://my.feishu.cn/file/EorFboHhtoxXJTxeooccsaRLnOg",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000052",
+      "audience": "新郎",
+      "category": "复古绅士妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6632926305",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6632926305&url=weibo.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/RLTkbC0V6oBqrxx2U7xcRy4fnSf",
+      "cloud_file": "https://my.feishu.cn/file/LHMQbhTwnofGoHxMn1pciPt6nTg",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000053",
+      "audience": "新郎",
+      "category": "复古绅士妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/5976944847",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=5976944847&url=pinterest.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/RLTkbC0V6oBqrxx2U7xcRy4fnSf",
+      "cloud_file": "https://my.feishu.cn/file/BqVnbJK8Aoj225xww3NcepjvnId",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000054",
+      "audience": "新郎",
+      "category": "复古绅士妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/5398258748",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=5398258748&url=pinterest.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/RLTkbC0V6oBqrxx2U7xcRy4fnSf",
+      "cloud_file": "https://my.feishu.cn/file/H5LQbQchWoleFNxhuhNctWCXnhb",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000055",
+      "audience": "新郎",
+      "category": "复古绅士妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6895643081",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6895643081&url=author.baidu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/RLTkbC0V6oBqrxx2U7xcRy4fnSf",
+      "cloud_file": "https://my.feishu.cn/file/VtMLbJNK6odLNWxsrYFc32K3n8g",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000056",
+      "audience": "新郎",
+      "category": "时尚冷感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/5336985472",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/X5CnbngZDo8kKIxoriEc03JFnLe",
+      "cloud_file": "https://my.feishu.cn/file/RcjmbTZABoqqcWx8rDQcOmeEnYd",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000057",
+      "audience": "新郎",
+      "category": "时尚冷感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/5348925428",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/X5CnbngZDo8kKIxoriEc03JFnLe",
+      "cloud_file": "https://my.feishu.cn/file/OROUb8ttho53WnxdL2wcL81pnkb",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000058",
+      "audience": "新郎",
+      "category": "时尚冷感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6761014211",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6761014211&url=pinterest.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/X5CnbngZDo8kKIxoriEc03JFnLe",
+      "cloud_file": "https://my.feishu.cn/file/Jz8bbecl3oW8iVxcbY7caFb7nUh",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000059",
+      "audience": "新郎",
+      "category": "时尚冷感妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/3524461783",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/X5CnbngZDo8kKIxoriEc03JFnLe",
+      "cloud_file": "https://my.feishu.cn/file/LVc4bLvs6oJMY2x1MWWcLfPGnFf",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000060",
+      "audience": "新郎",
+      "category": "舞台表现妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/7155860241",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=7155860241&url=hera.m.tmall.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/PrRlb2VcComkxFxyaEZcTX9gnug",
+      "cloud_file": "https://my.feishu.cn/file/DgZ7bTHEZofLDkx5ntvcO7EYnJh",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000061",
+      "audience": "新郎",
+      "category": "舞台表现妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/7154912494",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=7154912494&url=wx4.sinaimg.cn"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/PrRlb2VcComkxFxyaEZcTX9gnug",
+      "cloud_file": "https://my.feishu.cn/file/XM1RbKTYlouKKjxm1b4czbWnnab",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000062",
+      "audience": "新郎",
+      "category": "舞台表现妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/6570583111",
+      "original_source_entries": [
+        "https://huaban.com/go?pin_id=6570583111&url=xiaohongshu.com"
+      ],
+      "source_index_url": "https://my.feishu.cn/file/PrRlb2VcComkxFxyaEZcTX9gnug",
+      "cloud_file": "https://my.feishu.cn/file/TrinbI0mXoour9xCizHc9gM7nfg",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    },
+    {
+      "case_id": "MMAKEUP000063",
+      "audience": "新郎",
+      "category": "舞台表现妆",
+      "source_truth_status": "unverified",
+      "source_kind": "repost_index",
+      "source_url": "https://huaban.com/pins/4913260872",
+      "original_source_entries": [],
+      "source_index_url": "https://my.feishu.cn/file/PrRlb2VcComkxFxyaEZcTX9gnug",
+      "cloud_file": "https://my.feishu.cn/file/TvY0beF6golFrqxlZJbcvtZKnxd",
+      "notes": "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。",
+      "actual_makeup_application_verified": false
+    }
+  ]
+}
