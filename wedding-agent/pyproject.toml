@@ -5,9 +5,10 @@ description = "小囍：上传一张合照，生成婚纱照和婚礼物料"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.143.0",
-    "langchain>=1.4.5",
+    "langchain-core>=1.6.10",
     "langchain-openai>=1.7.1",
     "langgraph>=1.2.15",
+    "pydantic>=2.14.1",
     "python-dotenv>=1.2.4",
     "python-multipart>=0.0.32",
     "uvicorn>=0.54.0",

@@ -140,3 +140,12 @@ docs/             模块规范和接口约定
 ```
 
 现在每个模块只有 fake 实现，代码里的 `TODO(模块名)` 是各自要补的地方。
+
+## 运行环境版本
+
+| 组件 | 要求 | 说明 |
+| --- | --- | --- |
+| Python | 3.11（`requires-python >=3.11`） | 依赖由 `uv.lock` 锁定，部署用 `uv sync --frozen` |
+| Node.js | ≥ 23.6（推荐 24） | 摄影师/生图的 Pi 运行时直接执行 TypeScript；Ubuntu 自带 Node 22 不支持。服务器装在 `~/.local/node24`（`deploy.sh` 缺失时自动从 npmmirror 安装），也可用 `PI_NODE_BIN` 指定 |
+| 前端构建 | Node ≥ 20（Vite 8） | 在本机 `web/` 构建后上传 `dist` |
+| nginx | 1.2x | 反代 `/api`、`/files`，静态托管 `web/dist`，带访问密码 |
