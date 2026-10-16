@@ -1,4 +1,4 @@
-// 内部站点（后台、图墙）的请求封装：全部带 CSRF 头；登录失效时回到邀请码页。
+// 内部站点（后台、图墙）的请求封装：全部带 CSRF 头；后台会话失效时回登录页。
 // 站点接口根是 <站点前缀>api（path 模式 /gallery/api，子域名模式 /api），nginx 转到后端 /api/<站点>/。
 import { request } from './http.js'
 
@@ -11,7 +11,7 @@ export function makePortal() {
     try {
       return await request(prefix + path, { ...options, headers: { ...CSRF, ...(options.headers || {}) } })
     } catch (e) {
-      if (e.code === 'PORTAL_UNAUTHORIZED' || e.code === 'PORTAL_FORBIDDEN') location.reload()
+      if (e.code === 'PORTAL_UNAUTHORIZED' || e.code === 'PORTAL_FORBIDDEN') location.reload() // nginx 会转到登录页或拒绝
       throw e
     }
   }
@@ -21,8 +21,6 @@ export function makePortal() {
     call,
     json,
     status: () => request(prefix + '/status'),
-    redeem: (code) => request(prefix + '/redeem', { method: 'POST', headers: { ...CSRF, 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) }),
-    logout: () => call('/logout', { method: 'POST' }),
     url: (rel) => `${ROOT}/${rel}`, // 后端返回的相对接口地址（如 refs/<id>/image）
     asset: (path) => import.meta.env.BASE_URL + path.replace(/^\//, ''), // 用户站文件 /files/...，经本站前缀转发
   }

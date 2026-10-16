@@ -21,6 +21,9 @@ const steps = computed(() => {
     { label: '审片', status: reviewed ? 'done' : reviewing ? 'active' : 'todo' },
   ]
 })
+function confirmOut(e) {
+  if (!window.confirm('退出登录？')) e.preventDefault()
+}
 </script>
 
 <template>
@@ -37,5 +40,8 @@ const steps = computed(() => {
         <span class="relay-label">{{ step.label }}<span class="sr-only">{{ step.status === 'done' ? '，已完成' : step.status === 'active' ? '，进行中' : '' }}</span></span>
       </li>
     </ol>
+    <form class="topbar-logout" method="post" action="/logout" @submit="confirmOut">
+      <button type="submit" class="icon-btn" aria-label="退出" title="退出"><Icon name="close" :size="16" /></button>
+    </form>
   </header>
 </template>

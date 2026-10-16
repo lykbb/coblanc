@@ -28,7 +28,7 @@ from app.common.config import settings
 COOKIE = "xx_device"  # 用户站设备凭证
 PROTECTED = ("/api/", "/files/", "/templates/")
 OPEN = ("/api/access/redeem", "/api/access/status")
-PORTAL_COOKIES = {"admin": "xx_admin", "gallery": "xx_gallery"}  # 内部站点各自的凭证，见 app/portal.py
+LOGIN_COOKIES = {"front": "xx_login", "admin": "xx_admin"}  # 账号密码登录的会话（前台、后台），见 app/login.py；图墙只认 IP
 PORTAL_PREFIXES = ("/api/admin/", "/api/gallery/")  # 内部站点自己鉴权（app/portal.py），不走这里
 CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"  # 去掉 0/O/1/I/L，口头转述不易错
 MAX_FAILS, FAIL_WINDOW = 10, 600  # 同一 IP 10 分钟内最多输错 10 次
@@ -76,14 +76,14 @@ def needs_check(path: str) -> bool:
 
 def allowed(cookies: dict, ip: str = "") -> bool:
     """用户站接口和文件：用户站设备凭证有效即可；后台凭证也能看文件（后台任务页要显示图片）。"""
-    return bool(holder_for(cookies.get(COOKIE), ip=ip) or holder_for(cookies.get(PORTAL_COOKIES["admin"]), kind="admin"))
+    return bool(holder_for(cookies.get(COOKIE), ip=ip) or holder_for(cookies.get(LOGIN_COOKIES["admin"]), kind="admin"))
 
 
 def portal_ips() -> set[str]:
     """内部站点（图墙、后台）的来源 IP 白名单：团队成员（ADMIN_HOLDERS ∪ GALLERY_MEMBERS ∪ grokbot）有效用户站设备
     最近使用的 IP + 手工补充文件 + 本机。其他持有人（公开邀请等）兑换前台码后 IP 也不会进白名单。
 
-    nginx 用 auth_request 问 /internal/portal-ip-check；作废持有人（删设备）后其 IP 自动移除。按文件修改时间缓存。
+    nginx 用 auth_request 问 /internal/gate/team、/internal/gate/admin（app/login.py）；作废持有人（删设备）后其 IP 自动移除。按文件修改时间缓存。
     手工补充：state_dir/portal-extra-ips.txt，一行一个 IP，# 开头为注释，改完即时生效。
     """
     paths = (_path(), settings.state_dir / "portal-extra-ips.txt")
@@ -101,7 +101,7 @@ def portal_ips() -> set[str]:
 
 
 def holder_for(token: str | None, kind: str = "site", ip: str = "") -> str | None:
-    """凭证有效就返回持有人，否则 None。kind：site 用户站 / admin 后台 / gallery 图墙；内部站点另有空闲超时。"""
+    """凭证有效就返回持有人，否则 None。kind：site 用户站设备 / front 前台登录 / admin 后台登录（另有空闲超时）。"""
     if not token:
         return None
     with _lock:
@@ -110,7 +110,7 @@ def holder_for(token: str | None, kind: str = "site", ip: str = "") -> str | Non
         now = time.time()
         if not device or device.get("kind", "site") != kind or device["expires"] < now:
             return None
-        idle_hours = {"admin": settings.admin_session_hours, "gallery": settings.gallery_session_hours}.get(kind)
+        idle_hours = {"admin": settings.admin_session_hours}.get(kind)
         if idle_hours and now - device.get("last_seen", 0) > idle_hours * 3600:
             return None
         if now - device.get("last_seen", 0) > (60 if idle_hours else 3600) or (ip and device.get("ip") != ip):  # 少写盘；IP 变了立即记
@@ -128,32 +128,48 @@ def too_many_fails(ip: str) -> bool:
     return len(recent) >= MAX_FAILS
 
 
-def redeem(code: str, ip: str, user_agent: str = "", kind: str = "site", holders: list[str] | None = None) -> tuple[str, str] | None:
-    """兑换邀请码。成功返回 (设备凭证, 持有人)，邀请码随即作废；失败返回 None 并记一次失败。
+def _new_device(data: dict, holder: str, kind: str, ip: str, user_agent: str, days: float) -> str:
+    token = secrets.token_urlsafe(32)
+    now = time.time()
+    data["devices"][_hash(token)] = {
+        "id": secrets.token_hex(4), "holder": holder, "created": now, "last_seen": now, "kind": kind,
+        "expires": now + days * 86400, "ip": ip, "user_agent": user_agent[:200],
+    }
+    return token
 
-    内部站点（kind 为 admin/gallery）只接受 holders 名单里的人的邀请码；不在名单里的码按无效处理且不作废。
-    """
+
+def redeem(code: str, ip: str, user_agent: str = "") -> tuple[str, str] | None:
+    """兑换用户站邀请码。成功返回 (设备凭证, 持有人)，邀请码随即作废；失败返回 None 并记一次失败。"""
     with _lock:
         data = _load()
         entry = data["codes"].get(_hash(_normalize(code)))
-        if not entry or entry.get("used_at") or (holders is not None and entry["holder"] not in holders):
-            _fails.setdefault(ip, []).append(time.time())
+        if not entry or entry.get("used_at"):
+            record_fail(ip)
             return None
-        token = secrets.token_urlsafe(32)
-        now = time.time()
-        entry["used_at"] = now
-        data["devices"][_hash(token)] = {
-            "id": secrets.token_hex(4),
-            "holder": entry["holder"],
-            "created": now,
-            "last_seen": now,
-            "kind": kind,
-            "expires": now + (settings.access_days if kind == "site" else settings.portal_max_days) * 86400,
-            "ip": ip,
-            "user_agent": user_agent[:200],
-        }
+        entry["used_at"] = time.time()
+        token = _new_device(data, entry["holder"], "site", ip, user_agent, settings.access_days)
         _save(data)
         return token, entry["holder"]
+
+
+def start_session(holder: str, kind: str, ip: str, user_agent: str = "") -> str:
+    """账号密码登录成功后开会话（kind：front / admin），返回凭证。"""
+    with _lock:
+        data = _load()
+        token = _new_device(data, holder, kind, ip, user_agent, settings.portal_max_days)
+        _save(data)
+        return token
+
+
+def record_fail(ip: str) -> None:
+    _fails.setdefault(ip, []).append(time.time())
+
+
+def ip_holder(ip: str) -> str:
+    """图墙按 IP 识别上传人：最近用这个 IP 的团队成员设备，没有就记 IP。"""
+    team = set(settings.admin_holders) | set(settings.gallery_members) | {"grokbot"}
+    devices = [d for d in _load()["devices"].values() if d.get("kind", "site") == "site" and d.get("ip") == ip and d["holder"] in team]
+    return max(devices, key=lambda d: d.get("last_seen", 0))["holder"] if devices else ip
 
 
 def create(holders: list[str]) -> list[tuple[str, str]]:
@@ -233,7 +249,7 @@ def main(argv: list[str]) -> int:
         for entry in data["codes"]:
             print(f"邀请码\t{entry['holder']}\t创建 {_fmt(entry['created'])}\t使用 {_fmt(entry.get('used_at'))}")
         for d in data["devices"]:
-            print(f"{ {'admin': '后台', 'gallery': '图墙'}.get(d['kind'], '设备')} {d['id']}\t{d['holder']}\t最近 {_fmt(d['last_seen'])}\t到期 {_fmt(d['expires'])}\t{d['ip']}\t{d['user_agent'][:60]}")
+            print(f"{ {'admin': '后台', 'front': '前台'}.get(d['kind'], '设备')} {d['id']}\t{d['holder']}\t最近 {_fmt(d['last_seen'])}\t到期 {_fmt(d['expires'])}\t{d['ip']}\t{d['user_agent'][:60]}")
     elif command == "revoke" and len(args) == 1:
         print(f"已作废 {revoke(args[0])} 项")
     elif command == "revoke-device" and len(args) == 1:

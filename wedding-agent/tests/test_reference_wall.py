@@ -6,10 +6,9 @@ import pytest
 from fastapi.testclient import TestClient
 from PIL import Image
 
-from app import access, reference_wall
+from app import reference_wall
 from app.api import app
 from app.common.config import settings
-from conftest import portal_login
 
 
 def jpeg_with_exif(size=(3000, 1500)) -> bytes:
@@ -39,15 +38,13 @@ def test_styles_from_style_data(client):
     assert names == ["待分类", "大理", "中式", "韩式", "自然户外", "黑纱", "主纱", "城堡"]
 
 
-def test_requires_gallery_login(client):
-    anon = TestClient(app, headers={"X-Portal-CSRF": "1"})
-    assert anon.get("/api/gallery/refs").status_code == 401
-    assert anon.post("/api/gallery/refs", data={"verdict": "good"}).status_code == 401
-    [(_, code)] = access.create(["刘静"])  # 用户站凭证进不了图墙
-    anon.post("/api/access/redeem", json={"code": code})
-    assert anon.get("/api/gallery/refs").status_code == 401
-    admin = portal_login("admin", "lyk")  # 后台凭证也进不了图墙
-    assert admin.get("/api/gallery/refs").status_code == 401
+def test_gallery_is_ip_only(client):
+    outsider = TestClient(app, headers={"X-Portal-CSRF": "1", "X-Real-IP": "8.8.8.8"})
+    assert outsider.get("/api/gallery/refs").status_code == 403
+    assert outsider.post("/api/gallery/refs", data={"verdict": "good"}).status_code == 403
+    assert outsider.get("/api/gallery/status").json() == {"authorized": False, "holder": None}
+    assert client.get("/api/gallery/status").json() == {"authorized": True, "holder": "刘静"}
+    assert TestClient(app).post("/api/gallery/redeem", json={"code": "X"}).status_code in (404, 405)
 
 
 def test_upload_converts_and_strips_exif(client):

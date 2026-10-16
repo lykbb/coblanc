@@ -1,0 +1,10 @@
+# 登录页输错密码：10 分钟内错 10 次封 1 小时（偶尔打错几次不会被封；后端同一 IP 错 10 次也会先锁 10 分钟）
+[wedding-login]
+enabled = true
+port = http,https
+filter = wedding-login
+backend = auto
+logpath = /var/log/nginx/access.log
+maxretry = 10
+findtime = 10m
+bantime = 1h

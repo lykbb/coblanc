@@ -6,14 +6,10 @@ import { portal } from './api.js'
 
 const holder = ref('')
 onMounted(async () => { holder.value = (await portal.status()).holder })
-async function logout() {
-  await portal.logout().catch(() => {})
-  location.reload()
-}
 </script>
 
 <template>
-  <PortalShell brand="GALLERY" :holder="holder" @logout="logout">
+  <PortalShell brand="GALLERY" :holder="holder">
     <ReferenceWall />
   </PortalShell>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-// 内部站点外框：品牌、栏目（可选）、登录人、退出。
+// 内部站点外框：品牌、栏目（可选）、访问人、退出（仅后台：表单 POST 到 <前缀>logout）。
 import Icon from './components/Icon.vue'
 
 defineProps({
@@ -7,10 +7,12 @@ defineProps({
   holder: { type: String, default: '' },
   sections: { type: Array, default: () => [] },
   current: { type: String, default: '' },
+  logout: { type: Boolean, default: false },
 })
-const emit = defineEmits(['go', 'logout'])
-function signOut() {
-  if (confirm('退出登录？')) emit('logout')
+const LOGOUT = import.meta.env.BASE_URL + 'logout'
+const emit = defineEmits(['go'])
+function confirmOut(e) {
+  if (!confirm('退出登录？')) e.preventDefault()
 }
 </script>
 
@@ -22,7 +24,9 @@ function signOut() {
         <button v-for="s in sections" :key="s.key" type="button" :class="{ on: current === s.key }" @click="emit('go', s)">{{ s.label }}</button>
       </nav>
       <span class="portal-who">{{ holder }}</span>
-      <button type="button" class="icon-btn" aria-label="退出" title="退出" @click="signOut"><Icon name="close" :size="16" /></button>
+      <form v-if="logout" method="post" :action="LOGOUT" @submit="confirmOut">
+        <button type="submit" class="icon-btn" aria-label="退出" title="退出"><Icon name="close" :size="16" /></button>
+      </form>
     </header>
     <main class="portal-main"><slot /></main>
   </div>

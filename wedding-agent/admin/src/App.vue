@@ -18,14 +18,10 @@ function go(section) {
   current.value = section
   history.replaceState(null, '', '#' + section.key)
 }
-async function logout() {
-  await portal.logout().catch(() => {})
-  location.reload()
-}
 </script>
 
 <template>
-  <PortalShell brand="ADMIN" :holder="holder" :sections="SECTIONS" :current="current.key" @go="go" @logout="logout">
+  <PortalShell brand="ADMIN" :holder="holder" :sections="SECTIONS" :current="current.key" @go="go" logout>
     <component :is="current.view" />
   </PortalShell>
 </template>

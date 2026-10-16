@@ -1,0 +1,5 @@
+# 前台 /login、后台 /abordadmin/login 账号密码登录失败（后端返回 401），见 wedding-agent/app/login.py。
+[Definition]
+failregex = ^<HOST> \S+ \S+ \[[^\]]+\] "POST /(?:abordadmin/)?login(?:\?\S*)? HTTP/[0-9.]+" 401 
+ignoreregex =
+datepattern = {^LN-BEG}%%d/%%b/%%Y:%%H:%%M:%%S %%z

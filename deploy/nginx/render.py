@@ -10,9 +10,17 @@ from pathlib import Path
 
 HERE = Path(__file__).parent
 SITES = {  # 站点：(path 前缀, 前端目录, 名称, 谁能用, 上传上限)
-    "gallery": ("/gallery/", "gallery", "图墙", "只给图墙成员（GALLERY_MEMBERS）。", "12m"),
-    "admin": ("/abordadmin/", "admin", "后台管理", "只给管理员（ADMIN_HOLDERS）。", "1m"),
+    "gallery": ("/gallery/", "gallery", "图墙", "只认团队 IP 白名单，无登录。", "12m"),
+    "admin": ("/abordadmin/", "admin", "后台管理", "团队 IP 白名单 + 账号密码登录页。", "1m"),
 }
+ADMIN_LOGIN = ("  error_page 401 = @admin_login;\n"
+               "  location = /abordadmin/login { auth_request /_gate_team; limit_req zone=admin_login burst=6 nodelay; proxy_pass http://127.0.0.1:8000/auth/admin/login; }\n"
+               "  location = /abordadmin/logout { auth_request /_gate_team; proxy_pass http://127.0.0.1:8000/auth/admin/logout; }\n")
+ADMIN_NAMED = "location @admin_login { return 302 /abordadmin/login?next=$uri; }\n"
+GATES = {"gallery": "team", "admin": "admin"}
+LOGIN_PROXY = ("proxy_set_header Host $http_host;\nproxy_set_header X-Real-IP $remote_addr;\n"
+               "proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\nproxy_set_header X-Forwarded-Proto $scheme;\n"
+               'add_header X-Frame-Options "DENY" always;\nadd_header X-Robots-Tag "noindex, nofollow" always;\n')
 ADMIN_FILES = "  location ^~ /abordadmin/files/ { limit_req zone=admin_api burst=60 nodelay; proxy_pass http://127.0.0.1:8000/files/; }  # 任务图片\n"
 
 
@@ -38,15 +46,17 @@ def render(mode: str, scheme: str, base: str) -> dict[str, str]:
         "__BASE__": base,
     }
     out = {"sites/wedding-zones": (HERE / "wedding-zones.template").read_text(encoding="utf-8"),
-           "snippets/wedding-portal-ip-check.conf": (HERE / "portal-ip-check.inc").read_text(encoding="utf-8")}
+           "snippets/wedding-portal-ip-check.conf": (HERE / "portal-ip-check.inc").read_text(encoding="utf-8"),
+           "snippets/wedding-login-proxy.conf": LOGIN_PROXY}
     guard = (HERE / "portal-guard.inc.template").read_text(encoding="utf-8")
     portals = ""
     for site, (prefix, app, label, who, body) in SITES.items():
-        out[f"snippets/wedding-portal-{site}.conf"] = fill(guard, {**common, "__PREFIX__": prefix if mode == "path" else "/"})
+        out[f"snippets/wedding-portal-{site}.conf"] = fill(guard, {**common, "__PREFIX__": prefix if mode == "path" else "/", "__GATE__": GATES[site]})
         if mode == "path":
             portals += fill((HERE / "portal-path.inc.template").read_text(encoding="utf-8"), {
                 "__LABEL__": label, "__WHO__": who, "__PATHNAME__": prefix.rstrip("/"), "__PREFIX__": prefix, "__SITE__": site,
-                "__APP__": app, "__BODY__": body, "__FILES__": ADMIN_FILES if site == "admin" else ""})
+                "__APP__": app, "__BODY__": body, "__FILES__": ADMIN_FILES if site == "admin" else "",
+                "__LOGIN__": ADMIN_LOGIN if site == "admin" else "", "__NAMED__": ADMIN_NAMED if site == "admin" else ""})
         else:
             out[f"sites/wedding-{site}"] = fill((HERE / f"wedding-{site}.conf.template").read_text(encoding="utf-8"), common)
     if mode == "path":

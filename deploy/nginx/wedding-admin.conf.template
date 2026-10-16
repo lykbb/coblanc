@@ -1,20 +1,21 @@
 # 后台管理站点 · 子域名模式（SITE_MODE=subdomain）：__SCHEME__://abordadmin.__BASE__。只给管理员（ADMIN_HOLDERS）。
-# 防护与 path 模式相同：nginx 访问密码（/etc/nginx/.htpasswd-admin）+ IP 白名单 + 站点凭证（app/portal.py）。
+# 防护与 path 模式相同：IP 白名单 + 账号密码登录页（app/login.py，密码沿用 /etc/nginx/.htpasswd-admin）。
 server {
   __LISTEN__
   server_name abordadmin.__BASE__;
   __SSL__
   server_tokens off;
-  auth_basic "admin";
-  auth_basic_user_file /etc/nginx/.htpasswd-admin;
   client_max_body_size 1m;
   root /home/ubuntu/ai-wedding/wedding-agent/admin/dist;
   include /etc/nginx/snippets/wedding-portal-admin.conf;
   include /etc/nginx/snippets/wedding-portal-ip-check.conf;
 
-  location ^~ /.well-known/acme-challenge/ { auth_request off; auth_basic off; root /var/www/certbot; }
+  location ^~ /.well-known/acme-challenge/ { auth_request off; root /var/www/certbot; }
   location = /robots.txt { default_type text/plain; return 200 "User-agent: *\nDisallow: /\n"; }
-  location = /api/redeem { limit_req zone=admin_login burst=3 nodelay; proxy_pass http://127.0.0.1:8000/api/admin/redeem; }
+  error_page 401 = @admin_login;
+  location @admin_login { return 302 /login?next=$uri; }
+  location = /login { auth_request /_gate_team; limit_req zone=admin_login burst=6 nodelay; proxy_pass http://127.0.0.1:8000/auth/admin/login; }
+  location = /logout { auth_request /_gate_team; proxy_pass http://127.0.0.1:8000/auth/admin/logout; }
   location ^~ /api/ { limit_req zone=admin_api burst=60 nodelay; proxy_buffering off; proxy_pass http://127.0.0.1:8000/api/admin/; }
   location ^~ /files/ { limit_req zone=admin_api burst=60 nodelay; proxy_pass http://127.0.0.1:8000/files/; }  # 任务图片
   location / {

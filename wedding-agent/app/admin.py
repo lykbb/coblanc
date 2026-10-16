@@ -1,6 +1,6 @@
 """后台管理接口 /api/admin/*（独立站点 admin/，/abordadmin/ 或 abordadmin.BASE；只给 ADMIN_HOLDERS，默认 lyk）：邀请码、任务（只读）、审计。
 
-登录、凭证、CSRF、限流、审计见 app/portal.py。
+IP 白名单、CSRF、审计见 app/portal.py；账号密码登录见 app/login.py。
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ from app.common.config import settings
 from app.common.progress import store
 from app.portal import PortalError, admin, read_audit
 
-login_router = admin.login_router()
+status_router = admin.status_router()
 router = APIRouter(prefix="/api/admin", dependencies=[Depends(admin.require)])
 
 

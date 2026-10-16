@@ -62,7 +62,7 @@ def test_bulk_cli(gated, capsys):
 def test_portal_ip_allowlist_follows_site_devices(gated, monkeypatch):
     from app.common.config import settings as s
 
-    check = lambda ip: gated.get("/internal/portal-ip-check", headers={"X-Original-IP": ip}).status_code
+    check = lambda ip: gated.get("/internal/gate/team", headers={"X-Original-IP": ip}).status_code
     monkeypatch.setattr(s, "gallery_members", ["小赵"])
     monkeypatch.setattr(s, "admin_holders", ["lyk"])
     assert check("127.0.0.1") == 204 and check("1.2.3.4") == 403
@@ -85,9 +85,6 @@ def test_public_holder_never_unlocks_portals(gated, monkeypatch):
     monkeypatch.setattr(s, "admin_holders", ["lyk"])
     [(_, code)] = access.create(["公测-001"])
     assert gated.post("/api/access/redeem", json={"code": code}, headers={"X-Real-IP": "7.7.7.7"}).status_code == 200
-    assert gated.get("/internal/portal-ip-check", headers={"X-Original-IP": "7.7.7.7"}).status_code == 403
-    portal = TestClient(app, headers={"X-Portal-CSRF": "1"})
-    [(_, code2)] = access.create(["公测-001"])
-    for site in ("gallery", "admin"):
-        assert portal.post(f"/api/{site}/redeem", json={"code": code2}).status_code == 403
-    assert portal.get("/api/gallery/refs").status_code == 401 and portal.get("/api/admin/tasks").status_code == 401
+    assert gated.get("/internal/gate/team", headers={"X-Original-IP": "7.7.7.7"}).status_code == 403
+    outsider = TestClient(app, headers={"X-Portal-CSRF": "1", "X-Real-IP": "7.7.7.7"})
+    assert outsider.get("/api/gallery/refs").status_code == 403 and outsider.get("/api/admin/tasks").status_code == 403

@@ -16,7 +16,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app import access, admin, portal, reference_wall, runner
+from app import access, admin, login, portal, reference_wall, runner
 from app.modules.intake import photo_rules
 from app.common.config import settings
 from app.common.errors import ModuleError
@@ -126,9 +126,10 @@ async def _require_access(request: Request, call_next):
 
 app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_methods=["*"], allow_headers=["*"])
 settings.storage_dir.mkdir(parents=True, exist_ok=True)
-app.include_router(admin.login_router)
+app.include_router(login.router)
+app.include_router(admin.status_router)
 app.include_router(admin.router)
-app.include_router(portal.gallery.login_router())
+app.include_router(portal.gallery.status_router())
 app.include_router(reference_wall.router)
 app.mount("/files", StaticFiles(directory=settings.storage_dir), name="files")
 app.mount("/templates", StaticFiles(directory=TEMPLATES_DIR), name="templates")
@@ -155,13 +156,6 @@ def _take(task_id: str, expected: str, new: str = "running") -> None:
 
 
 # ---- 0. 邀请码 ----
-
-
-@app.get("/internal/portal-ip-check", include_in_schema=False)
-def portal_ip_check(request: Request):
-    """nginx auth_request 用（只在服务器内部调用，前台不转发 /internal）：来源 IP 在白名单 204，否则 403。"""
-    ip = request.headers.get("x-original-ip", "")
-    return Response(status_code=204 if ip in access.portal_ips() else 403)
 
 
 def _client_ip(request: Request) -> str:

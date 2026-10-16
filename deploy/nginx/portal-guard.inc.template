@@ -1,6 +1,6 @@
-# 内部站点（图墙、后台）共用防护：来源 IP 白名单（后端判定）、安全头、noindex、反代头。
-# IP 白名单 = 有效用户站设备最近使用的 IP + state/portal-extra-ips.txt（见 app/access.py portal_ips），作废持有人即移除。
-auth_request /_portal_ip_check;
+# 内部站点（图墙、后台）共用防护：auth_request 把关（图墙只看 IP 白名单，后台另要登录会话）、安全头、noindex、反代头。
+# IP 白名单 = 团队成员有效用户站设备最近使用的 IP + state/portal-extra-ips.txt（见 app/access.py portal_ips），作废持有人即移除。
+auth_request /_gate___GATE__;
 limit_req_status 429;
 add_header X-Frame-Options "DENY" always;
 add_header X-Content-Type-Options "nosniff" always;

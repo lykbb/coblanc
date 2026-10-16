@@ -83,16 +83,23 @@ def _no_real_chat_model(monkeypatch):
     monkeypatch.setattr(settings, "chat_api_key", "")
 
 
+TEST_PASSWORD = "测试 pass-1"
+
+
 def portal_login(site: str, holder: str):
-    """在内部站点（admin / gallery）登录，改动类请求自动带 CSRF 头。"""
+    """内部站点客户端（改动类请求自动带 CSRF 头）。
+    gallery：holder 先用前台邀请码绑一台设备（IP 进白名单），之后按该 IP 访问；admin：再用账号密码登录页登录。"""
     from fastapi.testclient import TestClient
 
     from app import access
     from app.api import app
 
-    client = TestClient(app, headers={"X-Portal-CSRF": "1"})
+    ip = "10.0.%d.%d" % divmod(abs(hash(holder)) % 60000, 250)
     [(_, code)] = access.create([holder])
-    client.post(f"/api/{site}/redeem", json={"code": code})
+    TestClient(app).post("/api/access/redeem", json={"code": code}, headers={"X-Real-IP": ip})
+    client = TestClient(app, headers={"X-Portal-CSRF": "1", "X-Real-IP": ip})
+    if site == "admin":
+        client.post("/auth/admin/login", data={"username": holder, "password": TEST_PASSWORD}, follow_redirects=False)
     return client
 
 
@@ -100,13 +107,19 @@ def portal_login(site: str, holder: str):
 def portal_env(tmp_path, monkeypatch):
     from app import access
     from app.common.config import settings
+    from app.login import _apr1
 
     monkeypatch.setattr(settings, "reference_dir", tmp_path / "refs")
     monkeypatch.setattr(settings, "state_dir", tmp_path / "state")
+    monkeypatch.setattr(settings, "htpasswd_dir", tmp_path / "htpasswd")
     monkeypatch.setattr(settings, "access_required", True)
     monkeypatch.setattr(settings, "admin_holders", ["lyk"])
     monkeypatch.setattr(settings, "gallery_members", ["刘静", "何选"])
+    (tmp_path / "htpasswd").mkdir()
+    for name, user in ((".htpasswd", "xiaoxi"), (".htpasswd-admin", "lyk")):
+        (tmp_path / "htpasswd" / name).write_text(f"{user}:{_apr1(TEST_PASSWORD.encode(), b'saltsalt')}\n")
     access._fails.clear()
+    access._ip_cache.clear()
 
 
 @pytest.fixture

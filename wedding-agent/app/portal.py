@@ -1,13 +1,12 @@
-"""内部站点的登录与防护（后台 admin、图墙 gallery 共用；用户站见 app/access.py）。
+"""内部站点的防护（后台 admin、图墙 gallery 共用；用户站见 app/access.py，账号密码登录见 app/login.py）。
 
-每个站点：独立接口前缀、独立凭证 Cookie（HttpOnly、SameSite=Strict；经 HTTPS 或 COOKIE_SECURE=1 时加 Secure）、
-独立名单、空闲超时。凭证用名单里的人的邀请码在该站点兑换；不在名单里的码按无效处理且不作废。
-- 每次请求重新核对名单，移出立即失效；不在名单 403 并记审计。
+- 图墙：只认来源 IP 白名单（access.portal_ips：团队成员有效前台设备的最近 IP + state/portal-extra-ips.txt），
+  没有登录、密码和邀请码；白名单外的 IP 在 nginx 就被 403，后端再核一次。上传人按 IP 对应的成员记（access.ip_holder）。
+- 后台：IP 白名单 + 账号密码登录会话（app/login.py，Cookie xx_admin，Path 限定站点前缀，HttpOnly、SameSite=Strict，空闲超时）。
 - 部署方式（deploy.sh 的 SITE_MODE）：path（默认，同一 IP 下 /gallery/、/abordadmin/）或 subdomain（gallery.BASE、abordadmin.BASE）。
-  nginx 把站点的 <前缀>api/ 转到后端 /api/<站点>/，并用 X-Forwarded-Prefix 告诉后端站点前缀；凭证 Cookie 的 Path 限定在该前缀。
+  nginx 把站点的 <前缀>api/ 转到后端 /api/<站点>/，并用 X-Forwarded-Prefix 告诉后端站点前缀。
 - CSRF：改动类请求必须带 X-Portal-CSRF: 1（跨站表单发不了自定义头），Origin 若存在须与 Host 一致；
   path 模式下 Referer 还必须来自本站前缀（站点页面 Referrer-Policy: same-origin），同 IP 下的其他页面发不了。
-- 限流：兑换失败按 IP 锁定（app/access.py）；nginx 另有 limit_req。
 - 审计：登录成败、越权、拦截、所有改动和导出都写 state_dir/portal_audit.jsonl（带站点名），后台可查看。
 """
 
@@ -17,12 +16,10 @@ import json
 import threading
 import time
 from dataclasses import dataclass
-from typing import Callable
 import re
 from urllib.parse import urlsplit
 
-from fastapi import APIRouter, Depends, Request, Response
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, Request
 
 from app import access
 from app.common.config import settings
@@ -73,18 +70,9 @@ def cookie_path(request: Request) -> str:
     return site_prefix(request).rstrip("/") or "/"
 
 
-class RedeemBody(BaseModel):
-    code: str = Field(max_length=64)
-
-
 @dataclass
 class Portal:
-    site: str  # admin / gallery，也是 access 里的凭证种类
-    holders: Callable[[], list[str]]  # 每次调用读当前设置
-
-    @property
-    def cookie(self) -> str:
-        return access.PORTAL_COOKIES[self.site]
+    site: str  # admin / gallery
 
     @property
     def prefix(self) -> str:
@@ -108,22 +96,26 @@ class Portal:
             raise PortalError("PORTAL_CSRF", "请求来源不对，请刷新页面再试")
 
     def current(self, request: Request) -> str | None:
-        holder = access.holder_for(request.cookies.get(self.cookie), kind=self.site)
-        return holder if holder in self.holders() else None
+        """当前访问人；不能进返回 None。"""
+        ip = client_ip(request)
+        if ip not in access.portal_ips():
+            return None
+        if self.site == "gallery":
+            return access.ip_holder(ip)
+        return access.holder_for(request.cookies.get(access.LOGIN_COOKIES["admin"]), kind="admin")
 
     def require(self, request: Request) -> str:
-        """接口依赖：返回登录人。未登录 401，不在名单 403（记审计），CSRF 不对 403。"""
-        holder = access.holder_for(request.cookies.get(self.cookie), kind=self.site)
+        """接口依赖：返回访问人。IP 不在白名单 403（记审计），后台未登录 401，CSRF 不对 403。"""
+        if client_ip(request) not in access.portal_ips():
+            self.audit(request, None, "forbidden", {"path": request.url.path})
+            raise PortalError("PORTAL_FORBIDDEN", "没有权限")
+        holder = self.current(request)
         if holder is None:
             raise PortalError("PORTAL_UNAUTHORIZED", "请先登录")
-        if holder not in self.holders():
-            self.audit(request, holder, "forbidden", {"path": request.url.path})
-            raise PortalError("PORTAL_FORBIDDEN", "没有权限")
         self.check_csrf(request)
         return holder
 
-    def login_router(self) -> APIRouter:
-        """status / redeem / logout 三个接口。"""
+    def status_router(self) -> APIRouter:
         router = APIRouter(prefix=self.prefix)
 
         @router.get("/status")
@@ -131,33 +123,8 @@ class Portal:
             holder = self.current(request)
             return {"authorized": holder is not None, "holder": holder}
 
-        @router.post("/redeem")
-        def redeem(body: RedeemBody, request: Request, response: Response):
-            self.check_csrf(request)
-            ip = client_ip(request)
-            if access.too_many_fails(ip):
-                self.audit(request, None, "login_locked")
-                raise PortalError("ACCESS_LIMITED", "尝试次数过多，请稍后再试")
-            result = access.redeem(body.code, ip, request.headers.get("user-agent", ""), kind=self.site, holders=self.holders())
-            if result is None:
-                self.audit(request, None, "login_failed")
-                raise PortalError("ACCESS_INVALID", "邀请码无效或已被使用")
-            token, holder = result
-            https = settings.cookie_secure or request.headers.get("x-forwarded-proto") == "https"
-            response.set_cookie(self.cookie, token, max_age=settings.portal_max_days * 86400,
-                                httponly=True, samesite="strict", secure=https, path=cookie_path(request))
-            self.audit(request, holder, "login")
-            return {"authorized": True, "holder": holder}
-
-        @router.post("/logout")
-        def logout(request: Request, response: Response, holder: str = Depends(self.require)):
-            access.revoke_token(request.cookies.get(self.cookie))
-            response.delete_cookie(self.cookie, path=cookie_path(request))
-            self.audit(request, holder, "logout")
-            return {"ok": True}
-
         return router
 
 
-admin = Portal("admin", lambda: settings.admin_holders)
-gallery = Portal("gallery", lambda: list(dict.fromkeys(settings.admin_holders + settings.gallery_members)))
+admin = Portal("admin")
+gallery = Portal("gallery")

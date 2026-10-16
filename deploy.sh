@@ -16,6 +16,7 @@ if [[ "$1" == "--nginx" ]]; then
   # 渲染 deploy/nginx 模板 → 上传 → 整体备份 /etc/nginx → 安装 → nginx -t 通过才 reload，失败整体还原
   SCHEME=http; [[ "$2" == "--https" ]] && SCHEME=https
   OUT=$(mktemp -d); python3 deploy/nginx/render.py $SITE_MODE $SCHEME "$BASE" "$OUT"
+  cp deploy/fail2ban/* "$OUT/"
   rsync -a --delete -e "${SSH[*]}" "$OUT/" ${H}:/tmp/wedding-nginx/ && rm -rf "$OUT"
   $SSH $H 'set -e; cd /tmp/wedding-nginx; BK=/etc/nginx/backup-$(date +%Y%m%d%H%M%S).tgz
     sudo tar czf $BK -C /etc nginx/sites-available nginx/sites-enabled nginx/snippets $(cd /etc && ls nginx/wedding-allow-ips.conf 2>/dev/null)
@@ -24,9 +25,15 @@ if [[ "$1" == "--nginx" ]]; then
     sudo rm -f /etc/nginx/sites-enabled/wedding-gallery /etc/nginx/sites-enabled/wedding-admin /etc/nginx/sites-available/wedding-gallery /etc/nginx/sites-available/wedding-admin /etc/nginx/snippets/wedding-portal*.conf /etc/nginx/wedding-allow-ips.conf
     for f in sites/*; do n=$(basename $f); sudo install -m 644 $f /etc/nginx/sites-available/$n; sudo ln -sf /etc/nginx/sites-available/$n /etc/nginx/sites-enabled/$n; done
     for f in snippets/*; do sudo install -m 644 $f /etc/nginx/snippets/$(basename $f); done
-    for f in admin gallery; do [ -f /etc/nginx/.htpasswd-$f ] || echo "提醒：还没有 /etc/nginx/.htpasswd-$f（sudo htpasswd -c /etc/nginx/.htpasswd-$f 用户名）"; done
+    for f in .htpasswd .htpasswd-admin; do [ -f /etc/nginx/$f ] || echo "提醒：还没有 /etc/nginx/$f（登录页账号密码，sudo htpasswd -c /etc/nginx/$f 用户名）"; done
     if sudo nginx -t; then sudo systemctl reload nginx && echo "nginx 已更新（备份 $BK）"; else
       echo "nginx -t 失败，整体还原"; sudo rm -rf /etc/nginx/sites-available /etc/nginx/sites-enabled /etc/nginx/snippets; sudo tar xzf $BK -C /etc; sudo nginx -t; exit 1; fi
+    # fail2ban：登录页输错密码按 access.log 里登录 POST 的 401 计数（取代原来针对浏览器弹窗的 nginx-http-auth）
+    if command -v fail2ban-client >/dev/null; then
+      sudo install -m 644 wedding-login.filter /etc/fail2ban/filter.d/wedding-login.conf
+      sudo install -m 644 wedding-login.jail /etc/fail2ban/jail.d/wedding-login.local
+      sudo rm -f /etc/fail2ban/jail.d/nginx-http-auth.local
+      sudo fail2ban-client reload && echo "fail2ban 已更新"; fi
     rm -rf /tmp/wedding-nginx'
   exit 0
 fi
@@ -45,6 +52,8 @@ for APP in admin gallery; do rsync -az --delete -e "${SSH[*]}" wedding-agent/$AP
 # 摄影师/生图的 Pi 运行时直接跑 TypeScript，需要 Node ≥ 23.6；服务器自带 Node 22 不行，缺了就装 Node 24 到 ~/.local/node24
 $SSH $H 'V=v24.16.0; N=~/.local/node24/bin/node; if ! [ -x $N ] || [ "$($N -p "process.versions.node.split(\".\")[0]")" -lt 24 ]; then echo "安装 Node $V 到 ~/.local/node24"; cd /tmp && curl -sfLO https://registry.npmmirror.com/-/binary/node/$V/node-$V-linux-x64.tar.xz && mkdir -p ~/.local/node24 && tar -xJf node-$V-linux-x64.tar.xz -C ~/.local/node24 --strip-components=1 && rm -f node-$V-linux-x64.tar.xz; fi; $N -v'
 $SSH $H 'export PATH=$HOME/.local/node24/bin:$PATH; chmod 600 ~/ai-wedding/wedding-agent/.env; cd ~/ai-wedding/wedding-agent && UV_DEFAULT_INDEX=https://pypi.tuna.tsinghua.edu.cn/simple ~/.local/bin/uv sync -q --frozen --python 3.11 && cd ../pi-wedding && npm ci --registry=https://registry.npmmirror.com --no-audit --no-fund -s'
+# 登录页校验用的 htpasswd 是 root:www-data 640：给后端服务加 www-data 组（重启后生效）
+$SSH $H 'D=/etc/systemd/system/wedding-backend.service.d; [ -f $D/htpasswd.conf ] || { sudo mkdir -p $D && printf "[Service]\nSupplementaryGroups=www-data\n" | sudo tee $D/htpasswd.conf >/dev/null && sudo systemctl daemon-reload; }'
 AFTER=$($SSH $H "$SUM")
 BUSY=$($SSH $H 'cd ~/ai-wedding/wedding-agent && grep -lE "\"status\": *\"(running|delivering)\"" state/tasks/*.json 2>/dev/null | wc -l')
 if [[ ( "$BEFORE" != "$AFTER" || "$1" == "--env" || "$1" == "--restart" ) && "$BUSY" -gt 0 && "$2" != "--force" && "$1" != "--force" ]]; then
