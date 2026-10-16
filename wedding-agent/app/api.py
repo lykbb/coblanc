@@ -189,7 +189,7 @@ def get_task(task_id: str):
         "photo_counts": {
             "groom": len(values.get("groom_photo_urls", [])),
             "bride": len(values.get("bride_photo_urls", [])),
-            "legacy": len(values.get("photo_urls", [])) if not values.get("groom_photo_urls") else 0,
+            "legacy": len(photo_rules.dedupe(values.get("photo_urls"))) if not values.get("groom_photo_urls") else 0,
         },
         "previews": values.get("previews", []) if status == "preview_ready" else [],
         "quality_note": values.get("quality_note") if status == "preview_ready" else None,
@@ -205,9 +205,10 @@ def _plan(values: dict) -> dict:
     brief = values.get("brief")
     return {
         "photos": {
-            "groom": list(values.get("groom_photo_urls") or []),
-            "bride": list(values.get("bride_photo_urls") or []),
-            "all": list(values.get("photo_urls") or []),
+            # 同一张照片只显示一次（老任务里可能存了重复的）
+            "groom": photo_rules.dedupe(values.get("groom_photo_urls")),
+            "bride": photo_rules.dedupe(values.get("bride_photo_urls")),
+            "all": photo_rules.dedupe(values.get("photo_urls")),
         },
         "brief": {key: brief.get(key) for key in ("heights_cm", "materials", "invitation", "keep_features", "beautify")}
         if brief else None,

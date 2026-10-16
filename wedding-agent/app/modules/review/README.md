@@ -35,7 +35,7 @@ FAKE_FAIL_FIRST_CHECK=1 uv run python -m app.modules.review.batch_eval tests/fix
 
 成功例子：after_generation 工单 → `passed=true`、`best_image_id="img_1"`、4 条分数，每条包含两个 face_sim。
 
-质量失败例子：开启 FAKE_FAIL_FIRST_CHECK → `passed=false`、`best_image_id=null`、face_sim 为 `[0.42, 0.81]`、target 为 generate（默认 FACE_SIM_THRESHOLD=0.5）。
+质量失败例子：开启 FAKE_FAIL_FIRST_CHECK → `passed=false`、`best_image_id=null`、face_sim 为 `[0.30, 0.81]`、target 为 generate（默认 FACE_SIM_THRESHOLD=0.35，见 docs/样片评分标准.md「线上放行规则」）。
 
 输入失败例子：工单 candidates 为空 → `GENERATION_FAILED`，中文提示“候选图片缺失或格式不正确，请重新生成”。
 

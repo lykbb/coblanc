@@ -81,8 +81,9 @@ class Score(_Strict):
     face_sim: Annotated[list[float], Field(min_length=2, max_length=2)]
     body_ok: bool
     hands_ok: bool
-    issues: list[str]
+    issues: list[str]  # 只放严重问题：有任何一条就不通过
     total: float
+    notes: list[str] = Field(default_factory=list)  # 轻微问题：照样通过，只做说明和修图参考
     face_compare: Literal["done", "skipped"] = "done"  # skipped：人脸比对服务未接入，只做了视觉模型检查
 
 

@@ -82,6 +82,8 @@ class TaskStore:
         except Exception:
             return None
         info = TaskInfo(**{key: data.get(key) for key in PERSIST_FIELDS if key in data})
+        from app.common.errors import normalize_error
+        info.error = normalize_error(info.error, info.step)
         if info.status in INTERRUPTED:
             info.status = "failed"
             info.error = {"code": "GENERATION_FAILED", "category": "system", "step": info.step, "retryable": True,

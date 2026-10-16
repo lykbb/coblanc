@@ -32,13 +32,13 @@ const subtitle = computed(() => {
 })
 
 const subtitles = computed(() => [
-  allPhotos.value.length ? `${allPhotos.value.length} 张照片${sorted.value ? ' · 已分组' : ''}` : '等你上传',
-  look.value ? styleLabel(look.value.style) : '妆造师会和你们确认',
-  look.value ? styleLabel(look.value.style) || '妆造方案' : '等妆造方案',
-  look.value ? styleLabel(look.value.style) || '妆造方案' : '等妆造方案',
-  shot.value ? short(shot.value.text, 14) || '拍摄方案已定' : '摄影师会和你们确认',
-  phase.value === 'sample_review' ? '等你确认' : state.sampleUrl ? '已出样片' : '先拍 1 张看方向',
-  phase.value === 'set_review' ? '9 张已完成，等你确认' : phase.value === 'set_gen' ? '正在拍 9 张' : finalPhotos.value.length > 1 ? '9 张已交付' : '样片确认后拍 9 张',
+  allPhotos.value.length ? `${allPhotos.value.length} 张照片${sorted.value ? ' · 已分组' : ''}` : '',
+  look.value ? styleLabel(look.value.style) : '',
+  look.value ? styleLabel(look.value.style) : '',
+  look.value ? styleLabel(look.value.style) : '',
+  shot.value ? short(shot.value.text, 14) : '',
+  phase.value === 'sample_review' ? '等你确认' : state.sampleUrl ? '已出样片' : '',
+  phase.value === 'set_review' ? '9 张已完成，等你确认' : phase.value === 'set_gen' ? '正在拍 9 张' : finalPhotos.value.length > 1 ? '9 张已交付' : '',
 ])
 
 const sample = computed(() => (phase.value === 'sample_review' ? previews.value[0] : null))
@@ -65,7 +65,6 @@ const zoom = (url) => { state.lightbox = url }
             </button>
             <span v-if="!allPhotos.length" class="thumb-empty">等待上传</span>
           </div>
-          <p v-if="allPhotos.length" class="muted">Amie 看过照片后，会在这里分出新娘和新郎</p>
         </div>
         <div v-else class="pair-photos">
           <div v-for="group in [{ key: 'bride', label: '女生参考照' }, { key: 'groom', label: '男生参考照' }]" :key="group.key" class="pair-col">
@@ -87,7 +86,7 @@ const zoom = (url) => { state.lightbox = url }
             <img loading="lazy" decoding="async" :src="styleArt" :alt="styleLabel(look?.style)" />
             <span class="tag">{{ styleLabel(look?.style) }}</span>
           </button>
-          <div v-else class="placeholder">{{ look ? styleLabel(look.style) : '风格由妆造师和你们一起选' }}</div>
+          <div v-else-if="look" class="placeholder">{{ styleLabel(look.style) }}</div>
           <div v-if="tall" class="height-chips">
             <span class="pill">女生 {{ tall.bride }} cm</span>
             <span class="pill">男生 {{ tall.groom }} cm</span>
@@ -113,8 +112,6 @@ const zoom = (url) => { state.lightbox = url }
             </button>
           </div>
           <p v-if="parts[side.key]" class="look-text clamp2" :title="parts[side.key]">{{ parts[side.key] }}</p>
-          <p v-else-if="look" class="muted">{{ side.who }}造型按「{{ styleLabel(look.style) }}」风格来，细节妆造师会再确认</p>
-          <p v-else class="muted">妆造师确认后，这里会写清{{ side.who }}的妆容、发型和服装</p>
         </div>
       </StageCard>
 
@@ -122,7 +119,6 @@ const zoom = (url) => { state.lightbox = url }
       <StageCard :index="4" :title="STAGES[4].title" :subtitle="subtitles[4]" :status="stageStatus(4)">
         <div class="scene-body">
           <p v-if="shot" class="look-text">{{ short(shot.text, 90) || '摄影师已经定好场景和机位' }}</p>
-          <p v-else class="muted">摄影师会和你们确认互动、场景、季节和灯光</p>
           <div v-if="counts.length" class="height-chips">
             <span v-for="c in counts" :key="c.name" class="pill">{{ c.name }} {{ c.count }}</span>
           </div>
@@ -138,7 +134,7 @@ const zoom = (url) => { state.lightbox = url }
             <span class="zoom-hint">点击看大图</span>
           </button>
           <div v-else class="placeholder" :class="{ shimmer: phase === 'composing' || phase === 'sample_gen' }">
-            {{ phase === 'composing' ? 'Amie 正在写拍摄指令…' : phase === 'sample_gen' ? '正在拍 1 张样片…' : '先拍 1 张样片，看方向对不对' }}
+            {{ phase === 'composing' ? 'Amie 正在写拍摄指令…' : phase === 'sample_gen' ? '正在拍 1 张样片…' : '' }}
           </div>
           <div v-if="sample" class="card-actions">
             <button type="button" class="btn-primary small" :disabled="state.busy" @click="review('confirm', sample.image_id)">方向对了，拍 9 张</button>
@@ -188,7 +184,6 @@ const zoom = (url) => { state.lightbox = url }
           <div v-if="phase === 'set_review'" class="card-actions">
             <button type="button" class="btn-primary small" :disabled="state.busy" @click="review('confirm', state.picked)">就选这组，去解锁高清</button>
             <button type="button" class="btn-ghost small" :disabled="state.busy || !redoLeft" @click="openRedo()">重做（还剩 {{ redoLeft }} 次）</button>
-            <span class="hint">点图看大图；点「选为主视觉」定主图</span>
           </div>
         </div>
       </StageCard>

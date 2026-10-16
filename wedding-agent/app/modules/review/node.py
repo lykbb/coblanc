@@ -54,7 +54,7 @@ def _fake_scores(state: WeddingState, candidates: list[dict]) -> list[dict]:
     fail = settings.fake_fail_first_check and state.get("retry_count", 0) == 0 and not state.get("user_feedback")
     scores = []
     for i, candidate in enumerate(candidates):
-        face_sim = [0.42, 0.81] if fail else [round(0.86 - 0.02 * i, 2), round(0.82 - 0.01 * i, 2)]
+        face_sim = [0.30, 0.81] if fail else [round(0.86 - 0.02 * i, 2), round(0.82 - 0.01 * i, 2)]
         scores.append(
             {
                 "image_id": candidate["image_id"],

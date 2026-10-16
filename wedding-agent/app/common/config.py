@@ -116,7 +116,7 @@ def load_settings() -> Settings:
         candidates_per_round=max(_int("SAMPLE_CANDIDATES", 1), _int("SET_CANDIDATES", 9)),
         max_images_per_task=_int("MAX_IMAGES_PER_TASK", 30),
         image_timeout_seconds=_int("IMAGE_TIMEOUT_SECONDS", 120),
-        face_sim_threshold=_float("FACE_SIM_THRESHOLD", 0.5),
+        face_sim_threshold=_float("FACE_SIM_THRESHOLD", 0.35),
         llm_base_url=_str("LLM_BASE_URL", "https://ark.cn-beijing.volces.com/api/v3"),
         llm_api_key=_str("LLM_API_KEY"),
         llm_model_agent=_str("LLM_MODEL_AGENT"),

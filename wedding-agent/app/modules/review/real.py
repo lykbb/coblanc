@@ -15,7 +15,7 @@ from app.state import Brief, WeddingState
 from . import face_compare
 from .face_compare import compare_faces, provider_metadata
 from .model_calls import read_prompt, structured_call
-from .vision import finding_issues, inspect_candidates
+from .vision import finding_issues, finding_notes, inspect_candidates
 from .asset_inputs import read_images
 from .quality import face_threshold, passes, route_for_score, validate_scores, rule_plan, default_patch
 
@@ -56,20 +56,23 @@ def check_real(state: WeddingState, candidates: list[dict], *, caller=None, comp
         for index, value in enumerate(faces):
             if value < threshold:
                 issues.append(f"原图人物 {'A' if index == 0 else 'B'} 与候选人脸相似度不足")
-        scores.append({"image_id": image_id, "face_sim": faces, "body_ok": finding.body_ok, "hands_ok": finding.hands_ok, "issues": issues, "total": round(sum(faces) / 2, 3)})
+        scores.append({"image_id": image_id, "face_sim": faces, "body_ok": finding.body_ok, "hands_ok": finding.hands_ok, "issues": issues,
+                       "notes": finding_notes(finding), "total": round(sum(faces) / 2, 3)})
     return scores
 
 
 def _vision_only_scores(state, source, images, threshold, *, caller=None, stats=None) -> list[dict]:
-    """人脸比对不可用时的退路：face_sim 记为阈值（不代表真实相似度），只看视觉模型的结论。"""
+    """人脸比对不可用时的退路：face_sim 记为阈值（不代表真实相似度），只看视觉模型的结论；
+    视觉模型只在「明显不是本人」时判身份不合格，轻微差异进 notes。"""
     findings = inspect_candidates(source, images, state.get("brief") or {}, caller=caller, stats=stats)
     scores = []
     for image_id, _ in images:
         finding = findings[image_id]
         issues = finding_issues(finding)
-        total = round(threshold if issues else min(1.0, threshold + 0.1), 3)
+        notes = finding_notes(finding)
+        total = round(threshold if issues else min(1.0, threshold + 0.1 - 0.01 * len(notes)), 3)
         scores.append({"image_id": image_id, "face_sim": [threshold, threshold], "body_ok": finding.body_ok,
-                       "hands_ok": finding.hands_ok, "issues": issues, "total": total, "face_compare": "skipped"})
+                       "hands_ok": finding.hands_ok, "issues": issues, "notes": notes, "total": total, "face_compare": "skipped"})
     return scores
 
 

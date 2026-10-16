@@ -219,17 +219,34 @@ def test_automatic_retouch_cannot_ignore_quality_gate(real_state, monkeypatch, c
     assert plan["image_id"] is None
 
 
-@pytest.mark.parametrize("issue", ["手部结构异常", "身材比例错误", "存在乱码", "主体人数不正确"])
-def test_contradictory_vision_flags_mark_candidates_failed(real_state, monkeypatch, issue):
+@pytest.mark.parametrize("issue", ["手部多出一根手指", "多出一条手臂", "画面有水印", "主体人数不正确"])
+def test_severe_issue_fails(real_state, monkeypatch, issue):
+    """issues 只放严重问题，有一条就不通过；布尔项以模型判断为准，不再按字眼改写。"""
     monkeypatch.setattr(real, "compare_faces", lambda *_: [0.9, 0.9])
     stub_model(monkeypatch, visual_output(real_state, issues=[issue]))
     result = check(real_state)
     assert not result["passed"]
     assert all(issue in score["issues"] for score in result["scores"])
-    if "手部" in issue:
-        assert all(not score["hands_ok"] for score in result["scores"])
-    if "比例" in issue:
-        assert all(not score["body_ok"] for score in result["scores"])
+
+
+def test_minor_issues_pass_with_notes(real_state, monkeypatch):
+    """轻微美化、手部小瑕疵、比例略偏：照样通过，只记进 notes。"""
+    monkeypatch.setattr(real, "compare_faces", lambda *_: [0.9, 0.9])
+    minor = ["新娘脸型略瘦", "手指略不自然", "身高差略偏小"]
+    stub_model(monkeypatch, visual_output(real_state, minor_issues=minor))
+    result = check(real_state)
+    assert result["passed"]
+    assert all(score["issues"] == [] and score["notes"] == minor for score in result["scores"])
+
+
+def test_vision_only_needs_clearly_different_person_to_fail(real_state, monkeypatch):
+    """没有人脸服务：视觉模型只说「脸略有差异」不卡；明确判断不是本人才卡。"""
+    from app.modules.review import face_compare
+    monkeypatch.setattr(real, "provider_metadata", lambda: {"connected": False})
+    stub_model(monkeypatch, visual_output(real_state, minor_issues=["新娘五官略精致"]))
+    assert check(real_state)["passed"]
+    stub_model(monkeypatch, visual_output(real_state, identity_ok=False))
+    assert not check(real_state)["passed"]
 
 
 def test_concurrent_retouch_isolates_user_opinions(load_state, monkeypatch):

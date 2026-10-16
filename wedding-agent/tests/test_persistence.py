@@ -45,3 +45,14 @@ def test_flow_task_survives_restart(png_bytes):
     assert checkpointer.get_tuple({"configurable": {"thread_id": task_id}}) is not None
     data = client.get(f"/api/tasks/{task_id}")
     assert data.status_code == 200 and data.json()["status"] in ("reviewing", "waiting_user")
+
+
+def test_legacy_error_is_normalized_on_load(tmp_path):
+    """旧版本存下的「修了几次还是不够像，换一张更清晰的合照」不能再原样显示成「系统异常」。"""
+    import json
+    (tmp_path / "t_old2.json").write_text(json.dumps({"status": "failed", "step": "checking", "error": {
+        "code": "GENERATION_FAILED", "message": "修了几次还是不够像，换一张更清晰的合照再试试吧"}}), encoding="utf-8")
+    error = TaskStore(tmp_path, ttl_days=7).get("t_old2").error
+    assert error["category"] == "system" and not error["retryable"]
+    assert "合照" not in error["message"] and "重新开始" in error["message"]
+    assert "合照" not in json.loads((tmp_path / "t_old2.json").read_text(encoding="utf-8"))["error"]["message"]

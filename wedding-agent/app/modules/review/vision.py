@@ -9,7 +9,6 @@ from app.common.errors import ModuleError
 from app.state import Brief
 
 from .model_calls import read_prompt, structured_call
-from .quality import ISSUE_TERMS
 
 
 class VisualFinding(BaseModel):
@@ -21,7 +20,9 @@ class VisualFinding(BaseModel):
     text_ok: bool
     requirements_ok: bool
     assessable: bool
-    issues: list[str]
+    issues: list[str]  # 严重问题
+    identity_ok: bool = True  # 只在明显不是本人时为 false
+    minor_issues: list[str] = []  # 轻微问题，不影响通过
 
 
 class VisualBatch(BaseModel):
@@ -60,14 +61,8 @@ def inspect_candidates(source: bytes, candidates: list[tuple[str, bytes]], brief
     current = {image_id for image_id, _ in candidates}
     if len(set(ids)) != len(ids) or not set(ids) <= current:
         raise ModuleError("GENERATION_FAILED", "视觉质检返回了重复或非当前候选的结果，请重新质检")
-    findings = {}
-    for finding in result.findings:
-        issues = "；".join(finding.issues)
-        updates = {}
-        for field, category in [("body_ok", "body"), ("hands_ok", "hands"), ("subject_count_ok", "subjects"), ("text_ok", "text"), ("requirements_ok", "requirements")]:
-            if any(term in issues for term in ISSUE_TERMS[category]):
-                updates[field] = False
-        findings[finding.image_id] = finding.model_copy(update=updates)
+    # 以模型的布尔判断为准；不再按 issues 里出现「脸」「比例」之类的字眼把它改成不合格（那会把轻微问题当严重问题）
+    findings = {finding.image_id: finding for finding in result.findings}
     for image_id, _ in candidates:
         if image_id not in findings:
             findings[image_id] = VisualFinding(image_id=image_id, body_ok=False, hands_ok=False, subject_count_ok=False, text_ok=False, requirements_ok=False, assessable=False, issues=["视觉模型漏返候选，无法质检"])
@@ -77,13 +72,19 @@ def inspect_candidates(source: bytes, candidates: list[tuple[str, bytes]], brief
 def finding_issues(finding: VisualFinding) -> list[str]:
     issues = [issue.strip() for issue in finding.issues if issue.strip()]
     for flag, description in [
-        (finding.body_ok, "身材比例不正确"),
-        (finding.hands_ok, "手部结构异常"),
+        (finding.identity_ok, "人物明显不是本人"),
+        (finding.body_ok, "肢体结构明显错误"),
+        (finding.hands_ok, "手部结构明显错误（多指/少指/融合）"),
         (finding.subject_count_ok, "主体人数不正确"),
-        (finding.text_ok, "存在乱码或非预期文字"),
-        (finding.requirements_ok, "与已确认的拍摄需求不一致"),
-        (finding.assessable, "遮挡或清晰度不足，无法可靠质检"),
+        (finding.text_ok, "画面有水印或乱码文字"),
+        (finding.requirements_ok, "完全不符合已确认的拍摄需求"),
+        (finding.assessable, "图片损坏或无法判断"),
     ]:
         if not flag:
             issues.append(description)
     return list(dict.fromkeys(issues))
+
+
+def finding_notes(finding: VisualFinding) -> list[str]:
+    """轻微问题：不影响通过，只给用户说明和修图参考。"""
+    return list(dict.fromkeys(note.strip() for note in finding.minor_issues if note.strip()))

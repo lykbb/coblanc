@@ -109,7 +109,7 @@ sample_id、result 包装是离线报告格式，不新增工单字段。图片�
 
 ### 4. 合格、选图与返工
 
-当前程序的合格条件：两个人脸分数分别达到 settings.face_sim_threshold、body_ok=true、hands_ok=true、issues 为空。当前默认阈值为 0.5，只是骨架配置，未经真实样本标定；不是所有服务通用的及格线。
+当前程序的合格条件见 docs/样片评分标准.md「线上放行规则」：两个人脸分数分别达到 settings.face_sim_threshold（默认 0.35）、body_ok=true、hands_ok=true、issues（只放严重问题）为空；轻微问题进 notes，不影响通过。阈值未经真实样本标定，不是所有服务通用的及格线。
 
 - 一轮至少一张合格：check.passed=true，在合格图中选最高 total 的 best_image_id。
 - 四张全部不合格：check.passed=false，best_image_id=null，retouch 制定返工方案。

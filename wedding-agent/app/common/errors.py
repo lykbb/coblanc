@@ -34,3 +34,16 @@ def error_info(code: str, message: str, step: str | None) -> dict:
     return {"code": code, "category": "system", "step": step, "retryable": True,
             "title": f"系统异常：{where}这一步没完成",
             "message": f"{message}（模型/网络/服务异常，不是你们的问题），可以点「重试」从这一步继续。"}
+
+
+def normalize_error(error: dict | None, step: str | None) -> dict | None:
+    """旧版本存下来的失败记录（没有 category）读出时换成现在的分类，避免显示互相矛盾的文案。"""
+    if not error or error.get("category"):
+        return error
+    message = str(error.get("message") or "")
+    if "修了几次" in message:
+        # 旧版本审片过严时的「失败」：那时流程已结束，「重试」无从继续，只能重新开始
+        return {"code": "GENERATION_FAILED", "category": "system", "step": step, "retryable": False,
+                "title": "这组照片没有完成",
+                "message": "这是旧版本留下的记录：当时审片标准过严，没能交付。审片规则已经调整，点「重新开始」再来一次就好。"}
+    return error_info(str(error.get("code") or "GENERATION_FAILED"), message or "处理没有完成", step)
