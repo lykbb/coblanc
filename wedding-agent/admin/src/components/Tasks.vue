@@ -4,6 +4,7 @@ import { portal, tasks, when } from '../api.js'
 import { KINDS, money, num } from '../usage.js'
 import StatusLegend from './StatusLegend.vue'
 import StatusBar from './StatusBar.vue'
+import { errorSummary } from '../status.js'
 
 const ASKERS = { intake: '小囍', style: '妆造师', styling: '妆造师', frame: '摄影师', framing: '摄影师' }
 const props = defineProps({ target: { type: String, default: '' } })
@@ -56,9 +57,9 @@ function title(t) {
       <tbody>
         <template v-for="t in items" :key="t.task_id">
           <tr class="clickable" :class="{ on: open?.task_id === t.task_id }" @click="view(t)">
-            <td><StatusBar :s="t.status" :detail="t.status === 'failed' ? (t.error || '') : ''" />{{ t.operator || '—' }}<span v-if="t.operator && t.operator_source === 'backfill'" class="tag" title="按 IP 推断">推断</span></td>
+            <td><StatusBar :s="t.status" :detail="t.status === 'failed' ? errorSummary(t.error) : ''" />{{ t.operator || '—' }}<span v-if="t.operator && t.operator_source === 'backfill'" class="tag" title="按 IP 推断">推断</span></td>
             <td>{{ t.step_text || t.step || '—' }}</td>
-            <td class="err">{{ t.error ? (t.error.title || t.error.code) + (t.error.message ? '：' + t.error.message : '') : '—' }}</td>
+            <td class="err">{{ errorSummary(t.error) || '—' }}</td>
             <td class="muted-s">{{ when(t.updated_at) }}</td>
             <td class="mono">{{ t.task_id }}</td>
           </tr>

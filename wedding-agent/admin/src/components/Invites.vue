@@ -81,7 +81,7 @@ const browser = (ua) => {
 
 <template>
   <section class="portal-page">
-    <header class="page-head"><h1>邀请码</h1><span class="page-count">{{ team.length }}</span><StatusLegend :keys="team.map(inviteKey)" /></header>
+    <header class="page-head"><h1>邀请码</h1><span class="page-count">{{ team.length }}</span><StatusLegend :keys="holders.map(inviteKey)" /></header>
 
     <form class="inv-form-row" @submit.prevent="create">
       <input v-model="form.names" class="field grow" placeholder="持有人（空格或逗号分隔）" />

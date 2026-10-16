@@ -33,3 +33,4 @@ export const status = (key) => STATUSES[key] || { color: '#d4d1da', label: key |
 export const legendKeys = (keys) => { const set = new Set(keys); return Object.keys(STATUSES).filter((k) => set.has(k)) }
 export const serviceKey = (state) => `svc_${['active', 'inactive', 'failed'].includes(state) ? state : 'unknown'}`
 export const inviteKey = (h) => (h.devices.length ? 'active' : h.unused ? 'unused' : 'revoked')
+export const errorSummary = (e) => (e ? (e.title || e.code || '') + (e.message ? '：' + e.message : '') : '')
