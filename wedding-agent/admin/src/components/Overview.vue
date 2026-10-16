@@ -1,6 +1,8 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { bytes, ops } from '../api.js'
+import StatusBar from './StatusBar.vue'
+import StatusLegend from './StatusLegend.vue'
 import { KINDS, money, num, priceSources, priceTitle, short, ticks, yuan } from '../usage.js'
 
 const PALETTE = ['#ef9c88', '#b6a5ea', '#e8b07c', '#7fbf9d', '#eda1b2', '#8fb3e0', '#c9b07a']
@@ -117,11 +119,12 @@ const costLine = computed(() => chart.value.bars.map((b, i) => `${cx(i)},${y(b.c
             <span><b class="chart-img">张</b>每日生图</span>
           </div>
         </div>
+        <div class="legend-row"><StatusLegend :keys="usage.models.filter((m) => m.active !== false || m.calls).map((m) => (m.active ? 'in_use' : 'history'))" /></div>
         <div class="table-wrap"><table class="data-table">
-          <thead><tr><th>模型</th><th>步骤</th><th>状态</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
+          <thead><tr><th>模型</th><th>步骤</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
           <tbody>
             <tr v-for="m in usage.models.filter((m) => m.active !== false || m.calls)" :key="m.provider + m.model + m.kind">
-              <td><span class="mono">{{ m.model }}</span><span class="muted-s"> · {{ KINDS[m.kind] || m.kind }}</span></td><td class="ell" :title="m.step_labels.join('、')">{{ m.step_labels.join('、') || '—' }}</td><td>{{ m.active ? '在用' : '历史' }}</td>
+              <td><StatusBar :s="m.active ? 'in_use' : 'history'" /><span class="mono">{{ m.model }}</span><span class="muted-s"> · {{ KINDS[m.kind] || m.kind }}</span></td><td class="ell" :title="m.step_labels.join('、')">{{ m.step_labels.join('、') || '—' }}</td>
               <td class="right">{{ num(m.calls) }}</td><td class="right">{{ num(m.input) }}</td><td class="right">{{ num(m.cached) }}</td><td class="right">{{ num(m.output) }}</td><td class="right">{{ num(m.images) }}<span v-if="m.backfilled" class="tag">含回填</span></td><td class="right" :title="priceTitle(m)">{{ money(m) }}</td>
             </tr>
           </tbody>

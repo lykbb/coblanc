@@ -178,13 +178,18 @@ td .mark { margin-right: 8px; vertical-align: middle; }
 .audit-raw dt { color: var(--muted); }
 .audit-raw dd { margin: 0; overflow-wrap: anywhere; }
 @media (max-width: 1180px) { .audit-summary { grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); } }
-/* 列表左侧细状态条（src/status.js）：块元素直接画；表格行画在第一个单元格里 */
-.st-ok { --st: #8cc5a3; } .st-fail { --st: #e3a08f; } .st-wait { --st: #e8c477; } .st-run { --st: #9db8e0; } .st-info { --st: #d9d6e0; }
-.st-bar:not(tr), tr.st-bar > td:first-child { position: relative; }
-.st-bar:not(tr)::before, tr.st-bar > td:first-child::before { content: ""; position: absolute; left: 5px; top: 10px; bottom: 10px; width: 3px; border-radius: 3px; background: var(--st); }
-.st-legend { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+/* 列表左侧细状态条（StatusBar.vue；颜色、名字、解释见 src/status.js）。热区 14px，可见 3px。 */
+:has(> .st-mark) { position: relative; }
+.st-mark { position: absolute; left: 0; top: 0; bottom: 0; width: 14px; cursor: help; outline: none; }
+.st-mark::before { content: ""; position: absolute; left: 5px; top: 10px; bottom: 10px; width: 3px; border-radius: 3px; background: var(--st); transition: width .12s; }
+.st-mark:hover::before, .st-mark:focus-visible::before { width: 5px; left: 4px; }
+.st-tip { position: fixed; z-index: 1000; transform: translateY(-50%); max-width: 300px; display: flex; flex-direction: column; gap: 2px; padding: 8px 10px 8px 14px; border-radius: 10px; background: var(--panel, #fff); box-shadow: 0 6px 24px rgba(40, 30, 60, .14), 0 0 0 1px var(--line); font-size: 12px; line-height: 1.45; color: var(--muted); pointer-events: none; }
+.st-tip::before { content: ""; position: absolute; left: 6px; top: 9px; bottom: 9px; width: 3px; border-radius: 3px; background: var(--st); }
+.st-tip b { color: var(--ink); font-weight: 600; font-size: 13px; }
+.st-tip em { font-style: normal; color: var(--peach-ink); }
+.st-legend { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; font-weight: 400; color: var(--muted); }
 .st-legend span { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-.st-legend i { width: 8px; height: 8px; border-radius: 50%; background: var(--st); }
+.st-legend i { width: 8px; height: 8px; border-radius: 50%; }
 .page-head .st-legend, .filters .st-legend { margin-left: auto; }
-.legend-row { display: flex; justify-content: flex-end; margin: -4px 0 8px; }
-.sub-h .st-legend { margin-left: 12px; font-weight: 400; vertical-align: 1px; }
+.sub-h .st-legend { margin-left: 12px; vertical-align: 1px; }
+.legend-row { display: flex; justify-content: flex-end; margin: 14px 0 8px; }

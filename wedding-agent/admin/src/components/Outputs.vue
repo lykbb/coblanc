@@ -2,8 +2,9 @@
 // 生成记录（只读）：操作人 → 任务 → 用户上传 / 候选与样片 / 成片与交付 / 过程提示词 / 质检
 import { computed, onMounted, ref } from 'vue'
 import { outputs, portal, when } from '../api.js'
-import { TASK_LEGEND, TASK_STATUS as STATUS, bar, taskTone } from '../status.js'
+import { TASK_STATUS as STATUS } from '../status.js'
 import StatusLegend from './StatusLegend.vue'
+import StatusBar from './StatusBar.vue'
 
 const props = defineProps({ target: { type: String, default: '' } })
 const items = ref([])
@@ -57,7 +58,7 @@ function show(item, label) { big.value = { src: url(item.url || item), prompt: i
         <select v-model="person" aria-label="操作人"><option value="">全部人</option><option v-for="p in people" :key="p" :value="p">{{ p }}</option></select>
         <select v-model="status" aria-label="状态"><option value="">全部状态</option><option v-for="(label, key) in STATUS" :key="key" :value="key">{{ label }}</option></select>
         <input v-model="since" type="date" aria-label="起始日期" />
-        <StatusLegend :items="TASK_LEGEND" />
+        <StatusLegend :keys="items.map((t) => t.status)" />
       </div>
     </header>
     <p v-if="error" class="page-error" role="alert">{{ error }}</p>
@@ -65,13 +66,14 @@ function show(item, label) { big.value = { src: url(item.url || item), prompt: i
 
     <section v-for="[who, tasks] in groups" :key="who" class="out-person">
       <h2 class="sub-h">{{ who }} <span class="muted-s">{{ tasks.length }} 个任务</span></h2>
-      <article v-for="t in tasks" :id="'out-' + t.task_id" :key="t.task_id" class="out-task" :class="bar(taskTone(t.status))">
+      <article v-for="t in tasks" :id="'out-' + t.task_id" :key="t.task_id" class="out-task">
+        <StatusBar :s="t.status" />
         <header class="out-head" @click="toggle(t.task_id)">
           <img v-if="t.cover" :src="url(t.cover)" alt="" loading="lazy" class="out-cover" />
           <span v-else class="out-cover empty" />
           <div class="out-meta">
             <strong class="mono">{{ t.task_id }}</strong>
-            <span class="muted-s">{{ when(t.updated_at) }} · {{ STATUS[t.status] || t.status }}<span v-if="t.operator_source === 'backfill'" class="tag">推断</span></span>
+            <span class="muted-s">{{ when(t.updated_at) }}<span v-if="t.operator_source === 'backfill'" class="tag">推断</span></span>
             <span class="muted-s">上传 {{ t.counts.uploads }} · 候选 {{ t.counts.candidates }} · 交付 {{ t.counts.deliverables }} · 提示词 {{ t.counts.prompts }} · 质检 {{ t.counts.review }}</span>
           </div>
           <a class="link-btn push" :href="'#tasks/' + t.task_id" @click.stop>任务详情 →</a>

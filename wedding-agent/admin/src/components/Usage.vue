@@ -3,8 +3,8 @@ import { onMounted, ref, watch } from 'vue'
 import { ops } from '../api.js'
 import { computed } from 'vue'
 import { KINDS, money, num, priceSources, priceTitle } from '../usage.js'
-import { bar } from '../status.js'
 import StatusLegend from './StatusLegend.vue'
+import StatusBar from './StatusBar.vue'
 
 const PERIODS = [{ key: 'today', label: '今天' }, { key: '7d', label: '7 天' }, { key: '30d', label: '30 天' }]
 const period = ref('7d')
@@ -58,26 +58,25 @@ async function upload(e) {
       <p v-if="data.total.backfilled" class="muted-s">含 {{ data.total.backfilled }} 条回填</p>
       <p v-if="data.imports?.length" class="muted-s">DeepSeek 账单已导入：{{ data.imports.join('、') }}<template v-if="data.total.superseded">；这些日子的合计以账单为准，自记的 {{ data.total.superseded }} 条只计入按步骤、按任务</template></p>
 
-      <h2 class="sub-h">按模型<StatusLegend :items="[['ok', '在用'], ['info', '历史 / 未启用']]" /></h2>
+      <h2 class="sub-h">按模型<StatusLegend :keys="[...used.map((m) => (m.active ? 'in_use' : 'history')), ...(unused.length ? ['disabled'] : [])]" /></h2>
       <div class="table-wrap"><table class="data-table">
-        <thead><tr><th>模型</th><th>用途</th><th>步骤</th><th>状态</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
+        <thead><tr><th>模型</th><th>用途</th><th>步骤</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
         <tbody>
-          <tr v-for="m in used" :key="m.provider + m.model + m.kind" :class="bar(m.active ? 'ok' : 'info')">
-            <td class="ell" :title="m.provider + ' · ' + m.model"><span class="muted-s">{{ m.provider }} · </span><span class="mono">{{ m.model }}</span></td><td>{{ KINDS[m.kind] || m.kind }}</td>
+          <tr v-for="m in used" :key="m.provider + m.model + m.kind"'>
+            <td class="ell" :title="m.provider + ' · ' + m.model"><StatusBar :s="m.active ? 'in_use' : 'history'" /><span class="muted-s">{{ m.provider }} · </span><span class="mono">{{ m.model }}</span></td><td>{{ KINDS[m.kind] || m.kind }}</td>
             <td class="ell" :title="m.step_labels.join('、')">{{ m.step_labels.join('、') || '—' }}</td>
-            <td>{{ m.active ? '在用' : '历史' }}</td>
             <td class="right">{{ num(m.calls) }}</td><td class="right">{{ num(m.input) }}</td><td class="right">{{ num(m.cached) }}</td>
             <td class="right">{{ num(m.output) }}</td><td class="right">{{ num(m.images) }}</td>
             <td class="right" :title="priceTitle(m)">{{ money(m) }}</td>
           </tr>
           <tr v-if="unused.length" class="dim clickable" @click="showUnused = !showUnused">
-            <td colspan="10">{{ showUnused ? '▾' : '▸' }} 未启用的备用 · {{ unused.length }}</td>
+            <td colspan="9">{{ showUnused ? '▾' : '▸' }} 未启用的备用 · {{ unused.length }}</td>
           </tr>
           <template v-if="showUnused">
-            <tr v-for="m in unused" :key="'u' + m.provider + m.model + m.kind" class="dim" :class="bar('info')">
-              <td class="ell" :title="m.provider + ' · ' + m.model"><span class="muted-s">{{ m.provider }} · </span><span class="mono">{{ m.model }}</span></td><td>{{ KINDS[m.kind] || m.kind }}</td>
+            <tr v-for="m in unused" :key="'u' + m.provider + m.model + m.kind" class="dim">
+              <td class="ell" :title="m.provider + ' · ' + m.model"><StatusBar s="disabled" :detail="m.note || ''" /><span class="muted-s">{{ m.provider }} · </span><span class="mono">{{ m.model }}</span></td><td>{{ KINDS[m.kind] || m.kind }}</td>
               <td class="ell" :title="m.step_labels.join('、') + '\n' + (m.note || '')">{{ m.step_labels.join('、') }}</td>
-              <td>未启用</td><td colspan="5"></td><td class="right muted-s" :title="priceTitle(m)">—</td>
+              <td colspan="5"></td><td class="right muted-s" :title="priceTitle(m)">—</td>
             </tr>
           </template>
         </tbody>
