@@ -144,6 +144,19 @@ class TaskStore:
                 marked.append(path.stem)
         return marked
 
+    def recent(self, limit: int) -> list[tuple[str, float, TaskInfo]]:
+        """最近更新的任务（后台只读列表用）：(编号, 更新时间, 进度)。"""
+        directory = self._directory()
+        if directory is None or not directory.exists():
+            return []
+        paths = sorted(directory.glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)[:limit]
+        result = []
+        for path in paths:
+            info = self._tasks.get(path.stem) or self._load(path.stem)  # 只读：不缓存、不回写，不延长保存期
+            if info is not None:
+                result.append((path.stem, path.stat().st_mtime, info))
+        return result
+
     def purge_expired(self) -> list[str]:
         """删除超过保存天数的任务记录，返回被删的任务编号。"""
         directory = self._directory()

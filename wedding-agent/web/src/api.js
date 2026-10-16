@@ -3,8 +3,8 @@
 // 每个接口最近一次的请求和返回记在 apiLog 里，给页面上的「接口调试」面板看。
 import { reactive } from 'vue'
 import * as mock from './mock/index.js'
+import { BASE, post, request } from './http.js'
 
-const BASE = import.meta.env.VITE_API_BASE || ''
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true'
 
 export const ENDPOINTS = {
@@ -17,36 +17,6 @@ export const ENDPOINTS = {
   retry: 'POST /api/tasks/{task_id}/retry',
 }
 export const apiLog = reactive({})
-
-async function request(path, options = {}) {
-  let res
-  try {
-    res = await fetch(BASE + path, options)
-  } catch {
-    throw new Error('连不上服务，请检查网络或稍后再试')
-  }
-  const data = await res.json().catch(() => ({}))
-  if (res.status === 401 && data?.error?.code === 'ACCESS_DENIED') {
-    location.reload() // 设备凭证失效或被作废：回到邀请码页
-  }
-  if (!res.ok) {
-    const fallback = res.status === 413 ? '图片太大了，单张请控制在 10 MB 以内' : '出了点问题，请稍后再试'
-    const error = new Error(data?.error?.message || fallback)
-    error.code = data?.error?.code
-    error.httpStatus = res.status
-    error.body = data
-    throw error
-  }
-  return data
-}
-
-function post(path, body) {
-  return request(path, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  })
-}
 
 const real = {
   uploadImage(file) {
@@ -80,23 +50,6 @@ export function accessStatus() {
 }
 export function redeemInvite(code) {
   return post('/api/access/redeem', { code })
-}
-
-// 参考图墙（团队内部，不进调试面板）
-export const refs = {
-  styles: () => request('/api/refs/styles'),
-  list: (params) => request('/api/refs?' + new URLSearchParams(params)),
-  upload(file, meta) {
-    const form = new FormData()
-    form.append('files', file)
-    for (const [key, value] of Object.entries(meta)) form.append(key, value ?? '')
-    return request('/api/refs', { method: 'POST', body: form })
-  },
-  update: (id, changes) => request(`/api/refs/${id}`, {
-    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(changes),
-  }),
-  remove: (id) => request(`/api/refs/${id}`, { method: 'DELETE' }),
-  zipUrl: (params) => BASE + '/api/refs/zip?' + new URLSearchParams(params),
 }
 
 const impl = USE_MOCK ? mock : real

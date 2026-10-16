@@ -81,3 +81,23 @@ def _no_real_chat_model(monkeypatch):
     """测试不连真实对话模型：即使本机 .env 里有 CHAT_API_KEY / DEEPSEEK_API_KEY 也当作没填。"""
     from app.common.config import settings
     monkeypatch.setattr(settings, "chat_api_key", "")
+
+
+@pytest.fixture
+def admin_client(tmp_path, monkeypatch):
+    """已登录后台的管理员 lyk（改动类请求自动带 CSRF 头）。"""
+    from fastapi.testclient import TestClient
+
+    from app import access
+    from app.api import app
+    from app.common.config import settings
+
+    monkeypatch.setattr(settings, "reference_dir", tmp_path / "refs")
+    monkeypatch.setattr(settings, "state_dir", tmp_path / "state")
+    monkeypatch.setattr(settings, "access_required", True)
+    monkeypatch.setattr(settings, "admin_holders", ["lyk"])
+    access._fails.clear()
+    client = TestClient(app, headers={"X-Admin-CSRF": "1"})
+    [(_, code)] = access.create(["lyk"])
+    assert client.post("/api/admin/redeem", json={"code": code}).status_code == 200
+    return client

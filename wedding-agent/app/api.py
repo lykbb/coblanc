@@ -16,7 +16,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app import access, reference_wall, runner
+from app import access, admin, reference_wall, runner
 from app.modules.intake import photo_rules
 from app.common.config import settings
 from app.common.errors import ModuleError
@@ -39,6 +39,9 @@ HTTP_STATUS = {
     "ACCESS_LIMITED": 429,
     "REFERENCE_NOT_FOUND": 404,
     "REFERENCE_FULL": 413,
+    "ADMIN_UNAUTHORIZED": 401,
+    "ADMIN_FORBIDDEN": 403,
+    "ADMIN_CSRF": 403,
 }
 class _Uploads(dict):
     """上传编号 → 地址。内存里没有时按文件名到 storage/upload 里找（服务重启后仍可用）。"""
@@ -112,13 +115,19 @@ app = FastAPI(title="小囍 API", description="字段和错误码以《小囍接
 
 @app.middleware("http")
 async def _require_access(request: Request, call_next):
-    if access.needs_check(request.url.path) and not access.holder_for(request.cookies.get(access.COOKIE)):
+    if access.needs_check(request.url.path) and not access.allowed(request.cookies):
         return JSONResponse({"error": {"code": "ACCESS_DENIED", "message": "请先输入邀请码"}}, status_code=401)
-    return await call_next(request)
+    response = await call_next(request)
+    if request.url.path.startswith(access.ADMIN_PREFIX):
+        response.headers["X-Robots-Tag"] = "noindex, nofollow"
+        response.headers.setdefault("Cache-Control", "no-store")
+    return response
 
 
 app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_methods=["*"], allow_headers=["*"])
 settings.storage_dir.mkdir(parents=True, exist_ok=True)
+app.include_router(admin.open_router)
+app.include_router(admin.router)
 app.include_router(reference_wall.router)
 app.mount("/files", StaticFiles(directory=settings.storage_dir), name="files")
 app.mount("/templates", StaticFiles(directory=TEMPLATES_DIR), name="templates")

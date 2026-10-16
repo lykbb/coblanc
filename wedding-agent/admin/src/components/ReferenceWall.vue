@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, reactive, ref, watch } from 'vue'
-import Icon from './Icon.vue'
-import { refs } from '../api.js'
+import Icon from '@web/components/Icon.vue'
+import { refs, when } from '../api.js'
 
 const styles = ref([])
 const items = ref([])
@@ -112,11 +112,10 @@ async function remove() {
   }
 }
 
-const when = (ts) => new Date(ts * 1000).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })
 </script>
 
 <template>
-  <section class="refwall" @dragenter.prevent="onDragEnter" @dragover.prevent @dragleave="onDragLeave" @drop.prevent="onDrop">
+  <section class="refwall admin-page" @dragenter.prevent="onDragEnter" @dragover.prevent @dragleave="onDragLeave" @drop.prevent="onDrop">
     <header class="refwall-head">
       <h1>参考图墙</h1>
       <span class="refwall-count">{{ items.length }}</span>

@@ -3,7 +3,7 @@
 - 存在 settings.reference_dir（默认 wedding-agent/reference_library/），和任务文件分开，不受 7 天清理影响。
 - 每张图存三份：原图（去掉 EXIF 等元数据）、大图 webp（长边 ≤ 2048）、缩略图 webp（长边 ≤ 400）。
 - 元数据在同目录 refs.sqlite。总容量上限 REFERENCE_CAP_GB（默认 15 GB）。
-- 接口都在 /api/refs 下，受邀请码设备凭证保护；上传人取自设备持有人。
+- 在后台站点使用：接口都在 /api/admin/refs 下，只有管理员（app/admin.py）能用；上传人取自后台登录人；改动和导出写审计。
 
 导出元数据（在 wedding-agent 目录）：
   uv run python -m app.reference_wall export json > refs.json
@@ -25,13 +25,13 @@ import zipfile
 from pathlib import Path
 from typing import Literal
 
-from fastapi import APIRouter, File, Form, Request, UploadFile
+from fastapi import APIRouter, Depends, File, Form, Request, UploadFile
 from fastapi.responses import FileResponse, Response
 from starlette.background import BackgroundTask
 from PIL import Image, ImageOps, UnidentifiedImageError
 from pydantic import BaseModel, Field
 
-from app import access
+from app.admin import audit, require_admin
 from app.common.config import settings
 from app.common.errors import ModuleError
 
@@ -42,7 +42,7 @@ FORMATS = {"JPEG": "jpg", "PNG": "png", "WEBP": "webp"}
 Image.MAX_IMAGE_PIXELS = 80_000_000
 FIELDS = ("id", "style", "verdict", "source_url", "note", "uploader", "created_at", "original_name", "width", "height", "bytes")
 
-router = APIRouter(prefix="/api/refs")
+router = APIRouter(prefix="/api/admin/refs", dependencies=[Depends(require_admin)])
 _lock = threading.Lock()
 
 
@@ -94,7 +94,7 @@ def _files(ref_id: str, ext: str) -> dict[str, Path]:
 
 def _row(row: sqlite3.Row) -> dict:
     item = {key: row[key] for key in FIELDS}
-    base = f"/api/refs/{row['id']}/image"
+    base = f"/api/admin/refs/{row['id']}/image"
     item.update(thumb_url=f"{base}?size=thumb", large_url=f"{base}?size=large", original_url=f"{base}?size=original")
     return item
 
@@ -216,10 +216,6 @@ def _download_name(item: dict, ext: str) -> str:
 # ---- 接口 ----
 
 
-def _uploader(request: Request) -> str:
-    return access.holder_for(request.cookies.get(access.COOKIE)) or "未登录"
-
-
 @router.get("/styles")
 def list_styles():
     return {"styles": styles(), "used_bytes": used_bytes(), "cap_bytes": int(settings.reference_cap_gb * 1024**3)}
@@ -233,14 +229,15 @@ def list_refs(style: str | None = None, verdict: Literal["good", "bad"] | None =
 @router.post("")
 async def upload_refs(
     request: Request,
+    holder: str = Depends(require_admin),
     files: list[UploadFile] = File(...),
     style: str = Form("00"),
     verdict: Literal["good", "bad"] = Form(...),
     source_url: str = Form(""),
     note: str = Form(""),
 ):
-    uploader = _uploader(request)
-    items = [add(await f.read(), f.filename or "图片", style, verdict, source_url, note, uploader) for f in files]
+    items = [add(await f.read(), f.filename or "图片", style, verdict, source_url, note, holder) for f in files]
+    audit(request, holder, "refs_uploaded", {"ids": [i["id"] for i in items], "style": style, "verdict": verdict})
     return {"items": items}
 
 
@@ -252,26 +249,33 @@ class RefPatch(BaseModel):
 
 
 @router.patch("/{ref_id}")
-def edit_ref(ref_id: str, body: RefPatch):
-    return update(ref_id, body.model_dump(exclude_none=True))
+def edit_ref(ref_id: str, body: RefPatch, request: Request, holder: str = Depends(require_admin)):
+    changes = body.model_dump(exclude_none=True)
+    item = update(ref_id, changes)
+    audit(request, holder, "ref_edited", {"id": ref_id, **changes})
+    return item
 
 
 @router.delete("/{ref_id}")
-def delete_ref(ref_id: str):
+def delete_ref(ref_id: str, request: Request, holder: str = Depends(require_admin)):
     delete(ref_id)
+    audit(request, holder, "ref_deleted", {"id": ref_id})
     return {"deleted": ref_id}
 
 
 @router.get("/export")
-def export_refs(format: Literal["csv", "json"] = "json"):
+def export_refs(request: Request, format: Literal["csv", "json"] = "json", holder: str = Depends(require_admin)):
+    audit(request, holder, "refs_exported", {"format": format})
     media = "application/json" if format == "json" else "text/csv; charset=utf-8"
     return Response(export(format), media_type=media,
                     headers={"Content-Disposition": f'attachment; filename="references.{format}"'})
 
 
 @router.get("/zip")
-def zip_refs(style: str | None = None, verdict: Literal["good", "bad"] | None = None):
+def zip_refs(request: Request, style: str | None = None, verdict: Literal["good", "bad"] | None = None,
+             holder: str = Depends(require_admin)):
     _clean_tmp()
+    audit(request, holder, "refs_zipped", {"style": style, "verdict": verdict})
     items = query(style, verdict)
     if not items:
         raise _error("REFERENCE_NOT_FOUND", "当前筛选下没有图片")

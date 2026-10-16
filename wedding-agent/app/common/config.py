@@ -63,6 +63,9 @@ class Settings:
     # 访问控制：ACCESS_INVITE_REQUIRED=0 时对所有人开放；见 app/access.py
     access_required: bool
     access_days: int
+    admin_holders: list[str]  # 后台白名单（邀请码持有人），见 app/admin.py
+    admin_session_hours: int  # 后台空闲多久要重新登录
+    admin_max_days: int  # 后台凭证最长有效天数
     cookie_secure: bool  # 上了 HTTPS 再设 COOKIE_SECURE=1
     # 流程上限
     max_question_rounds: int
@@ -117,6 +120,9 @@ def load_settings() -> Settings:
         reference_cap_gb=_float("REFERENCE_CAP_GB", 15),
         access_required=_bool("ACCESS_INVITE_REQUIRED", True),
         access_days=_int("ACCESS_DAYS", 180),
+        admin_holders=_list("ADMIN_HOLDERS") or ["lyk"],
+        admin_session_hours=_int("ADMIN_SESSION_HOURS", 12),
+        admin_max_days=_int("ADMIN_MAX_DAYS", 30),
         cookie_secure=_bool("COOKIE_SECURE", False),
         max_question_rounds=_int("MAX_QUESTION_ROUNDS", 2),
         max_retouch=_int("MAX_RETOUCH", 2),
