@@ -38,7 +38,7 @@ const ago = computed(() => {
     <div class="stat-card"><span>今日实际花费</span><strong>{{ yuan(data.spent_today) }}</strong></div>
     <div class="stat-card"><span>我们算的 DeepSeek 费用</span><strong>{{ yuan(data.our_cost_today) }}</strong></div>
     <div class="stat-card" :class="{ 'balance-warn': data.warn }" :title="data.warn ? '偏差超过 20% 且超过 ¥0.5' : ''">
-      <span>差额</span><strong>{{ (data.diff > 0 ? '+' : '') + yuan(data.diff) }}</strong>
+      <span>差额</span><strong>{{ (data.diff > 0 ? '+' : data.diff < 0 ? '−' : '') + yuan(Math.abs(data.diff)) }}</strong>
     </div>
   </div>
 </template>
