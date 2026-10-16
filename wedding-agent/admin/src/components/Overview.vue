@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { bytes, ops } from '../api.js'
-import { KINDS, money, num, short, ticks, yuan } from '../usage.js'
+import { KINDS, money, num, priceSources, priceTitle, short, ticks, yuan } from '../usage.js'
 
 const PALETTE = ['#ef9c88', '#b6a5ea', '#e8b07c', '#7fbf9d', '#eda1b2', '#8fb3e0', '#c9b07a']
 const server = ref(null)
@@ -44,10 +44,19 @@ const chart = computed(() => {
   const [costMax, costTicks] = ticks(Math.max(...bars.map((b) => b.cost)))
   return { bars, tokenMax, tokenTicks, costMax, costTicks }
 })
-const W = 760, H = 220, L = 52, R = 52, TOP = 10
+const W = 760, H = 230, L = 56, R = 56, TOP = 26
 const barW = computed(() => (W - L - R) / days.value.length)
 const y = (v, max) => H - (v / max) * (H - TOP)
 const cx = (i) => L + i * barW.value + barW.value / 2
+// 堆叠段：每段至少 2px（很小的用量也看得见），从底往上依次排，不会错位
+const segments = (b) => {
+  let top = H
+  return b.parts.map((p) => {
+    const h = Math.max(2, (p.total / chart.value.tokenMax) * (H - TOP))
+    top -= h
+    return { ...p, y: top, h }
+  })
+}
 const costLine = computed(() => chart.value.bars.map((b, i) => `${cx(i)},${y(b.cost, chart.value.costMax)}`).join(' '))
 </script>
 
@@ -88,14 +97,14 @@ const costLine = computed(() => chart.value.bars.map((b, i) => `${cx(i)},${y(b.c
           <svg :viewBox="`0 0 ${W} ${H + 40}`" class="chart" role="img" aria-label="每日 token、费用与生图">
             <g v-for="t in chart.tokenTicks" :key="'l' + t">
               <line :x1="L" :x2="W - R" :y1="y(t, chart.tokenMax)" :y2="y(t, chart.tokenMax)" :class="t ? 'chart-grid' : 'chart-base'" />
-              <text :x="L - 6" :y="y(t, chart.tokenMax) + 4" text-anchor="end" class="chart-axis">{{ short(t) }}</text>
+              <text :x="L - 8" :y="y(t, chart.tokenMax)" text-anchor="end" dominant-baseline="middle" class="chart-axis">{{ short(t) }}</text>
             </g>
-            <text v-for="t in chart.costTicks" :key="'r' + t" :x="W - R + 6" :y="y(t, chart.costMax) + 4" class="chart-axis cost">{{ yuan(t) }}</text>
-            <text :x="L - 6" y="8" text-anchor="end" class="chart-axis">token</text>
+            <text v-for="t in chart.costTicks" :key="'r' + t" :x="W - R + 8" :y="y(t, chart.costMax)" dominant-baseline="middle" class="chart-axis cost">{{ yuan(t) }}</text>
+            <text :x="L - 8" y="10" text-anchor="end" class="chart-axis-title">token</text>
+            <text :x="W - R + 8" y="10" class="chart-axis-title cost">费用</text>
             <g v-for="(b, i) in chart.bars" :key="b.day">
-              <rect v-for="(p, j) in b.parts" :key="p.model" :x="L + i * barW + barW * 0.18" :width="barW * 0.64"
-                    :y="y(b.parts.slice(0, j + 1).reduce((s, q) => s + q.total, 0), chart.tokenMax)"
-                    :height="(p.total / chart.tokenMax) * (H - TOP)" :fill="color(p.model)" rx="2"><title>{{ b.day }} {{ p.model }}：{{ num(p.total) }} token</title></rect>
+              <rect v-for="p in segments(b)" :key="p.model" :x="L + i * barW + barW * 0.18" :width="barW * 0.64"
+                    :y="p.y" :height="p.h" :fill="color(p.model)"><title>{{ b.day }} {{ p.model }}：{{ num(p.total) }} token</title></rect>
               <text v-if="b.images" :x="cx(i)" :y="H + 15" class="chart-img">{{ b.images }}张</text>
               <text v-if="period === '7d' || i % 5 === 4" :x="cx(i)" :y="H + 32" class="chart-day">{{ b.day.slice(5) }}</text>
             </g>
@@ -105,18 +114,19 @@ const costLine = computed(() => chart.value.bars.map((b, i) => `${cx(i)},${y(b.c
           <div class="chart-legend">
             <span v-for="m in tokenModels" :key="m"><i :style="{ background: color(m) }" />{{ m }}</span>
             <span><i class="line" />费用（右轴）</span>
-            <span><b class="chart-img">N张</b>生图</span>
+            <span><b class="chart-img">张</b>每日生图</span>
           </div>
         </div>
         <div class="table-wrap"><table class="data-table">
-          <thead><tr><th>模型</th><th>步骤</th><th>状态</th><th>调用</th><th>输入</th><th>缓存</th><th>输出</th><th>生图</th><th>费用</th></tr></thead>
+          <thead><tr><th>模型</th><th>步骤</th><th>状态</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
           <tbody>
             <tr v-for="m in usage.models.filter((m) => m.active !== false || m.calls)" :key="m.provider + m.model + m.kind">
               <td><span class="mono">{{ m.model }}</span><span class="muted-s"> · {{ KINDS[m.kind] || m.kind }}</span></td><td class="ell" :title="m.step_labels.join('、')">{{ m.step_labels.join('、') || '—' }}</td><td>{{ m.active ? '在用' : '历史' }}</td>
-              <td class="right">{{ num(m.calls) }}</td><td class="right">{{ num(m.input) }}</td><td class="right">{{ num(m.cached) }}</td><td class="right">{{ num(m.output) }}</td><td class="right">{{ num(m.images) }}<span v-if="m.backfilled" class="tag">含回填</span></td><td class="right">{{ money(m) }}</td>
+              <td class="right">{{ num(m.calls) }}</td><td class="right">{{ num(m.input) }}</td><td class="right">{{ num(m.cached) }}</td><td class="right">{{ num(m.output) }}</td><td class="right">{{ num(m.images) }}<span v-if="m.backfilled" class="tag">含回填</span></td><td class="right" :title="priceTitle(m)">{{ money(m) }}</td>
             </tr>
           </tbody>
         </table></div>
+        <p class="muted-s price-line">单价来源：<template v-for="(p, i) in priceSources(usage.models)" :key="p.provider"><span v-if="i"> · </span><a :href="p.source" target="_blank" rel="noopener noreferrer">{{ p.provider }} 官方</a></template> · 版本 {{ usage.prices.version }}</p>
       </template>
     </template>
   </section>

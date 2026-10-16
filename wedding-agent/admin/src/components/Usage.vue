@@ -2,7 +2,7 @@
 import { onMounted, ref, watch } from 'vue'
 import { ops } from '../api.js'
 import { computed } from 'vue'
-import { KINDS, money, num, price, priceShort } from '../usage.js'
+import { KINDS, money, num, priceSources, priceTitle } from '../usage.js'
 
 const PERIODS = [{ key: 'today', label: '今天' }, { key: '7d', label: '7 天' }, { key: '30d', label: '30 天' }]
 const period = ref('7d')
@@ -17,7 +17,6 @@ watch(period, load)
 const showUnused = ref(false)
 const used = computed(() => (data.value?.models || []).filter((m) => m.active !== false || m.calls))
 const unused = computed(() => (data.value?.models || []).filter((m) => m.active === false && !m.calls))
-const priceTitle = (m) => (m.price ? `${m.price.name}\n${price(m.price)}${m.price.reason ? '\n' + m.price.reason : ''}\n${m.price.source}（${m.price.checked}）` : '无官方单价')
 const importing = ref(false)
 const imported = ref('')
 async function upload(e) {
@@ -59,7 +58,7 @@ async function upload(e) {
 
       <h2 class="sub-h">按模型</h2>
       <div class="table-wrap"><table class="data-table">
-        <thead><tr><th>模型</th><th>用途</th><th>步骤</th><th>状态</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th>单价</th><th class="right">费用</th></tr></thead>
+        <thead><tr><th>模型</th><th>用途</th><th>步骤</th><th>状态</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
         <tbody>
           <tr v-for="m in used" :key="m.provider + m.model + m.kind">
             <td><span class="muted-s">{{ m.provider }} · </span><span class="mono">{{ m.model }}</span></td><td>{{ KINDS[m.kind] || m.kind }}</td>
@@ -67,32 +66,30 @@ async function upload(e) {
             <td><i class="mark" :class="m.active ? 'good' : 'idle'" />{{ m.active ? '在用' : '历史' }}</td>
             <td class="right">{{ num(m.calls) }}</td><td class="right">{{ num(m.input) }}</td><td class="right">{{ num(m.cached) }}</td>
             <td class="right">{{ num(m.output) }}</td><td class="right">{{ num(m.images) }}</td>
-            <td><a v-if="m.price" :href="m.price.source" target="_blank" rel="noopener noreferrer" :title="priceTitle(m)">{{ priceShort(m.price) }}</a><span v-else>—</span></td>
-            <td class="right">{{ money(m) }}</td>
+            <td class="right" :title="priceTitle(m)">{{ money(m) }}</td>
           </tr>
           <tr v-if="unused.length" class="dim clickable" @click="showUnused = !showUnused">
-            <td colspan="11">{{ showUnused ? '▾' : '▸' }} 未启用的备用 · {{ unused.length }}</td>
+            <td colspan="10">{{ showUnused ? '▾' : '▸' }} 未启用的备用 · {{ unused.length }}</td>
           </tr>
           <template v-if="showUnused">
             <tr v-for="m in unused" :key="'u' + m.provider + m.model + m.kind" class="dim">
               <td><span class="muted-s">{{ m.provider }} · </span><span class="mono">{{ m.model }}</span></td><td>{{ KINDS[m.kind] || m.kind }}</td>
               <td class="ell" :title="m.step_labels.join('、') + '\n' + (m.note || '')">{{ m.step_labels.join('、') }}</td>
-              <td><i class="mark idle" />未启用</td><td colspan="5"></td>
-              <td><a v-if="m.price" :href="m.price.source" target="_blank" rel="noopener noreferrer" :title="priceTitle(m)">{{ priceShort(m.price) }}</a><span v-else>—</span></td><td></td>
+              <td><i class="mark idle" />未启用</td><td colspan="5"></td><td class="right muted-s" :title="priceTitle(m)">—</td>
             </tr>
           </template>
         </tbody>
       </table></div>
-      <p class="muted-s">单价版本 {{ data.prices.version }} · {{ data.prices.currency }} · {{ data.prices.file }}</p>
+      <p class="muted-s price-line">单价来源：<template v-for="(p, i) in priceSources(data.models)" :key="p.provider"><span v-if="i"> · </span><a :href="p.source" target="_blank" rel="noopener noreferrer">{{ p.provider }} 官方</a></template> · 版本 {{ data.prices.version }}</p>
 
       <h2 class="sub-h">按步骤</h2>
       <div class="table-wrap"><table class="data-table">
-        <thead><tr><th>步骤</th><th>模型</th><th>调用</th><th>输入</th><th>缓存</th><th>输出</th><th>生图</th><th>费用</th></tr></thead>
+        <thead><tr><th>步骤</th><th>模型</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
         <tbody>
           <template v-for="s in data.steps" :key="s.step">
             <tr class="group-row"><td>{{ s.label }}</td><td></td><td class="right">{{ num(s.calls) }}</td><td class="right">{{ num(s.input) }}</td><td class="right">{{ num(s.cached) }}</td><td class="right">{{ num(s.output) }}</td><td class="right">{{ num(s.images) }}</td><td class="right">{{ money(s) }}</td></tr>
             <tr v-for="r in data.step_models.filter((r) => r.step === s.step)" :key="s.step + r.provider + r.model + r.kind">
-              <td></td><td><span class="mono">{{ r.model }}</span><span class="muted-s"> · {{ KINDS[r.kind] || r.kind }}</span></td><td class="right">{{ num(r.calls) }}</td><td class="right">{{ num(r.input) }}</td><td class="right">{{ num(r.cached) }}</td><td class="right">{{ num(r.output) }}</td><td class="right">{{ num(r.images) }}</td><td class="right">{{ money(r) }}</td>
+              <td></td><td><span class="mono">{{ r.model }}</span><span class="muted-s"> · {{ KINDS[r.kind] || r.kind }}</span></td><td class="right">{{ num(r.calls) }}</td><td class="right">{{ num(r.input) }}</td><td class="right">{{ num(r.cached) }}</td><td class="right">{{ num(r.output) }}</td><td class="right">{{ num(r.images) }}</td><td class="right" :title="priceTitle(r)">{{ money(r) }}</td>
             </tr>
           </template>
           <tr v-if="!data.steps.length"><td colspan="8" class="muted-s">暂无数据</td></tr>
@@ -101,7 +98,7 @@ async function upload(e) {
 
       <h2 class="sub-h">按天</h2>
       <div class="table-wrap"><table class="data-table">
-        <thead><tr><th>日期</th><th>调用</th><th>输入</th><th>缓存</th><th>输出</th><th>生图</th><th>费用</th></tr></thead>
+        <thead><tr><th>日期</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
         <tbody>
           <tr v-for="d in data.days" :key="d.day"><td>{{ d.day }}</td><td class="right">{{ num(d.calls) }}</td><td class="right">{{ num(d.input) }}</td><td class="right">{{ num(d.cached) }}</td><td class="right">{{ num(d.output) }}</td><td class="right">{{ num(d.images) }}</td><td class="right">{{ money(d) }}</td></tr>
           <tr v-if="!data.days.length"><td colspan="7" class="muted-s">暂无数据</td></tr>
@@ -110,7 +107,7 @@ async function upload(e) {
 
       <h2 class="sub-h">按任务</h2>
       <div class="table-wrap"><table class="data-table">
-        <thead><tr><th>任务</th><th>调用</th><th>输入</th><th>缓存</th><th>输出</th><th>生图</th><th>费用</th></tr></thead>
+        <thead><tr><th>任务</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
         <tbody>
           <tr v-for="t in data.tasks" :key="t.task_id"><td class="mono">{{ t.task_id }}</td><td class="right">{{ num(t.calls) }}</td><td class="right">{{ num(t.input) }}</td><td class="right">{{ num(t.cached) }}</td><td class="right">{{ num(t.output) }}</td><td class="right">{{ num(t.images) }}</td><td class="right">{{ money(t) }}</td></tr>
           <tr v-if="!data.tasks.length"><td colspan="7" class="muted-s">暂无数据</td></tr>

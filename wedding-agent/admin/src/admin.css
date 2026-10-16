@@ -119,3 +119,14 @@ td .mark { margin-right: 8px; vertical-align: middle; }
 .inv-devices td { padding: 6px 8px; border-top: 1px solid var(--line); white-space: nowrap; }
 .inv-devices td.ua { max-width: 360px; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
 .inv-section { margin-top: 18px; }
+.chart-axis-title { font-size: 10px; fill: var(--muted); font-weight: 600; letter-spacing: .02em; }
+.chart-axis-title.cost { fill: #6f8fc4; }
+.chart-legend { align-items: center; }
+.chart-legend span { display: inline-flex; align-items: center; white-space: nowrap; }
+.stat-row { grid-template-columns: repeat(auto-fill, minmax(min(190px, 100%), 1fr)); }
+.stat-card { min-width: 0; }
+.stat-card strong { overflow-wrap: anywhere; }
+.price-line { margin-top: 8px; }
+.price-line a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.data-table td, .data-table th { font-variant-numeric: tabular-nums; }
+.data-table th.right, .data-table td.right { text-align: right; }

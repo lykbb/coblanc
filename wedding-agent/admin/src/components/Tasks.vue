@@ -113,7 +113,7 @@ function title(t) {
                 <div>
                   <h3>用量与费用 · {{ money(open.usage.total) }}</h3>
                   <table class="data-table">
-                    <thead><tr><th>步骤</th><th>模型</th><th>调用</th><th>输入</th><th>缓存</th><th>输出</th><th>生图</th><th>费用</th></tr></thead>
+                    <thead><tr><th>步骤</th><th>模型</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
                     <tbody>
                       <tr v-for="r in open.usage.step_models" :key="r.step + r.model + r.kind">
                         <td>{{ r.label }}</td><td class="mono">{{ r.model }}</td><td class="right">{{ num(r.calls) }}</td><td class="right">{{ num(r.input) }}</td><td class="right">{{ num(r.cached) }}</td><td class="right">{{ num(r.output) }}</td><td class="right">{{ num(r.images) }}</td><td class="right">{{ money(r) }}</td>

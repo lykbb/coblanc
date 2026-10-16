@@ -28,3 +28,11 @@ export function ticks(max, count = 4) {
   const top = step * Math.ceil(max / step)
   return [top, Array.from({ length: Math.round(top / step) + 1 }, (_, i) => +(i * step).toPrecision(6))]
 }
+
+// 表格下方一行：每个服务商一条官方价链接（只列已核实的）
+export function priceSources(models) {
+  const seen = new Map()
+  for (const m of models || []) if (m.price?.verified && !seen.has(m.price.provider)) seen.set(m.price.provider, m.price.source)
+  return [...seen].map(([provider, source]) => ({ provider, source }))
+}
+export const priceTitle = (m) => (m.price ? `${m.price.name}：${price(m.price)}${m.price.reason ? '（' + m.price.reason + '）' : ''}` : '无官方单价')
