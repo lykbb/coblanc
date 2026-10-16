@@ -34,9 +34,17 @@ let dragDepth = 0
 let observer, resizer, searchTimer
 
 const isLinks = computed(() => filter.style === LINKS)
-const linkKind = ref('') // 来源链接二级筛选：'' 全部 / 按标签（网站、ins…）
-const linkKinds = computed(() => [...new Set(items.value.filter((i) => i.kind === 'link').flatMap((i) => i.tags))])
-const shown = computed(() => items.value.filter((i) => i.kind === (isLinks.value ? 'link' : 'image') && (!isLinks.value || !linkKind.value || i.tags.includes(linkKind.value))))
+const shown = computed(() => items.value.filter((i) => i.kind === (isLinks.value ? 'link' : 'image')))
+// 左侧分类栏：点大类展开它的二级标签（按该类数据统计，取前 10），点标签筛选
+const navCats = computed(() => [{ id: '', name: '全部' }, ...styles.value])
+const subTags = ref([])
+async function loadSubTags(style) {
+  subTags.value = []
+  try {
+    const tags = (await refs.tags(style)).tags.slice(0, 10).map((t) => t.tag)
+    if (filter.style === style) subTags.value = tags
+  } catch { /* 二级标签可缺 */ }
+}
 const imageStyles = computed(() => styles.value.filter((s) => s.kind === 'images'))
 const styleName = (id) => styles.value.find((s) => s.id === id)?.name || id
 const tagNames = computed(() => allTags.value.map((t) => t.tag))
@@ -98,6 +106,7 @@ onMounted(async () => {
   }
   load()
   loadTags()
+  loadSubTags('')
   observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting && !isLinks.value && items.value.length < total.value) load(true)
   }, { rootMargin: '800px' })
@@ -110,8 +119,10 @@ watch(params, () => load())
 watch(search, (v) => { clearTimeout(searchTimer); searchTimer = setTimeout(() => (filter.q = v.trim()), 250) })
 
 function pickStyle(id) {
+  if (filter.style === id) return
   filter.style = id
-  linkKind.value = ''
+  filter.tag = ''
+  loadSubTags(id)
   if (id === LINKS) filter.verdict = ''
 }
 function pickTag(tag) {
@@ -254,6 +265,16 @@ async function removeLink(link) {
 
 <template>
   <section class="refwall portal-page" @dragenter.prevent="onDragEnter" @dragover.prevent @dragleave="onDragLeave" @drop.prevent="onDrop">
+    <aside class="refwall-side" aria-label="分类">
+      <div v-for="c in navCats" :key="c.id || 'all'" class="side-cat" :class="{ on: filter.style === c.id }">
+        <button type="button" class="side-cat-btn" @click="pickStyle(c.id)"><small v-if="c.id">{{ c.id }}</small>{{ c.name }}</button>
+        <div v-if="filter.style === c.id && subTags.length" class="side-tags">
+          <button type="button" :class="{ on: !filter.tag }" @click="filter.tag = ''">全部</button>
+          <button v-for="t in subTags" :key="t" type="button" :class="{ on: filter.tag === t }" @click="filter.tag = t">{{ t }}</button>
+        </div>
+      </div>
+    </aside>
+    <div class="refwall-body">
     <header class="refwall-head">
       <h1>参考图墙</h1>
       <span class="page-count">{{ total }}</span>
@@ -273,21 +294,13 @@ async function removeLink(link) {
       </div>
     </header>
 
-    <nav class="refwall-tabs" aria-label="分类">
-      <button type="button" :class="{ on: !filter.style }" @click="pickStyle('')">全部</button>
-      <button v-for="s in styles" :key="s.id" type="button" :class="{ on: filter.style === s.id }" @click="pickStyle(s.id)">
-        <small>{{ s.id }}</small>{{ s.name }}
-      </button>
+    <div v-if="!isLinks" class="refwall-toolbar">
       <span v-if="!isLinks" class="refwall-seg" role="group" aria-label="好坏">
         <button type="button" :class="{ on: !filter.verdict }" @click="filter.verdict = ''">全部</button>
         <button type="button" :class="{ on: filter.verdict === 'good' }" @click="filter.verdict = 'good'"><i class="mark good"></i>好<template v-if="!filter.verdict"> {{ counts.good }}</template></button>
         <button type="button" :class="{ on: filter.verdict === 'bad' }" @click="filter.verdict = 'bad'"><i class="mark bad"></i>坏<template v-if="!filter.verdict"> {{ counts.bad }}</template></button>
       </span>
-    </nav>
-    <nav v-if="isLinks && linkKinds.length" class="refwall-subtabs" aria-label="来源类型">
-      <button type="button" :class="{ on: !linkKind }" @click="linkKind = ''">全部</button>
-      <button v-for="k in linkKinds" :key="k" type="button" :class="{ on: linkKind === k }" @click="linkKind = k">{{ k }}</button>
-    </nav>
+    </div>
     <div v-if="filter.tag" class="refwall-active-tag">
       <button type="button" class="tag-chip on" @click="filter.tag = ''">#{{ filter.tag }} ×</button>
     </div>
@@ -406,6 +419,7 @@ async function removeLink(link) {
         </aside>
         <button type="button" class="icon-btn light ref-close" aria-label="关闭" @click="closeView"><Icon name="close" /></button>
       </div>
+    </div>
     </div>
   </section>
 </template>

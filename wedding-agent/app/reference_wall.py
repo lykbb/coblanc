@@ -226,10 +226,16 @@ def can_edit(item: dict, holder: str) -> bool:
     return holder == item.get("uploader") or holder in settings.admin_holders
 
 
-def all_tags() -> list[dict]:
+def all_tags(style: str | None = None) -> list[dict]:
+    """全部标签按次数排序；给 style 时只统计该分类（00 统计来源链接）。"""
     counts: dict[str, int] = {}
     with _db() as conn:
-        rows = conn.execute("SELECT tags FROM refs UNION ALL SELECT tags FROM links").fetchall()
+        if style == LINKS_ID:
+            rows = conn.execute("SELECT tags FROM links").fetchall()
+        elif style:
+            rows = conn.execute("SELECT tags FROM refs WHERE style = ?", (style,)).fetchall()
+        else:
+            rows = conn.execute("SELECT tags FROM refs UNION ALL SELECT tags FROM links").fetchall()
     for row in rows:
         for tag in json.loads(row[0] or "[]"):
             counts[tag] = counts.get(tag, 0) + 1
@@ -291,8 +297,8 @@ def list_styles(holder: str = Depends(gallery.require)):
 
 
 @router.get("/tags")
-def list_tags():
-    return {"tags": all_tags()}
+def list_tags(style: str | None = Query(None, max_length=4)):
+    return {"tags": all_tags(style)}
 
 
 @router.get("")

@@ -6,7 +6,7 @@ const { call, json } = portal
 
 export const refs = {
   styles: () => call('/refs/styles'),
-  tags: () => call('/refs/tags'),
+  tags: (style) => call('/refs/tags' + (style ? '?style=' + encodeURIComponent(style) : '')),
   list: (params) => call('/refs?' + new URLSearchParams(params)),
   upload(file, meta) {
     const form = new FormData()
