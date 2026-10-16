@@ -8,7 +8,7 @@ const ACTIONS = {
   refs_uploaded: '上传参考图', ref_edited: '编辑参考图', ref_deleted: '删除参考图', refs_zipped: '打包下载', refs_exported: '导出元数据', file_viewed: '查看文件', file_downloaded: '下载文件',
   link_added: '添加链接', link_edited: '编辑链接', link_deleted: '删除链接', link_preview_uploaded: '上传链接预览图',
 }
-const SITES = { admin: '后台', gallery: '图墙' }
+const SITES = { admin: '后台', gallery: '图墙', front: '前台' }
 const WARN = new Set(['login_failed', 'login_locked', 'forbidden', 'csrf_rejected'])
 const items = ref([])
 const error = ref('')
@@ -31,9 +31,9 @@ const detail = (d) => Object.entries(d || {}).filter(([, v]) => v !== null && v 
       <tbody>
         <tr v-for="(e, i) in items" :key="i" :class="{ warn: WARN.has(e.action) }">
           <td class="muted-s">{{ when(e.at) }}</td>
-          <td class="muted-s">{{ SITES[e.site] || e.site || '—' }}</td>
           <td>{{ e.user || '—' }}<span v-if="e.user && e.user_source === 'ip'" class="tag soft" title="按 IP 推断">推断</span></td>
           <td class="muted-s">{{ e.holder && e.holder !== e.user ? e.holder : '' }}</td>
+          <td class="muted-s">{{ SITES[e.site] || e.site || '—' }}</td>
           <td>{{ ACTIONS[e.action] || e.action }}</td>
           <td class="muted-s ell" :title="detail(e.detail)">{{ detail(e.detail) }}</td>
           <td class="mono muted-s">{{ e.ip }}</td>
