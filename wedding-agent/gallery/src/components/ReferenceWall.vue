@@ -339,10 +339,7 @@ async function removeLink(link) {
               <button type="button" class="pin-act" :title="item.verdict === 'good' ? '标为坏图' : '标为好图'" @click="flip(item)"><i class="mark" :class="item.verdict"></i></button>
               <button v-if="canEdit(item)" type="button" class="pin-act" aria-label="删除" title="删除" @click="removeRef(item)"><Icon name="trash" :size="15" /></button>
             </div>
-            <div v-if="item.title || item.tags.length" class="pin-cap">
-              <span v-if="item.title" class="pin-title">{{ item.title }}</span>
-              <div v-if="item.tags.length" class="pin-tags"><button v-for="t in item.tags" :key="t" type="button" @click="pickTag(t)">#{{ t }}</button></div>
-            </div>
+            <span v-if="item.title" class="link-title">{{ item.title }}</span>
           </article>
         </template>
       </div>
