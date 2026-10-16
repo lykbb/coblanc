@@ -82,6 +82,23 @@ export function redeemInvite(code) {
   return post('/api/access/redeem', { code })
 }
 
+// 参考图墙（团队内部，不进调试面板）
+export const refs = {
+  styles: () => request('/api/refs/styles'),
+  list: (params) => request('/api/refs?' + new URLSearchParams(params)),
+  upload(file, meta) {
+    const form = new FormData()
+    form.append('files', file)
+    for (const [key, value] of Object.entries(meta)) form.append(key, value ?? '')
+    return request('/api/refs', { method: 'POST', body: form })
+  },
+  update: (id, changes) => request(`/api/refs/${id}`, {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(changes),
+  }),
+  remove: (id) => request(`/api/refs/${id}`, { method: 'DELETE' }),
+  zipUrl: (params) => BASE + '/api/refs/zip?' + new URLSearchParams(params),
+}
+
 const impl = USE_MOCK ? mock : real
 
 // 调试面板里展示的请求体（上传只记文件名和大小）

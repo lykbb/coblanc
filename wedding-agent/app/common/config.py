@@ -57,6 +57,9 @@ class Settings:
     # 任务状态和流程检查点（不在 storage_dir 里，因为 storage_dir 通过 /files 对外公开）
     state_dir: Path
     retention_days: int
+    # 团队参考图墙（app/reference_wall.py），独立目录，不受任务过期清理影响
+    reference_dir: Path
+    reference_cap_gb: float
     # 访问控制：ACCESS_INVITE_REQUIRED=0 时对所有人开放；见 app/access.py
     access_required: bool
     access_days: int
@@ -110,6 +113,8 @@ def load_settings() -> Settings:
         storage_dir=Path(storage) if storage else ROOT / "storage",
         state_dir=Path(_str("STATE_DIR")) if _str("STATE_DIR") else (Path(storage + "-state") if storage else ROOT / "state"),
         retention_days=_int("RETENTION_DAYS", 7),
+        reference_dir=Path(_str("REFERENCE_DIR")) if _str("REFERENCE_DIR") else ROOT / "reference_library",
+        reference_cap_gb=_float("REFERENCE_CAP_GB", 15),
         access_required=_bool("ACCESS_INVITE_REQUIRED", True),
         access_days=_int("ACCESS_DAYS", 180),
         cookie_secure=_bool("COOKIE_SECURE", False),

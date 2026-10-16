@@ -12,6 +12,7 @@ const NAV = [
   { key: 'studio', label: '婚纱照创作', icon: 'spark' },
   { key: 'projects', label: '我的项目', icon: 'folder' },
   { key: 'library', label: '素材库', icon: 'library' },
+  { key: 'refs', label: '参考图墙', icon: 'wall' },
   { key: 'delivery', label: '成片交付', icon: 'deliver' },
 ]
 </script>

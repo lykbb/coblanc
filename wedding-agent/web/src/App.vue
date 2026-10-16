@@ -12,6 +12,7 @@ import Lightbox from './components/Lightbox.vue'
 import DeliveryView from './components/DeliveryView.vue'
 import ProjectsView from './components/ProjectsView.vue'
 import LibraryView from './components/LibraryView.vue'
+import ReferenceWall from './components/ReferenceWall.vue'
 import DebugPanel from './components/DebugPanel.vue'
 import Icon from './components/Icon.vue'
 import { usingMock } from './api.js'
@@ -181,6 +182,7 @@ onBeforeUnmount(() => {
           <StudioCanvas v-else-if="state.view === 'studio'" />
           <ProjectsView v-else-if="state.view === 'projects'" />
           <LibraryView v-else-if="state.view === 'library'" />
+          <ReferenceWall v-else-if="state.view === 'refs'" />
           <DeliveryView v-else-if="state.view === 'delivery'" />
         </main>
         <div

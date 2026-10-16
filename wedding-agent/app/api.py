@@ -16,7 +16,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app import access, runner
+from app import access, reference_wall, runner
 from app.modules.intake import photo_rules
 from app.common.config import settings
 from app.common.errors import ModuleError
@@ -37,6 +37,8 @@ HTTP_STATUS = {
     "GENERATION_FAILED": 500,
     "ACCESS_INVALID": 403,
     "ACCESS_LIMITED": 429,
+    "REFERENCE_NOT_FOUND": 404,
+    "REFERENCE_FULL": 413,
 }
 class _Uploads(dict):
     """上传编号 → 地址。内存里没有时按文件名到 storage/upload 里找（服务重启后仍可用）。"""
@@ -117,6 +119,7 @@ async def _require_access(request: Request, call_next):
 
 app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_methods=["*"], allow_headers=["*"])
 settings.storage_dir.mkdir(parents=True, exist_ok=True)
+app.include_router(reference_wall.router)
 app.mount("/files", StaticFiles(directory=settings.storage_dir), name="files")
 app.mount("/templates", StaticFiles(directory=TEMPLATES_DIR), name="templates")
 

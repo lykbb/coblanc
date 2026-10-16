@@ -11,7 +11,7 @@ from pathlib import Path
 import pytest
 
 _TMP = tempfile.mkdtemp(prefix="wedding-test-")
-os.environ.update({"FAKE": "1", "FAKE_FAIL_FIRST_CHECK": "0", "STORAGE_DIR": _TMP, "ACCESS_INVITE_REQUIRED": "0"})
+os.environ.update({"FAKE": "1", "FAKE_FAIL_FIRST_CHECK": "0", "STORAGE_DIR": _TMP, "ACCESS_INVITE_REQUIRED": "0", "REFERENCE_DIR": _TMP + "-refs"})
 # 默认全部用示例数据；想让某个模块走真实实现，运行时加 REAL_MODULES=模块名（会产生费用）
 os.environ.setdefault("REAL_MODULES", "")
 

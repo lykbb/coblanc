@@ -9,6 +9,7 @@ defineProps({ name: { type: String, required: true }, size: { type: [Number, Str
     <template v-else-if="name === 'spark'"><circle cx="12" cy="12" r="7.5" /><circle cx="12" cy="12" r="3" /></template>
     <template v-else-if="name === 'folder'"><rect x="4" y="5" width="16" height="14" rx="2" /></template>
     <template v-else-if="name === 'library'"><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M4 9h16M4 14h16M9 4v16M14 4v16" /></template>
+    <template v-else-if="name === 'wall'"><rect x="4" y="4" width="7" height="9" rx="1.5" /><rect x="13" y="4" width="7" height="5" rx="1.5" /><rect x="4" y="15" width="7" height="5" rx="1.5" /><rect x="13" y="11" width="7" height="9" rx="1.5" /></template>
     <template v-else-if="name === 'deliver'"><path d="M5 19 19 5" /><path d="M9 5h10v10" /></template>
     <template v-else-if="name === 'check'"><path d="m5 12.5 4.5 4.5L19 7.5" /></template>
     <template v-else-if="name === 'close'"><path d="M6 6l12 12M18 6 6 18" /></template>
