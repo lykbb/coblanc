@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+import threading
 from contextlib import asynccontextmanager
 from typing import Any, Literal
 
@@ -35,7 +36,6 @@ HTTP_STATUS = {
     "REDO_LIMIT": 409,
     "GENERATION_FAILED": 500,
 }
-# file_id → 图片地址。demo 阶段放内存里，服务重启后需要重新上传。
 class _Uploads(dict):
     """上传编号 → 地址。内存里没有时按文件名到 storage/upload 里找（服务重启后仍可用）。"""
 
@@ -68,17 +68,39 @@ class ApiError(Exception):
         self.message = message
 
 
+PURGE_INTERVAL_SECONDS = 6 * 3600
+
+
+def purge_all() -> None:
+    """按保存天数删过期的照片/成片、任务记录和检查点。启动时跑一次，之后每 6 小时一次（服务不重启也会清理）。"""
+    try:
+        removed = purge_expired()
+        if removed:
+            log.info("删除了 %d 个过期文件", removed)
+        for task_id in store.purge_expired():
+            try:
+                runner.forget(task_id)
+            except Exception:
+                log.warning("过期任务 %s 的检查点删除失败", task_id)
+    except Exception:
+        log.exception("过期清理失败")
+
+
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    removed = purge_expired()
-    if removed:
-        log.info("删除了 %d 个过期文件", removed)
-    for task_id in store.purge_expired():
-        try:
-            runner.forget(task_id)
-        except Exception:
-            pass
+    interrupted = store.mark_interrupted()
+    if interrupted:
+        log.warning("服务重启打断了 %d 个任务，已标为可重试：%s", len(interrupted), interrupted)
+    purge_all()
+    stop = threading.Event()
+
+    def loop() -> None:
+        while not stop.wait(PURGE_INTERVAL_SECONDS):
+            purge_all()
+
+    threading.Thread(target=loop, daemon=True, name="purge").start()
     yield
+    stop.set()
 
 
 app = FastAPI(title="小囍 API", description="字段和错误码以《小囍接口约定》为准", lifespan=lifespan)

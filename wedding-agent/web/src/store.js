@@ -5,7 +5,9 @@ import { api } from './api.js'
 import { speakerOf } from './agents.js'
 
 const POLL_MS = 1500
-const STALL_MS = 3 * 60 * 1000
+const STALL_MS = 3 * 60 * 1000 // 超过这么久没进展：提示一句，改成慢速轮询（不停止）
+const SLOW_POLL_MS = 10000
+const MAX_ERROR_POLL_MS = 30000 // 网络/服务出错时逐次加倍等待，最多 30 秒
 const PAUSED = ['waiting_user', 'preview_ready', 'awaiting_payment', 'done', 'failed']
 const CURRENT_KEY = 'coblanc.currentTask'
 const PROJECTS_KEY = 'coblanc.projects'
@@ -166,6 +168,7 @@ let timer = null
 let lastKey = ''
 let lastChange = 0
 let lastQuestionsKey = ''
+let errorStreak = 0
 
 function stopPolling() {
   clearTimeout(timer)
@@ -208,28 +211,35 @@ function onTask(data) {
 async function poll() {
   if (!state.taskId) return
   const taskId = state.taskId
+  let delay = POLL_MS
   try {
     const data = await api.getTask(taskId)
     if (taskId !== state.taskId) return
+    if (errorStreak) state.error = null
+    errorStreak = 0
     onTask(data)
     if (PAUSED.includes(data.status)) return stopPolling()
     if (Date.now() - lastChange > STALL_MS) {
-      state.notice = '比平时慢了一些，可以稍后再回来看看'
-      return stopPolling()
+      if (!state.notice) state.notice = '比平时慢了一些，可以稍后再回来看看'
+      delay = SLOW_POLL_MS
     }
   } catch (error) {
+    if (taskId !== state.taskId) return
     if (error.code === 'TASK_NOT_FOUND') {
       removeProject(taskId)
       state.error = { code: error.code, lost: true, message: LOST_TEXT }
       return
     }
-    showError(error)
+    errorStreak += 1
+    if (errorStreak === 1) showError(error)
+    delay = Math.min(POLL_MS * 2 ** errorStreak, MAX_ERROR_POLL_MS)
   }
-  timer = setTimeout(poll, POLL_MS)
+  timer = setTimeout(poll, delay)
 }
 
 function startPolling() {
   stopPolling()
+  errorStreak = 0
   lastChange = Date.now()
   poll()
 }

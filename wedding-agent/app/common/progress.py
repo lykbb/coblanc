@@ -129,6 +129,21 @@ class TaskStore:
             self._save(task_id, info)
             return True
 
+    def mark_interrupted(self) -> list[str]:
+        """服务启动时调用：上次进程里还在跑的任务一律标成可重试的失败（落盘），免得一直显示“进行中”。"""
+        directory = self._directory()
+        if directory is None or not directory.exists():
+            return []
+        marked = []
+        for path in directory.glob("*.json"):
+            try:
+                status = json.loads(path.read_text(encoding="utf-8")).get("status")
+            except Exception:
+                continue
+            if status in INTERRUPTED and path.stem not in self._tasks and self.get(path.stem) is not None:
+                marked.append(path.stem)
+        return marked
+
     def purge_expired(self) -> list[str]:
         """删除超过保存天数的任务记录，返回被删的任务编号。"""
         directory = self._directory()

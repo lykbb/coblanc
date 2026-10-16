@@ -27,7 +27,8 @@ async function request(path, options = {}) {
   }
   const data = await res.json().catch(() => ({}))
   if (!res.ok) {
-    const error = new Error(data?.error?.message || '出了点问题，请稍后再试')
+    const fallback = res.status === 413 ? '图片太大了，单张请控制在 10 MB 以内' : '出了点问题，请稍后再试'
+    const error = new Error(data?.error?.message || fallback)
     error.code = data?.error?.code
     error.httpStatus = res.status
     error.body = data

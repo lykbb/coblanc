@@ -17,7 +17,10 @@ rsync -az --delete -e "${SSH[*]}" wedding-agent/web/dist/ ${H}:ai-wedding/weddin
 $SSH $H 'V=v24.16.0; N=~/.local/node24/bin/node; if ! [ -x $N ] || [ "$($N -p "process.versions.node.split(\".\")[0]")" -lt 24 ]; then echo "安装 Node $V 到 ~/.local/node24"; cd /tmp && curl -sfLO https://registry.npmmirror.com/-/binary/node/$V/node-$V-linux-x64.tar.xz && mkdir -p ~/.local/node24 && tar -xJf node-$V-linux-x64.tar.xz -C ~/.local/node24 --strip-components=1 && rm -f node-$V-linux-x64.tar.xz; fi; $N -v'
 $SSH $H 'export PATH=$HOME/.local/node24/bin:$PATH; chmod 600 ~/ai-wedding/wedding-agent/.env; cd ~/ai-wedding/wedding-agent && UV_DEFAULT_INDEX=https://pypi.tuna.tsinghua.edu.cn/simple ~/.local/bin/uv sync -q --frozen --python 3.11 && cd ../pi-wedding && npm ci --registry=https://registry.npmmirror.com --no-audit --no-fund -s'
 AFTER=$($SSH $H "$SUM")
-if [[ "$BEFORE" != "$AFTER" || "$1" == "--env" || "$1" == "--restart" ]]; then
+BUSY=$($SSH $H 'cd ~/ai-wedding/wedding-agent && grep -lE "\"status\": *\"(running|delivering)\"" state/tasks/*.json 2>/dev/null | wc -l')
+if [[ ( "$BEFORE" != "$AFTER" || "$1" == "--env" || "$1" == "--restart" ) && "$BUSY" -gt 0 && "$2" != "--force" && "$1" != "--force" ]]; then
+  echo "有 $BUSY 个任务正在生成，暂不重启（代码已同步，稍后再跑 ./deploy.sh --restart；确需立即重启加 --force）"
+elif [[ "$BEFORE" != "$AFTER" || "$1" == "--env" || "$1" == "--restart" || "$1" == "--force" ]]; then
   echo "后端有改动，重启 wedding-backend"
   $SSH $H 'sudo systemctl restart wedding-backend && sleep 3 && systemctl is-active wedding-backend'
 else
