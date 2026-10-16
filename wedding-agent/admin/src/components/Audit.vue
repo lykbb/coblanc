@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { auditLog } from '../api.js'
-import { SITES, TYPES, avatar, category, clock, dayKey, dayLabel, device, group, relative, sentence, who } from '../audit.js'
+import { SITES, TYPES, avatar, category, clock, dayKey, dayLabel, device, group, inferred, relative, sentence, who } from '../audit.js'
 
 const TABS = [['all', '全部'], ['front', '前台'], ['gallery', '图墙'], ['admin', '后台'], ['security', '安全异常']]
 const items = ref([])
@@ -125,7 +125,7 @@ const clear = () => { person.value = ''; type.value = ''; day.value = ''; q.valu
             <p class="audit-line">{{ sentence(g) }}</p>
             <p class="audit-meta">
               <span v-if="g.site" class="site-chip" :class="g.site">{{ SITES[g.site] }}</span>
-              <span v-if="g.user_source === 'ip'" class="tag soft" title="按 IP 对应的成员推断">推断</span>
+              <span v-if="inferred(g)" class="tag soft" title="按 IP 对应的成员推断">推断</span>
               <span v-if="g.backfilled" class="tag soft" title="从 nginx / fail2ban 日志或任务轨迹回填">回填</span>
               <span v-if="device(g.ua)">{{ device(g.ua) }}</span>
               <span v-if="g.ip" class="mono">{{ g.ip }}</span>

@@ -126,3 +126,4 @@ export function avatar(name) {
   const text = /^[\x00-\x7f]/.test(name) ? name[0].toUpperCase() : [...name].slice(-1)[0]
   return { text, color: PALETTE[h % PALETTE.length] }
 }
+export const inferred = (e) => e.user_source === 'ip' && who(e) === e.user && !(e.site === 'admin' && e.holder)
