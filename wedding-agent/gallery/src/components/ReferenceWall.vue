@@ -34,6 +34,9 @@ let dragDepth = 0
 let observer, resizer, searchTimer
 
 const isLinks = computed(() => filter.style === LINKS)
+const linkKind = ref('') // 来源链接二级筛选：'' 全部 / 按标签（网站、ins…）
+const linkKinds = computed(() => [...new Set(items.value.filter((i) => i.kind === 'link').flatMap((i) => i.tags))])
+const shown = computed(() => items.value.filter((i) => i.kind === (isLinks.value ? 'link' : 'image') && (!isLinks.value || !linkKind.value || i.tags.includes(linkKind.value))))
 const imageStyles = computed(() => styles.value.filter((s) => s.kind === 'images'))
 const styleName = (id) => styles.value.find((s) => s.id === id)?.name || id
 const tagNames = computed(() => allTags.value.map((t) => t.tag))
@@ -44,11 +47,10 @@ const canEdit = (item) => isAdmin.value || item.uploader === me.value
 // 瀑布流：按估计高度放进最短的一列，翻页追加时已有卡片不挪位置
 const columns = computed(() => {
   const cols = Array.from({ length: columnCount.value }, () => ({ height: 0, items: [] }))
-  for (const item of items.value) {
-    if (item.kind !== (isLinks.value ? 'link' : 'image')) continue // 只画当前标签页类型的卡片
+  for (const item of shown.value) {
     const col = cols.reduce((a, b) => (b.height < a.height ? b : a))
     col.items.push(item)
-    col.height += (isLinks.value ? (item.preview_height || 900) / (item.preview_width || 1280) + 0.3 : (item.height || 1) / (item.width || 1) + 0.18)
+    col.height += (isLinks.value ? (item.preview_url ? item.preview_height / item.preview_width : 0.5) + 0.16 : (item.height || 1) / (item.width || 1) + 0.18)
   }
   return cols.map((c) => c.items)
 })
@@ -109,6 +111,7 @@ watch(search, (v) => { clearTimeout(searchTimer); searchTimer = setTimeout(() =>
 
 function pickStyle(id) {
   filter.style = id
+  linkKind.value = ''
   if (id === LINKS) filter.verdict = ''
 }
 function pickTag(tag) {
@@ -281,6 +284,10 @@ async function removeLink(link) {
         <button type="button" :class="{ on: filter.verdict === 'bad' }" @click="filter.verdict = 'bad'"><i class="mark bad"></i>坏<template v-if="!filter.verdict"> {{ counts.bad }}</template></button>
       </span>
     </nav>
+    <nav v-if="isLinks && linkKinds.length" class="refwall-subtabs" aria-label="来源类型">
+      <button type="button" :class="{ on: !linkKind }" @click="linkKind = ''">全部</button>
+      <button v-for="k in linkKinds" :key="k" type="button" :class="{ on: linkKind === k }" @click="linkKind = k">{{ k }}</button>
+    </nav>
     <div v-if="filter.tag" class="refwall-active-tag">
       <button type="button" class="tag-chip on" @click="filter.tag = ''">#{{ filter.tag }} ×</button>
     </div>
@@ -290,16 +297,15 @@ async function removeLink(link) {
     <div ref="wall" class="masonry">
       <div v-for="(col, ci) in columns" :key="ci" class="masonry-col">
         <template v-if="isLinks">
-          <article v-for="link in col" :key="link.id" class="pin link-pin">
-            <a class="pin-media" :href="link.url" target="_blank" rel="noopener noreferrer">
-              <img v-if="link.preview_url" :src="refs.url(link.preview_url)" :alt="link.title" loading="lazy" decoding="async" :style="{ aspectRatio: (link.preview_width || 1280) + '/' + (link.preview_height || 900) }" />
-              <span v-else class="pin-placeholder"><Icon name="link" :size="26" /></span>
+          <article v-for="link in col" :key="link.id" class="pin link-pin" :class="{ 'text-pin': !link.preview_url }">
+            <a v-if="link.preview_url" class="pin-media" :href="link.url" target="_blank" rel="noopener noreferrer">
+              <img :src="refs.url(link.preview_url)" :alt="link.title" loading="lazy" decoding="async" :style="{ aspectRatio: link.preview_width + '/' + link.preview_height }" />
             </a>
-            <div class="pin-cap">
-              <a class="pin-title" :href="link.url" target="_blank" rel="noopener noreferrer">{{ link.title }}</a>
-              <span class="pin-domain">{{ link.domain }}</span>
-              <div v-if="link.tags.length" class="pin-tags"><button v-for="t in link.tags" :key="t" type="button" @click="pickTag(t)">#{{ t }}</button></div>
-            </div>
+            <a v-else class="link-text" :href="link.url" target="_blank" rel="noopener noreferrer">
+              <span class="link-text-kind">{{ link.domain === 'instagram.com' ? 'Instagram' : link.domain }}</span>
+              <span class="link-text-title">{{ link.title }}</span>
+            </a>
+            <a v-if="link.preview_url" class="link-title" :href="link.url" target="_blank" rel="noopener noreferrer">{{ link.title }}</a>
             <div v-if="isAdmin" class="pin-actions"><button type="button" class="pin-act" aria-label="编辑" @click="editLink(link)">编辑</button></div>
           </article>
         </template>

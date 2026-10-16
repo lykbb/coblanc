@@ -64,3 +64,16 @@ a.pin-title:hover { text-decoration: underline; }
 .ref-side-foot { display: flex; justify-content: space-between; margin-top: 4px; }
 .ref-close { top: -6px !important; right: -6px !important; }
 @media (max-width: 760px) { .ref-view { flex-direction: column; height: auto; } .ref-view > img { max-height: 60vh; } .ref-side { width: 100%; } }
+
+/* 来源链接：二级筛选、标题居中、无图时的文字卡 */
+.refwall-subtabs { display: flex; gap: 18px; padding: 2px 4px 0; }
+.refwall-subtabs button { border: 0; background: none; padding: 4px 0; font-size: 13px; color: var(--muted); cursor: pointer; border-bottom: 1.5px solid transparent; letter-spacing: .04em; }
+.refwall-subtabs button:hover { color: var(--ink); }
+.refwall-subtabs button.on { color: var(--ink); border-bottom-color: var(--ink); }
+.link-title { display: block; padding: 10px 6px 2px; text-align: center; font-size: 15px; font-weight: 500; letter-spacing: .03em; color: var(--ink); text-decoration: none; line-height: 1.4; }
+.link-title:hover { opacity: .75; }
+.link-text { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; aspect-ratio: 2 / 1; padding: 20px; border-radius: 16px; text-decoration: none; color: var(--ink); text-align: center;
+  background: linear-gradient(135deg, #fbf7f4, #f3eef8); box-shadow: inset 0 0 0 1px rgba(40, 30, 70, .07); transition: box-shadow .2s ease; }
+.link-text:hover { box-shadow: inset 0 0 0 1px rgba(40, 30, 70, .18); }
+.link-text-kind { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.link-text-title { font-size: 16px; font-weight: 500; letter-spacing: .02em; word-break: break-word; }
