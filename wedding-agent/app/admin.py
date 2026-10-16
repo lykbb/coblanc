@@ -312,4 +312,4 @@ def audit_log(limit: int = 2000):
         style = (item.get("detail") or {}).get("style")
         if style and style in names:
             item["detail"] = {**item["detail"], "style_name": names[style]}
-    return {"items": items}
+    return {"items": items, "system_holders": sorted(access.SYSTEM_HOLDERS)}

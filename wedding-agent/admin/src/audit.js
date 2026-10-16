@@ -24,7 +24,8 @@ export function device(ua) {
   return wechat ? `${os}微信` : [os, browser].filter(Boolean).join(' ') || ua.slice(0, 24)
 }
 
-export const who = (e) => e.user || (e.holder && e.holder !== e.ip ? e.holder : '')
+// 后台的登录账号就是本人；前台账号可能共用（如 xiaoxi），以设备 / IP 对应的成员为准
+export const who = (e) => (e.site === 'admin' && e.holder) || e.user || (e.holder && e.holder !== e.ip ? e.holder : '')
 export const category = (e) => (SECURITY.has(e.action) ? 'security' : e.site || 'security')
 
 function mergeKey(e) {

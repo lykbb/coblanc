@@ -5,6 +5,7 @@ import { SITES, TYPES, avatar, category, clock, dayKey, dayLabel, device, group,
 
 const TABS = [['all', '全部'], ['front', '前台'], ['gallery', '图墙'], ['admin', '后台'], ['security', '安全异常']]
 const items = ref([])
+const system = ref(new Set())
 const error = ref('')
 const loading = ref(true)
 const tab = ref('all')
@@ -16,7 +17,9 @@ const open = ref(new Set())
 
 onMounted(async () => {
   try {
-    items.value = (await auditLog()).items
+    const data = await auditLog()
+    items.value = data.items
+    system.value = new Set(data.system_holders || [])
   } catch (e) {
     error.value = e.message
   } finally {
@@ -28,7 +31,7 @@ const startOfToday = () => new Date(new Date().toDateString()).getTime() / 1000
 const today = computed(() => items.value.filter((e) => e.at >= startOfToday()))
 const summary = computed(() => {
   const t = today.value
-  const people = [...new Set(t.filter((e) => category(e) !== 'security').map(who).filter(Boolean))]
+  const people = [...new Set(t.filter((e) => category(e) !== 'security').map(who).filter((p) => p && !system.value.has(p)))]
   const visits = Object.fromEntries(Object.keys(SITES).map((s) => [s, t.filter((e) => e.action === 'visit' && e.site === s).length]))
   return {
     people,
