@@ -44,7 +44,7 @@ def compare_batch_with_extractor(source: bytes, candidates: list[tuple[str, byte
         try:
             vectors = extractor.extract(data, timeout_seconds=remaining)
         except Exception:
-            raise ModuleError("GENERATION_FAILED", "人脸特征提取失败，请稍后重试") from None
+            raise ModuleError("GENERATION_FAILED", "人脸特征提取失败，请稍后重试")
         if monotonic() >= deadline:
             raise ModuleError("GENERATION_FAILED", "人脸比对已超时，请稍后重试")
         return vectors
@@ -78,7 +78,7 @@ def match_embeddings(source: Sequence[Embedding], candidate: Sequence[Embedding]
         pairs = [matrix[0][0], matrix[1][1]] if matrix[0][0] + matrix[1][1] >= matrix[0][1] + matrix[1][0] else [matrix[0][1], matrix[1][0]]
         return [max(0.0, min(1.0, value)) for value in pairs]
     except (TypeError, ValueError, OverflowError):
-        raise ModuleError("GENERATION_FAILED", "无法完成双人人脸对应，请检查人脸数量和特征数据") from None
+        raise ModuleError("GENERATION_FAILED", "无法完成双人人脸对应，请检查人脸数量和特征数据")
 
 
 def compare_with_extractor(source: bytes, candidate: bytes, extractor: Callable[[bytes], Sequence[Embedding]]) -> list[float]:
@@ -88,7 +88,7 @@ def compare_with_extractor(source: bytes, candidate: bytes, extractor: Callable[
     except ModuleError:
         raise
     except Exception:
-        raise ModuleError("GENERATION_FAILED", "人脸特征提取失败，请稍后重试") from None
+        raise ModuleError("GENERATION_FAILED", "人脸特征提取失败，请稍后重试")
 
 
 def compare_faces(source: bytes, candidate: bytes) -> list[float]:

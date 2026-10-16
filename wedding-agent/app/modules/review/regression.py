@@ -60,7 +60,7 @@ def compare_runs(annotations: list[dict], baseline: list[dict], current: list[di
     except ModuleError:
         raise
     except (KeyError, TypeError, ValueError):
-        raise ModuleError("FILE_INVALID", "基线对比需要相同样本、数据集版本、模式及分数尺度，并记录各自阈值") from None
+        raise ModuleError("FILE_INVALID", "基线对比需要相同样本、数据集版本、模式及分数尺度，并记录各自阈值")
 
 
 def main() -> int:

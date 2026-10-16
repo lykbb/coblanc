@@ -48,7 +48,7 @@ def _candidates(state: WeddingState) -> list[dict]:
         if not ids or any(not image_id.strip() for image_id in ids) or len(set(ids)) != len(ids):
             raise ValueError("empty or duplicate candidates")
     except (ValidationError, TypeError, ValueError):
-        raise ModuleError("GENERATION_FAILED", "候选图片缺失或格式不正确，请重新生成") from None
+        raise ModuleError("GENERATION_FAILED", "候选图片缺失或格式不正确，请重新生成")
     return candidates
 
 

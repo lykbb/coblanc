@@ -49,7 +49,7 @@ FAKE_FAIL_FIRST_CHECK=1 uv run python -m app.modules.review.batch_eval tests/fix
 |大模型通过 get_llm，无模型名密钥|符合，视觉和返工均通过统一入口；测试使用模拟模型|
 |提示词在 prompts/|符合，vision.md 和 retouch.md|
 |fake 跑通、不花钱|模块与流程测试验证；测试禁止访问模型和读图片服务|
-|付费调用、agent 循环有上限|模型超时沿用 settings；格式错误最多重试一次；含 SDK 重试的总请求预算不超过 max_agent_steps；人脸服务待接入|
+|付费调用、agent 循环有上限|模型超时沿用 settings；格式错误由公共 get_llm 统一重试（带退避）；含 SDK 重试的总请求预算不超过 max_agent_steps；人脸服务待接入|
 |ModuleError、约定错误码|符合，输入与未接入错误使用 GENERATION_FAILED；批量文件报告使用 FILE_INVALID|
 |新配置写 .env.example|不适用，未新增配置或修改公共文件|
 |照片不写日志或其他位置|真实分支只从资产库读图，不写图片日志／副本；测试不使用真人照片|

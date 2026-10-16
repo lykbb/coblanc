@@ -339,7 +339,11 @@ def _invoke_agent(prompt: str) -> Any:
             except Exception as error:
                 result = {"error": str(error)}
             messages.append(ToolMessage(content=json.dumps(result, ensure_ascii=False), tool_call_id=call["id"]))
-    return llm.with_structured_output(Look).invoke(messages)
+    # 最后一步只给 Look 一个工具，历史里不能再有 search_assets 的调用记录，
+    # 否则模型会接着调 search_assets，解析器报 "Unknown tool type"。查到的素材以文字交给它。
+    found = [m.content for m in messages if isinstance(m, ToolMessage)]
+    final = prompt + "\n\n已查到的素材（JSON）：\n" + "\n".join(found) + "\n\n素材已经查完，现在直接给出最终方案。"
+    return llm.with_structured_output(Look).invoke([HumanMessage(content=final)])
 
 
 def _normalise_look(result: Any, context: dict[str, Any]) -> dict:

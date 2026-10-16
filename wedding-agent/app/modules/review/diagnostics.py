@@ -108,7 +108,7 @@ def diagnose(entry: dict, *, mode: str = "mock", stage: str = "check", image_id:
                     except ModuleError:
                         raise
                     except Exception:
-                        raise ModuleError("GENERATION_FAILED", "人脸诊断服务调用失败，请稍后重试") from None
+                        raise ModuleError("GENERATION_FAILED", "人脸诊断服务调用失败，请稍后重试")
                     finally:
                         stats.record("face", monotonic() - started, 0, success, simulated=mode == "mock")
                 report["face_scores"] = results

@@ -183,7 +183,7 @@ def summarize(annotations: list[dict], predictions: list[dict], *, face_threshol
     except ModuleError:
         raise
     except (KeyError, TypeError, ValueError):
-        raise ModuleError("FILE_INVALID", "标注或预测格式不正确，请检查编号、评分与人工标签") from None
+        raise ModuleError("FILE_INVALID", "标注或预测格式不正确，请检查编号、评分与人工标签")
 
 
 def main() -> int:

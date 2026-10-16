@@ -43,4 +43,4 @@ def save_report(path: Path, report: object) -> None:
         with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
             stream.write(content)
     except (OSError, TypeError, ValueError):
-        raise ModuleError("FILE_INVALID", "报告无法保存：请检查输出目录，并使用尚不存在的文件名") from None
+        raise ModuleError("FILE_INVALID", "报告无法保存：请检查输出目录，并使用尚不存在的文件名")

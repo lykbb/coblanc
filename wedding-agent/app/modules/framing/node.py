@@ -213,7 +213,7 @@ def frame(state: WeddingState) -> dict:
     except ModuleError:
         raise
     except Exception:
-        raise ModuleError("GENERATION_FAILED", "摄影师暂时无法完成拍摄方案，请稍后重试") from None
+        raise ModuleError("GENERATION_FAILED", "摄影师暂时无法完成拍摄方案，请稍后重试")
 
 
 def _height_text(brief: Brief) -> str:

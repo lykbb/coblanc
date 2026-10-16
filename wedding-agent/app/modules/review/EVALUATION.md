@@ -18,7 +18,7 @@
 - `node.py` 保留唯一对外节点 check、retouch；`__init__.py` 导出不变。
 - `real.py` 组织真实流程，使用资产库 load_image。每轮最多读取配置的 candidates_per_round 张候选，使用 photo_urls[0] 作为主合照，额外照片暂不读取。
 - `vision.py` 使用内嵌图片内容发送原图和候选，检查身材、手部、人数、文字、需求一致性及可判断性。内部 findings 字段不会写入 WeddingState；缺陷全部转为既有 issues。
-- `model_calls.py` 统一 get_llm、with_structured_output。输出格式错误最多重试一次；网络或超时错误不增加应用层重试。超时沿用 settings.llm_timeout_seconds，每次 invoke 的 SDK 请求预算为 max_retries + 1，最多两次 invoke 的总预算不能超过 settings.max_agent_steps；预算不足时不执行第二次。本模块不改公共入口。
+- `model_calls.py` 统一 get_llm、with_structured_output。输出格式错误的重试由公共 get_llm 的 with_structured_output 统一处理（带退避），本模块不再自己重试；网络或超时错误由 SDK 重试。超时沿用 settings.llm_timeout_seconds，每次 invoke 的 SDK 请求预算为 max_retries + 1，最多两次 invoke 的总预算不能超过 settings.max_agent_steps；预算不足时不执行第二次。本模块不改公共入口。
 - `face_compare.py` 提供内部 compare_faces 图片入口及 compare_with_extractor 测试入口；无任务级全局缓存。向量匹配保持原图 A/B 顺序，允许候选换位，返回截断到 [0,1] 的余弦相似度。必须使用同一模型、同一维度，恰好两个主体，阈值按该模型实测标定。
 - `prompts/vision.md`、`prompts/retouch.md` 是可编辑模型提示词。
 

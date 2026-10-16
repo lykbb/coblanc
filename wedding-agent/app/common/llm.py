@@ -10,22 +10,42 @@ CHAT_MODEL_AGENT / CHAT_MODEL_CHEAP / CHAT_MODEL_VISION 分别覆盖；旧名 DE
 FAKE / REAL_MODULES 照旧决定每个模块是否真的调用模型。生图不走这里，仍用 Seedream。
 """
 
+from langchain_core.exceptions import OutputParserException
 from langchain_openai import ChatOpenAI
+from pydantic import ValidationError
 
 from app.common.config import settings
 
 KINDS = ("agent", "cheap", "vision")
 
 
-class ChatModel(ChatOpenAI):
+# 统一重试：网络/超时/429/5xx 由 SDK 自带指数退避重试（HTTP_RETRIES 次）；
+# 结构化输出格式不对（模型偶尔调错工具、字段不合法）在这里再整体重试，带退避，所有模块共用。
+HTTP_RETRIES = 2
+STRUCTURED_ATTEMPTS = 2
+
+
+class _Model(ChatOpenAI):
+    def with_structured_output(self, schema=None, *, method=None, **kwargs):
+        runnable = super().with_structured_output(schema, method=method or self._default_method, **kwargs)
+        return runnable.with_retry(retry_if_exception_type=(OutputParserException, ValidationError),
+                                   stop_after_attempt=STRUCTURED_ATTEMPTS, wait_exponential_jitter=True)
+
+    _default_method = None
+
+
+class ArkModel(_Model):
+    """火山方舟：沿用 langchain 默认的结构化输出方式。"""
+
+
+class ChatModel(_Model):
     """CHAT_* 服务用：结构化输出默认走 function_calling。
 
     DeepSeek 等服务不支持 response_format=json_schema（langchain 的默认），思考模式下也不支持强制 tool_choice，
     所以这里默认 function_calling，并按 CHAT_THINKING 关掉思考。
     """
 
-    def with_structured_output(self, schema=None, *, method=None, **kwargs):
-        return super().with_structured_output(schema, method=method or "function_calling", **kwargs)
+    _default_method = "function_calling"
 
 
 def llm_config(kind: str = "agent") -> dict:
@@ -56,11 +76,11 @@ def get_llm(kind: str = "agent") -> ChatOpenAI:
     if config["provider"] == "chat":
         extra = {} if settings.chat_thinking else {"thinking": {"type": "disabled"}}
         return ChatModel(model=config["model"], base_url=config["base_url"], api_key=config["api_key"],
-                         timeout=settings.llm_timeout_seconds, max_retries=1, extra_body=extra or None)
-    return ChatOpenAI(
+                         timeout=settings.llm_timeout_seconds, max_retries=HTTP_RETRIES, extra_body=extra or None)
+    return ArkModel(
         model=config["model"],
         base_url=config["base_url"],
         api_key=config["api_key"],
         timeout=settings.llm_timeout_seconds,
-        max_retries=1,
+        max_retries=HTTP_RETRIES,
     )

@@ -61,7 +61,7 @@ def generate(state: WeddingState) -> dict:
         try:
             image = load_image(photos[0])
         except Exception:
-            raise ModuleError("FILE_INVALID", "合照无法读取，请重新上传") from None
+            raise ModuleError("FILE_INVALID", "合照无法读取，请重新上传")
         for slot in range(count):
             results[slot] = {"image": image, "seed": 1000 + used + slot, "engine": "fake"}
         engine, workflow = "fake", "fake"
@@ -134,7 +134,7 @@ def generate(state: WeddingState) -> dict:
                 "url": save_image(item["image"], "candidate"), "seed": item["seed"],
             })
     except Exception:
-        raise ModuleError("GENERATION_FAILED", "候选图保存失败，请稍后重试") from None
+        raise ModuleError("GENERATION_FAILED", "候选图保存失败，请稍后重试")
     step_text = f"正在生成 {count} 张样片" if stage == "sample" else f"正在生成 {count} 张婚礼套图"
     return {
         "candidates": candidates,

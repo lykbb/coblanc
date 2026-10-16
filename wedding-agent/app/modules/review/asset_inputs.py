@@ -18,7 +18,7 @@ def read_images(state: dict, candidates: list[dict], *, loader=None) -> tuple[by
         source = loader(photos[0])
         images = [(candidate["image_id"], loader(candidate["url"])) for candidate in candidates]
     except Exception:
-        raise ModuleError("FILE_INVALID", "质检图片无法从资产库读取，请重新上传或生成") from None
+        raise ModuleError("FILE_INVALID", "质检图片无法从资产库读取，请重新上传或生成")
     image_mime(source)
     for _, data in images:
         image_mime(data)

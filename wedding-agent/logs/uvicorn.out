@@ -1,0 +1,105 @@
+INFO:     Started server process [95267]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:61297 - "GET /docs HTTP/1.1" 200 OK
+nohup: /opt/homebrew/bin/uv: No such file or directory
+INFO:     Started server process [95509]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:61440 - "GET /docs HTTP/1.1" 200 OK
+INFO:     Started server process [96164]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:61972 - "GET /api/tasks/t_bd6d34df HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61979 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61980 - "GET /api/tasks/t_deadbeef HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62015 - "GET /api/tasks/t_bd6d34df HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62016 - "GET /api/tasks/t_a50c06b2 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62072 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62161 - "POST /api/uploads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62162 - "POST /api/uploads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62163 - "POST /api/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62165 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62167 - "GET /files/upload/c0e315deb596.jpg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62166 - "GET /files/upload/ec2e4df5f276.jpg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62175 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62185 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62191 - "POST /api/tasks/t_bc197354/answers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62193 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62207 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62213 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62218 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62503 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62544 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62562 - "POST /api/uploads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62579 - "POST /api/uploads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62585 - "POST /api/tasks/t_bc197354/answers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62587 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62595 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62597 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+2026-10-15 09:36:29,683 WARNING [t_bc197354] wedding.runner: 模块报错 PHOTO_INVALID：合照第1张：只有1个人，需2人合照；合照第2张：只有1个人，需2人合照（步骤 intake）
+INFO:     127.0.0.1:62599 - "GET /api/tasks/t_bc197354 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96164]
+INFO:     Started server process [97030]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:63008 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63184 - "POST /api/uploads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63186 - "POST /api/uploads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63194 - "POST /api/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63196 - "GET /api/tasks/t_89eda96c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63198 - "GET /files/upload/bdd6aace8bdc.jpg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63197 - "GET /files/upload/48ea3bdd4dab.jpg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63205 - "GET /api/tasks/t_89eda96c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63213 - "GET /api/tasks/t_89eda96c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63217 - "POST /api/tasks/t_89eda96c/answers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63219 - "GET /api/tasks/t_89eda96c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63221 - "GET /api/tasks/t_89eda96c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63258 - "GET /api/tasks/t_89eda96c HTTP/1.1" 200 OK
+2026-10-15 09:38:52,594 ERROR [t_89eda96c] wedding.runner: 流程出错
+Traceback (most recent call last):
+  File "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/app/runner.py", line 71, in _run
+    graph.invoke(graph_input, _config(task_id))
+  File "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/.venv/lib/python3.11/site-packages/langgraph/pregel/main.py", line 4001, in invoke
+    for chunk in self.stream(
+  File "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/.venv/lib/python3.11/site-packages/langgraph/pregel/main.py", line 3058, in stream
+    for _ in runner.tick(
+  File "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/.venv/lib/python3.11/site-packages/langgraph/pregel/_runner.py", line 208, in tick
+    run_with_retry(
+  File "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/.venv/lib/python3.11/site-packages/langgraph/pregel/_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/.venv/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/.venv/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/app/graph.py", line 48, in run
+    validate_update(fn.__name__, update, state)
+  File "/Users/lyk/AI产品经理/AI小组项目 婚纱照/ai-wedding-test/wedding-agent/app/contracts.py", line 216, in validate_update
+    raise ContractError(f"{function} 返回了不允许写的字段 {extra}，允许的是 {sorted(allowed)}")
+app.contracts.ContractError: intake 返回了不允许写的字段 ['identity']，允许的是 ['bride_photo_urls', 'brief', 'consent', 'groom_photo_urls', 'photo_urls', 'questions', 'step_text']
+During task with name 'intake' and id '79663786-e020-8a30-347f-e52d68396335'
+INFO:     127.0.0.1:63260 - "GET /api/tasks/t_89eda96c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63791 - "GET /docs HTTP/1.1" 200 OK
+INFO:     Started server process [98019]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:63934 - "GET /docs HTTP/1.1" 200 OK
+INFO:     Started server process [98866]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:64420 - "GET /api/tasks/t_89eda96c HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64440 - "GET /files/upload/c0e315deb596.jpg HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:64457 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64459 - "GET /docs HTTP/1.1" 200 OK

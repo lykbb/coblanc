@@ -56,7 +56,7 @@ def calibrate(annotations: list[dict], predictions: list[dict], thresholds: list
     except ModuleError:
         raise
     except (KeyError, TypeError, ValueError):
-        raise ModuleError("FILE_INVALID", "标定数据不完整、人物跨集合泄漏或版本混合，请检查数据划分") from None
+        raise ModuleError("FILE_INVALID", "标定数据不完整、人物跨集合泄漏或版本混合，请检查数据划分")
 
 
 def main() -> int:

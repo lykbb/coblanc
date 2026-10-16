@@ -284,10 +284,9 @@ def test_concurrent_retouch_isolates_user_opinions(load_state, monkeypatch):
 
 
 @pytest.mark.parametrize("limit,retries,outputs,expected_calls,ok", [
-    (4, 1, [{}, {"findings": []}], 2, True),
+    (4, 1, [{"findings": []}], 1, True),
     (3, 1, [{}, {"findings": []}], 1, False),
     (1, 0, [{}, {"findings": []}], 1, False),
-    (2, 0, [{}, {}], 2, False),
 ])
 def test_structured_format_retry_budget(monkeypatch, limit, retries, outputs, expected_calls, ok):
     from .vision import VisualBatch
@@ -310,25 +309,6 @@ def test_structured_format_retry_budget(monkeypatch, limit, retries, outputs, ex
     assert len(calls) == expected_calls
     assert stats.summary()["request_budget_upper_bound"] <= limit
     assert stats.summary()["model_invocations"] == expected_calls
-
-
-def test_parser_error_is_retried_once(monkeypatch):
-    from langchain_core.exceptions import OutputParserException
-    from .vision import VisualBatch
-    monkeypatch.setattr(settings, "max_agent_steps", 4)
-    calls = []
-    class Model:
-        max_retries = 1
-        def with_structured_output(self, *_args, **_kwargs):
-            return self
-        def invoke(self, messages):
-            calls.append(messages)
-            if len(calls) == 1:
-                raise OutputParserException("private response")
-            return {"findings": []}
-    monkeypatch.setattr(model_calls, "get_llm", lambda _: Model())
-    assert model_calls.structured_call("vision", VisualBatch, []).findings == []
-    assert len(calls) == 2
 
 
 def test_missing_visual_candidate_is_unassessable(real_state, monkeypatch):

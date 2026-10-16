@@ -43,7 +43,7 @@ def check_real(state: WeddingState, candidates: list[dict], *, caller=None, comp
         except ModuleError:
             raise
         except Exception:
-            raise ModuleError("GENERATION_FAILED", "人脸比对结果格式不正确，请重新质检") from None
+            raise ModuleError("GENERATION_FAILED", "人脸比对结果格式不正确，请重新质检")
         finally:
             if stats is not None:
                 stats.record("face", monotonic() - started, 0, success, simulated=simulated)
@@ -88,7 +88,7 @@ def propose_retouch(state: WeddingState, scores: list[dict], feedback: dict, qua
     try:
         brief = Brief.model_validate(state.get("brief") or {}).model_dump()
     except ValidationError:
-        raise ModuleError("GENERATION_FAILED", "修图需求单格式不正确") from None
+        raise ModuleError("GENERATION_FAILED", "修图需求单格式不正确")
     brief = {key: value for key, value in brief.items() if key not in {"invitation", "materials", "missing", "intent"}}
     payload = {"brief": brief, "scores": scores, "user_feedback": feedback, "qualified_image_ids": sorted(qualified_ids), "required_target_without_feedback": required_target, "retry_count": state.get("retry_count", 0)}
     fallback = rule_plan(scores, feedback)

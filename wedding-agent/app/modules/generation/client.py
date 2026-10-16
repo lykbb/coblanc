@@ -122,7 +122,7 @@ def _image_bytes(url: str) -> bytes:
     try:
         data = load_image(url)
     except Exception:
-        raise ImageCallFailure("参考照片无法读取，请重新上传或检查资产库素材") from None
+        raise ImageCallFailure("参考照片无法读取，请重新上传或检查资产库素材")
     if len(data) > 30 * 1024 * 1024 or not (
         data.startswith(b"\x89PNG\r\n\x1a\n") or data.startswith(b"\xff\xd8\xff")
     ):
@@ -278,13 +278,13 @@ def generate_image(photo_urls: list[str], prompt: str, seed: int, references: li
             raise ImageCallFailure(
                 "生成结果暂时无法确认，请稍后查看服务记录" if error.unknown else "生图服务暂时不可用，请稍后重试",
                 retryable=error.retryable and not error.unknown,
-            ) from None
+            )
         except ImageCallFailure:
             status, code = "failed", "input_or_budget_invalid"
             raise
         except Exception:
             status, code = "unknown", "client_error"
-            raise ImageCallFailure("生图响应无法处理，请稍后查看服务记录") from None
+            raise ImageCallFailure("生图响应无法处理，请稍后查看服务记录")
         finally:
             event = {
                 "engine": engine,

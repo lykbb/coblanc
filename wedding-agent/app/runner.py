@@ -7,7 +7,7 @@ import uuid
 
 from langgraph.types import Command
 
-from app.common.errors import ModuleError, error_info
+from app.common.errors import ModuleError, describe_cause, error_info
 from app.common.log import current_task, get_logger
 from app.common.progress import store
 from app.graph import graph
@@ -86,7 +86,8 @@ def _run(task_id: str, graph_input) -> None:
         try:
             graph.invoke(graph_input, _config(task_id))
         except ModuleError as error:
-            log.warning("模块报错 %s：%s（步骤 %s）", error.code, error.message, store.get(task_id).step)
+            log.warning("模块报错 %s：%s（步骤 %s）原因：%s", error.code, error.message,
+                        store.get(task_id).step, describe_cause(error))
             store.update(task_id, status="failed", error=_error_info(task_id, error.code, error.message))
             return
         except Exception:

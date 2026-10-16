@@ -133,7 +133,7 @@ def run_pi(payload: dict, decision: Callable[[dict], dict] | None,
             try:
                 message = received.get(timeout=remaining)
             except queue.Empty:
-                raise ModuleError("GENERATION_FAILED", "处理超时，请稍后重试") from None
+                raise ModuleError("GENERATION_FAILED", "处理超时，请稍后重试")
             if message["type"] in {"decision", "tool"}:
                 workers.submit(handle, message)
             elif message["type"] == "result":

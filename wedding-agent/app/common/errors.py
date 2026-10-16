@@ -1,5 +1,7 @@
 """统一的错误类型（框架维护）。"""
 
+import re
+
 
 class ModuleError(Exception):
     """模块出错时抛这个。
@@ -47,3 +49,17 @@ def normalize_error(error: dict | None, step: str | None) -> dict | None:
                 "title": "这组照片没有完成",
                 "message": "这是旧版本留下的记录：当时审片标准过严，没能交付。审片规则已经调整，点「重新开始」再来一次就好。"}
     return error_info(str(error.get("code") or "GENERATION_FAILED"), message or "处理没有完成", step)
+
+
+_SECRET = re.compile(r"(sk-|Bearer\s+|api[_-]?key[=:\s\"']+)[A-Za-z0-9._\-]{6,}", re.I)
+
+
+def describe_cause(error: BaseException) -> str:
+    """把用户可见错误背后的真实原因串起来（遮掉密钥），只用于日志。"""
+    parts, seen = [], set()
+    cause = error.__cause__ or error.__context__
+    while cause is not None and id(cause) not in seen and len(parts) < 5:
+        seen.add(id(cause))
+        parts.append(f"{type(cause).__name__}: {str(cause)[:500]}")
+        cause = cause.__cause__ or cause.__context__
+    return _SECRET.sub(lambda m: m.group(1) + "***", " <- ".join(parts)) or "无底层原因"

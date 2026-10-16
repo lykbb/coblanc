@@ -56,7 +56,7 @@ def validate_scores(raw: list[dict], candidates: list[dict], complete: bool = Fa
                 raise ValueError("invalid score")
             score["issues"] = list(dict.fromkeys(issue.strip() for issue in score["issues"] if issue.strip()))
     except (ValidationError, TypeError, ValueError):
-        raise ModuleError("GENERATION_FAILED", "质检评分缺失或格式不正确，请重新质检") from None
+        raise ModuleError("GENERATION_FAILED", "质检评分缺失或格式不正确，请重新质检")
     return scores
 
 

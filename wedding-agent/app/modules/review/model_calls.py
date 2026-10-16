@@ -40,7 +40,7 @@ def read_prompt(name: str) -> str:
     try:
         return (PROMPTS / name).read_text(encoding="utf-8")
     except OSError:
-        raise ModuleError("GENERATION_FAILED", "质检提示词文件无法读取，请联系维护人员") from None
+        raise ModuleError("GENERATION_FAILED", "质检提示词文件无法读取，请联系维护人员")
 
 
 def structured_call(kind: str, schema: type[BaseModel], messages: list, stats: CallStats | None = None) -> BaseModel:
@@ -54,7 +54,7 @@ def structured_call(kind: str, schema: type[BaseModel], messages: list, stats: C
         if budget > settings.max_agent_steps:
             raise ModuleError("GENERATION_FAILED", "模型重试次数超过允许的调用上限")
         runnable = model.with_structured_output(schema, method="function_calling")
-        attempts = min(2, settings.max_agent_steps // budget)
+        attempts = 1  # 格式错误的重试统一在 get_llm 的 with_structured_output 里
         for attempt in range(attempts):
             start = monotonic()
             success = False
@@ -71,5 +71,5 @@ def structured_call(kind: str, schema: type[BaseModel], messages: list, stats: C
                     stats.record(kind, monotonic() - start, budget, success)
     except ModuleError:
         raise
-    except Exception:
-        raise ModuleError("GENERATION_FAILED", "质检模型调用失败或输出格式不正确，请检查模型配置后重试") from None
+    except Exception as error:
+        raise ModuleError("GENERATION_FAILED", "质检模型调用失败或输出格式不正确，请检查模型配置后重试") from error
