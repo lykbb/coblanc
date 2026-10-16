@@ -32,7 +32,7 @@ const ago = computed(() => {
       <span>DeepSeek 余额<em class="muted-s balance-ago">{{ data.error ? '查询失败 · ' + data.error : ago }}</em></span>
       <div class="balance-main">
         <strong>{{ data.current ? (data.current.currency === 'USD' ? '$' : '¥') + data.current.total.toFixed(2) : '—' }}</strong>
-        <svg v-if="spark" :viewBox="`0 0 ${W} ${H}`" :width="W" :height="H" class="balance-spark" aria-label="近 24 小时余额走势"><polyline :points="spark" /></svg>
+        <svg v-if="spark" :viewBox="`0 0 ${W} ${H}`" preserveAspectRatio="none" class="balance-spark" aria-label="近 24 小时余额走势"><polyline :points="spark" /></svg>
       </div>
     </div>
     <div class="stat-card"><span>今日实际花费</span><strong>{{ yuan(data.spent_today) }}</strong></div>
