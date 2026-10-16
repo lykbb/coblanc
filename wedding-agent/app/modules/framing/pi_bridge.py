@@ -1,5 +1,6 @@
 """本模块私有的 Pi 进程桥；保持同步节点接口，不把密钥或用户照片传给 Node。"""
 
+import contextvars
 import json
 import os
 import queue
@@ -135,7 +136,7 @@ def run_pi(payload: dict, decision: Callable[[dict], dict] | None,
             except queue.Empty:
                 raise ModuleError("GENERATION_FAILED", "处理超时，请稍后重试")
             if message["type"] in {"decision", "tool"}:
-                workers.submit(handle, message)
+                workers.submit(contextvars.copy_context().run, handle, message)  # 带上任务号（日志、用量记录）
             elif message["type"] == "result":
                 return message["value"]
             elif message["type"] in {"error", "closed"}:

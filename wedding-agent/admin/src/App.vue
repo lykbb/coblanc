@@ -4,12 +4,18 @@ import PortalShell from '@web/PortalShell.vue'
 import Invites from './components/Invites.vue'
 import Tasks from './components/Tasks.vue'
 import Audit from './components/Audit.vue'
+import Usage from './components/Usage.vue'
+import Server from './components/Server.vue'
+import Files from './components/Files.vue'
 import { portal } from './api.js'
 
 const SECTIONS = [
-  { key: 'invites', label: '邀请码', view: Invites },
-  { key: 'tasks', label: '任务', view: Tasks },
-  { key: 'audit', label: '审计', view: Audit },
+  { key: 'invites', label: '邀请码', icon: 'key', view: Invites },
+  { key: 'tasks', label: '任务', icon: 'list', view: Tasks },
+  { key: 'usage', label: 'Token 用量', icon: 'gauge', view: Usage },
+  { key: 'server', label: '服务器', icon: 'server', view: Server },
+  { key: 'files', label: '项目文件', icon: 'file', view: Files },
+  { key: 'audit', label: '审计', icon: 'shield', view: Audit },
 ]
 const current = ref(SECTIONS.find((s) => '#' + s.key === location.hash) || SECTIONS[0])
 const holder = ref('')

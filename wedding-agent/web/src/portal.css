@@ -13,12 +13,21 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .portal-bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 28px; height: 56px; padding: 0 32px; background: rgba(243, 242, 248, .92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 .portal-brand { font-family: var(--brand); font-weight: 400; letter-spacing: .28em; font-size: 15px; }
 .portal-brand span { margin-left: 10px; font-family: var(--sans); font-size: 10px; letter-spacing: .3em; color: var(--muted); }
-.portal-nav { display: flex; gap: 4px; }
-.portal-nav button { border: 0; background: none; padding: 6px 12px; border-radius: 8px; color: var(--muted); cursor: pointer; font-size: 13px; }
-.portal-nav button:hover { color: var(--ink); }
-.portal-nav button.on { color: var(--ink); background: var(--panel); box-shadow: 0 1px 0 var(--line); }
 .portal-who { margin-left: auto; color: var(--muted); font-size: 12px; }
-.portal-main { flex: 1; }
+.portal-main { flex: 1; min-width: 0; }
+/* 后台：左侧导航（同用户站侧栏） */
+.portal-side-layout { flex-direction: row; gap: 16px; padding: 16px; height: 100vh; }
+.portal-side { flex: 0 0 224px; display: flex; flex-direction: column; gap: 22px; padding: 22px 12px 16px; background: var(--panel); border-radius: 24px; box-shadow: var(--shadow); overflow: hidden; }
+.side-brand { padding: 0 6px; display: flex; flex-direction: column; gap: 6px; font-size: 20px; }
+.side-brand span { margin-left: 0; }
+.portal-side-nav { display: flex; flex-direction: column; gap: 6px; }
+.portal-nav-item { display: flex; align-items: center; gap: 12px; height: 46px; padding: 0 12px; border-radius: 14px; border: 1px solid transparent; background: none; color: var(--ink); font-size: 14px; cursor: pointer; text-align: left; white-space: nowrap; }
+.portal-nav-item:hover { background: var(--soft); }
+.portal-nav-item.active { background: var(--peach-tint); border-color: var(--peach-line); color: var(--peach-ink); font-weight: 700; }
+.portal-side-user { margin-top: auto; display: flex; align-items: center; gap: 8px; padding: 14px 6px 0; border-top: 1px solid var(--line); }
+.portal-side-user .portal-who { margin-left: 0; margin-right: auto; }
+.portal-side-user form, .portal-bar form { margin: 0; }
+.portal-side-layout .portal-main { overflow: auto; border-radius: 24px; }
 .portal-page { max-width: 1400px; margin: 0 auto; padding: 28px 32px 48px; display: flex; flex-direction: column; gap: 18px; }
 .page-head { display: flex; align-items: baseline; gap: 10px; }
 .page-head h1, .refwall-head h1 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: 24px; letter-spacing: .06em; }

@@ -18,6 +18,7 @@ from contextvars import ContextVar
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from app.common import usage
 from app.common.config import settings
 from app.common.errors import ModuleError
 from app.common.log import get_logger
@@ -160,6 +161,9 @@ def _seedream_image(photo_urls: list[str], prompt: str, seed: int, references: l
         raise _ProviderFailure("invalid_image", unknown=True) from None
     if not image.startswith((b"\x89PNG\r\n\x1a\n", b"\xff\xd8\xff")):
         raise _ProviderFailure("invalid_image", unknown=True)
+    used = response.get("usage") or {}
+    usage.record("seedream", response.get("model", settings.seedream_model), "image", used.get("input_tokens", 0),
+                 used.get("output_tokens", 0), used.get("total_tokens"), images=used.get("generated_images", len(items)))
     if scope:
         scope.engine = "seedream"
         scope.effective_seed = -1
@@ -231,6 +235,7 @@ def _runninghub_image(photo_urls: list[str], prompt: str, seed: int, references:
             if not isinstance(outputs, list) or len(outputs) != 1:
                 raise _ProviderFailure("workflow_must_return_one_image")
             image = _read(urllib.request.Request(outputs[0]["fileUrl"]))
+            usage.record("runninghub", settings.runninghub_workflow_id, "image", images=1)
             scope = _ACTIVE_SCOPE.get()
             if scope:
                 scope.engine = "runninghub"

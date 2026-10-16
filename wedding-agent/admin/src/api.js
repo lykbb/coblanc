@@ -16,3 +16,17 @@ export const tasks = {
 }
 export const auditLog = () => call('/audit')
 export { when } from '@web/portal.js'
+export const ops = {
+  usage: (period) => call('/usage?period=' + period),
+  server: () => call('/server'),
+  list: (path) => call('/files/list?' + new URLSearchParams({ path })),
+  view: (path) => call('/files/view?' + new URLSearchParams({ path })),
+  raw: (path, download = false) => portal.url('files/raw?' + new URLSearchParams(download ? { path, download: 1 } : { path })),
+}
+export const bytes = (n) => {
+  if (n == null) return '—'
+  const units = ['B', 'KB', 'MB', 'GB', 'TB']
+  let i = 0
+  while (n >= 1024 && i < units.length - 1) { n /= 1024; i++ }
+  return `${n.toFixed(i ? 1 : 0)} ${units[i]}`
+}

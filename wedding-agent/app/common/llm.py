@@ -15,6 +15,7 @@ from langchain_openai import ChatOpenAI
 from pydantic import ValidationError
 
 from app.common.config import settings
+from app.common.usage import UsageCallback
 
 KINDS = ("agent", "cheap", "vision")
 
@@ -76,11 +77,13 @@ def get_llm(kind: str = "agent") -> ChatOpenAI:
     if config["provider"] == "chat":
         extra = {} if settings.chat_thinking else {"thinking": {"type": "disabled"}}
         return ChatModel(model=config["model"], base_url=config["base_url"], api_key=config["api_key"],
-                         timeout=settings.llm_timeout_seconds, max_retries=HTTP_RETRIES, extra_body=extra or None)
+                         timeout=settings.llm_timeout_seconds, max_retries=HTTP_RETRIES, extra_body=extra or None,
+                         callbacks=[UsageCallback("chat", config["model"], kind)])
     return ArkModel(
         model=config["model"],
         base_url=config["base_url"],
         api_key=config["api_key"],
         timeout=settings.llm_timeout_seconds,
         max_retries=HTTP_RETRIES,
+        callbacks=[UsageCallback("ark", config["model"], kind)],
     )

@@ -11,6 +11,12 @@ defineProps({ name: { type: String, required: true }, size: { type: [Number, Str
     <template v-else-if="name === 'library'"><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M4 9h16M4 14h16M9 4v16M14 4v16" /></template>
     <template v-else-if="name === 'wall'"><rect x="4" y="4" width="7" height="9" rx="1.5" /><rect x="13" y="4" width="7" height="5" rx="1.5" /><rect x="4" y="15" width="7" height="5" rx="1.5" /><rect x="13" y="11" width="7" height="9" rx="1.5" /></template>
     <template v-else-if="name === 'deliver'"><path d="M5 19 19 5" /><path d="M9 5h10v10" /></template>
+    <template v-else-if="name === 'key'"><circle cx="8" cy="15" r="3.5" /><path d="m10.5 12.5 8-8M16 7l2.5 2.5" /></template>
+    <template v-else-if="name === 'list'"><path d="M9 6h11M9 12h11M9 18h11" /><circle cx="4.5" cy="6" r=".8" /><circle cx="4.5" cy="12" r=".8" /><circle cx="4.5" cy="18" r=".8" /></template>
+    <template v-else-if="name === 'shield'"><path d="M12 3.5 19 6v6c0 4.2-3 7.2-7 8.5-4-1.3-7-4.3-7-8.5V6l7-2.5Z" /></template>
+    <template v-else-if="name === 'gauge'"><path d="M4 18V12M9 18V8M14 18v-4M19 18V5" /></template>
+    <template v-else-if="name === 'server'"><rect x="4" y="4" width="16" height="7" rx="1.5" /><rect x="4" y="13" width="16" height="7" rx="1.5" /><path d="M8 7.5h.01M8 16.5h.01" /></template>
+    <template v-else-if="name === 'file'"><path d="M7 3.5h7l4 4V20.5H7z" /><path d="M14 3.5v4h4" /></template>
     <template v-else-if="name === 'check'"><path d="m5 12.5 4.5 4.5L19 7.5" /></template>
     <template v-else-if="name === 'close'"><path d="M6 6l12 12M18 6 6 18" /></template>
     <template v-else-if="name === 'plus'"><path d="M12 5v14M5 12h14" /></template>

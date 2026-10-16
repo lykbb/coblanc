@@ -24,3 +24,25 @@ td .mark { margin-right: 8px; vertical-align: middle; }
 .task-thumbs { display: flex; flex-wrap: wrap; gap: 8px; }
 .task-thumbs img { width: 96px; height: 96px; object-fit: cover; border-radius: 8px; cursor: zoom-in; background: var(--soft); }
 .task-big { max-width: 92vw; max-height: 92vh; object-fit: contain; }
+.seg { display: inline-flex; padding: 3px; border-radius: 10px; background: var(--panel); box-shadow: 0 0 0 1px var(--line); }
+.seg button { border: 0; background: none; padding: 5px 14px; border-radius: 8px; font-size: 13px; color: var(--muted); cursor: pointer; }
+.seg button.on { background: var(--peach-tint); color: var(--peach-ink); }
+.empty-s { color: var(--muted); padding: 40px 0; text-align: center; }
+.sub-h { margin: 8px 0 0; font-size: 14px; font-weight: 500; color: var(--muted); }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+.stat-card { padding: 16px; border-radius: 14px; background: var(--panel); box-shadow: 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 6px; }
+.stat-card span { color: var(--muted); font-size: 12px; }
+.stat-card strong { font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.bar { height: 6px; border-radius: 3px; background: var(--soft); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--grad-bar); }
+.files-split { display: grid; grid-template-columns: 300px 1fr; gap: 12px; min-height: 70vh; }
+.files-tree, .files-view { background: var(--panel); border-radius: 14px; box-shadow: 0 0 0 1px var(--line); overflow: auto; max-height: 78vh; }
+.files-tree { padding: 6px 0; }
+.files-node { display: block; width: 100%; border: 0; background: none; text-align: left; padding: 5px 10px; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.files-node:hover { background: var(--soft); }
+.files-node.on { background: var(--peach-tint); color: var(--peach-ink); }
+.files-node.dir { font-weight: 500; }
+.files-caret { display: inline-block; width: 14px; color: var(--muted); }
+.files-head { position: sticky; top: 0; display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.files-code { margin: 0; padding: 14px 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; line-height: 1.6; white-space: pre; tab-size: 4; }
+.files-img { max-width: 100%; margin: 16px auto; }
