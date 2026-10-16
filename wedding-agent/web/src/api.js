@@ -26,6 +26,9 @@ async function request(path, options = {}) {
     throw new Error('连不上服务，请检查网络或稍后再试')
   }
   const data = await res.json().catch(() => ({}))
+  if (res.status === 401 && data?.error?.code === 'ACCESS_DENIED') {
+    location.reload() // 设备凭证失效或被作废：回到邀请码页
+  }
   if (!res.ok) {
     const fallback = res.status === 413 ? '图片太大了，单张请控制在 10 MB 以内' : '出了点问题，请稍后再试'
     const error = new Error(data?.error?.message || fallback)
@@ -69,6 +72,14 @@ const real = {
   retry(taskId) {
     return post(`/api/tasks/${taskId}/retry`, {})
   },
+}
+
+// 邀请码不进调试面板；mock 模式不需要邀请码
+export function accessStatus() {
+  return USE_MOCK ? Promise.resolve({ authorized: true }) : request('/api/access/status')
+}
+export function redeemInvite(code) {
+  return post('/api/access/redeem', { code })
 }
 
 const impl = USE_MOCK ? mock : real

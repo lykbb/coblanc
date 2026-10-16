@@ -10,13 +10,13 @@ import threading
 from contextlib import asynccontextmanager
 from typing import Any, Literal
 
-from fastapi import FastAPI, File, Request, UploadFile
+from fastapi import FastAPI, File, Request, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app import runner
+from app import access, runner
 from app.modules.intake import photo_rules
 from app.common.config import settings
 from app.common.errors import ModuleError
@@ -35,6 +35,8 @@ HTTP_STATUS = {
     "WRONG_STATUS": 409,
     "REDO_LIMIT": 409,
     "GENERATION_FAILED": 500,
+    "ACCESS_INVALID": 403,
+    "ACCESS_LIMITED": 429,
 }
 class _Uploads(dict):
     """上传编号 → 地址。内存里没有时按文件名到 storage/upload 里找（服务重启后仍可用）。"""
@@ -104,6 +106,15 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(title="小囍 API", description="字段和错误码以《小囍接口约定》为准", lifespan=lifespan)
+
+
+@app.middleware("http")
+async def _require_access(request: Request, call_next):
+    if access.needs_check(request.url.path) and not access.holder_for(request.cookies.get(access.COOKIE)):
+        return JSONResponse({"error": {"code": "ACCESS_DENIED", "message": "请先输入邀请码"}}, status_code=401)
+    return await call_next(request)
+
+
 app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_methods=["*"], allow_headers=["*"])
 settings.storage_dir.mkdir(parents=True, exist_ok=True)
 app.mount("/files", StaticFiles(directory=settings.storage_dir), name="files")
@@ -128,6 +139,41 @@ def _take(task_id: str, expected: str, new: str = "running") -> None:
     _task(task_id)
     if not store.transition(task_id, expected, new):
         raise ApiError("WRONG_STATUS", "现在还不能做这一步，请刷新一下")
+
+
+# ---- 0. 邀请码 ----
+
+
+def _client_ip(request: Request) -> str:
+    return request.headers.get("x-real-ip") or (request.client.host if request.client else "")
+
+
+@app.get("/api/access/status")
+def access_status(request: Request):
+    if not access.required():
+        return {"authorized": True, "holder": None}
+    holder = access.holder_for(request.cookies.get(access.COOKIE))
+    return {"authorized": holder is not None, "holder": holder}
+
+
+class RedeemBody(BaseModel):
+    code: str = Field(max_length=64)
+
+
+@app.post("/api/access/redeem")
+def access_redeem(body: RedeemBody, request: Request, response: Response):
+    ip = _client_ip(request)
+    if access.too_many_fails(ip):
+        raise ApiError("ACCESS_LIMITED", "尝试次数过多，请稍后再试")
+    result = access.redeem(body.code, ip, request.headers.get("user-agent", ""))
+    if result is None:
+        raise ApiError("ACCESS_INVALID", "邀请码无效或已被使用")
+    token, holder = result
+    response.set_cookie(
+        access.COOKIE, token, max_age=settings.access_days * 86400,
+        httponly=True, samesite="lax", secure=settings.cookie_secure, path="/",
+    )
+    return {"authorized": True, "holder": holder}
 
 
 # ---- 1. 上传图片 ----

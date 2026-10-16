@@ -57,6 +57,10 @@ class Settings:
     # 任务状态和流程检查点（不在 storage_dir 里，因为 storage_dir 通过 /files 对外公开）
     state_dir: Path
     retention_days: int
+    # 访问控制：ACCESS_INVITE_REQUIRED=0 时对所有人开放；见 app/access.py
+    access_required: bool
+    access_days: int
+    cookie_secure: bool  # 上了 HTTPS 再设 COOKIE_SECURE=1
     # 流程上限
     max_question_rounds: int
     max_retouch: int
@@ -106,6 +110,9 @@ def load_settings() -> Settings:
         storage_dir=Path(storage) if storage else ROOT / "storage",
         state_dir=Path(_str("STATE_DIR")) if _str("STATE_DIR") else (Path(storage + "-state") if storage else ROOT / "state"),
         retention_days=_int("RETENTION_DAYS", 7),
+        access_required=_bool("ACCESS_INVITE_REQUIRED", True),
+        access_days=_int("ACCESS_DAYS", 180),
+        cookie_secure=_bool("COOKIE_SECURE", False),
         max_question_rounds=_int("MAX_QUESTION_ROUNDS", 2),
         max_retouch=_int("MAX_RETOUCH", 2),
         max_user_redo=_int("MAX_USER_REDO", 2),

@@ -22,6 +22,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': process.env.API_TARGET || 'http://127.0.0.1:8000',
+      '/files': process.env.API_TARGET || 'http://127.0.0.1:8000',
     },
   },
 })
