@@ -99,6 +99,7 @@ def test_zip_and_export(client):
     z = zipfile.ZipFile(io.BytesIO(client.get("/api/refs/zip?verdict=good").content))
     assert len([n for n in z.namelist() if n.endswith(".webp")]) == 2 and "references.json" in z.namelist()
     assert client.get("/api/refs/zip?style=07").status_code == 404
+    assert not list((settings.reference_dir / "tmp").glob("*.zip"))  # 临时 zip 发完即删
     csv_text = client.get("/api/refs/export?format=csv").text
     assert csv_text.splitlines()[0].startswith("id,style,verdict") and len(csv_text.strip().splitlines()) == 4
     assert len(client.get("/api/refs/export").json()) == 3

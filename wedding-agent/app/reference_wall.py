@@ -26,7 +26,8 @@ from pathlib import Path
 from typing import Literal
 
 from fastapi import APIRouter, File, Form, Request, UploadFile
-from fastapi.responses import FileResponse, Response, StreamingResponse
+from fastapi.responses import FileResponse, Response
+from starlette.background import BackgroundTask
 from PIL import Image, ImageOps, UnidentifiedImageError
 from pydantic import BaseModel, Field
 
@@ -77,6 +78,13 @@ def _error(code: str, message: str) -> ModuleError:
 
 def used_bytes() -> int:
     return sum(p.stat().st_size for p in (_root() / "images").iterdir() if p.is_file())
+
+
+def _clean_tmp(max_age: float = 3600) -> None:
+    """删掉中断下载留下的旧临时 zip。"""
+    for path in (_root() / "tmp").glob("*.zip") if (_root() / "tmp").exists() else []:
+        if time.time() - path.stat().st_mtime > max_age:
+            path.unlink(missing_ok=True)
 
 
 def _files(ref_id: str, ext: str) -> dict[str, Path]:
@@ -263,17 +271,25 @@ def export_refs(format: Literal["csv", "json"] = "json"):
 
 @router.get("/zip")
 def zip_refs(style: str | None = None, verdict: Literal["good", "bad"] | None = None):
+    _clean_tmp()
     items = query(style, verdict)
     if not items:
         raise _error("REFERENCE_NOT_FOUND", "当前筛选下没有图片")
-    buffer = io.BytesIO()
-    with zipfile.ZipFile(buffer, "w", zipfile.ZIP_STORED) as archive:  # webp 已压缩，不再压
-        for item in items:
-            archive.write(_files(item["id"], "")["large"], _download_name(item, "webp"))
-        archive.writestr("references.json", json.dumps(items, ensure_ascii=False, indent=1))
-    buffer.seek(0)
+    # 写到磁盘临时文件再发，不在内存里组装（库可能有几十 GB 级别）；发完由后台任务删掉
+    tmp_dir = _root() / "tmp"
+    tmp_dir.mkdir(exist_ok=True)
+    path = tmp_dir / f"{uuid.uuid4().hex}.zip"
+    try:
+        with zipfile.ZipFile(path, "w", zipfile.ZIP_STORED) as archive:  # webp 已压缩，不再压
+            for item in items:
+                archive.write(_files(item["id"], "")["large"], _download_name(item, "webp"))
+            archive.writestr("references.json", json.dumps(items, ensure_ascii=False, indent=1))
+    except BaseException:
+        path.unlink(missing_ok=True)
+        raise
     name = f"references-{style or 'all'}-{verdict or 'all'}.zip"
-    return StreamingResponse(buffer, media_type="application/zip", headers={"Content-Disposition": f'attachment; filename="{name}"'})
+    return FileResponse(path, media_type="application/zip", filename=name,
+                        background=BackgroundTask(path.unlink, missing_ok=True))
 
 
 @router.get("/{ref_id}/image")
