@@ -53,19 +53,18 @@ function title(t) {
       <StatusLegend :keys="items.map((t) => t.status)" /><button type="button" class="ghost-btn" @click="load">刷新</button></header>
     <p v-if="error" class="page-error" role="alert">{{ error }}</p>
     <table class="data-table">
-      <thead><tr><th>操作人</th><th>步骤</th><th>错误</th><th>更新</th><th>任务</th></tr></thead>
+      <thead><tr><th>操作人</th><th>步骤</th><th>更新</th></tr></thead>
       <tbody>
         <template v-for="t in items" :key="t.task_id">
           <tr class="clickable" :class="{ on: open?.task_id === t.task_id }" @click="view(t)">
             <td><StatusBar :s="t.status" :detail="t.status === 'failed' ? errorSummary(t.error) : ''" />{{ t.operator || '—' }}<span v-if="t.operator && t.operator_source === 'backfill'" class="tag" title="按 IP 推断">推断</span></td>
             <td>{{ t.step_text || t.step || '—' }}</td>
-            <td class="err">{{ errorSummary(t.error) || '—' }}</td>
             <td class="muted-s">{{ when(t.updated_at) }}</td>
-            <td class="mono">{{ t.task_id }}</td>
           </tr>
           <tr v-if="open?.task_id === t.task_id" class="detail">
-            <td colspan="6">
+            <td colspan="3">
               <div class="task-detail">
+                <p class="task-id">任务 <span class="mono">{{ open.task_id }}</span></p>
                 <a class="link-btn" :href="'#outputs/' + open.task_id">在生成记录中查看 →</a>
                 <div v-if="open.error"><h3>错误</h3><pre class="err">{{ fmt(open.error) }}</pre></div>
 
