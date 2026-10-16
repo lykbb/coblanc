@@ -6,6 +6,9 @@ const { call, json } = portal
 
 export const refs = {
   styles: () => call('/refs/styles'),
+  addStyle: (name) => json('POST', '/refs/styles', { name }),
+  renameStyle: (id, name) => json('PATCH', `/refs/styles/${id}`, { name }),
+  removeStyle: (id) => call(`/refs/styles/${id}`, { method: 'DELETE' }),
   tags: (style) => call('/refs/tags' + (style ? '?style=' + encodeURIComponent(style) : '')),
   list: (params) => call('/refs?' + new URLSearchParams(params)),
   upload(file, meta) {

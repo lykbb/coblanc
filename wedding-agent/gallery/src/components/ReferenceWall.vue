@@ -38,6 +38,25 @@ const shown = computed(() => items.value.filter((i) => i.kind === (isLinks.value
 // 左侧分类栏：点大类展开它的二级标签（按该类数据统计，取前 10），点标签筛选
 const navCats = computed(() => [{ id: '', name: '全部' }, ...styles.value])
 const subTags = ref([])
+// 管理员新增/改名/删除风格（只能动新增的；删除要求分类里没有图）
+const styleDraft = ref(null) // { id?, name }
+async function saveStyle() {
+  const d = styleDraft.value
+  if (!d?.name.trim()) { styleDraft.value = null; return }
+  try {
+    styles.value = (d.id ? await refs.renameStyle(d.id, d.name.trim()) : await refs.addStyle(d.name.trim())).styles
+    styleDraft.value = null
+    error.value = ''
+  } catch (e) { error.value = e.message }
+}
+async function dropStyle(c) {
+  if (!confirm(`删除风格「${c.name}」？`)) return
+  try {
+    styles.value = (await refs.removeStyle(c.id)).styles
+    if (filter.style === c.id) pickStyle('')
+    error.value = ''
+  } catch (e) { error.value = e.message }
+}
 async function loadSubTags(style) {
   subTags.value = []
   if (!style) return // 顶层「全部」不展开二级标签
@@ -271,6 +290,10 @@ async function removeLink(link) {
         <button type="button" class="side-cat-btn" :aria-expanded="c.id ? filter.style === c.id : undefined" @click="pickStyle(c.id)">
           <small class="side-num">{{ c.id || '—' }}</small><span class="side-name">{{ c.name }}</span>
         </button>
+        <span v-if="isAdmin && c.custom" class="side-edit">
+          <button type="button" title="重命名" aria-label="重命名" @click="styleDraft = { id: c.id, name: c.name }">✎</button>
+          <button type="button" title="删除（分类为空时）" aria-label="删除" @click="dropStyle(c)">×</button>
+        </span>
         <div v-if="c.id" class="side-tags-wrap">
           <div class="side-tags">
             <template v-if="filter.style === c.id">
@@ -280,6 +303,13 @@ async function removeLink(link) {
           </div>
         </div>
       </div>
+      <template v-if="isAdmin">
+        <form v-if="styleDraft" class="side-add-form" @submit.prevent="saveStyle">
+          <input v-model="styleDraft.name" maxlength="12" :placeholder="styleDraft.id ? '新名字' : '风格名，如 森系'" autofocus @keydown.esc="styleDraft = null" />
+          <button type="submit">{{ styleDraft.id ? '保存' : '添加' }}</button>
+        </form>
+        <button v-else type="button" class="side-add" @click="styleDraft = { name: '' }"><span>+</span>添加风格</button>
+      </template>
     </aside>
     <div class="refwall-body">
     <header class="refwall-head">
@@ -337,6 +367,7 @@ async function removeLink(link) {
             <div class="pin-actions">
               <a class="pin-act" :href="refs.url(item.original_url) + '&download=1'" aria-label="下载" title="下载"><Icon name="download" :size="15" /></a>
               <button type="button" class="pin-act" :title="item.verdict === 'good' ? '标为坏图' : '标为好图'" @click="flip(item)"><i class="mark" :class="item.verdict"></i></button>
+              <button v-if="canEdit(item)" type="button" class="pin-act" aria-label="编辑" title="编辑标题、标签、分类" @click="view(item)">编辑</button>
               <button v-if="canEdit(item)" type="button" class="pin-act" aria-label="删除" title="删除" @click="removeRef(item)"><Icon name="trash" :size="15" /></button>
             </div>
             <span v-if="item.title" class="link-title">{{ item.title }}</span>

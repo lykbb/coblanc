@@ -96,7 +96,19 @@ a.pin-title:hover { text-decoration: underline; }
 .side-tags button:hover { color: var(--ink); border-color: var(--peach-line, #d8d2e0); }
 .side-tags button.on { color: var(--ink); background: var(--panel); border-color: var(--peach-line, #d8d2e0); box-shadow: 0 1px 4px rgba(40, 30, 70, .06); }
 .refwall-toolbar { display: flex; justify-content: flex-end; }
+.side-edit { position: absolute; right: 2px; top: 8px; display: flex; gap: 2px; opacity: 0; transition: opacity .2s ease; }
+.side-cat:hover .side-edit { opacity: 1; }
+.side-edit button { border: 0; background: none; width: 22px; height: 22px; border-radius: 6px; font-size: 12px; color: var(--muted); cursor: pointer; }
+.side-edit button:hover { background: var(--soft); color: var(--ink); }
+.side-add { margin-top: 10px; padding: 12px 12px 4px; display: flex; align-items: baseline; gap: 12px; border: 0; border-top: 1px solid var(--line); background: none; text-align: left; font-size: 14px; letter-spacing: .08em; color: var(--muted); cursor: pointer; transition: color .2s ease; }
+.side-add span { min-width: 18px; font-family: var(--serif); font-size: 15px; }
+.side-add:hover { color: var(--peach-ink); }
+.side-add-form { margin-top: 10px; padding: 12px 0 0 12px; border-top: 1px solid var(--line); display: flex; gap: 6px; }
+.side-add-form input { flex: 1; min-width: 0; height: 32px; padding: 0 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); font-size: 13px; color: var(--ink); outline: none; }
+.side-add-form input:focus { border-color: var(--peach-line); }
+.side-add-form button { border: 0; background: none; padding: 0 8px; font-size: 13px; color: var(--peach-ink); cursor: pointer; }
 @media (max-width: 860px) {
+  .side-add, .side-add-form { margin: 0; border: 0; padding: 6px 10px; }
   .refwall { grid-template-columns: 1fr; gap: 12px; }
   .refwall.portal-page { padding-left: 16px; padding-right: 16px; }
   .refwall-side { position: static; max-height: none; flex-direction: row; flex-wrap: wrap; gap: 2px; padding: 0 0 10px; border-bottom: 1px solid var(--line); }

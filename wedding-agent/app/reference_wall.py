@@ -52,11 +52,21 @@ router = APIRouter(prefix="/api/gallery/refs", dependencies=[Depends(gallery.req
 _lock = threading.Lock()
 
 
-def styles() -> list[dict]:
-    """00 来源链接（链接卡片）+ SKILL.md 一级路由的 01–07 风格 + 08 素材 + 09 其他。"""
+def _default_styles() -> list[dict]:
     found = re.findall(r"\[(0[1-7])([^\]]+)\]\(levels/", STYLE_SKILL.read_text(encoding="utf-8"))
     return ([{"id": LINKS_ID, "name": "来源链接", "kind": "links"}] + [{"id": code, "name": name, "kind": "images"} for code, name in found]
-            + [{"id": ASSETS_ID, "name": "素材", "kind": "images"}, {"id": OTHER_ID, "name": "其他", "kind": "images"}])
+            + [{"id": ASSETS_ID, "name": "素材", "kind": "images"}])
+
+
+def _custom_styles() -> list[dict]:
+    with _db() as conn:
+        rows = conn.execute("SELECT id, name FROM styles ORDER BY CAST(id AS INTEGER)").fetchall()
+    return [{"id": r["id"], "name": r["name"], "kind": "images", "custom": True} for r in rows]
+
+
+def styles() -> list[dict]:
+    """00 来源链接（链接卡片）+ SKILL.md 一级路由的 01–07 风格 + 08 素材 + 管理员新增的风格（10、11…）+ 09 其他（总在最后）。"""
+    return _default_styles() + _custom_styles() + [{"id": OTHER_ID, "name": "其他", "kind": "images"}]
 
 
 def _style_ids() -> set[str]:
@@ -101,6 +111,7 @@ def _db() -> sqlite3.Connection:
         "CREATE TABLE IF NOT EXISTS links (id TEXT PRIMARY KEY, title TEXT, url TEXT, domain TEXT, tags TEXT,"
         " preview TEXT, uploader TEXT, created_at REAL)"
     )
+    conn.execute("CREATE TABLE IF NOT EXISTS styles (id TEXT PRIMARY KEY, name TEXT UNIQUE, creator TEXT, created_at REAL)")  # 新增风格
     conn.commit()
     return conn
 
@@ -294,6 +305,66 @@ def _download_name(item: dict, ext: str) -> str:
 def list_styles(holder: str = Depends(gallery.require)):
     return {"styles": styles(), "used_bytes": used_bytes(), "cap_bytes": int(settings.reference_cap_gb * 1024**3),
             "me": holder, "admin": holder in settings.admin_holders}
+
+
+class StyleBody(BaseModel):
+    name: str = Field(..., max_length=40)
+
+
+def _require_admin(holder: str) -> None:
+    if holder not in settings.admin_holders:
+        raise _error("PORTAL_FORBIDDEN", "只有管理员能改风格分类")
+
+
+def _style_name(name: str, skip: str | None = None) -> str:
+    name = re.sub(r"[\x00-\x1f#/\\]", "", name or "").strip()
+    if not 1 <= len(name) <= 12:
+        raise _error("FILE_INVALID", "风格名要 1–12 个字")
+    if any(s["name"] == name and s["id"] != skip for s in styles()):
+        raise _error("FILE_INVALID", "已经有这个风格了")
+    return name
+
+
+def _custom(style_id: str) -> dict:
+    found = next((s for s in _custom_styles() if s["id"] == style_id), None)
+    if found is None:
+        raise _error("REFERENCE_NOT_FOUND", "只能改新增的风格")
+    return found
+
+
+@router.post("/styles")
+def add_style(body: StyleBody, request: Request, holder: str = Depends(gallery.require)):
+    _require_admin(holder)
+    with _lock:
+        name = _style_name(body.name)
+        next_id = max([int(s["id"]) for s in styles()] + [9]) + 1
+        with _db() as conn:
+            conn.execute("INSERT INTO styles VALUES (?,?,?,?)", (f"{next_id:02d}", name, holder, time.time()))
+    gallery.audit(request, holder, "style_added", {"id": f"{next_id:02d}", "name": name})
+    return {"styles": styles()}
+
+
+@router.patch("/styles/{style_id}")
+def rename_style(style_id: str, body: StyleBody, request: Request, holder: str = Depends(gallery.require)):
+    _require_admin(holder)
+    old = _custom(style_id)
+    name = _style_name(body.name, skip=style_id)
+    with _db() as conn:
+        conn.execute("UPDATE styles SET name = ? WHERE id = ?", (name, style_id))
+    gallery.audit(request, holder, "style_renamed", {"id": style_id, "from": old["name"], "to": name})
+    return {"styles": styles()}
+
+
+@router.delete("/styles/{style_id}")
+def delete_style(style_id: str, request: Request, holder: str = Depends(gallery.require)):
+    _require_admin(holder)
+    old = _custom(style_id)
+    with _db() as conn:
+        if conn.execute("SELECT 1 FROM refs WHERE style = ? LIMIT 1", (style_id,)).fetchone():
+            raise _error("FILE_INVALID", "这个风格里还有图片，先移走或删掉再删风格")
+        conn.execute("DELETE FROM styles WHERE id = ?", (style_id,))
+    gallery.audit(request, holder, "style_deleted", {"id": style_id, "name": old["name"]})
+    return {"styles": styles()}
 
 
 @router.get("/tags")
