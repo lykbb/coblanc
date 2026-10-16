@@ -2,6 +2,7 @@ from copy import deepcopy
 
 import pytest
 
+from app.common.config import settings
 from app.common.errors import ModuleError
 from app.modules.review.evaluation import summarize
 
@@ -70,7 +71,7 @@ def test_defects_recommendations_timing_and_metadata():
     candidate = annotations[0]["candidates"][2]
     candidate["labels"].update(person_a_identity="不像本人", hands_ok=False, text_ok=False)
     predictions[0]["timing"] = {"check_seconds": 2.0, "retouch_seconds": 1.0, "model_invocations": 2}
-    predictions[0]["metadata"] = {"mode": "mock", "prompt_version": "v1", "face_sim_threshold": 0.5, "api_key": "do not include"}
+    predictions[0]["metadata"] = {"mode": "mock", "prompt_version": "v1", "face_sim_threshold": settings.face_sim_threshold, "api_key": "do not include"}
     result = summarize(annotations, predictions)
     assert result["defect_miss_rates"]["identity"]["rate"] == 1.0
     assert result["defect_miss_rates"]["hands"]["rate"] == 1.0
