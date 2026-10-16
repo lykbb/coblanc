@@ -31,17 +31,49 @@ def _describe(error: Exception) -> str:
     return f"{type(error).__name__}: {text[:200]}"
 
 
+_NODE_CACHE: dict[str, str | None] = {}
+
+
+def _node_major(node: str) -> int:
+    try:
+        out = subprocess.run([node, "-e", "process.stdout.write(process.versions.node)"],
+                             capture_output=True, text=True, timeout=10).stdout
+        return int(out.split(".")[0])
+    except Exception:
+        return 0
+
+
+def find_node() -> str | None:
+    """找能直接运行 .ts 的 Node（Pi 源码是 TypeScript，需要 Node ≥ 23.6 的原生类型擦除）。
+
+    顺序：环境变量 PI_NODE_BIN → ~/.local/node24/bin/node → PATH 里的 node。
+    系统自带的 Node 22（如 Ubuntu apt 版）不支持，会跳过。
+    """
+    if "node" in _NODE_CACHE:
+        return _NODE_CACHE["node"]
+    candidates = [os.environ.get("PI_NODE_BIN"), str(Path.home() / ".local/node24/bin/node"), shutil.which("node")]
+    found = None
+    for candidate in candidates:
+        if candidate and Path(candidate).exists() and _node_major(candidate) >= 23:
+            found = candidate
+            break
+    if not found:
+        log.error("找不到 Node ≥ 23（Pi 需要直接运行 TypeScript）；候选：%s", [c for c in candidates if c])
+    _NODE_CACHE["node"] = found
+    return found
+
+
 def run_pi(payload: dict, decision: Callable[[dict], dict] | None,
            tool: Callable[[str, dict], object], timeout: float) -> dict:
-    node = shutil.which("node")
+    node = find_node()
     if not node:
-        raise ModuleError("GENERATION_FAILED", "拍摄服务暂时未就绪，请稍后重试")
+        raise ModuleError("GENERATION_FAILED", "拍摄服务运行环境未就绪（Node 版本过低），请联系管理员")
     script = Path(__file__).with_name("pi_runtime.mjs")
     environment = {key: value for key, value in os.environ.items()
                    if not any(word in key.upper() for word in ("KEY", "TOKEN", "SECRET", "PASSWORD"))}
     process = subprocess.Popen(
         [node, str(script)], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-        stderr=subprocess.DEVNULL, text=True, encoding="utf-8", env=environment,
+        stderr=subprocess.PIPE, text=True, encoding="utf-8", env=environment,
     )
     received: queue.Queue = queue.Queue()
     lock = threading.Lock()
@@ -82,7 +114,15 @@ def run_pi(payload: dict, decision: Callable[[dict], dict] | None,
         except (BrokenPipeError, ValueError, OSError):
             pass
 
+    stderr_tail: list[str] = []
+
+    def read_stderr() -> None:
+        for line in process.stderr:
+            stderr_tail.append(line.rstrip()[:300])
+            del stderr_tail[:-8]
+
     threading.Thread(target=read_lines, daemon=True).start()
+    threading.Thread(target=read_stderr, daemon=True).start()
     deadline = time.monotonic() + timeout
     try:
         write({"type": "start", **payload})
@@ -101,6 +141,8 @@ def run_pi(payload: dict, decision: Callable[[dict], dict] | None,
             elif message["type"] in {"error", "closed"}:
                 log.warning("Pi 进程%s（退出码 %s），常见原因：步数用完或模型决策连续失败",
                             "报错" if message["type"] == "error" else "提前结束", process.poll())
+                if stderr_tail:
+                    log.warning("Pi stderr 末尾：%s", _describe(RuntimeError(" | ".join(stderr_tail[-4:]))))
                 raise ModuleError("GENERATION_FAILED", "拍摄服务暂时不可用，请稍后重试")
     finally:
         if process.poll() is None:
@@ -109,3 +151,4 @@ def run_pi(payload: dict, decision: Callable[[dict], dict] | None,
         workers.shutdown(wait=False, cancel_futures=True)
         process.stdin.close()
         process.stdout.close()
+        process.stderr.close()
