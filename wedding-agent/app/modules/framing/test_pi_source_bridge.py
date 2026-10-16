@@ -12,7 +12,7 @@ from app.common.errors import ModuleError
 from app.modules.framing import pi_bridge
 
 
-pytestmark = pytest.mark.skipif(shutil.which("node") is None, reason="源码桥测试需要 Node.js")
+pytestmark = pytest.mark.skipif(pi_bridge.find_node() is None, reason="源码桥测试需要 Node.js")
 
 
 @pytest.mark.parametrize("input_text", ["", "not-json\n", json.dumps({
@@ -20,7 +20,7 @@ pytestmark = pytest.mark.skipif(shutil.which("node") is None, reason="源码桥�
 }) + "\n"])
 def test_source_cli_rejects_bad_input_and_closed_connection(input_text):
     result = subprocess.run(
-        [shutil.which("node"), str(Path(pi_bridge.__file__).with_name("pi_runtime.mjs"))],
+        [pi_bridge.find_node(), str(Path(pi_bridge.__file__).with_name("pi_runtime.mjs"))],
         input=input_text, text=True, capture_output=True, timeout=5,
     )
     assert result.returncode == 1

@@ -33,9 +33,10 @@ def _describe(error: Exception) -> str:
 
 def run_pi(payload: dict, decision: Callable[[dict], dict] | None,
            tool: Callable[[str, dict], object], timeout: float) -> dict:
-    node = shutil.which("node")
+    from app.modules.framing.pi_bridge import find_node
+    node = find_node()
     if not node:
-        raise ModuleError("GENERATION_FAILED", "拍摄服务暂时未就绪，请稍后重试")
+        raise ModuleError("GENERATION_FAILED", "生图服务运行环境未就绪（Node 版本过低），请联系管理员")
     script = Path(__file__).with_name("pi_runtime.mjs")
     environment = {key: value for key, value in os.environ.items()
                    if not any(word in key.upper() for word in ("KEY", "TOKEN", "SECRET", "PASSWORD"))}
