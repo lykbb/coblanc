@@ -19,6 +19,9 @@ defineProps({ name: { type: String, required: true }, size: { type: [Number, Str
     <template v-else-if="name === 'file'"><path d="M7 3.5h7l4 4V20.5H7z" /><path d="M14 3.5v4h4" /></template>
     <template v-else-if="name === 'check'"><path d="m5 12.5 4.5 4.5L19 7.5" /></template>
     <template v-else-if="name === 'close'"><path d="M6 6l12 12M18 6 6 18" /></template>
+    <template v-else-if="name === 'search'"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></template>
+    <template v-else-if="name === 'link'"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1" /><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" /></template>
+    <template v-else-if="name === 'trash'"><path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13" /></template>
     <template v-else-if="name === 'plus'"><path d="M12 5v14M5 12h14" /></template>
     <template v-else-if="name === 'send'"><path d="M5 12h13" /><path d="m13 6 6 6-6 6" /></template>
     <template v-else-if="name === 'paperclip'"><path d="M21.44 11.05 12.25 20.24a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" /></template>

@@ -16,7 +16,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app import access, admin, admin_ops, login, portal, reference_wall, runner
+from app import access, admin, admin_ops, login, portal, reference_links, reference_wall, runner
 from app.modules.intake import photo_rules
 from app.common.config import settings
 from app.common.errors import ModuleError
@@ -43,6 +43,7 @@ HTTP_STATUS = {
     "PORTAL_FORBIDDEN": 403,
     "FILE_FORBIDDEN": 403,
     "FILE_NOT_FOUND": 404,
+    "LINK_FETCH_FAILED": 422,
     "PORTAL_CSRF": 403,
 }
 class _Uploads(dict):
@@ -134,6 +135,7 @@ app.include_router(admin.router)
 app.include_router(admin_ops.router)
 app.include_router(portal.gallery.status_router())
 app.include_router(reference_wall.router)
+app.include_router(reference_links.router)
 app.mount("/files", StaticFiles(directory=settings.storage_dir), name="files")
 app.mount("/templates", StaticFiles(directory=TEMPLATES_DIR), name="templates")
 

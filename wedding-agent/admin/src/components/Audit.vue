@@ -6,6 +6,7 @@ const ACTIONS = {
   login: '登录', login_failed: '登录失败', login_locked: '登录锁定', logout: '退出', forbidden: '越权访问', csrf_rejected: '拦截跨站请求',
   codes_created: '生成邀请码', holder_revoked: '作废持有人', device_revoked: '踢掉设备',
   refs_uploaded: '上传参考图', ref_edited: '编辑参考图', ref_deleted: '删除参考图', refs_zipped: '打包下载', refs_exported: '导出元数据', file_viewed: '查看文件', file_downloaded: '下载文件',
+  link_added: '添加链接', link_edited: '编辑链接', link_deleted: '删除链接', link_preview_uploaded: '上传链接预览图',
 }
 const SITES = { admin: '后台', gallery: '图墙' }
 const WARN = new Set(['login_failed', 'login_locked', 'forbidden', 'csrf_rejected'])

@@ -1,4 +1,8 @@
-"""团队参考图墙：按 01–07 风格（+ 00 待分类）收集好/坏参考图，供以后选风格和训练用。
+"""团队参考图墙：分类 00 来源链接（链接卡片，见 app/reference_links.py）、01–07 风格、08 素材、09 其他；图片分好/坏，带标题和标签。
+
+- 分类：01–07 以风格数据 SKILL.md 为准；08 素材放演示/测试用的用户照片（证件照、合照）；09 其他。旧的 00 待分类自动并入 09 其他。
+- 标签、标题：上传时填，之后上传人和管理员（ADMIN_HOLDERS，即 lyk）可改；删除也只限上传人和管理员。
+- 搜索：标题、标签、上传人、分类名、备注；分页（offset/limit）。
 
 - 存在 settings.reference_dir（默认 wedding-agent/reference_library/），和任务文件分开，不受 7 天清理影响。
 - 每张图存三份：原图（去掉 EXIF 等元数据）、大图 webp（长边 ≤ 2048）、缩略图 webp（长边 ≤ 400）。
@@ -25,7 +29,7 @@ import zipfile
 from pathlib import Path
 from typing import Literal
 
-from fastapi import APIRouter, Depends, File, Form, Request, UploadFile
+from fastapi import APIRouter, Depends, File, Form, Query, Request, UploadFile
 from fastapi.responses import FileResponse, Response
 from starlette.background import BackgroundTask
 from PIL import Image, ImageOps, UnidentifiedImageError
@@ -40,20 +44,39 @@ MAX_FILE_BYTES = 10 * 1024 * 1024  # 和任务上传一致；nginx client_max_bo
 LARGE_SIDE, THUMB_SIDE = 2048, 400
 FORMATS = {"JPEG": "jpg", "PNG": "png", "WEBP": "webp"}
 Image.MAX_IMAGE_PIXELS = 80_000_000
-FIELDS = ("id", "style", "verdict", "source_url", "note", "uploader", "created_at", "original_name", "width", "height", "bytes")
+FIELDS = ("id", "style", "verdict", "title", "tags", "source_url", "note", "uploader", "created_at", "original_name", "width", "height", "bytes")
+LINKS_ID, ASSETS_ID, OTHER_ID = "00", "08", "09"
+MAX_TAGS, TAG_LEN = 12, 20
 
 router = APIRouter(prefix="/api/gallery/refs", dependencies=[Depends(gallery.require)])
 _lock = threading.Lock()
 
 
 def styles() -> list[dict]:
-    """风格分类以风格数据 SKILL.md 的一级路由为准（01大理…07城堡），前面加 00 待分类。"""
-    found = re.findall(r"\[(0[1-9])([^\]]+)\]\(levels/", STYLE_SKILL.read_text(encoding="utf-8"))
-    return [{"id": "00", "name": "待分类"}] + [{"id": code, "name": name} for code, name in found]
+    """00 来源链接（链接卡片）+ SKILL.md 一级路由的 01–07 风格 + 08 素材 + 09 其他。"""
+    found = re.findall(r"\[(0[1-7])([^\]]+)\]\(levels/", STYLE_SKILL.read_text(encoding="utf-8"))
+    return ([{"id": LINKS_ID, "name": "来源链接", "kind": "links"}] + [{"id": code, "name": name, "kind": "images"} for code, name in found]
+            + [{"id": ASSETS_ID, "name": "素材", "kind": "images"}, {"id": OTHER_ID, "name": "其他", "kind": "images"}])
 
 
 def _style_ids() -> set[str]:
-    return {item["id"] for item in styles()}
+    """图片能放的分类（不含 00 来源链接）。"""
+    return {item["id"] for item in styles() if item["kind"] == "images"}
+
+
+def style_names() -> dict[str, str]:
+    return {item["id"]: item["name"] for item in styles()}
+
+
+def clean_tags(tags) -> list[str]:
+    if isinstance(tags, str):
+        tags = re.split(r"[,，、\s]+", tags)
+    out: list[str] = []
+    for tag in tags or []:
+        tag = re.sub(r"[\x00-\x1f#]", "", str(tag)).strip()[:TAG_LEN]
+        if tag and tag not in out:
+            out.append(tag)
+    return out[:MAX_TAGS]
 
 
 def _root() -> Path:
@@ -69,6 +92,16 @@ def _db() -> sqlite3.Connection:
         "CREATE TABLE IF NOT EXISTS refs (id TEXT PRIMARY KEY, style TEXT, verdict TEXT, source_url TEXT, note TEXT,"
         " uploader TEXT, created_at REAL, original_name TEXT, original_ext TEXT, width INT, height INT, bytes INT)"
     )
+    columns = {row[1] for row in conn.execute("PRAGMA table_info(refs)")}
+    for column in ("title", "tags"):
+        if column not in columns:  # 旧库升级：加标题、标签（标签存 JSON 数组）
+            conn.execute(f"ALTER TABLE refs ADD COLUMN {column} TEXT DEFAULT ''")
+    conn.execute("UPDATE refs SET style = ? WHERE style = '00'", (OTHER_ID,))  # 旧的 00 待分类并入 09 其他
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS links (id TEXT PRIMARY KEY, title TEXT, url TEXT, domain TEXT, tags TEXT,"
+        " preview TEXT, uploader TEXT, created_at REAL)"
+    )
+    conn.commit()
     return conn
 
 
@@ -94,6 +127,8 @@ def _files(ref_id: str, ext: str) -> dict[str, Path]:
 
 def _row(row: sqlite3.Row) -> dict:
     item = {key: row[key] for key in FIELDS}
+    item["tags"] = json.loads(row["tags"] or "[]")
+    item["title"] = item["title"] or ""
     base = f"refs/{row['id']}/image"  # 相对站点接口根（前端拼 <站点前缀>api/）
     item.update(thumb_url=f"{base}?size=thumb", large_url=f"{base}?size=large", original_url=f"{base}?size=original")
     return item
@@ -116,7 +151,8 @@ def _check_url(url: str) -> str:
     return url
 
 
-def add(data: bytes, filename: str, style: str, verdict: str, source_url: str, note: str, uploader: str) -> dict:
+def add(data: bytes, filename: str, style: str, verdict: str, source_url: str, note: str, uploader: str,
+        title: str = "", tags: list[str] | None = None) -> dict:
     if style not in _style_ids():
         raise _error("FILE_INVALID", "没有这个风格分类")
     if verdict not in ("good", "bad"):
@@ -149,9 +185,11 @@ def add(data: bytes, filename: str, style: str, verdict: str, source_url: str, n
             path.write_bytes(blobs[kind])
         with _db() as conn:
             conn.execute(
-                "INSERT INTO refs VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO refs (id, style, verdict, source_url, note, uploader, created_at, original_name, original_ext,"
+                " width, height, bytes, title, tags) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 (ref_id, style, verdict, _check_url(source_url), _clean_text(note, 200), uploader, time.time(),
-                 _clean_text(filename, 200), ext, rgb.width, rgb.height, sum(map(len, blobs.values()))),
+                 _clean_text(filename, 200), ext, rgb.width, rgb.height, sum(map(len, blobs.values())),
+                 _clean_text(title, 60), json.dumps(clean_tags(tags), ensure_ascii=False)),
             )
     return get(ref_id)
 
@@ -164,14 +202,38 @@ def get(ref_id: str) -> dict:
     return _row(row)
 
 
-def query(style: str | None = None, verdict: str | None = None) -> list[dict]:
+def matches(item: dict, q: str, tag: str | None, fields=("title", "uploader", "note")) -> bool:
+    if tag and tag not in item["tags"]:
+        return False
+    if not q:
+        return True
+    haystack = " ".join([*(str(item.get(f) or "") for f in fields), *item["tags"], style_names().get(item.get("style", ""), "")]).lower()
+    return all(word in haystack for word in q.lower().split())
+
+
+def query(style: str | None = None, verdict: str | None = None, q: str = "", tag: str | None = None) -> list[dict]:
     sql, args = "SELECT * FROM refs WHERE 1=1", []
     if style:
         sql, args = sql + " AND style = ?", args + [style]
     if verdict:
         sql, args = sql + " AND verdict = ?", args + [verdict]
     with _db() as conn:
-        return [_row(row) for row in conn.execute(sql + " ORDER BY created_at DESC", args)]
+        items = [_row(row) for row in conn.execute(sql + " ORDER BY created_at DESC", args)]
+    return [item for item in items if matches(item, q.strip(), tag)]
+
+
+def can_edit(item: dict, holder: str) -> bool:
+    return holder == item.get("uploader") or holder in settings.admin_holders
+
+
+def all_tags() -> list[dict]:
+    counts: dict[str, int] = {}
+    with _db() as conn:
+        rows = conn.execute("SELECT tags FROM refs UNION ALL SELECT tags FROM links").fetchall()
+    for row in rows:
+        for tag in json.loads(row[0] or "[]"):
+            counts[tag] = counts.get(tag, 0) + 1
+    return [{"tag": t, "count": c} for t, c in sorted(counts.items(), key=lambda x: (-x[1], x[0]))]
 
 
 def update(ref_id: str, changes: dict) -> dict:
@@ -182,6 +244,10 @@ def update(ref_id: str, changes: dict) -> dict:
         changes["source_url"] = _check_url(changes["source_url"])
     if "note" in changes:
         changes["note"] = _clean_text(changes["note"], 200)
+    if "title" in changes:
+        changes["title"] = _clean_text(changes["title"], 60)
+    if "tags" in changes:
+        changes["tags"] = json.dumps(clean_tags(changes["tags"]), ensure_ascii=False)
     if changes:
         with _db() as conn:
             conn.execute(f"UPDATE refs SET {', '.join(f'{k} = ?' for k in changes)} WHERE id = ?", [*changes.values(), ref_id])
@@ -200,6 +266,8 @@ def delete(ref_id: str) -> None:
 
 def export(fmt: str) -> str:
     items = [{key: item[key] for key in FIELDS} for item in query()]
+    if fmt == "csv":
+        items = [item | {"tags": ",".join(item["tags"])} for item in items]
     if fmt == "json":
         return json.dumps(items, ensure_ascii=False, indent=1)
     out = io.StringIO()
@@ -217,13 +285,22 @@ def _download_name(item: dict, ext: str) -> str:
 
 
 @router.get("/styles")
-def list_styles():
-    return {"styles": styles(), "used_bytes": used_bytes(), "cap_bytes": int(settings.reference_cap_gb * 1024**3)}
+def list_styles(holder: str = Depends(gallery.require)):
+    return {"styles": styles(), "used_bytes": used_bytes(), "cap_bytes": int(settings.reference_cap_gb * 1024**3),
+            "me": holder, "admin": holder in settings.admin_holders}
+
+
+@router.get("/tags")
+def list_tags():
+    return {"tags": all_tags()}
 
 
 @router.get("")
-def list_refs(style: str | None = None, verdict: Literal["good", "bad"] | None = None):
-    return {"items": query(style, verdict)}
+def list_refs(style: str | None = None, verdict: Literal["good", "bad"] | None = None, q: str = Query("", max_length=100),
+              tag: str | None = Query(None, max_length=40), offset: int = Query(0, ge=0), limit: int = Query(60, ge=1, le=200)):
+    items = query(style, verdict, q, tag)
+    return {"items": items[offset:offset + limit], "total": len(items), "offset": offset,
+            "counts": {"good": sum(i["verdict"] == "good" for i in items), "bad": sum(i["verdict"] == "bad" for i in items)}}
 
 
 @router.post("")
@@ -231,12 +308,14 @@ async def upload_refs(
     request: Request,
     holder: str = Depends(gallery.require),
     files: list[UploadFile] = File(...),
-    style: str = Form("00"),
+    style: str = Form(OTHER_ID),
     verdict: Literal["good", "bad"] = Form(...),
     source_url: str = Form(""),
     note: str = Form(""),
+    title: str = Form("", max_length=60),
+    tags: str = Form("", max_length=400),
 ):
-    items = [add(await f.read(), f.filename or "图片", style, verdict, source_url, note, holder) for f in files]
+    items = [add(await f.read(), f.filename or "图片", style, verdict, source_url, note, holder, title, clean_tags(tags)) for f in files]
     gallery.audit(request, holder, "refs_uploaded", {"ids": [i["id"] for i in items], "style": style, "verdict": verdict})
     return {"items": items}
 
@@ -246,11 +325,22 @@ class RefPatch(BaseModel):
     verdict: Literal["good", "bad"] | None = None
     source_url: str | None = Field(None, max_length=1000)
     note: str | None = Field(None, max_length=200)
+    title: str | None = Field(None, max_length=60)
+    tags: list[str] | None = Field(None, max_length=MAX_TAGS)
+
+
+def _owned(ref_id: str, holder: str) -> dict:
+    item = get(ref_id)
+    if not can_edit(item, holder):
+        raise _error("PORTAL_FORBIDDEN", "只有上传人和管理员能改")
+    return item
 
 
 @router.patch("/{ref_id}")
 def edit_ref(ref_id: str, body: RefPatch, request: Request, holder: str = Depends(gallery.require)):
     changes = body.model_dump(exclude_none=True)
+    if {"title", "tags"} & changes.keys():
+        _owned(ref_id, holder)
     item = update(ref_id, changes)
     gallery.audit(request, holder, "ref_edited", {"id": ref_id, **changes})
     return item
@@ -258,6 +348,7 @@ def edit_ref(ref_id: str, body: RefPatch, request: Request, holder: str = Depend
 
 @router.delete("/{ref_id}")
 def delete_ref(ref_id: str, request: Request, holder: str = Depends(gallery.require)):
+    _owned(ref_id, holder)
     delete(ref_id)
     gallery.audit(request, holder, "ref_deleted", {"id": ref_id})
     return {"deleted": ref_id}
@@ -273,10 +364,10 @@ def export_refs(request: Request, format: Literal["csv", "json"] = "json", holde
 
 @router.get("/zip")
 def zip_refs(request: Request, style: str | None = None, verdict: Literal["good", "bad"] | None = None,
-             holder: str = Depends(gallery.require)):
+             q: str = Query("", max_length=100), tag: str | None = Query(None, max_length=40), holder: str = Depends(gallery.require)):
     _clean_tmp()
-    gallery.audit(request, holder, "refs_zipped", {"style": style, "verdict": verdict})
-    items = query(style, verdict)
+    gallery.audit(request, holder, "refs_zipped", {"style": style, "verdict": verdict, "q": q, "tag": tag})
+    items = query(style, verdict, q, tag)
     if not items:
         raise _error("REFERENCE_NOT_FOUND", "当前筛选下没有图片")
     # 写到磁盘临时文件再发，不在内存里组装（库可能有几十 GB 级别）；发完由后台任务删掉
