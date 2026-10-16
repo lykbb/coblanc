@@ -126,7 +126,7 @@ export async function createTask(body) {
   if (grouped && (!groomIds.length || !brideIds.length)) throw apiError('PHOTO_INVALID', '请分别上传新郎和新娘各 1～10 张正面生活照')
   if (grouped && (groomIds.length > 10 || brideIds.length > 10)) throw apiError('PHOTO_INVALID', '新郎和新娘的照片数量都必须是 1～10 张')
   const legacy = body.photo_file_ids || []
-  if (!grouped && (legacy.length < 2 || legacy.length > 10)) throw apiError('PHOTO_INVALID', '请上传 2～10 张照片，其中至少 1 张是你们俩的合照')
+  if (!grouped && (legacy.length < 2 || legacy.length > 10)) throw apiError('PHOTO_INVALID', '请上传 2～10 张照片，新郎新娘都要有，合照单人照都行')
   const all = grouped ? [...groomIds, ...brideIds] : legacy
   if (all.some((id) => !uploads[id])) throw apiError('FILE_INVALID', '找不到上传的照片，请重新上传')
   const taskId = `t_mock_${Date.now()}`

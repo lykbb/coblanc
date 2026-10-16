@@ -252,9 +252,9 @@ def _check(monkeypatch, results, description=""):
         pass
 
 
-def test_rule_all_solo_asks_for_couple(monkeypatch):
+def test_rule_all_solo_passes_without_asking_for_couple(monkeypatch):
     failures, _ = _check(monkeypatch, [_solo(1, "groom"), _solo(2, "bride")])
-    assert [f["reason"] for f in failures] == ["还需要至少 1 张你们俩的合照（没有合照也可以直接告诉我，我用单人照帮你们合成）"]
+    assert failures == []
     node._cached_photo_check.cache_clear()
 
 
@@ -299,7 +299,7 @@ def test_missing_person_is_overall_not_photo_one(monkeypatch):
 
 def test_photo_problem_never_raises_and_upload_appends(monkeypatch):
     node._cached_photo_check.cache_clear()
-    _real_llm(monkeypatch, [_solo(1, "bride"), _solo(2, "groom")], [])
+    _real_llm(monkeypatch, [_solo(1, "groom"), _solo(2, "groom")], [])
     state = {"task_id": "t", "photo_urls": ["a", "b"], "description": "", "answers": [],
              "question_rounds": {"intake": 9}, "consent": node.DEFAULT_CONSENT}
     update = intake(state)
@@ -330,18 +330,39 @@ def test_solo_only_with_no_couple_intent_passes_with_flag(monkeypatch):
     node._cached_photo_check.cache_clear()
 
 
-def test_solo_only_without_intent_asks_with_hint_then_rephrases(monkeypatch):
+def test_solo_bride_groom_auto_compose_no_question(monkeypatch):
+    """没有合照、用户也没说明：自动识别，直接通过并标记 compose_from_solo，不问任何照片问题。"""
     node._cached_photo_check.cache_clear()
     _real_llm(monkeypatch, [_solo(1, "bride"), _solo(2, "groom")], [])
     state = {"task_id": "t", "photo_urls": ["b", "g"], "description": "", "answers": [],
              "question_rounds": {"intake": 0}, "consent": node.DEFAULT_CONSENT}
-    first = intake(state)
-    assert "没有合照也可以直接告诉我" in first["questions"][0]["title"]
-    state["answers"] = [{"question_id": "q_photos", "value": [], "asker": "intake", "round": 1}]
-    state["question_rounds"] = {"intake": 1}
-    second = intake(state)
-    assert second["questions"][0]["type"] == "upload"
-    assert second["step_text"] != first["step_text"] and "没有合照" in second["step_text"]
+    update = intake(state)
+    assert not any(q.get("type") == "upload" for q in update.get("questions") or [])
+    assert not any("合照" in (q.get("title") or "") for q in update.get("questions") or [])
+    assert update["brief"]["compose_from_solo"] is True
+    node._cached_photo_check.cache_clear()
+
+
+def test_couple_present_flag_false(monkeypatch):
+    node._cached_photo_check.cache_clear()
+    couple = {**_solo(1, "groom"), "people_count": 2, "tag": "couple"}
+    _real_llm(monkeypatch, [couple, _solo(2, "bride")], [])
+    state = {"task_id": "t", "photo_urls": ["c", "b"], "description": "", "answers": [],
+             "question_rounds": {"intake": 0}, "consent": node.DEFAULT_CONSENT}
+    update = intake(state)
+    assert not any(q.get("type") == "upload" for q in update.get("questions") or [])
+    assert update["brief"]["compose_from_solo"] is False
+    node._cached_photo_check.cache_clear()
+
+
+def test_missing_bride_asks(monkeypatch):
+    node._cached_photo_check.cache_clear()
+    _real_llm(monkeypatch, [_solo(1, "groom"), _solo(2, "groom")], [])
+    state = {"task_id": "t", "photo_urls": ["g1", "g2"], "description": "", "answers": [],
+             "question_rounds": {"intake": 0}, "consent": node.DEFAULT_CONSENT}
+    update = intake(state)
+    assert update["questions"][0]["type"] == "upload" and "还缺新娘" in update["questions"][0]["title"]
+    assert "至少 1 张你们俩的合照" not in update["step_text"] and "没有合照" not in update["step_text"]
     node._cached_photo_check.cache_clear()
 
 

@@ -38,7 +38,7 @@ class Brief(BaseModel):
     heights_cm: list[int] = Field(default_factory=list)  # 两人身高，例如 [175, 162]
     body_types: list[str] = Field(default_factory=list)
     keep_features: list[str] = Field(default_factory=list)  # 必须保留的特征，例如 "女生的眼镜"
-    # 用户明确说没有合照：身份照只有单人照，生图时把两人的单人照合成双人画面
+    # 自动识别：可用照片里没有合照，身份照只有单人照，生图时把两人的单人照合成双人画面
     compose_from_solo: bool = False
     beautify: str = "none"  # none 不美化；light 轻度美化，只有用户主动选择才能是 light
     materials: list[str] = Field(default_factory=lambda: ["invitation", "welcome_poster", "led_screen"])

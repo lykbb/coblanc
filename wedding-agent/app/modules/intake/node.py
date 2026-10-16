@@ -276,7 +276,7 @@ def _real_intake(state: WeddingState) -> dict:
     merged = {**working, **replacement}
     if _compose_from_solo(merged):
         update["brief"]["compose_from_solo"] = True
-        note = "没有合照：用新郎、新娘的单人照合成双人画面，保持两人真实身高比例、光线方向和色调一致"
+        note = "没有合照（自动识别）：用新郎、新娘的单人照合成双人画面，保持两人真实身高比例、光线方向和色调一致"
         if note not in update["brief"]["keep_features"]:
             update["brief"]["keep_features"].append(note)
     pet_note = _pet_keep_feature(merged)
@@ -494,7 +494,7 @@ def _validate_photo_shape(state: WeddingState) -> None:
     else:
         photos = state.get("photo_urls") or []
         if len(photos) < 2:
-            raise ModuleError("PHOTO_INVALID", "请上传 2～10 张照片，其中至少 1 张是你们俩的合照")
+            raise ModuleError("PHOTO_INVALID", "请上传 2～10 张照片，新郎新娘都要有，合照单人照都行")
         if len(photos) > 10:
             raise ModuleError("PHOTO_INVALID", "照片最多 10 张，请删掉几张再上传")
 
@@ -580,7 +580,7 @@ NO_COUPLE_WORDS = ("没有合照", "没合照", "无合照", "没有双人照", 
 
 
 def _no_couple_intent(state: WeddingState) -> bool:
-    """用户明确表示没有/不想传合照：允许只用单人照，生图时合成双人画面。"""
+    """（保留，不再是必需条件）用户说没有合照的说法；没有合照现在自动识别并合成。"""
     text = _brief_source_text(state, _answers(state)).replace(" ", "")
     return any(word in text for word in NO_COUPLE_WORDS)
 
@@ -703,9 +703,6 @@ def _missing_role_failures(state: WeddingState) -> list[dict]:
         elif result.get("tag") in {"groom", "bride"}:
             present.add(result["tag"])
     missing = []
-    if not any(_is_couple(r) for r in usable) and not _no_couple_intent(state):
-        missing.append({"label": "照片", "question_id": "q_photos", "index": None,
-                        "reason": "还需要至少 1 张你们俩的合照（没有合照也可以直接告诉我，我用单人照帮你们合成）"})
     if "groom" not in present:
         missing.append({"label": "照片", "question_id": "q_photos", "index": None, "reason": "还缺新郎的清晰照片，单人照或合照都行"})
     if "bride" not in present:
@@ -797,10 +794,10 @@ def _photo_step_text(failures: list[dict], asked: int = 0) -> str:
     if asked == 0:
         return f"照片还差一点：{detail}。直接在下方对话框补传照片或告诉我就行。"
     if asked == 1:
-        return (f"我再说清楚一点：{detail}。合照能让两人的身高比例和神态更自然；"
-                "如果真的没有合照，直接回复「没有合照」，我就用你们的单人照来合成。")
+        return (f"我再说清楚一点：{detail}。新郎、新娘都要有一张能看清脸的照片，"
+                "合照、单人照都行，没有合照我会用单人照自动合成。")
     return (f"还是卡在这里：{detail}。可以点左下角回形针补传照片，"
-            "或者直接回复「没有合照」「小狗要一起入镜」这类说明，我会按你的意思继续。")
+            "或者直接回复「小狗要一起入镜」这类说明，我会按你的意思继续。")
 
 
 def _upload_questions(failures: list[dict]) -> list[dict]:

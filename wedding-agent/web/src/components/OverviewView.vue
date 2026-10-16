@@ -77,7 +77,7 @@ function continueCurrent() {
         <p class="home-eyebrow">COBLANC · 共白</p>
         <h1>为你们，留下<br />刚刚好的那一张。</h1>
         <p class="home-lead">
-          Amie 艾蜜协调妆造、摄影与修图，从一张合照开始，完成九张成片与婚礼物料。
+          Amie 艾蜜协调妆造、摄影与修图，从你们的照片开始，完成九张成片与婚礼物料。
           安静、克制，也足够隆重。
         </p>
         <div class="home-cta">
@@ -126,7 +126,7 @@ function continueCurrent() {
           {{ current ? `项目 ${current.task_id}` : '当前任务' }}
           <template v-if="current?.created_at"> · {{ when(current.created_at) }}</template>
         </p>
-        <p v-else class="home-panel-text">上传 2～10 张照片，最好有 1 张你们俩的合照，没有合照也可以告诉 Amie 用单人照合成。想让宠物一起入镜，也记得说一声。</p>
+        <p v-else class="home-panel-text">上传 2～10 张照片，新郎新娘都要有，合照单人照都行。想让宠物一起入镜，也记得说一声。</p>
         <div class="home-panel-actions">
           <button type="button" class="btn-primary small" @click="hasWork ? continueCurrent() : startFresh()">
             {{ hasWork ? '回到创作画布' : '立即开始' }}

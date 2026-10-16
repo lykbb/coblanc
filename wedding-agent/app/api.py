@@ -128,7 +128,7 @@ async def upload_image(file: UploadFile = File(...)):
 
 
 class CreateTaskBody(BaseModel):
-    # 主入口：photo_file_ids，一个上传框，合照、单人照混传 2～10 张（至少 1 张合照），由小囍分出新郎新娘。
+    # 主入口：photo_file_ids，一个上传框，合照、单人照混传 2～10 张（新郎新娘都要有，合照可选），由小囍分出新郎新娘。
     # groom_photo_file_ids / bride_photo_file_ids 是分开上传的旧写法，保留兼容。
     photo_file_ids: list[str] = Field(default_factory=list)
     groom_photo_file_ids: list[str] = Field(default_factory=list)
@@ -148,7 +148,7 @@ def create_task(body: CreateTaskBody):
     ):
         raise ApiError("PHOTO_INVALID", "新郎和新娘的照片数量都必须是 1～10 张")
     if not grouped and not 2 <= len(body.photo_file_ids) <= 10:
-        raise ApiError("PHOTO_INVALID", "请上传 2～10 张照片，其中至少 1 张是你们俩的合照")
+        raise ApiError("PHOTO_INVALID", "请上传 2～10 张照片，新郎新娘都要有，合照单人照都行")
     file_ids = body.groom_photo_file_ids + body.bride_photo_file_ids if grouped else body.photo_file_ids
     missing = [file_id for file_id in file_ids if file_id not in uploads]
     if missing:

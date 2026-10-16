@@ -22,7 +22,7 @@ let dragDepth = 0
 
 const bubble = computed(() => {
   const p = phase.value
-  if (p === 'start') return { who: null, text: '嗨！我是 Amie 艾蜜 ✨ 先把你们两个人的照片发给我，最好有 1 张合照；没有合照也可以直接告诉我。' }
+  if (p === 'start') return { who: null, text: '嗨！我是 Amie 艾蜜 ✨ 先把你们两个人的照片发给我，新郎新娘都要有，合照单人照都行。' }
   if (p === 'loading') return { who: null, text: '正在打开你们的项目…' }
   if (p === 'done') return { who: null, text: task.value?.message || '你们的作品完成啦。' }
   if (p === 'failed') return { who: null, text: failureText(failure.value) }
@@ -38,7 +38,7 @@ const current = computed(() => {
   const p = phase.value
   const t = task.value
   const counts = framingCounts(t?.plan?.shots).map((c) => `${c.name} ${c.count}`).join(' · ')
-  if (p === 'start') return { title: '上传照片', detail: '2～10 张，最好有 1 张合照；没有合照请说明' }
+  if (p === 'start') return { title: '上传照片', detail: '2～10 张，新郎新娘都要有，合照单人照都行' }
   if (photoFix.value) return { title: '照片还差一点', detail: task.value?.questions?.find((q) => q.type === 'upload')?.title?.replace(/^照片还差一点：/, '') || '' }
   if (asking.value) return { title: `回答${named(speaker.value.name)}的 ${t?.questions?.length || 0} 个问题`, detail: speaker.value.role }
   if (p === 'composing') return { title: '整理拍摄指令', detail: '把妆造和镜头方案合成一份' }
