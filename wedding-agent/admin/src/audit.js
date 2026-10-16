@@ -127,3 +127,6 @@ export function avatar(name) {
   return { text, color: PALETTE[h % PALETTE.length] }
 }
 export const inferred = (e) => e.user_source === 'ip' && who(e) === e.user && !(e.site === 'admin' && e.holder)
+// 左侧状态条：成功（放行的访问、登录、改动、任务）绿；失败 / 被拒红；纯信息（退出、解封）灰
+const INFO = new Set(['logout', 'unbanned'])
+export const status = (e) => (INFO.has(e.action) ? 'info' : SECURITY.has(e.action) ? 'fail' : 'ok')
