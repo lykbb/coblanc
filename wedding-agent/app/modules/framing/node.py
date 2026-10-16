@@ -19,6 +19,7 @@ from app.common.config import settings
 from app.common.errors import ModuleError
 from app.common.llm import get_llm, model_name
 from app.modules.assets import search_assets
+from app.modules.framing.style_lookup import style_references
 from app.state import Brief, WeddingState
 
 from .pi_bridge import run_pi
@@ -134,12 +135,14 @@ def frame(state: WeddingState) -> dict:
         expected_pose = KEEP_ORIGINAL if retouching else brief.pose
         band = height_band(brief.heights_cm)
         system = (PROMPTS / "agent.md").read_text(encoding="utf-8")
+        style_cases, style_text = style_references((state.get("look") or {}).get("style"))
         context = {
             "brief": brief.model_dump(), "look": copy.deepcopy(state.get("look") or {}),
             "answers": answers, "height_band": band, "expected_pose": expected_pose,
             "retouch_plan": copy.deepcopy(plan) if retouching else None,
             # 资产库里每类有几张可用图；为 0 的类别搜不到东西，模型不要反复搜索、直接给出方案
             "asset_library": {kind: len(search_assets(kind)) for kind in ("pose", "background")},
+            "style_cases": style_text,
             "asset_note": "asset_library 里数量为 0 的类别不要调用 search_assets；同一类最多搜索 2 次，搜不到就直接 final，references 留空。",
         }
         assets: dict[str, dict] = {}
@@ -171,6 +174,7 @@ def frame(state: WeddingState) -> dict:
         if result.action != "final" or result.shot is None:
             raise ValueError("摄影師未输出镜头描述")
         shot = result.shot.model_dump()
+        shot["style_cases"] = style_cases
         if expected_pose == KEEP_ORIGINAL:
             shot["pose"] = KEEP_ORIGINAL
             shot["references"] = [ref for ref in shot["references"] if ref["role"] != "pose"]

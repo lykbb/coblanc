@@ -39,6 +39,8 @@ class Shot(_Strict):
     text: str
     pose: str
     references: list[Reference] = Field(default_factory=list)
+    # 摄影师参考过的风格案例编号（PR #14 数据，仅用于追溯，不展示给用户）
+    style_cases: list[str] = Field(default_factory=list)
 
 
 class ShotPlan(_Strict):
