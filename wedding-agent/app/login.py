@@ -18,7 +18,7 @@ from fastapi import APIRouter, Form, HTTPException, Request, Response
 from fastapi.responses import HTMLResponse, RedirectResponse
 from urllib.parse import urlsplit
 
-from app import access, portal
+from app import access, audit_feed, portal
 from app.common.config import settings
 
 SITES = {  # 站点：(htpasswd 文件名, 品牌副标题)
@@ -189,13 +189,18 @@ def logout(site: str, request: Request):
 @router.get("/internal/gate/{name}")
 def gate(name: str, request: Request):
     """nginx auth_request（只在服务器内部调用，外面访问不到 /internal）：204 放行，401 去登录，403 拒绝。
-    team：图墙和后台登录页，只看 IP；admin：IP + 后台会话；front：前台会话。"""
+    team：图墙和后台登录页，只看 IP；admin：IP + 后台会话；front：前台会话。结果交给 audit_feed 记访问 / 拒绝。"""
     ip = request.headers.get("x-original-ip", "")
+    holder = None
     if name in ("team", "admin") and ip not in access.portal_ips():
-        return Response(status_code=403)
-    if name in ("admin", "front"):
-        if not access.holder_for(request.cookies.get(access.LOGIN_COOKIES[name]), kind=name):
-            return Response(status_code=401)
-    elif name != "team":
+        status = 403
+    elif name in ("admin", "front"):
+        holder = access.holder_for(request.cookies.get(access.LOGIN_COOKIES[name]), kind=name)
+        status = 204 if holder else 401
+    elif name == "team":
+        holder = access.ip_holder(ip)
+        holder, status = (None if holder == ip else holder), 204
+    else:
         return Response(status_code=404)
-    return Response(status_code=204)
+    audit_feed.on_gate(request, name, ip, status, holder)
+    return Response(status_code=status)

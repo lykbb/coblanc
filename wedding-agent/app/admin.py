@@ -8,7 +8,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel, Field
 
-from app import access
+from app import access, audit_feed, reference_wall
 from app.common.config import settings
 from app.common.progress import store
 from app.portal import PortalError, admin, read_audit
@@ -303,5 +303,13 @@ def task_outputs(task_id: str):
 
 
 @router.get("/audit")
-def audit_log(limit: int = 200):
-    return {"items": read_audit(max(1, min(limit, 2000)))}
+def audit_log(limit: int = 2000):
+    """审计时间线：先把 nginx / fail2ban 新增的限流、封禁并进来；风格编号附上名字，前端拼中文句子。"""
+    audit_feed.sync_logs()
+    names = reference_wall.style_names()
+    items = read_audit(max(1, min(limit, 5000)))
+    for item in items:
+        style = (item.get("detail") or {}).get("style")
+        if style and style in names:
+            item["detail"] = {**item["detail"], "style_name": names[style]}
+    return {"items": items}

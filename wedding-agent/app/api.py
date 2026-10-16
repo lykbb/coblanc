@@ -255,6 +255,8 @@ def create_task(body: CreateTaskBody, request: Request):
         operator=access.holder_for(request.cookies.get(access.COOKIE)),
         consent=body.consent.model_dump() if body.consent else None,
     )
+    portal.write_audit(request, "front", access.holder_for(request.cookies.get(access.LOGIN_COOKIES["front"]), kind="front"),
+                       "task_created", {"task_id": task_id})
     return {"task_id": task_id, "status": "running"}
 
 

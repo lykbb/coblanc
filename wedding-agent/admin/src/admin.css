@@ -136,3 +136,46 @@ td .mark { margin-right: 8px; vertical-align: middle; }
   .table-wrap .data-table th, .table-wrap .data-table td { padding-left: 8px; padding-right: 8px; font-size: 12px; }
   .table-wrap .data-table td.ell { max-width: 120px; }
 }
+/* 审计 */
+.audit-summary { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+.audit-sum-card { padding: 14px 16px; border-radius: 14px; background: var(--panel); box-shadow: 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.audit-sum-card > span { color: var(--muted); font-size: 12px; }
+.audit-sum-card > b { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.audit-sum-card.alert > b { color: var(--peach-ink); }
+.audit-people { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+.audit-people b { margin-left: 6px; font-size: 13px; font-weight: 500; color: var(--muted); }
+.audit-visits { display: flex; gap: 16px; }
+.audit-visits span { display: flex; flex-direction: column; }
+.audit-visits em { font-style: normal; font-size: 11px; color: var(--muted); }
+.audit-visits b { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.avatar { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 28px; height: 28px; border-radius: 50%; font-style: normal; font-size: 12px; font-weight: 600; color: #4a4458; background: #e9e7ee; }
+.avatar.anon { background: var(--soft); color: var(--muted); }
+.audit-item.sec .avatar.anon { background: var(--amber-tint); color: var(--peach-ink); }
+.audit-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.seg-count { margin-left: 6px; font-style: normal; font-size: 11px; opacity: .7; font-variant-numeric: tabular-nums; }
+.audit-filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; }
+.audit-filters .grow { flex: 1; min-width: 180px; }
+.audit-day { margin-top: 14px; }
+.audit-day-h { display: flex; align-items: baseline; gap: 8px; margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--ink); }
+.audit-day-h span { font-weight: 400; font-size: 12px; color: var(--muted); }
+.audit-list { list-style: none; margin: 0; padding: 0; border-radius: 14px; background: var(--panel); box-shadow: 0 0 0 1px var(--line); overflow: hidden; }
+.audit-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid var(--line); cursor: pointer; }
+.audit-item:last-child { border-bottom: 0; }
+.audit-item:hover, .audit-item.open { background: var(--canvas); }
+.audit-item.sec { box-shadow: inset 3px 0 0 var(--peach-ink); }
+.audit-body { flex: 1; min-width: 0; }
+.audit-line { margin: 3px 0 4px; font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
+.audit-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; font-size: 12px; color: var(--muted); }
+.audit-meta .tag { margin-left: 0; }
+.audit-meta .mono { font-size: 11px; opacity: .8; }
+.site-chip { padding: 1px 8px; border-radius: 999px; font-size: 11px; background: var(--soft); color: var(--ink); }
+.site-chip.front { background: var(--peach-tint); color: var(--peach-ink); }
+.site-chip.gallery { background: var(--lav); color: var(--lav-ink); }
+.site-chip.admin { background: #e3efe8; color: #2f6b4a; }
+.audit-time { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-top: 3px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.audit-time b { font-weight: 500; color: var(--ink); }
+.audit-raw { margin-top: 10px; cursor: text; }
+.audit-raw dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 12px; margin: 0 0 8px; padding: 10px 12px; border-radius: 10px; background: var(--panel); box-shadow: 0 0 0 1px var(--line); font-size: 12px; }
+.audit-raw dt { color: var(--muted); }
+.audit-raw dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 1180px) { .audit-summary { grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); } }

@@ -7,7 +7,8 @@
   nginx 把站点的 <前缀>api/ 转到后端 /api/<站点>/，并用 X-Forwarded-Prefix 告诉后端站点前缀。
 - CSRF：改动类请求必须带 X-Portal-CSRF: 1（跨站表单发不了自定义头），Origin 若存在须与 Host 一致；
   path 模式下 Referer 还必须来自本站前缀（站点页面 Referrer-Policy: same-origin），同 IP 下的其他页面发不了。
-- 审计：登录成败、越权、拦截、所有改动和导出都写 state_dir/portal_audit.jsonl（带站点名），后台可查看。
+- 审计：登录成败、越权、拦截、所有改动和导出都写 state_dir/portal_audit.jsonl（带站点名、UA），后台可查看；
+  页面访问、nginx 层的拒绝 / 限流 / 封禁见 app/audit_feed.py。
 """
 
 from __future__ import annotations
@@ -60,12 +61,12 @@ def client_ip(request: Request) -> str:
     return request.client.host if request.client else ""
 
 
-def member_of(request: Request) -> tuple[str | None, str | None]:
+def member_of(request: Request, ip: str | None = None) -> tuple[str | None, str | None]:
     """这次操作是哪位成员：用户站设备凭证（邀请码绑定）→ device；否则按 IP 对应的设备持有人 → ip（推断）。"""
     holder = access.holder_for(request.cookies.get(access.COOKIE))
     if holder:
         return holder, "device"
-    member = access.member_for_ip(client_ip(request))
+    member = access.member_for_ip(client_ip(request) if ip is None else ip)
     return (member, "ip") if member else (None, None)
 
 
@@ -73,24 +74,33 @@ def _audit_path():
     return settings.state_dir / "portal_audit.jsonl"
 
 
-def write_audit(request: Request, site: str, holder: str | None, action: str, detail: dict | None = None) -> None:
-    user, source = member_of(request)
-    entry = {"at": time.time(), "site": site, "holder": holder, "user": user, "user_source": source,
-             "ip": client_ip(request), "action": action, "detail": detail or {}}
+def append_audit(entries: list[dict]) -> None:
     path = _audit_path()
     with _audit_lock:
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("a", encoding="utf-8") as f:
-            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+            for entry in entries:
+                f.write(json.dumps(entry, ensure_ascii=False) + "\n")
         path.chmod(0o600)
 
 
+def write_audit(request: Request, site: str, holder: str | None, action: str, detail: dict | None = None,
+                ip: str | None = None) -> None:
+    """ip：nginx auth_request 子请求的连接方是本机，真实 IP 由调用方从 X-Original-IP 传入。"""
+    ip = client_ip(request) if ip is None else ip
+    user, source = member_of(request, ip)
+    append_audit([{"at": time.time(), "site": site, "holder": holder, "user": user, "user_source": source, "ip": ip,
+                   "ua": request.headers.get("user-agent", "")[:200], "action": action, "detail": detail or {}}])
+
+
 def read_audit(limit: int) -> list[dict]:
+    """最新在前。回填的记录是后追加的，所以按时间排序后再取。"""
     path = _audit_path()
     if not path.exists():
         return []
-    lines = path.read_text(encoding="utf-8").splitlines()[-limit:]
-    items = [json.loads(line) for line in reversed(lines) if line.strip()]
+    items = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    items.sort(key=lambda item: item.get("at", 0), reverse=True)
+    items = items[:limit]
     for item in items:  # 旧记录没有 user：按 IP 推断
         if "user" not in item:
             item["user"] = access.member_for_ip(item.get("ip", ""))
