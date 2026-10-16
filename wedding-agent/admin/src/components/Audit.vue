@@ -7,6 +7,7 @@ const ACTIONS = {
   codes_created: '生成邀请码', holder_revoked: '作废持有人', device_revoked: '踢掉设备',
   refs_uploaded: '上传参考图', ref_edited: '编辑参考图', ref_deleted: '删除参考图', refs_zipped: '打包下载', refs_exported: '导出元数据',
 }
+const SITES = { admin: '后台', gallery: '图墙' }
 const WARN = new Set(['login_failed', 'login_locked', 'forbidden', 'csrf_rejected'])
 const items = ref([])
 const error = ref('')
@@ -21,14 +22,15 @@ const detail = (d) => Object.entries(d || {}).filter(([, v]) => v !== null && v 
 </script>
 
 <template>
-  <section class="admin-page">
-    <header class="page-head"><h1>审计</h1><span class="refwall-count">{{ items.length }}</span></header>
-    <p v-if="error" class="refwall-error" role="alert">{{ error }}</p>
-    <table class="admin-table">
-      <thead><tr><th>时间</th><th>谁</th><th>操作</th><th>详情</th><th>IP</th></tr></thead>
+  <section class="portal-page">
+    <header class="page-head"><h1>审计</h1><span class="page-count">{{ items.length }}</span></header>
+    <p v-if="error" class="page-error" role="alert">{{ error }}</p>
+    <table class="data-table">
+      <thead><tr><th>时间</th><th>站点</th><th>谁</th><th>操作</th><th>详情</th><th>IP</th></tr></thead>
       <tbody>
         <tr v-for="(e, i) in items" :key="i" :class="{ warn: WARN.has(e.action) }">
           <td class="muted-s">{{ when(e.at) }}</td>
+          <td class="muted-s">{{ SITES[e.site] || e.site || '—' }}</td>
           <td>{{ e.holder || '—' }}</td>
           <td>{{ ACTIONS[e.action] || e.action }}</td>
           <td class="muted-s wrap">{{ detail(e.detail) }}</td>

@@ -6,15 +6,15 @@ cd "$(dirname "$0")"
 KEY=~/.ssh/wedding_server.pem; H=ubuntu@43.142.59.166
 SSH=(ssh -i $KEY -o IdentitiesOnly=yes)
 (cd wedding-agent/web && npm run build)
-# 后台站点（独立 nginx server，见 deploy/nginx/）
-(cd wedding-agent/admin && { [ -d node_modules ] || npm ci --no-audit --no-fund; } && npm run build)
+# 内部站点：后台 admin（8080）、图墙 gallery（8081），各自独立 nginx server，见 deploy/nginx/
+for APP in admin gallery; do (cd wedding-agent/$APP && { [ -d node_modules ] || npm ci --no-audit --no-fund; } && npm run build); done
 # 后端代码指纹：只有它变了（或 --env / --restart）才重启后端，避免无谓重启打断正在跑的任务
 SUM='cd ~/ai-wedding 2>/dev/null && find wedding-agent/app wedding-agent/pyproject.toml wedding-agent/uv.lock pi-wedding -path pi-wedding/node_modules -prune -o -type f ! -name "*.pyc" -print0 2>/dev/null | sort -z | xargs -0 md5sum | md5sum'
 BEFORE=$($SSH $H "$SUM" || true)
 rsync -az -e "${SSH[*]}" --exclude node_modules --exclude .venv --exclude runs/ --exclude 'wedding-agent/state/' --exclude 'wedding-agent/reference_library/' \
   --exclude 'wedding-agent/storage/*/*' --exclude .DS_Store --exclude __pycache__ --exclude .env --exclude "ubuntu@*" ./ ${H}:ai-wedding/
 rsync -az --delete -e "${SSH[*]}" wedding-agent/web/dist/ ${H}:ai-wedding/wedding-agent/web/dist/
-rsync -az --delete -e "${SSH[*]}" wedding-agent/admin/dist/ ${H}:ai-wedding/wedding-agent/admin/dist/
+for APP in admin gallery; do rsync -az --delete -e "${SSH[*]}" wedding-agent/$APP/dist/ ${H}:ai-wedding/wedding-agent/$APP/dist/; done
 [[ "$1" == "--env" ]] && scp -q -i $KEY -o IdentitiesOnly=yes wedding-agent/.env ${H}:ai-wedding/wedding-agent/.env
 # 摄影师/生图的 Pi 运行时直接跑 TypeScript，需要 Node ≥ 23.6；服务器自带 Node 22 不行，缺了就装 Node 24 到 ~/.local/node24
 $SSH $H 'V=v24.16.0; N=~/.local/node24/bin/node; if ! [ -x $N ] || [ "$($N -p "process.versions.node.split(\".\")[0]")" -lt 24 ]; then echo "安装 Node $V 到 ~/.local/node24"; cd /tmp && curl -sfLO https://registry.npmmirror.com/-/binary/node/$V/node-$V-linux-x64.tar.xz && mkdir -p ~/.local/node24 && tar -xJf node-$V-linux-x64.tar.xz -C ~/.local/node24 --strip-components=1 && rm -f node-$V-linux-x64.tar.xz; fi; $N -v'

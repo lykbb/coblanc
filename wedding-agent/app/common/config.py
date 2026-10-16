@@ -63,9 +63,12 @@ class Settings:
     # 访问控制：ACCESS_INVITE_REQUIRED=0 时对所有人开放；见 app/access.py
     access_required: bool
     access_days: int
-    admin_holders: list[str]  # 后台白名单（邀请码持有人），见 app/admin.py
-    admin_session_hours: int  # 后台空闲多久要重新登录
-    admin_max_days: int  # 后台凭证最长有效天数
+    # 内部站点（app/portal.py）：后台管理只给 ADMIN_HOLDERS；图墙给 GALLERY_MEMBERS（管理员也能进）
+    admin_holders: list[str]
+    gallery_members: list[str]
+    admin_session_hours: int  # 空闲多久要重新登录
+    gallery_session_hours: int
+    portal_max_days: int  # 内部站点凭证最长有效天数
     cookie_secure: bool  # 上了 HTTPS 再设 COOKIE_SECURE=1
     # 流程上限
     max_question_rounds: int
@@ -121,8 +124,10 @@ def load_settings() -> Settings:
         access_required=_bool("ACCESS_INVITE_REQUIRED", True),
         access_days=_int("ACCESS_DAYS", 180),
         admin_holders=_list("ADMIN_HOLDERS") or ["lyk"],
+        gallery_members=_list("GALLERY_MEMBERS") or ["刘禹博", "lyk", "Andy", "刘静", "许雯怡", "田腾飞", "何选"],
         admin_session_hours=_int("ADMIN_SESSION_HOURS", 12),
-        admin_max_days=_int("ADMIN_MAX_DAYS", 30),
+        gallery_session_hours=_int("GALLERY_SESSION_HOURS", 168),
+        portal_max_days=_int("PORTAL_MAX_DAYS", 30),
         cookie_secure=_bool("COOKIE_SECURE", False),
         max_question_rounds=_int("MAX_QUESTION_ROUNDS", 2),
         max_retouch=_int("MAX_RETOUCH", 2),

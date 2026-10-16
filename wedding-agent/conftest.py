@@ -83,21 +83,37 @@ def _no_real_chat_model(monkeypatch):
     monkeypatch.setattr(settings, "chat_api_key", "")
 
 
-@pytest.fixture
-def admin_client(tmp_path, monkeypatch):
-    """已登录后台的管理员 lyk（改动类请求自动带 CSRF 头）。"""
+def portal_login(site: str, holder: str):
+    """在内部站点（admin / gallery）登录，改动类请求自动带 CSRF 头。"""
     from fastapi.testclient import TestClient
 
     from app import access
     from app.api import app
+
+    client = TestClient(app, headers={"X-Portal-CSRF": "1"})
+    [(_, code)] = access.create([holder])
+    client.post(f"/api/{site}/redeem", json={"code": code})
+    return client
+
+
+@pytest.fixture
+def portal_env(tmp_path, monkeypatch):
+    from app import access
     from app.common.config import settings
 
     monkeypatch.setattr(settings, "reference_dir", tmp_path / "refs")
     monkeypatch.setattr(settings, "state_dir", tmp_path / "state")
     monkeypatch.setattr(settings, "access_required", True)
     monkeypatch.setattr(settings, "admin_holders", ["lyk"])
+    monkeypatch.setattr(settings, "gallery_members", ["刘静", "何选"])
     access._fails.clear()
-    client = TestClient(app, headers={"X-Admin-CSRF": "1"})
-    [(_, code)] = access.create(["lyk"])
-    assert client.post("/api/admin/redeem", json={"code": code}).status_code == 200
-    return client
+
+
+@pytest.fixture
+def admin_client(portal_env):
+    return portal_login("admin", "lyk")
+
+
+@pytest.fixture
+def gallery_client(portal_env):
+    return portal_login("gallery", "刘静")

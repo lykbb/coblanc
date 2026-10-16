@@ -115,10 +115,10 @@ async function remove() {
 </script>
 
 <template>
-  <section class="refwall admin-page" @dragenter.prevent="onDragEnter" @dragover.prevent @dragleave="onDragLeave" @drop.prevent="onDrop">
+  <section class="refwall portal-page" @dragenter.prevent="onDragEnter" @dragover.prevent @dragleave="onDragLeave" @drop.prevent="onDrop">
     <header class="refwall-head">
       <h1>参考图墙</h1>
-      <span class="refwall-count">{{ items.length }}</span>
+      <span class="page-count">{{ items.length }}</span>
       <div class="refwall-actions">
         <a class="ghost-btn" :class="{ disabled: !items.length }" :href="items.length ? zipHref : undefined" download>
           <Icon name="download" :size="16" />打包下载
@@ -140,7 +140,7 @@ async function remove() {
       </span>
     </nav>
 
-    <p v-if="error" class="refwall-error" role="alert">{{ error }}</p>
+    <p v-if="error" class="page-error" role="alert">{{ error }}</p>
 
     <div v-if="items.length" class="refwall-grid">
       <button v-for="item in items" :key="item.id" type="button" class="ref-tile" :class="item.verdict" @click="view(item)">
@@ -153,7 +153,7 @@ async function remove() {
     <div v-if="dragging" class="refwall-drop"><Icon name="plus" :size="32" /></div>
 
     <!-- 上传弹层：本批全部套用 -->
-    <div v-if="pending.length" class="ref-modal" @click.self="!progress && (pending = [])">
+    <div v-if="pending.length" class="modal" @click.self="!progress && (pending = [])">
       <form class="ref-pop" @submit.prevent="uploadAll">
         <div class="ref-pop-head"><strong>{{ pending.length }} 张</strong></div>
         <div class="ref-chips">
@@ -163,8 +163,8 @@ async function remove() {
           <button type="button" :class="{ on: batch.verdict === 'good' }" @click="batch.verdict = 'good'"><i class="mark good"></i>好图</button>
           <button type="button" :class="{ on: batch.verdict === 'bad' }" @click="batch.verdict = 'bad'"><i class="mark bad"></i>坏图</button>
         </div>
-        <input v-model="batch.source_url" class="ref-input" type="url" placeholder="来源链接" />
-        <input v-model="batch.note" class="ref-input" maxlength="200" placeholder="备注" />
+        <input v-model="batch.source_url" class="field" type="url" placeholder="来源链接" />
+        <input v-model="batch.note" class="field" maxlength="200" placeholder="备注" />
         <div class="ref-pop-foot">
           <button type="button" class="ghost-btn" :disabled="!!progress" @click="pending = []">取消</button>
           <button class="primary-btn" :disabled="!!progress">{{ progress ? `${progress.done} / ${progress.total}` : '上传' }}</button>
@@ -173,21 +173,21 @@ async function remove() {
     </div>
 
     <!-- 大图 -->
-    <div v-if="open" class="ref-modal dark" @click.self="save(); open = null" @keydown.esc="open = null">
+    <div v-if="open" class="modal dark" @click.self="save(); open = null" @keydown.esc="open = null">
       <div class="ref-view">
         <img :src="open.large_url" :alt="open.note || styleName(open.style)" />
         <aside class="ref-side">
           <div class="ref-meta">{{ open.uploader }} · {{ when(open.created_at) }}</div>
-          <select v-model="draft.style" class="ref-input" @change="save">
+          <select v-model="draft.style" class="field" @change="save">
             <option v-for="s in styles" :key="s.id" :value="s.id">{{ s.id }} {{ s.name }}</option>
           </select>
           <div class="refwall-seg wide">
             <button type="button" :class="{ on: draft.verdict === 'good' }" @click="draft.verdict = 'good'; save()"><i class="mark good"></i>好图</button>
             <button type="button" :class="{ on: draft.verdict === 'bad' }" @click="draft.verdict = 'bad'; save()"><i class="mark bad"></i>坏图</button>
           </div>
-          <input v-model="draft.source_url" class="ref-input" type="url" placeholder="来源链接" @change="save" />
+          <input v-model="draft.source_url" class="field" type="url" placeholder="来源链接" @change="save" />
           <a v-if="open.source_url" class="ref-link" :href="open.source_url" target="_blank" rel="noopener noreferrer">{{ open.source_url }}</a>
-          <textarea v-model="draft.note" class="ref-input" rows="3" maxlength="200" placeholder="备注" @change="save"></textarea>
+          <textarea v-model="draft.note" class="field" rows="3" maxlength="200" placeholder="备注" @change="save"></textarea>
           <div class="ref-side-foot">
             <a class="ghost-btn" :href="open.original_url + '&download=1'"><Icon name="download" :size="16" />原图</a>
             <button type="button" class="ghost-btn danger" @click="remove">删除</button>

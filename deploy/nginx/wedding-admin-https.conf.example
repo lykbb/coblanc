@@ -22,7 +22,7 @@ server {
 
   auth_basic "admin";
   auth_basic_user_file /etc/nginx/.htpasswd-admin;
-  client_max_body_size 12m;
+  client_max_body_size 1m;
   limit_req_status 429;
   root /home/ubuntu/ai-wedding/wedding-agent/admin/dist;
 

@@ -30,11 +30,11 @@ const GROUPS = [['photos', '用户照片'], ['previews', '样片 / 预览'], ['d
 </script>
 
 <template>
-  <section class="admin-page">
-    <header class="page-head"><h1>任务</h1><span class="refwall-count">{{ items.length }}</span>
+  <section class="portal-page">
+    <header class="page-head"><h1>任务</h1><span class="page-count">{{ items.length }}</span>
       <button type="button" class="ghost-btn push" @click="load">刷新</button></header>
-    <p v-if="error" class="refwall-error" role="alert">{{ error }}</p>
-    <table class="admin-table">
+    <p v-if="error" class="page-error" role="alert">{{ error }}</p>
+    <table class="data-table">
       <thead><tr><th>任务</th><th>状态</th><th>步骤</th><th>错误</th><th>更新</th></tr></thead>
       <tbody>
         <template v-for="t in items" :key="t.task_id">
@@ -61,6 +61,6 @@ const GROUPS = [['photos', '用户照片'], ['previews', '样片 / 预览'], ['d
         </template>
       </tbody>
     </table>
-    <div v-if="big" class="ref-modal dark" @click="big = null"><img class="task-big" :src="big" alt="" /></div>
+    <div v-if="big" class="modal dark" @click="big = null"><img class="task-big" :src="big" alt="" /></div>
   </section>
 </template>

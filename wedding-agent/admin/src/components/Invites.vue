@@ -2,7 +2,7 @@
 import { computed, onMounted, reactive, ref } from 'vue'
 import { invites, when } from '../api.js'
 
-const data = ref({ codes: [], devices: [], admins: [] })
+const data = ref({ codes: [], devices: [], admins: [], members: [] })
 const error = ref('')
 const form = reactive({ names: '', count: '', prefix: '' })
 const created = ref([])
@@ -74,13 +74,13 @@ const short = (ua) => (ua || '').replace(/\(.*?\)/g, '').trim().slice(0, 48) || 
 </script>
 
 <template>
-  <section class="admin-page">
-    <header class="page-head"><h1>邀请码</h1><span class="refwall-count">{{ holders.length }}</span></header>
+  <section class="portal-page">
+    <header class="page-head"><h1>邀请码</h1><span class="page-count">{{ holders.length }}</span></header>
 
     <form class="inv-form" @submit.prevent="create">
-      <input v-model="form.names" class="ref-input" placeholder="持有人（空格或逗号分隔）" />
-      <input v-model="form.count" class="ref-input narrow" type="number" min="0" max="1000" placeholder="批量数量" />
-      <input v-model="form.prefix" class="ref-input narrow" maxlength="40" placeholder="批量前缀" />
+      <input v-model="form.names" class="field" placeholder="持有人（空格或逗号分隔）" />
+      <input v-model="form.count" class="field narrow" type="number" min="0" max="1000" placeholder="批量数量" />
+      <input v-model="form.prefix" class="field narrow" maxlength="40" placeholder="批量前缀" />
       <button class="primary-btn" :disabled="busy">生成</button>
     </form>
 
@@ -91,22 +91,22 @@ const short = (ua) => (ua || '').replace(/\(.*?\)/g, '').trim().slice(0, 48) || 
         <button type="button" class="ghost-btn" @click="downloadAll">CSV</button>
         <button type="button" class="ghost-btn" @click="created = []">收起</button>
       </div>
-      <table class="admin-table"><tbody>
+      <table class="data-table"><tbody>
         <tr v-for="c in created" :key="c.code"><td>{{ c.holder }}</td><td class="mono">{{ c.code }}</td></tr>
       </tbody></table>
     </div>
 
-    <p v-if="error" class="refwall-error" role="alert">{{ error }}</p>
+    <p v-if="error" class="page-error" role="alert">{{ error }}</p>
 
-    <table class="admin-table">
+    <table class="data-table">
       <thead><tr><th>持有人</th><th>未用码</th><th>设备</th><th></th></tr></thead>
       <tbody>
         <tr v-for="h in holders" :key="h.holder">
-          <td>{{ h.holder }}<span v-if="data.admins.includes(h.holder)" class="tag">管理员</span></td>
+          <td>{{ h.holder }}<span v-if="data.admins.includes(h.holder)" class="tag">管理员</span><span v-if="data.members.includes(h.holder)" class="tag">图墙</span></td>
           <td>{{ h.unused || '—' }}</td>
           <td>
             <div v-for="d in h.devices" :key="d.id" class="inv-device">
-              <span class="tag" v-if="d.kind === 'admin'">后台</span>
+              <span v-if="d.kind !== 'site'" class="tag">{{ d.kind === 'admin' ? '后台' : '图墙' }}</span>
               <span class="mono">{{ d.id }}</span>
               <span class="muted-s">{{ when(d.last_seen) }} · {{ d.ip }} · {{ short(d.user_agent) }}</span>
               <button type="button" class="link-s danger" @click="revokeDevice(d)">踢掉</button>
