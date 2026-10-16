@@ -15,6 +15,7 @@ proxy_set_header X-Forwarded-Proto $scheme;  # https 时后端给凭证加 Secur
 proxy_read_timeout 600s;
 proxy_send_timeout 600s;
 location ^~ /.well-known/acme-challenge/ { auth_basic off; root /var/www/certbot; }  # certbot 验证
+location /api/ { return 404; }  # 只开放本站自己的 /api/<站点>/（在站点配置里），其余接口一律 404
 location = /robots.txt { default_type text/plain; return 200 "User-agent: *\nDisallow: /\n"; }
 location / {
   expires -1;
