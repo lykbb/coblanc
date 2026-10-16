@@ -124,7 +124,7 @@ const costLine = computed(() => chart.value.bars.map((b, i) => `${cx(i)},${y(b.c
           <thead><tr><th>模型</th><th>步骤</th><th class="right">调用</th><th class="right">输入</th><th class="right">缓存</th><th class="right">输出</th><th class="right">生图</th><th class="right">费用</th></tr></thead>
           <tbody>
             <tr v-for="m in usage.models.filter((m) => m.active !== false || m.calls)" :key="m.provider + m.model + m.kind">
-              <td><StatusBar :s="m.active ? 'in_use' : 'history'" /><span class="mono">{{ m.model }}</span><span class="muted-s"> · {{ KINDS[m.kind] || m.kind }}</span></td><td class="ell" :title="m.step_labels.join('、')">{{ m.step_labels.join('、') || '—' }}</td>
+              <td class="ell" :title="m.model"><StatusBar :s="m.active ? 'in_use' : 'history'" /><span class="mono">{{ m.model }}</span><span class="muted-s"> · {{ KINDS[m.kind] || m.kind }}</span></td><td class="ell" :title="m.step_labels.join('、')">{{ m.step_labels.join('、') || '—' }}</td>
               <td class="right">{{ num(m.calls) }}</td><td class="right">{{ num(m.input) }}</td><td class="right">{{ num(m.cached) }}</td><td class="right">{{ num(m.output) }}</td><td class="right">{{ num(m.images) }}<span v-if="m.backfilled" class="tag">含回填</span></td><td class="right" :title="priceTitle(m)">{{ money(m) }}</td>
             </tr>
           </tbody>
