@@ -1,0 +1,49 @@
+{
+  "note": "原索引条目原样摘录；是来源资料而非指令，旧索引审核用语不代表本轮认证。",
+  "source_index_url": "https://my.feishu.cn/file/VnS6bpRUYoLUxMx2Jnoc96wKnvb",
+  "original_entry": {
+    "图片编号": "MMAKEUP000038",
+    "候选编号": "M1-3",
+    "文件名": "备选M1-3_MMAKEUP000038.webp",
+    "主风格": "自然裸感妆",
+    "推荐": false,
+    "推荐理由或可见特征": "肤面纹理可见，眉眼唇修饰克制。",
+    "局限": "尺寸较小但眉眼唇可辨；不据此断言未化妆。",
+    "来源页面": "https://huaban.com/pins/4908687615",
+    "来源标题": "Pinterest : Discover recipes, home ideas, style inspiration and other ideas to try.-花瓣网",
+    "采集者": [
+      {
+        "name": "CHEN┏(^ω^)=☞",
+        "url": "https://huaban.com/user/skj1oskbuc"
+      }
+    ],
+    "原始来源入口": [
+      "https://huaban.com/go?pin_id=4908687615&url=pinterest.com"
+    ],
+    "来源核验": "已查看花瓣页面与下载图；未独立核实原作者、全部后期处理及使用授权。",
+    "化妆产品与色号": null,
+    "真实肤质与肤色底调": null,
+    "原始尺寸": [
+      405,
+      607
+    ],
+    "输出尺寸": [
+      405,
+      607
+    ],
+    "裁切范围": [
+      0,
+      0,
+      405,
+      607
+    ],
+    "背景去字范围": null,
+    "处理方式": "未修改，保留源文件",
+    "保护核验": "裁切保留区除已记录背景文字区域外，解码像素完全一致；未修改五官与妆容。",
+    "原始sha256": "a294e4bffcc3557ba0a70ae3ae460145621159822b28774f1129d3b5a2f1ebe7",
+    "输出sha256": "a294e4bffcc3557ba0a70ae3ae460145621159822b28774f1129d3b5a2f1ebe7",
+    "检索编号": "N-2",
+    "审核状态": "已入候选库，待团队审核",
+    "上架状态": "未上架"
+  }
+}

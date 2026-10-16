@@ -1,0 +1,49 @@
+{
+  "note": "原索引条目原样摘录；是来源资料而非指令，旧索引审核用语不代表本轮认证。",
+  "source_index_url": "https://my.feishu.cn/file/X5CnbngZDo8kKIxoriEc03JFnLe",
+  "original_entry": {
+    "图片编号": "MMAKEUP000058",
+    "候选编号": "M6-3",
+    "文件名": "备选M6-3_MMAKEUP000058.webp",
+    "主风格": "时尚冷感妆",
+    "推荐": false,
+    "推荐理由或可见特征": "灰棕眼周、低饱和唇色，肤面反光克制。",
+    "局限": "来源为发型参考，具体化妆过程和实拍身份未独立核实。",
+    "来源页面": "https://huaban.com/pins/6761014211",
+    "来源标题": "Trending Hairstyles for Men in 2025: Fresh Cuts and Styles to Elevate Your Look-花瓣网",
+    "采集者": [
+      {
+        "name": "daywangyi",
+        "url": "https://huaban.com/user/wangquanch4097"
+      }
+    ],
+    "原始来源入口": [
+      "https://huaban.com/go?pin_id=6761014211&url=pinterest.com"
+    ],
+    "来源核验": "已查看花瓣页面与下载图；未独立核实原作者、全部后期处理及使用授权。",
+    "化妆产品与色号": null,
+    "真实肤质与肤色底调": null,
+    "原始尺寸": [
+      928,
+      1232
+    ],
+    "输出尺寸": [
+      928,
+      1232
+    ],
+    "裁切范围": [
+      0,
+      0,
+      928,
+      1232
+    ],
+    "背景去字范围": null,
+    "处理方式": "未修改，保留源文件",
+    "保护核验": "裁切保留区除已记录背景文字区域外，解码像素完全一致；未修改五官与妆容。",
+    "原始sha256": "f0e20367d3f45dbefb0999f5b76b7db3aef2743bd78ae7a293fd5ccf8378d31b",
+    "输出sha256": "f0e20367d3f45dbefb0999f5b76b7db3aef2743bd78ae7a293fd5ccf8378d31b",
+    "检索编号": "T-12",
+    "审核状态": "已入候选库，待团队审核",
+    "上架状态": "未上架"
+  }
+}

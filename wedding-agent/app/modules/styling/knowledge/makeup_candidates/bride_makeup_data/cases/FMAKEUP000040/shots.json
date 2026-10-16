@@ -1,0 +1,12 @@
+[
+  {
+    "image_id": "FMAKEUP000040",
+    "evidence_type": "observed",
+    "shot": "单人竖幅肩胸以上近景，头部微转，面部无遮挡；发饰服装仅作上下文。",
+    "makeup_visibility": "眉、眼、颊、唇主要区域可辨；细节可信范围见 limitations",
+    "is_composite": false,
+    "prompt_fragment_draft": null,
+    "generation_tested": false,
+    "note": "此处仅记录观察条件，不是必须复刻的摄影分镜。"
+  }
+]

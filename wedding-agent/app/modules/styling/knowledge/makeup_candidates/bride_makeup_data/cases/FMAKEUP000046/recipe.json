@@ -1,0 +1,183 @@
+{
+  "schema_version": "0.2",
+  "case_id": "FMAKEUP000046",
+  "name": "浓密卷翘睫毛与粉棕润唇",
+  "audience": "新娘",
+  "category_id": "03",
+  "category_name": "浓颜轻泰妆",
+  "status": "review_draft",
+  "production_ready": false,
+  "source_truth_status": "unverified",
+  "case_unit": "single_independent_reference",
+  "description": "上下睫毛均明显，上睫毛外侧较长，眼周粉棕色；唇色低饱和粉棕，唇面有润光。",
+  "evidence": {
+    "cloud_folder": "https://my.feishu.cn/drive/folder/GDxtf64twlVXDCdZEimcgfaynDc",
+    "cloud_file": "https://my.feishu.cn/file/Bn7abYh5dolgmvxeytNcfLyVn8d",
+    "source_index_url": "https://my.feishu.cn/file/O4JrbRAdyo2AlYxifX2cvDSinqb",
+    "source_record": "source-record.json",
+    "checked_on": "2026-10-16",
+    "review_method": "逐张查看由下载原文件制作的分类联系表；读取原索引并核对文件尺寸及 SHA256；不据联系表推断微小像素细节",
+    "source_verification": "本轮核对飞书文件及索引；未独立访问或认证原始发布者",
+    "real_photo_status": "unverified"
+  },
+  "observations": [
+    {
+      "id": "FMAKEUP000046-F1",
+      "dimension": "肤面观感",
+      "statement": "肤面柔亮，鼻梁有长条亮区，脸侧色差较小。",
+      "evidence_images": [
+        "FMAKEUP000046"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000046-F2",
+      "dimension": "眉毛",
+      "statement": "棕色毛流眉，眉头较散。",
+      "evidence_images": [
+        "FMAKEUP000046"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000046-F3",
+      "dimension": "眼部",
+      "statement": "上下睫毛均明显，上睫毛外侧较长，眼周粉棕色。",
+      "evidence_images": [
+        "FMAKEUP000046"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000046-F4",
+      "dimension": "面颊与轮廓",
+      "statement": "面颊粉色较明显，边界柔化。",
+      "evidence_images": [
+        "FMAKEUP000046"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000046-F5",
+      "dimension": "唇部",
+      "statement": "唇色低饱和粉棕，唇面有润光。",
+      "evidence_images": [
+        "FMAKEUP000046"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "此单图可用于讨论“浓密卷翘睫毛与粉棕润唇”这一视觉方向；不能外推为整个浓颜轻泰妆的必备特征。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "FMAKEUP000046"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "棕发和浅色虹膜是外貌或造型因素，不当作妆容固定项。"
+  ],
+  "within_session_locks": [
+    "客户身份、自然肤色、五官比例及明确保留特征不随样片改变。",
+    "客户与妆造师确认后，固定本次妆效方向、配色范围与主要强度；修改需显式记录。",
+    "同一套成片保持确认后的妆效逻辑，不要求不同光线下反光完全相同。"
+  ],
+  "creative_variables": [
+    {
+      "field": "睫毛存在感",
+      "options": [
+        "保留本案例可见方向",
+        "降低该项强调程度",
+        "按客户偏好与妆造师方案调整"
+      ],
+      "constraints": "颜色和程度由客户资料与妆造师共同确认；不改变客户五官、肤色及明确保留特征，不推定产品或色号。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "粉棕眼颊强度",
+      "options": [
+        "保留本案例可见方向",
+        "降低该项强调程度",
+        "按客户偏好与妆造师方案调整"
+      ],
+      "constraints": "颜色和程度由客户资料与妆造师共同确认；不改变客户五官、肤色及明确保留特征，不推定产品或色号。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "唇色光泽",
+      "options": [
+        "保留本案例可见方向",
+        "降低该项强调程度",
+        "按客户偏好与妆造师方案调整"
+      ],
+      "constraints": "颜色和程度由客户资料与妆造师共同确认；不改变客户五官、肤色及明确保留特征，不推定产品或色号。",
+      "evidence_type": "proposed"
+    }
+  ],
+  "compatibility_rules": [
+    "妆造师最新明确方案优先于样片默认，客户明确要求冲突时协调。",
+    "发型、服装、配饰、场景与妆容分别确认。",
+    "适配建议尚未验证，不从单张样片断言适合所有肤色、眼型或拍摄环境。",
+    "灯光和后期会影响妆效，不能把所有阴影与亮区解释为化妆步骤。"
+  ],
+  "do_not_inherit": [
+    "样片身份、脸型、五官比例、虹膜色与原生肤色",
+    "品牌文字、水印、抠图边缘和压缩瑕疵",
+    "未经证实的化妆步骤、产品色号、摄影参数",
+    "未经客户确认的痣、雀斑、胡须等特征修改"
+  ],
+  "unknowns": {
+    "原作者与原始拍摄证据": null,
+    "实际化妆步骤": null,
+    "化妆产品与色号": null,
+    "真实肤质与肤色底调": null,
+    "完整后期程度": null,
+    "同人同妆多角度效果": null,
+    "是否实际上妆": null,
+    "是否 AI 生成": null
+  },
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "上下睫毛均明显，上睫毛外侧较长，眼周粉棕色；唇色低饱和粉棕，唇面有润光。",
+    "template": "客户身份与保留特征：{{customer_identity_constraints}}。妆造师确认方案：{{approved_makeup_plan}}。本次采用的案例特征：{{selected_observations}}。调整变量：{{approved_variables}}。",
+    "example_draft": "保留客户本人五官、自然肤色与明确保留特征。可讨论的参考方向为：上下睫毛均明显，上睫毛外侧较长，眼周粉棕色；唇色低饱和粉棕，唇面有润光。仅采用客户与妆造师确认的部分，调整睫毛存在感、粉棕眼颊强度、唇色光泽。不复制样片身份、发型、服饰或摄影光线。",
+    "use_note": "未执行的方案表达草稿；不是原始提示词，不直接构成生成工单。"
+  },
+  "reference_roles": {
+    "makeup": [
+      "FMAKEUP000046"
+    ],
+    "customer_identity": [],
+    "hairstyle": "仅上下文，不默认继承"
+  },
+  "limitations": [
+    "睫毛和虹膜效果强，不能推断产品型号或默认改变客户眼睛颜色。",
+    "仅有一张 736×735 参考，无法验证动态与多角度一致性。",
+    "原作者、实拍真实性及完整后期未独立核实；来源线索不等于认证。"
+  ],
+  "validation": {
+    "data_review": "pending_user_review",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null,
+    "production_ready": false
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  },
+  "default_retrieval_eligible": true,
+  "retrieval_scope": "review_only",
+  "source_kind": "user_supplied_original_unknown"
+}

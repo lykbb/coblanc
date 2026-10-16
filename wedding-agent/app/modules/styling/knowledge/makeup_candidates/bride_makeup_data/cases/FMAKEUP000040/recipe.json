@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.2",
+  "case_id": "FMAKEUP000040",
+  "name": "柔桃棕眼妆与暖裸唇",
+  "audience": "新娘",
+  "category_id": "02",
+  "category_name": "法式复古妆",
+  "status": "review_draft",
+  "production_ready": false,
+  "source_truth_status": "unverified",
+  "case_unit": "single_independent_reference",
+  "description": "柔桃棕眼妆、清晰但不粗重的上眼缘、暖裸唇，额鼻颊有明显亮面；目录归类法式复古，不能概括为哑光红唇。",
+  "evidence": {
+    "cloud_folder": "https://my.feishu.cn/drive/folder/ZD5kfwMJdlHzexdpuACchVw7nKC",
+    "cloud_file": "https://my.feishu.cn/file/IIn7bFJSUoZDXcx7LA7cv6tNnwe",
+    "source_index_url": "https://my.feishu.cn/file/Gk11bQsyBoXFNjxV9M5cMAMCnKh",
+    "source_record": "source-record.json",
+    "checked_on": "2026-10-16",
+    "review_method": "直接查看下载原文件；尺寸、SHA256 与索引核对",
+    "source_verification": "仅核对当前飞书索引和文件；未访问或认证原始发布者",
+    "real_photo_status": "unverified"
+  },
+  "observations": [
+    {
+      "id": "FMAKEUP000040-F1",
+      "dimension": "肤面观感",
+      "statement": "肤面整体平整，额头中央、鼻梁鼻尖、眼下至上颧及唇上方可见亮面；不能把全部反光归因于底妆。",
+      "evidence_images": [
+        "FMAKEUP000040"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000040-F2",
+      "dimension": "眉毛",
+      "statement": "棕色眉毛毛流可辨，眉头相对松散，眉峰过渡柔和，眉尾收细。",
+      "evidence_images": [
+        "FMAKEUP000040"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000040-F3",
+      "dimension": "眼部颜色",
+      "statement": "上眼皮与眼周呈暖桃棕、粉棕色调，边缘柔化；眼窝与外眼角有较深层次。",
+      "evidence_images": [
+        "FMAKEUP000040"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000040-F4",
+      "dimension": "眼缘与睫毛",
+      "statement": "上眼缘较深、外眼角有细窄延伸；睫毛清楚但照片不足以确认是否使用假睫毛及型号。",
+      "evidence_images": [
+        "FMAKEUP000040"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000040-F5",
+      "dimension": "面颊",
+      "statement": "两侧面颊可见柔和的暖桃粉红晕，边界不锐利；实际腮红位置与光线贡献无法完全分离。",
+      "evidence_images": [
+        "FMAKEUP000040"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000040-F6",
+      "dimension": "唇部",
+      "statement": "唇色偏暖裸桃棕，唇缘清楚但没有明显深色描边；唇面有少量亮点，不是深红厚涂效果。",
+      "evidence_images": [
+        "FMAKEUP000040"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "这一候选以暖桃棕的眼、颊、唇形成柔和呼应，强调眉眼结构与肤面亮度。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "FMAKEUP000040"
+      ],
+      "status": "needs_cross_case_review"
+    },
+    {
+      "statement": "目录名“法式复古”是既有检索标签，本图不是该类别必须使用哑光肌、红唇或粗眼线的证据。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "FMAKEUP000040"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "中分收拢的棕发与耳边碎发",
+    "耳饰及棕色无肩带服装",
+    "样片人物的浅色虹膜、眉眼比例和面部轮廓",
+    "肩颈的亮面与头部微转构图"
+  ],
+  "within_session_locks": [
+    "客户身份、自然肤色、五官比例及明确保留特征不随样片改变。",
+    "客户与妆造师确认后，固定本次妆效方向、配色范围与主要强度；修改需显式记录。",
+    "同一套成片保持已确认妆效逻辑；并非要求每张图亮度和反光完全相同。"
+  ],
+  "creative_variables": [
+    {
+      "field": "眼颊唇配色",
+      "options": [
+        "保留暖桃棕方向",
+        "由妆造师依据客户偏好调整为更中性或偏玫瑰的协调色系"
+      ],
+      "constraints": "不要直接套用样片肤色或给出精确产品色号。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "肤面亮度",
+      "options": [
+        "减少明显亮区",
+        "保留适度局部光泽"
+      ],
+      "constraints": "保持皮肤细节；由实际灯光与肤面共同评估，不把整脸刷亮。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "眼妆强度",
+      "options": [
+        "缩短眼尾延伸并减轻颜色",
+        "保留参考图的柔和层次"
+      ],
+      "constraints": "沿客户眼型调整，不拉大眼睛或改变眼型。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "唇色饱和度",
+      "options": [
+        "更接近客户自然唇色",
+        "略增强暖裸桃棕色"
+      ],
+      "constraints": "保持客户原有唇形，不通过丰唇复刻样片。",
+      "evidence_type": "proposed"
+    }
+  ],
+  "compatibility_rules": [
+    "妆容与发型、服装、场景分别确认；不由目录名自动锁定。",
+    "妆造师最新明确方案优先于样片默认，客户冲突需协调。",
+    "调整程度依据客户意愿与可见参考，不从图片推断皮肤疾病、种族或产品功效。",
+    "不得把候选库标签或一次观察当作整类风格的普遍规律。"
+  ],
+  "do_not_inherit": [
+    "样片身份、脸型、五官比例、虹膜色和原生肤色",
+    "品牌标识、准确文字、透明抠图边缘及压缩瑕疵",
+    "未经证实的化妆步骤、产品、色号、拍摄参数"
+  ],
+  "unknowns": {
+    "原作者和原始拍摄来源": null,
+    "是否 AI 生成": null,
+    "实际底妆产品与色号": null,
+    "原生肤质和肤色底调": null,
+    "假睫毛型号": null,
+    "真实修容边界": null,
+    "完整同妆多角度效果": null,
+    "是否实际上妆": null
+  },
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "柔桃棕眼妆、清晰但不粗重的上眼缘、暖裸唇，额鼻颊有明显亮面；目录归类法式复古，不能概括为哑光红唇。",
+    "template": "客户身份与保留特征：{{customer_identity_constraints}}。妆造师确认方案：{{approved_makeup_plan}}。本次采用的案例特征：{{selected_observations}}。调整变量：{{approved_variables}}。",
+    "example_draft": "以客户原有五官、肤色和面部比例为基础，采用经客户及妆造师确认的暖桃棕眼妆、柔和面颊色与暖裸唇方向。按客户眼型控制眼尾与睫毛强度；亮区范围结合本次灯光确认。不要复刻样片人物脸型、眼睛颜色、发型和饰品。",
+    "use_note": "这是方案表达草稿，不是原始提示词或可直接套用的产品工单；仅在确认与来源复核后适配。"
+  },
+  "reference_roles": {
+    "makeup": [
+      "FMAKEUP000040"
+    ],
+    "customer_identity": [],
+    "hairstyle": "仅上下文，不默认继承"
+  },
+  "limitations": [
+    "仅一张 480×640 图片；微小皮肤纹理、睫毛根部和精确色值不足以可靠判断。",
+    "文件含透明通道，头发与耳饰边缘有断裂或空洞；不得将透明边缘复制为妆容特征。",
+    "索引明确原始来源及是否 AI 生成未知；未认证为实拍，本案例仅供数据结构与特征审核。",
+    "高光和阴影包含拍摄/后期作用；不能还原化妆工序或用于证明产品效果。"
+  ],
+  "validation": {
+    "data_review": "user_accepted_feature_extraction",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null,
+    "production_ready": false,
+    "review_scope": "用户确认特征提取与数据结构；不表示来源认证或生成效果验证。"
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  },
+  "default_retrieval_eligible": true,
+  "retrieval_scope": "review_only",
+  "source_kind": "user_supplied_original_unknown"
+}

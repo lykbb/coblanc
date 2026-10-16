@@ -1,0 +1,184 @@
+{
+  "schema_version": "0.2",
+  "case_id": "FMAKEUP000036",
+  "name": "桃粉润唇与卷翘分束睫毛",
+  "audience": "新娘",
+  "category_id": "01",
+  "category_name": "韩式水光妆",
+  "status": "hold_ai_label",
+  "production_ready": false,
+  "source_truth_status": "ai_label_recorded",
+  "case_unit": "single_independent_reference",
+  "description": "眼周浅暖棕粉色，上眼缘清楚，上睫毛卷翘且分束；唇色暖桃粉，唇面明显润亮。",
+  "evidence": {
+    "cloud_folder": "https://my.feishu.cn/drive/folder/BoWUfdmWPlyXkXdMl5Sc15xQnrc",
+    "cloud_file": "https://my.feishu.cn/file/KjeKb84WiouEpFx0Y7JcirKUnBe",
+    "source_index_url": "https://my.feishu.cn/file/TfsSbso8Vot7UoxyvJQcdK3Cn6e",
+    "source_record": "source-record.json",
+    "checked_on": "2026-10-16",
+    "review_method": "逐张查看由下载原文件制作的分类联系表；读取原索引并核对文件尺寸及 SHA256；不据联系表推断微小像素细节",
+    "source_verification": "本轮核对飞书文件及索引；未独立访问或认证原始发布者",
+    "real_photo_status": "ai_label_recorded",
+    "ai_label_evidence": "源索引明确记载 AI/即梦 AI 标识；未声称独立复原原始标识。"
+  },
+  "observations": [
+    {
+      "id": "FMAKEUP000036-F1",
+      "dimension": "肤面观感",
+      "statement": "肤面明亮平整，鼻部和面颊有柔和反光。",
+      "evidence_images": [
+        "FMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000036-F2",
+      "dimension": "眉毛",
+      "statement": "眉色棕灰，眉头较淡，毛流可辨。",
+      "evidence_images": [
+        "FMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000036-F3",
+      "dimension": "眼部",
+      "statement": "眼周浅暖棕粉色，上眼缘清楚，上睫毛卷翘且分束。",
+      "evidence_images": [
+        "FMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000036-F4",
+      "dimension": "面颊与轮廓",
+      "statement": "面颊为浅桃粉红晕，边缘柔和。",
+      "evidence_images": [
+        "FMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    },
+    {
+      "id": "FMAKEUP000036-F5",
+      "dimension": "唇部",
+      "statement": "唇色暖桃粉，唇面明显润亮。",
+      "evidence_images": [
+        "FMAKEUP000036"
+      ],
+      "evidence_type": "observed",
+      "visual_confidence": "medium"
+    }
+  ],
+  "style_core_hypotheses": [
+    {
+      "statement": "此单图可用于讨论“桃粉润唇与卷翘分束睫毛”这一视觉方向；不能外推为整个韩式水光妆的必备特征。",
+      "evidence_type": "inferred",
+      "scope": "single_case_only",
+      "supporting_case_ids": [
+        "FMAKEUP000036"
+      ],
+      "status": "needs_cross_case_review"
+    }
+  ],
+  "case_specific_elements": [
+    "中分束发与珠饰发夹、手靠近下颊是搭配和姿势。"
+  ],
+  "within_session_locks": [
+    "客户身份、自然肤色、五官比例及明确保留特征不随样片改变。",
+    "客户与妆造师确认后，固定本次妆效方向、配色范围与主要强度；修改需显式记录。",
+    "同一套成片保持确认后的妆效逻辑，不要求不同光线下反光完全相同。"
+  ],
+  "creative_variables": [
+    {
+      "field": "桃粉配色的冷暖与饱和度",
+      "options": [
+        "保留本案例可见方向",
+        "降低该项强调程度",
+        "按客户偏好与妆造师方案调整"
+      ],
+      "constraints": "颜色和程度由客户资料与妆造师共同确认；不改变客户五官、肤色及明确保留特征，不推定产品或色号。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "上睫毛分束强度",
+      "options": [
+        "保留本案例可见方向",
+        "降低该项强调程度",
+        "按客户偏好与妆造师方案调整"
+      ],
+      "constraints": "颜色和程度由客户资料与妆造师共同确认；不改变客户五官、肤色及明确保留特征，不推定产品或色号。",
+      "evidence_type": "proposed"
+    },
+    {
+      "field": "局部光泽范围",
+      "options": [
+        "保留本案例可见方向",
+        "降低该项强调程度",
+        "按客户偏好与妆造师方案调整"
+      ],
+      "constraints": "颜色和程度由客户资料与妆造师共同确认；不改变客户五官、肤色及明确保留特征，不推定产品或色号。",
+      "evidence_type": "proposed"
+    }
+  ],
+  "compatibility_rules": [
+    "妆造师最新明确方案优先于样片默认，客户明确要求冲突时协调。",
+    "发型、服装、配饰、场景与妆容分别确认。",
+    "适配建议尚未验证，不从单张样片断言适合所有肤色、眼型或拍摄环境。",
+    "灯光和后期会影响妆效，不能把所有阴影与亮区解释为化妆步骤。"
+  ],
+  "do_not_inherit": [
+    "样片身份、脸型、五官比例、虹膜色与原生肤色",
+    "品牌文字、水印、抠图边缘和压缩瑕疵",
+    "未经证实的化妆步骤、产品色号、摄影参数",
+    "未经客户确认的痣、雀斑、胡须等特征修改"
+  ],
+  "unknowns": {
+    "原作者与原始拍摄证据": null,
+    "实际化妆步骤": null,
+    "化妆产品与色号": null,
+    "真实肤质与肤色底调": null,
+    "完整后期程度": null,
+    "同人同妆多角度效果": null,
+    "是否实际上妆": null
+  },
+  "prompt_recipe": {
+    "status": "untested_draft",
+    "model": null,
+    "original_prompt_recovered": false,
+    "shared_observation_summary": "眼周浅暖棕粉色，上眼缘清楚，上睫毛卷翘且分束；唇色暖桃粉，唇面明显润亮。",
+    "template": "客户身份与保留特征：{{customer_identity_constraints}}。妆造师确认方案：{{approved_makeup_plan}}。本次采用的案例特征：{{selected_observations}}。调整变量：{{approved_variables}}。",
+    "example_draft": "保留客户本人五官、自然肤色与明确保留特征。可讨论的参考方向为：眼周浅暖棕粉色，上眼缘清楚，上睫毛卷翘且分束；唇色暖桃粉，唇面明显润亮。仅采用客户与妆造师确认的部分，调整桃粉配色的冷暖与饱和度、上睫毛分束强度、局部光泽范围。不复制样片身份、发型、服饰或摄影光线。",
+    "use_note": "仅归档可见方向；默认候选检索排除，不能冒充真人参考。未执行生成。"
+  },
+  "reference_roles": {
+    "makeup": [
+      "FMAKEUP000036"
+    ],
+    "customer_identity": [],
+    "hairstyle": "仅上下文，不默认继承"
+  },
+  "limitations": [
+    "源索引明确记录 AI/即梦标识，清洗后不能改标为真人实拍。",
+    "仅有一张 658×1110 参考，无法验证动态与多角度一致性。",
+    "源索引明确记录 AI/即梦 AI 标识；即使现文件已清除标识也不能认定为真人。",
+    "当前文件含透明通道；边缘或空洞不属于妆容特征。"
+  ],
+  "validation": {
+    "data_review": "pending_user_review",
+    "generation_tested": false,
+    "validated_models": [],
+    "metrics": null,
+    "production_ready": false
+  },
+  "files": {
+    "shots": "shots.json",
+    "assets": "assets.json"
+  },
+  "default_retrieval_eligible": false,
+  "retrieval_scope": "review_only",
+  "source_kind": "user_supplied_original_unknown"
+}
