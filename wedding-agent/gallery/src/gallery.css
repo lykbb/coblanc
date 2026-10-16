@@ -120,3 +120,26 @@ a.pin-title:hover { text-decoration: underline; }
   .side-tags-wrap { order: 99; flex-basis: 100%; }
   .side-tags { padding-left: 4px; }
 }
+
+/* 卡片「⋯」菜单 */
+.pin-more { position: absolute; top: 10px; right: 10px; z-index: 5; opacity: 0; transition: opacity .2s ease; }
+.pin:hover .pin-more, .pin-more.open, .pin-more:focus-within { opacity: 1; }
+.pin-dots { width: 30px; height: 30px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .92); color: var(--ink); font-size: 16px; line-height: 1; cursor: pointer; box-shadow: 0 2px 8px rgba(40, 30, 70, .15); }
+.pin-dots:hover { background: #fff; }
+.pin-menu { position: absolute; top: 36px; right: 0; min-width: 132px; padding: 6px; border-radius: 12px; background: var(--panel); box-shadow: 0 10px 30px rgba(40, 30, 70, .16), 0 0 0 1px rgba(40, 30, 70, .05); display: flex; flex-direction: column; animation: menu-in .14s ease; }
+.pin-menu a, .pin-menu button { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 10px; border: 0; border-radius: 8px; background: none; font-size: 13px; color: var(--ink); text-decoration: none; text-align: left; cursor: pointer; white-space: nowrap; }
+.pin-menu a:hover, .pin-menu button:hover { background: var(--soft); }
+.pin-menu .checked span { color: var(--peach-ink); font-size: 12px; }
+.pin-menu .danger { color: var(--peach-ink); }
+.pin-menu hr { margin: 4px 6px; border: 0; border-top: 1px solid var(--line); }
+@keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } }
+/* 灯箱：只有大图 */
+.modal.lightbox { background: rgba(14, 12, 18, .92); padding: 4vh 4vw; }
+.modal.lightbox > img { max-width: 92vw; max-height: 92vh; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 60px rgba(0, 0, 0, .4); }
+.modal.lightbox .ref-close { position: fixed; top: 18px !important; right: 18px !important; }
+/* 编辑弹窗 */
+.ref-edit { width: min(460px, 94vw); max-height: 92vh; overflow: auto; }
+.ref-edit-head { display: flex; gap: 12px; align-items: center; }
+.ref-edit-head img { width: 56px; height: 56px; object-fit: cover; border-radius: 10px; }
+.ref-edit-head strong { font-family: var(--serif); font-weight: 500; font-size: 17px; }
+.ref-label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--muted); }

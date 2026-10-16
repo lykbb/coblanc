@@ -22,7 +22,9 @@ const dragging = ref(false)
 const pending = ref([])
 const batch = reactive({ style: '09', verdict: 'good', title: '', tags: [], source_url: '', note: '' })
 const progress = ref(null)
-const open = ref(null)
+const open = ref(null) // 大图灯箱
+const editing = ref(null) // 编辑弹窗
+const menuFor = ref('') // 打开「⋯」菜单的卡片 id
 const draft = reactive({ style: '', verdict: '', title: '', tags: [], source_url: '', note: '' })
 const linkForm = ref(null) // { id?, title, url, tags }
 const picker = ref(null)
@@ -133,7 +135,9 @@ onMounted(async () => {
   resizer = new ResizeObserver(([entry]) => { columnCount.value = Math.max(2, Math.floor(entry.contentRect.width / 240)) })
   if (wall.value) resizer.observe(wall.value)
 })
-onUnmounted(() => { observer?.disconnect(); resizer?.disconnect() })
+document.addEventListener('click', onDocClick)
+document.addEventListener('keydown', onKey)
+onUnmounted(() => { observer?.disconnect(); resizer?.disconnect(); document.removeEventListener('click', onDocClick); document.removeEventListener('keydown', onKey) })
 watch(params, () => load())
 watch(search, (v) => { clearTimeout(searchTimer); searchTimer = setTimeout(() => (filter.q = v.trim()), 250) })
 
@@ -191,7 +195,12 @@ async function uploadAll() {
 
 // ---- 图片卡片操作 ----
 function view(item) {
+  menuFor.value = ''
   open.value = item
+}
+function editRef(item) {
+  menuFor.value = ''
+  editing.value = item
   Object.assign(draft, { style: item.style, verdict: item.verdict, title: item.title || '', tags: [...item.tags], source_url: item.source_url || '', note: item.note || '' })
 }
 async function patch(item, changes) {
@@ -203,21 +212,38 @@ async function patch(item, changes) {
   }
 }
 function save() {
-  const item = open.value
+  const item = editing.value
   if (!item) return
   const changes = {}
   for (const key of ['style', 'verdict', 'source_url', 'note', ...(canEdit(item) ? ['title'] : [])]) if (draft[key] !== (item[key] || '')) changes[key] = draft[key]
   if (canEdit(item) && draft.tags.join('\u0001') !== item.tags.join('\u0001')) changes.tags = draft.tags
   if (Object.keys(changes).length) patch(item, changes)
 }
+function toggleMenu(id) {
+  menuFor.value = menuFor.value === id ? '' : id
+}
+function onDocClick() { menuFor.value = '' }
+function onKey(e) {
+  if (e.key !== 'Escape') return
+  if (open.value) open.value = null
+  else if (editing.value) closeEdit()
+  menuFor.value = ''
+}
+function closeEdit() {
+  save()
+  editing.value = null
+}
 function flip(item) {
+  menuFor.value = ''
   patch(item, { verdict: item.verdict === 'good' ? 'bad' : 'good' })
 }
 async function removeRef(item) {
+  menuFor.value = ''
   if (!confirm('删除这张参考图？')) return
   try {
     await refs.remove(item.id)
     if (open.value?.id === item.id) open.value = null
+    if (editing.value?.id === item.id) editing.value = null
     items.value = items.value.filter((i) => i.id !== item.id)
     total.value--
   } catch (e) {
@@ -225,7 +251,6 @@ async function removeRef(item) {
   }
 }
 function closeView() {
-  save()
   open.value = null
 }
 
@@ -356,7 +381,13 @@ async function removeLink(link) {
               <span class="link-text-title">{{ link.title }}</span>
             </a>
             <a v-if="link.preview_url" class="link-title" :href="link.url" target="_blank" rel="noopener noreferrer">{{ link.title }}</a>
-            <div v-if="isAdmin" class="pin-actions"><button type="button" class="pin-act" aria-label="编辑" @click="editLink(link)">编辑</button></div>
+            <div v-if="isAdmin" class="pin-more" :class="{ open: menuFor === link.id }" @click.stop>
+              <button type="button" class="pin-dots" aria-label="更多" :aria-expanded="menuFor === link.id" @click="toggleMenu(link.id)">⋯</button>
+              <div v-if="menuFor === link.id" class="pin-menu" role="menu">
+                <button role="menuitem" type="button" @click="menuFor = ''; editLink(link)">编辑</button>
+                <button role="menuitem" type="button" class="danger" @click="menuFor = ''; removeLink(link)">删除</button>
+              </div>
+            </div>
           </article>
         </template>
         <template v-else>
@@ -364,11 +395,18 @@ async function removeLink(link) {
             <button type="button" class="pin-media" @click="view(item)">
               <img :src="refs.url(item.thumb_url)" :alt="item.title || styleName(item.style)" loading="lazy" decoding="async" :style="{ aspectRatio: item.width + '/' + item.height }" />
             </button>
-            <div class="pin-actions">
-              <a class="pin-act" :href="refs.url(item.original_url) + '&download=1'" aria-label="下载" title="下载"><Icon name="download" :size="15" /></a>
-              <button type="button" class="pin-act" :title="item.verdict === 'good' ? '标为坏图' : '标为好图'" @click="flip(item)"><i class="mark" :class="item.verdict"></i></button>
-              <button v-if="canEdit(item)" type="button" class="pin-act" aria-label="编辑" title="编辑标题、标签、分类" @click="view(item)">编辑</button>
-              <button v-if="canEdit(item)" type="button" class="pin-act" aria-label="删除" title="删除" @click="removeRef(item)"><Icon name="trash" :size="15" /></button>
+            <div class="pin-more" :class="{ open: menuFor === item.id }" @click.stop>
+              <button type="button" class="pin-dots" aria-label="更多" :aria-expanded="menuFor === item.id" @click="toggleMenu(item.id)">⋯</button>
+              <div v-if="menuFor === item.id" class="pin-menu" role="menu">
+                <a role="menuitem" :href="refs.url(item.original_url) + '&download=1'" @click="menuFor = ''">下载原图</a>
+                <button role="menuitem" type="button" :class="{ checked: item.verdict === 'good' }" @click="item.verdict !== 'good' ? flip(item) : (menuFor = '')">标为好图<span v-if="item.verdict === 'good'">✓</span></button>
+                <button role="menuitem" type="button" :class="{ checked: item.verdict === 'bad' }" @click="item.verdict !== 'bad' ? flip(item) : (menuFor = '')">标为坏图<span v-if="item.verdict === 'bad'">✓</span></button>
+                <template v-if="canEdit(item)">
+                  <hr />
+                  <button role="menuitem" type="button" @click="editRef(item)">编辑</button>
+                  <button role="menuitem" type="button" class="danger" @click="removeRef(item)">删除</button>
+                </template>
+              </div>
             </div>
             <span v-if="item.title" class="link-title">{{ item.title }}</span>
           </article>
@@ -423,37 +461,39 @@ async function removeLink(link) {
       </form>
     </div>
 
-    <!-- 大图 -->
-    <div v-if="open" class="modal dark" @click.self="closeView" @keydown.esc="closeView">
-      <div class="ref-view">
-        <img :src="refs.url(open.large_url)" :alt="open.title || styleName(open.style)" />
-        <aside class="ref-side">
-          <div class="ref-meta">{{ open.uploader }} · {{ when(open.created_at) }}</div>
-          <template v-if="canEdit(open)">
-            <input v-model="draft.title" class="field" maxlength="60" placeholder="标题" @change="save" />
-            <TagInput v-model="draft.tags" :suggestions="tagNames" @update:model-value="save" />
-          </template>
-          <template v-else>
-            <strong v-if="open.title" class="ref-title">{{ open.title }}</strong>
-            <div v-if="open.tags.length" class="pin-tags"><button v-for="t in open.tags" :key="t" type="button" @click="pickTag(t); closeView()">#{{ t }}</button></div>
-          </template>
-          <select v-model="draft.style" class="field" @change="save">
+    <!-- 大图：只有图，点空白或 Esc 关闭 -->
+    <div v-if="open" class="modal lightbox" @click.self="closeView">
+      <img :src="refs.url(open.large_url)" :alt="open.title || styleName(open.style)" />
+      <button type="button" class="icon-btn light ref-close" aria-label="关闭" @click="closeView"><Icon name="close" /></button>
+    </div>
+
+    <!-- 编辑图片 -->
+    <div v-if="editing" class="modal" @click.self="closeEdit">
+      <form class="ref-pop ref-edit" @submit.prevent="closeEdit">
+        <div class="ref-edit-head">
+          <img :src="refs.url(editing.thumb_url)" alt="" />
+          <div><strong>编辑图片</strong><div class="ref-meta">{{ editing.uploader }} · {{ when(editing.created_at) }}</div></div>
+        </div>
+        <label class="ref-label">标题<input v-model="draft.title" class="field" maxlength="60" placeholder="标题" /></label>
+        <div class="ref-label">标签<TagInput v-model="draft.tags" :suggestions="tagNames" /></div>
+        <label class="ref-label">分类
+          <select v-model="draft.style" class="field">
             <option v-for="s in imageStyles" :key="s.id" :value="s.id">{{ s.id }} {{ s.name }}</option>
           </select>
-          <div class="refwall-seg wide">
-            <button type="button" :class="{ on: draft.verdict === 'good' }" @click="draft.verdict = 'good'; save()"><i class="mark good"></i>好图</button>
-            <button type="button" :class="{ on: draft.verdict === 'bad' }" @click="draft.verdict = 'bad'; save()"><i class="mark bad"></i>坏图</button>
-          </div>
-          <input v-model="draft.source_url" class="field" type="url" placeholder="来源链接" @change="save" />
-          <a v-if="open.source_url" class="ref-link" :href="open.source_url" target="_blank" rel="noopener noreferrer">{{ open.source_url }}</a>
-          <textarea v-model="draft.note" class="field" rows="3" maxlength="200" placeholder="备注" @change="save"></textarea>
-          <div class="ref-side-foot">
-            <a class="ghost-btn" :href="refs.url(open.original_url) + '&download=1'"><Icon name="download" :size="16" />原图</a>
-            <button v-if="canEdit(open)" type="button" class="ghost-btn danger" @click="removeRef(open)">删除</button>
-          </div>
-        </aside>
-        <button type="button" class="icon-btn light ref-close" aria-label="关闭" @click="closeView"><Icon name="close" /></button>
-      </div>
+        </label>
+        <div class="refwall-seg wide">
+          <button type="button" :class="{ on: draft.verdict === 'good' }" @click="draft.verdict = 'good'"><i class="mark good"></i>好图</button>
+          <button type="button" :class="{ on: draft.verdict === 'bad' }" @click="draft.verdict = 'bad'"><i class="mark bad"></i>坏图</button>
+        </div>
+        <label class="ref-label">来源链接<input v-model="draft.source_url" class="field" type="url" placeholder="https://" /></label>
+        <label class="ref-label">备注<textarea v-model="draft.note" class="field" rows="3" maxlength="200" placeholder="备注"></textarea></label>
+        <div class="ref-pop-foot">
+          <button type="button" class="ghost-btn danger" @click="removeRef(editing)">删除</button>
+          <span style="flex:1"></span>
+          <button type="button" class="ghost-btn" @click="editing = null">取消</button>
+          <button class="primary-btn">保存</button>
+        </div>
+      </form>
     </div>
     </div>
   </section>
