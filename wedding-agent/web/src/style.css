@@ -746,6 +746,7 @@ body.is-col-resizing * { cursor: col-resize !important; }
     linear-gradient(165deg, #fcfafd 0%, #f7f4fb 48%, #fbf8f5 100%);
   overflow: auto;
 }
+.overview-home > * { flex-shrink: 0; }
 .home-hero {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
@@ -797,8 +798,12 @@ body.is-col-resizing * { cursor: col-resize !important; }
   letter-spacing: 0.08em;
 }
 .home-hero-visual {
+  /* 图片全部限定在这个盒子里（固定高度），不会溢出盖住下面的卡片 */
   position: relative;
-  min-height: 320px;
+  height: clamp(300px, 32vw, 440px);
+  min-width: 0;
+  overflow: hidden;
+  padding-bottom: 4px;
 }
 .home-glow {
   position: absolute;
@@ -821,15 +826,17 @@ body.is-col-resizing * { cursor: col-resize !important; }
   position: absolute;
   right: 0;
   top: 0;
-  width: 78%;
+  height: calc(100% - 28px);
   aspect-ratio: 4 / 5;
+  max-width: 78%;
 }
 .home-frame-side {
   position: absolute;
   left: 0;
   bottom: 18px;
-  width: 42%;
+  height: 58%;
   aspect-ratio: 3 / 4;
+  max-width: 42%;
   box-shadow: 0 14px 36px rgba(64, 52, 104, 0.14);
 }
 .home-amie {
@@ -858,6 +865,8 @@ body.is-col-resizing * { cursor: col-resize !important; }
 .home-amie span { display: block; font-size: 11px; color: var(--muted); margin-top: 1px; }
 
 .home-panels {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: 16px;
@@ -1222,6 +1231,13 @@ body.is-col-resizing * { cursor: col-resize !important; }
   .amie-scroll { overflow: visible; }
   .side { height: auto; overflow: visible; }
 }
+@media (max-width: 1180px) {
+  .home-hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .home-hero-visual { height: clamp(260px, 42vw, 380px); max-width: 620px; width: 100%; justify-self: center; }
+}
+@media (max-width: 900px) {
+  .home-panels { grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 760px) {
   .app { grid-template-columns: minmax(0, 1fr); padding: 10px; gap: 10px; }
   .side, .side.is-collapsed { position: static; width: auto; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px; }
@@ -1239,8 +1255,7 @@ body.is-col-resizing * { cursor: col-resize !important; }
   .stage-grid > .stage-card::after { display: none; }
   .delivery-grid { grid-template-columns: minmax(0, 1fr); }
   .home-hero, .home-panels, .home-recent-list, .home-mood-row, .home-entry-grid { grid-template-columns: minmax(0, 1fr); }
-  .home-hero-visual { min-height: 280px; }
-  .home-frame-main { width: 72%; }
+  .home-hero-visual { height: 280px; }
   .home-hero-copy h1 { font-size: 32px; }
   .journey-road { height: 50px; }
   .journey-couple { width: 48px; height: 30px; }
