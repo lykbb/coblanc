@@ -16,6 +16,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from app import runner
+from app.modules.intake import photo_rules
 from app.common.config import settings
 from app.common.errors import ModuleError
 from app.common.log import get_logger
@@ -128,7 +129,7 @@ async def upload_image(file: UploadFile = File(...)):
 
 
 class CreateTaskBody(BaseModel):
-    # 主入口：photo_file_ids，一个上传框，合照、单人照混传 2～10 张（新郎新娘都要有，合照可选），由小囍分出新郎新娘。
+    # 主入口：photo_file_ids，一个上传框，合照单人照混传；规则见 intake/photo_rules.py，由小囍分出新郎新娘。
     # groom_photo_file_ids / bride_photo_file_ids 是分开上传的旧写法，保留兼容。
     photo_file_ids: list[str] = Field(default_factory=list)
     groom_photo_file_ids: list[str] = Field(default_factory=list)
@@ -147,8 +148,11 @@ def create_task(body: CreateTaskBody):
         or not 1 <= len(body.bride_photo_file_ids) <= 10
     ):
         raise ApiError("PHOTO_INVALID", "新郎和新娘的照片数量都必须是 1～10 张")
-    if not grouped and not 2 <= len(body.photo_file_ids) <= 10:
-        raise ApiError("PHOTO_INVALID", "请上传 2～10 张照片，新郎新娘都要有，合照单人照都行")
+    if not grouped:
+        body.photo_file_ids = photo_rules.dedupe(body.photo_file_ids)
+        problem = photo_rules.count_problem(len(body.photo_file_ids))
+        if problem:
+            raise ApiError("PHOTO_INVALID", problem)
     file_ids = body.groom_photo_file_ids + body.bride_photo_file_ids if grouped else body.photo_file_ids
     missing = [file_id for file_id in file_ids if file_id not in uploads]
     if missing:
@@ -188,6 +192,7 @@ def get_task(task_id: str):
             "legacy": len(values.get("photo_urls", [])) if not values.get("groom_photo_urls") else 0,
         },
         "previews": values.get("previews", []) if status == "preview_ready" else [],
+        "quality_note": values.get("quality_note") if status == "preview_ready" else None,
         "deliverables": values.get("deliverables") if status == "done" else None,
         "message": values.get("message") if status == "done" else None,
         "error": info.error if status == "failed" else None,

@@ -7,7 +7,7 @@ import uuid
 
 from langgraph.types import Command
 
-from app.common.errors import ModuleError
+from app.common.errors import ModuleError, error_info
 from app.common.log import current_task, get_logger
 from app.common.progress import store
 from app.graph import graph
@@ -50,24 +50,8 @@ def start(
     return task_id
 
 
-USER_INPUT_CODES = {"PHOTO_INVALID", "FILE_INVALID"}
-STEP_NAMES = {
-    "intake": "小囍看照片/整理需求", "styling": "妆造师设计造型", "framing": "摄影师设计镜头",
-    "composing": "合成生图指令", "generating": "生图", "checking": "审片质检",
-    "retouching": "修图", "packaging": "制作婚礼物料",
-}
-
-
 def _error_info(task_id: str, code: str, message: str) -> dict:
-    """失败原因分两类：user_input（上传内容不符合要求）/ system（模型、网络、服务异常，可重试）。"""
-    step = store.get(task_id).step
-    if code in USER_INPUT_CODES:
-        return {"code": code, "category": "user_input", "step": step, "retryable": False,
-                "title": "上传的照片不符合要求", "message": message}
-    where = STEP_NAMES.get(step or "", "处理")
-    return {"code": code, "category": "system", "step": step, "retryable": True,
-            "title": f"系统异常：{where}这一步没完成",
-            "message": f"{message}（模型/网络/服务异常，不是你们的问题），可以点「重试」从这一步继续。"}
+    return error_info(code, message, store.get(task_id).step)
 
 
 def retry(task_id: str) -> None:

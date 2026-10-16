@@ -217,7 +217,7 @@ def test_mixed_solo_photos_with_side_faces_pass(monkeypatch):
     _real_llm(monkeypatch, results, [])
     state = {"photo_urls": urls}
     assert node._photo_failures(state) == []
-    identity = node._identity_from_mixed_checks(state)
+    identity = node._mixed_verdict(state).identity
     assert {p["role"] for p in identity} == {"couple", "groom", "bride"}
     assert identity[0]["url"] != "p3"
     node._cached_photo_check.cache_clear()
@@ -234,12 +234,12 @@ def test_mixed_missing_bride_never_says_couple(monkeypatch):
 
 def _couple(i, pet=""):
     return {"index": i, "people_count": 2, "clear": True, "front_facing": True, "unobstructed": True,
-            "tag": "couple", "has_pet": bool(pet), "pet_kind": pet, "reason": ""}
+            "tag": "couple", "has_pet": bool(pet), "pet_prominent": bool(pet), "pet_kind": pet, "reason": ""}
 
 
 def _pet_only(i, kind="小狗"):
     return {"index": i, "people_count": 0, "clear": True, "front_facing": False, "unobstructed": True,
-            "tag": "pet", "has_pet": True, "pet_kind": kind, "reason": ""}
+            "tag": "pet", "has_pet": True, "pet_prominent": True, "pet_kind": kind, "reason": ""}
 
 
 def _check(monkeypatch, results, description=""):
@@ -261,7 +261,7 @@ def test_rule_all_solo_passes_without_asking_for_couple(monkeypatch):
 def test_rule_one_couple_plus_solos_ok(monkeypatch):
     failures, state = _check(monkeypatch, [_couple(1), _solo(2, "groom"), _solo(3, "bride", front=False)])
     assert failures == []
-    assert node._identity_from_mixed_checks(state)[0]["role"] == "couple"
+    assert node._mixed_verdict(state).identity[0]["role"] == "couple"
     node._cached_photo_check.cache_clear()
 
 
@@ -286,15 +286,62 @@ def test_rule_photo_count_bounds():
     node._validate_photo_shape({"photo_urls": ["a", "b"]})
 
 
-def test_missing_person_is_overall_not_photo_one(monkeypatch):
+def test_prominent_pet_asks_but_people_still_count(monkeypatch):
+    """主体宠物未同意：只问宠物，不会因此把照片里的人算成「缺新娘」。"""
     failures, _ = _check(monkeypatch, [_couple(1, "小狗"), _solo(2, "groom")])
-    # 有宠物未同意：合照不可用 → 缺合照、缺新娘都是整体问题，不挂在第1张
-    questions = node._upload_questions(failures)
-    title = questions[0]["title"]
-    assert "还缺新娘的清晰照片，单人照或合照都行" in title
-    assert "第1张还缺" not in title and "第1张：还缺" not in title
-    assert "第1张里有小狗" in title
+    title = node._upload_questions(failures)[0]["title"]
+    assert "第1张里有小狗" in title and "还缺" not in title
     node._cached_photo_check.cache_clear()
+
+
+def test_background_animal_never_blocks(monkeypatch):
+    """线上问题：咖啡店里的男生照片边缘有只猫 → 不是主体，不卡，新郎照照常可用。"""
+    cafe = {**_solo(1, "groom"), "has_pet": True, "pet_prominent": False, "pet_kind": "小猫"}
+    failures, state = _check(monkeypatch, [cafe, _solo(2, "bride")])
+    assert failures == []
+    assert [p["role"] for p in node._mixed_verdict(state).identity] == ["groom", "bride"]
+    node._cached_photo_check.cache_clear()
+
+
+def test_vision_failure_is_system_error_not_missing_face(monkeypatch):
+    """线上问题：视觉模型调用失败曾被伪装成「第N张没看到人脸」。现在必须报系统异常（可重试）。"""
+    node._cached_photo_check.cache_clear()
+    monkeypatch.setattr(node.settings, "real_modules", ["intake"])
+
+    class Broken:
+        def with_structured_output(self, _):
+            return self
+
+        def invoke(self, _):
+            raise TimeoutError("too large")
+
+    monkeypatch.setattr(node, "_get_llm", lambda kind: Broken())
+    with pytest.raises(ModuleError) as error:
+        node._photo_failures({"photo_urls": ["a", "b"]})
+    assert error.value.code == "GENERATION_FAILED"
+    node._cached_photo_check.cache_clear()
+
+
+def test_duplicate_photos_count_once(monkeypatch):
+    from app.modules.intake import photo_rules
+    assert photo_rules.dedupe(["a", "b", "a"]) == ["a", "b"]
+    with pytest.raises(ModuleError):
+        node._validate_photo_shape({"photo_urls": ["a", "a"]})
+
+
+def test_large_rgba_png_is_shrunk_to_jpeg(monkeypatch):
+    """线上问题：2048 透明 PNG 原样 base64 发给视觉模型，请求过大失败。"""
+    import io
+    from PIL import Image
+    buffer = io.BytesIO()
+    Image.new("RGBA", (2048, 2048), (200, 100, 50, 128)).save(buffer, "PNG")
+    import app.modules.assets as assets
+    monkeypatch.setattr(assets, "load_image", lambda url: buffer.getvalue())
+    url = node._data_url("http://x/big.png")
+    assert url.startswith("data:image/jpeg;base64,")
+    import base64
+    image = Image.open(io.BytesIO(base64.b64decode(url.split(",", 1)[1])))
+    assert max(image.size) <= 1536 and image.mode == "RGB"
 
 
 def test_photo_problem_never_raises_and_upload_appends(monkeypatch):
@@ -314,20 +361,6 @@ def test_wants_to_ask_upload_ignores_round_limit():
     from app import graph
     state = {"questions": [{"type": "upload"}], "question_rounds": {"intake": 99}}
     assert graph._wants_to_ask(state, "intake")
-
-
-def test_solo_only_with_no_couple_intent_passes_with_flag(monkeypatch):
-    node._cached_photo_check.cache_clear()
-    _real_llm(monkeypatch, [_solo(1, "bride"), _solo(2, "bride"), _solo(3, "groom"), _solo(4, "groom")], [])
-    state = {"task_id": "t", "photo_urls": ["b1", "b2", "g1", "g2"], "description": "",
-             "answers": [{"question_id": "q_photos_note", "value": "没有合照", "asker": "intake", "round": 1}],
-             "question_rounds": {"intake": 1}, "consent": node.DEFAULT_CONSENT}
-    assert node._photo_failures(state) == []
-    update = intake(state)
-    assert not any(q.get("type") == "upload" for q in update.get("questions") or [])
-    assert update["brief"]["compose_from_solo"] is True
-    assert {p["role"] for p in update["identity"]} == {"groom", "bride"}
-    node._cached_photo_check.cache_clear()
 
 
 def test_solo_bride_groom_auto_compose_no_question(monkeypatch):
@@ -363,11 +396,4 @@ def test_missing_bride_asks(monkeypatch):
     update = intake(state)
     assert update["questions"][0]["type"] == "upload" and "还缺新娘" in update["questions"][0]["title"]
     assert "至少 1 张你们俩的合照" not in update["step_text"] and "没有合照" not in update["step_text"]
-    node._cached_photo_check.cache_clear()
-
-
-def test_no_couple_intent_but_missing_bride_still_blocks(monkeypatch):
-    failures, _ = _check(monkeypatch, [_solo(1, "groom"), _solo(2, "groom")], description="我们没有合照")
-    reasons = [f["reason"] for f in failures]
-    assert any("还缺新娘" in r for r in reasons) and not any("合照" in r and "至少" in r for r in reasons)
     node._cached_photo_check.cache_clear()

@@ -24,9 +24,12 @@ def wait_for(task_id: str, *statuses: str, timeout: float = 10) -> dict:
 
 
 def start_task(png_bytes: bytes) -> str:
-    upload = client.post("/api/uploads", files={"file": ("couple.png", png_bytes, "image/png")})
-    assert upload.status_code == 200
-    created = client.post("/api/tasks", json={"photo_file_ids": [upload.json()["file_id"]] * 2, "description": "想要韩式影棚风"})
+    ids = []
+    for name in ("couple.png", "couple2.png"):  # 两张不同的上传（同一张传两次只算一张）
+        upload = client.post("/api/uploads", files={"file": (name, png_bytes, "image/png")})
+        assert upload.status_code == 200
+        ids.append(upload.json()["file_id"])
+    created = client.post("/api/tasks", json={"photo_file_ids": ids, "description": "想要韩式影棚风"})
     assert created.json()["status"] == "running"
     return created.json()["task_id"]
 

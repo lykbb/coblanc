@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import Icon from './Icon.vue'
 import { AMIE } from '../agents.js'
-import { activeStage, phase, restart, state } from '../store.js'
+import { activeStage, phase, state } from '../store.js'
 
 // 顶部只显示四位专家的接力：妆造 → 摄影 → 生成 → 审片
 const steps = computed(() => {
@@ -20,10 +20,6 @@ const steps = computed(() => {
     { label: '审片', status: reviewed ? 'done' : reviewing ? 'active' : 'todo' },
   ]
 })
-
-function quit() {
-  if (window.confirm('结束这次创作，回到新建页面吗？这次的进度会留在「我的项目」里。')) restart()
-}
 </script>
 
 <template>
@@ -40,8 +36,5 @@ function quit() {
         <span class="relay-label">{{ step.label }}<span class="sr-only">{{ step.status === 'done' ? '，已完成' : step.status === 'active' ? '，进行中' : '' }}</span></span>
       </li>
     </ol>
-    <div class="topbar-right">
-      <button v-if="state.taskId" type="button" class="icon-btn" aria-label="结束这次创作" @click="quit"><Icon name="close" /></button>
-    </div>
   </header>
 </template>

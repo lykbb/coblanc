@@ -120,24 +120,26 @@ def prepare_set(state: WeddingState) -> dict:
 
     generation = dict(state.get("generation") or {})
     generation["stage"] = "set"
-    return {"generation": generation}
+    return {"generation": generation, "quality_note": None}
 
 
 def count_retry(state: WeddingState) -> dict:
-    return {"retry_count": state.get("retry_count", 0) + 1, "user_feedback": None}
+    return {"retry_count": state.get("retry_count", 0) + 1, "user_feedback": None, "quality_note": None}
 
 
 def use_other(state: WeddingState) -> dict:
     return {"best_image_id": state["retouch_plan"]["image_id"], "passed": True}
 
 
-def fail(state: WeddingState) -> dict:
-    store.update(
-        state["task_id"],
-        status="failed",
-        error={"code": "GENERATION_FAILED", "message": "修了几次还是不够像，换一张更清晰的合照再试试吧"},
-    )
-    return {}
+def accept_best(state: WeddingState) -> dict:
+    """修了 max_retouch 次仍没完全通过质检：不算失败，交出得分最高的结果并说明还差在哪，用户可以「重做」。"""
+    scores = state.get("scores") or []
+    best = max(scores, key=lambda score: score.get("total", 0)) if scores else None
+    best_id = best["image_id"] if best else (state.get("candidates") or [{}])[0].get("image_id")
+    issues = [issue for issue in (best or {}).get("issues", []) if len(issue) <= 40][:2]
+    detail = f"（{'；'.join(issues)}）" if issues else ""
+    note = f"修图师修了几次，还有小瑕疵没完全消掉{detail}。先给你们看目前最好的结果，不满意可以点「重做」。"
+    return {"best_image_id": best_id, "passed": True, "quality_note": note}
 
 
 # ---- 路由 ----
@@ -162,7 +164,7 @@ def after_check(state: WeddingState) -> str:
         return "make_previews"
     if state.get("retry_count", 0) < settings.max_retouch:
         return "count_retry"
-    return "fail"
+    return "accept_best"
 
 
 def after_review(state: WeddingState) -> str:
@@ -180,7 +182,7 @@ def after_retouch(state: WeddingState) -> str:
     targets = {"look": "styling", "shot": "framing", "prompt": "compose", "generate": "generate"}
     if plan.get("target") in targets:
         return targets[plan["target"]]
-    return "use_other" if plan.get("image_id") else "fail"
+    return "use_other" if plan.get("image_id") else "accept_best"
 
 
 def build_graph():
@@ -203,7 +205,7 @@ def build_graph():
     g.add_node("await_payment", await_payment)
     g.add_node("package", _module_node("assets", "packaging", package, status="delivering"))
     g.add_node("reveal", _module_node("intake", "packaging", reveal, status="delivering"))
-    g.add_node("fail", fail)
+    g.add_node("accept_best", accept_best)
 
     g.add_edge(START, "intake")
     g.add_conditional_edges("intake", after_intake, ["ask_intake", "styling"])
@@ -214,9 +216,9 @@ def build_graph():
     g.add_edge("ask_framing", "framing")
     g.add_edge("compose", "generate")
     g.add_edge("generate", "check")
-    g.add_conditional_edges("check", after_check, ["make_previews", "count_retry", "fail"])
+    g.add_conditional_edges("check", after_check, ["make_previews", "count_retry", "accept_best"])
     g.add_edge("count_retry", "retouch")
-    g.add_conditional_edges("retouch", after_retouch, ["styling", "framing", "compose", "generate", "use_other", "fail"])
+    g.add_conditional_edges("retouch", after_retouch, ["styling", "framing", "compose", "generate", "use_other", "accept_best"])
     g.add_edge("use_other", "make_previews")
     g.add_edge("make_previews", "await_review")
     g.add_conditional_edges("await_review", after_review, ["retouch", "prepare_set", "await_payment"])
@@ -224,7 +226,7 @@ def build_graph():
     g.add_edge("await_payment", "package")
     g.add_edge("package", "reveal")
     g.add_edge("reveal", END)
-    g.add_edge("fail", END)
+    g.add_edge("accept_best", "make_previews")
     return g.compile(checkpointer=checkpointer)
 
 

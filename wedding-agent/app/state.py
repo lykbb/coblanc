@@ -102,6 +102,7 @@ class WeddingState(TypedDict, total=False):
     scores: list[dict]
     best_image_id: Optional[str]
     passed: bool
+    quality_note: Optional[str]  # 修了几次仍没完全达标时给用户的说明（图照样交出）
     retouch_plan: Optional[dict]  # {"target": look/shot/prompt/generate/none, "patch": 修改说明, "image_id": 换用的候选}
 
     # 资产库写

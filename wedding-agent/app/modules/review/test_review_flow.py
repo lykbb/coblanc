@@ -65,9 +65,12 @@ def _wait(client: TestClient, task_id: str, *statuses: str) -> dict:
 
 
 def _upload_and_answer(client: TestClient, image: bytes) -> tuple[str, dict]:
-    upload = client.post("/api/uploads", files={"file": ("synthetic_couple.png", image, "image/png")})
-    assert upload.status_code == 200
-    created = client.post("/api/tasks", json={"photo_file_ids": [upload.json()["file_id"]] * 2, "description": "韩式影棚风，保留两人原有特征"})
+    ids = []
+    for name in ("synthetic_couple.png", "synthetic_couple_2.png"):  # 同一张传两次只算一张
+        upload = client.post("/api/uploads", files={"file": (name, image, "image/png")})
+        assert upload.status_code == 200
+        ids.append(upload.json()["file_id"])
+    created = client.post("/api/tasks", json={"photo_file_ids": ids, "description": "韩式影棚风，保留两人原有特征"})
     assert created.status_code == 200
     task_id = created.json()["task_id"]
     speakers = []
@@ -145,7 +148,7 @@ def test_automatic_retouch_then_delivery(api_client, couple_png, monkeypatch):
     _deliver(api_client, task_id, preview)
 
 
-def test_persistent_defect_stops_at_retry_limit(api_client, couple_png, monkeypatch):
+def test_persistent_defect_delivers_best_with_note(api_client, couple_png, monkeypatch):
     original = node._fake_scores
 
     def always_bad(state, candidates):
@@ -156,11 +159,12 @@ def test_persistent_defect_stops_at_retry_limit(api_client, couple_png, monkeypa
         return scores
 
     monkeypatch.setattr(node, "_fake_scores", always_bad)
-    task_id, failed = _upload_and_answer(api_client, couple_png)
-    assert failed["status"] == "failed"
-    assert failed["error"]["code"] == "GENERATION_FAILED"
+    task_id, data = _upload_and_answer(api_client, couple_png)
+    # 修到上限仍不达标不算失败：交出最好的结果，并如实说明，用户可以重做
+    assert data["status"] == "preview_ready" and data["error"] is None
     assert runner.values(task_id)["retry_count"] == settings.max_retouch
-    assert failed["previews"] == [] and failed["deliverables"] is None
+    assert data["previews"] and "手部结构异常" in data["quality_note"]
+    assert "合照" not in data["quality_note"]
 
 
 def _real_models(monkeypatch, *, initial_hands_failure=False, broken_vision=False, broken_agent=False):
