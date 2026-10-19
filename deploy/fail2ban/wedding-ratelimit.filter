@@ -1,5 +1,5 @@
 # 频繁触发 nginx 限流（429）：登录页、图墙 / 后台接口。
 [Definition]
-failregex = ^<HOST> \S+ \S+ \[[^\]]+\] "[^"]*" 429 
+failregex = ^<HOST> \S+ \S+ \[[^\]]*\] "[^"]*" 429 
 ignoreregex =
-datepattern = {^LN-BEG}%%d/%%b/%%Y:%%H:%%M:%%S %%z
+datepattern = %%d/%%b/%%Y:%%H:%%M:%%S %%z
