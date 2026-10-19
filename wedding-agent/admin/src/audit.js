@@ -1,5 +1,7 @@
 // 审计时间线：把后端的原始记录变成中文句子、分组合并、按天归档。
 export const SITES = { front: '前台', gallery: '图墙', admin: '后台' }
+// fail2ban 规则名（deploy/fail2ban/wedding.jail）
+const JAILS = { 'wedding-login': '登录输错太多次', 'wedding-scan': '扫描敏感路径', 'wedding-ratelimit': '频繁触发限流', sshd: 'SSH 登录失败' }
 export const SECURITY = new Set(['login_failed', 'login_locked', 'forbidden', 'csrf_rejected', 'rate_limited', 'banned', 'unbanned'])
 export const TYPES = {
   visit: '访问', login: '登录', logout: '退出', task_created: '创建任务',
@@ -67,8 +69,8 @@ export function sentence(g) {
     case 'forbidden': return `${p ? p + ' ' : '有人'}从 ${g.ip} 访问${site}被拒（${d.reason === 'ip' || !d.reason ? '不在白名单' : d.reason}）${times}`
     case 'csrf_rejected': return `拦截了一次来自 ${g.ip} 的跨站请求（${site}）`
     case 'rate_limited': return `${g.ip} 请求${site || ''}太频繁，被限流${times}`
-    case 'banned': return `${g.ip} 被 fail2ban 封禁（${d.jail}）`
-    case 'unbanned': return `${g.ip} 的封禁已解除（${d.jail}）`
+    case 'banned': return `${g.ip} 因${JAILS[d.jail] || d.jail}被 fail2ban 封禁`
+    case 'unbanned': return `${g.ip} 的封禁已解除（${JAILS[d.jail] || d.jail}）`
     case 'task_created': return `${someone} 创建了任务 ${d.task_id}`
     case 'refs_uploaded': {
       const count = n(g, (e) => (e.detail?.ids || []).length)
@@ -129,4 +131,4 @@ export function avatar(name) {
 export const inferred = (e) => e.user_source === 'ip' && who(e) === e.user && !(e.site === 'admin' && e.holder)
 // 左侧状态条：成功（放行的访问、登录、改动、任务）绿；失败 / 被拒红；纯信息（退出、解封）灰
 const INFO = new Set(['logout', 'unbanned'])
-export const status = (e) => (INFO.has(e.action) ? 'info' : SECURITY.has(e.action) ? 'fail' : 'ok')
+export const auditKind = (e) => (INFO.has(e.action) ? 'info' : SECURITY.has(e.action) ? 'fail' : 'ok')

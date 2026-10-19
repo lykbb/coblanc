@@ -5,6 +5,7 @@ import BalanceCards from './BalanceCards.vue'
 import StatusBar from './StatusBar.vue'
 import StatusLegend from './StatusLegend.vue'
 import { KINDS, money, num, priceSources, priceTitle, short, ticks, yuan } from '../usage.js'
+import { serviceKey } from '../status.js'
 
 const PALETTE = ['#ef9c88', '#b6a5ea', '#e8b07c', '#7fbf9d', '#eda1b2', '#8fb3e0', '#c9b07a']
 const server = ref(null)
@@ -74,8 +75,8 @@ const costLine = computed(() => chart.value.bars.map((b, i) => `${cx(i)},${y(b.c
       <div class="stat-card"><span>内存</span><strong>{{ bytes(server.memory.total - server.memory.available) }} / {{ bytes(server.memory.total) }}</strong><div class="bar"><i :style="{ width: pct(server.memory.total - server.memory.available, server.memory.total) + '%' }" /></div></div>
       <div class="stat-card"><span>磁盘</span><strong>{{ bytes(server.disk.used) }} / {{ bytes(server.disk.total) }}</strong><div class="bar"><i :style="{ width: pct(server.disk.used, server.disk.total) + '%' }" /></div></div>
       <div class="stat-card"><span>任务</span><strong>进行中 {{ server.tasks.running }} · 排队 {{ server.tasks.queued }}</strong></div>
-      <div class="stat-card"><span>服务</span>
-        <div class="svc-list"><span v-for="(state, name) in server.services" :key="name"><i class="mark" :class="state === 'active' ? 'good' : 'bad'" />{{ name }}</span></div>
+      <div class="stat-card"><span>服务<StatusLegend :keys="Object.values(server.services).map(serviceKey)" /></span>
+        <div class="svc-list"><span v-for="(state, name) in server.services" :key="name"><StatusBar :s="serviceKey(state)" />{{ name }}</span></div>
       </div>
     </div>
     <p v-if="server" class="muted-s">{{ server.os }} · {{ server.cpu.cores }} 核 · {{ bytes(server.memory.total) }} 内存 · {{ server.hostname }}</p>

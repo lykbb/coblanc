@@ -2,6 +2,7 @@
 // DeepSeek 实时余额（概览、Token 用量共用）：每 10 秒取一次 /balance；后端按页面是否开着决定查官方接口的频率。
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { ops } from '../api.js'
+import { yuan } from '../usage.js'
 
 const data = ref(null)
 let timer
@@ -9,7 +10,6 @@ async function load() { try { data.value = await ops.balance() } catch { /* 安�
 onMounted(() => { load(); timer = setInterval(load, 10000) })
 onUnmounted(() => clearInterval(timer))
 
-const yuan = (v) => (v == null ? '—' : '¥' + (Math.abs(v) < 1 ? v.toFixed(3) : v.toFixed(2)))
 const W = 120, H = 28
 const spark = computed(() => {
   const pts = data.value?.spark || []

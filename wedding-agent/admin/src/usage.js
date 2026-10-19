@@ -4,14 +4,6 @@ export const num = (n) => (n || 0).toLocaleString('zh-CN')
 export const short = (n) => (n >= 1e6 ? +(n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? +(n / 1e3).toFixed(1) + 'K' : String(+n.toFixed(2)))
 export const yuan = (v) => (v == null ? '—' : '¥' + (v === 0 ? '0' : v < 0.01 ? v.toFixed(4) : v.toFixed(2)))
 export const money = (b) => (b.cost || !b.unpriced ? yuan(b.cost) : '—') + (b.unpriced ? `（${b.unpriced} 条无官方价）` : '')
-export const KIND_SHORT = { agent: '对话', cheap: '轻量', vision: '看图', image: '生图' }
-// 单元格里的简写；完整说明放 title
-export function priceShort(p) {
-  if (!p) return '—'
-  if (!p.verified) return '未核实'
-  if (p.unit === 'per_image') return `¥${p.per_image}/张`
-  return `¥${p.tiers.offpeak.input}~${p.tiers.peak.input}/M 入`
-}
 export function price(p) {
   if (!p) return '无'
   if (!p.verified) return '未核实'
