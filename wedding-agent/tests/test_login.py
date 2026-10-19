@@ -54,3 +54,9 @@ def test_gates(portal_env):
 def test_check_password_unknown_user_and_missing_file(portal_env, tmp_path):
     assert not check_password("admin", "nobody", TEST_PASSWORD)
     assert check_password("admin", "lyk", TEST_PASSWORD)
+
+
+def test_api_docs_off_by_default():
+    """线上不暴露接口说明页（API_DOCS 默认关）。"""
+    client = TestClient(app)
+    assert all(client.get(path).status_code == 404 for path in ("/docs", "/redoc", "/openapi.json"))

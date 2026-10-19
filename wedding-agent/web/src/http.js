@@ -9,17 +9,10 @@ export async function request(path, options = {}) {
     throw new Error('连不上服务，请检查网络或稍后再试')
   }
   const type = res.headers.get('content-type') || ''
-  if (res.ok && (res.redirected || !type.includes('json'))) {
-    // 会话过期时 nginx 把接口请求转到登录页（HTML）：回到登录页，不把空数据交给页面
-    location.reload()
-    const error = new Error('登录已过期，请重新登录')
-    error.code = 'SESSION_EXPIRED'
-    throw error
-  }
+  if (res.ok && !type.includes('json')) throw new Error('服务返回的不是数据，请稍后再试')
   const data = await res.json().catch(() => ({}))
-  if (res.status === 401 && data?.error?.code === 'ACCESS_DENIED') {
-    location.reload() // 用户站设备凭证失效或被作废：回到邀请码页
-  }
+  // 401（LOGIN_REQUIRED 登录过期 / ACCESS_DENIED 邀请码失效 / PORTAL_UNAUTHORIZED）：刷新页面，nginx 转到登录页或邀请码页
+  if (res.status === 401) location.reload()
   if (!res.ok) {
     const fallback = res.status === 413 ? '图片太大了，单张请控制在 10 MB 以内' : '出了点问题，请稍后再试'
     const error = new Error(data?.error?.message || fallback)

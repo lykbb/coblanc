@@ -1,7 +1,7 @@
 """前后端接口（框架维护）。字段和错误码以《小囍接口约定》为准，改这里之前先改文档。
 
 启动：uv run uvicorn app.api:app --reload --port 8000
-接口说明页：http://127.0.0.1:8000/docs
+接口说明页：.env 设 API_DOCS=1 后 http://127.0.0.1:8000/docs（线上关闭）
 """
 
 from __future__ import annotations
@@ -41,6 +41,7 @@ HTTP_STATUS = {
     "REFERENCE_FULL": 413,
     "PORTAL_UNAUTHORIZED": 401,
     "PORTAL_FORBIDDEN": 403,
+    "IP_NOT_ALLOWED": 403,
     "FILE_FORBIDDEN": 403,
     "FILE_NOT_FOUND": 404,
     "LINK_FETCH_FAILED": 422,
@@ -115,7 +116,8 @@ async def lifespan(_: FastAPI):
     stop.set()
 
 
-app = FastAPI(title="小囍 API", description="字段和错误码以《小囍接口约定》为准", lifespan=lifespan)
+_DOCS = {} if settings.api_docs else {"docs_url": None, "redoc_url": None, "openapi_url": None}
+app = FastAPI(title="小囍 API", description="字段和错误码以《小囍接口约定》为准", lifespan=lifespan, **_DOCS)
 
 
 @app.middleware("http")

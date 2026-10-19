@@ -70,6 +70,7 @@ class Settings:
     htpasswd_dir: Path  # 登录密码与 nginx 原 htpasswd 共用（.htpasswd 前台、.htpasswd-admin 后台）
     portal_max_days: int  # 内部站点凭证最长有效天数
     cookie_secure: bool  # 上了 HTTPS 再设 COOKIE_SECURE=1
+    api_docs: bool  # 接口说明页 /docs、/redoc、/openapi.json：只在本地开发时设 API_DOCS=1，线上默认关
     # 流程上限
     max_question_rounds: int
     max_retouch: int
@@ -129,6 +130,7 @@ def load_settings() -> Settings:
         htpasswd_dir=Path(_str("HTPASSWD_DIR", "/etc/nginx")),
         portal_max_days=_int("PORTAL_MAX_DAYS", 30),
         cookie_secure=_bool("COOKIE_SECURE", False),
+        api_docs=_bool("API_DOCS", False),
         max_question_rounds=_int("MAX_QUESTION_ROUNDS", 2),
         max_retouch=_int("MAX_RETOUCH", 2),
         max_user_redo=_int("MAX_USER_REDO", 2),

@@ -47,7 +47,8 @@ def render(mode: str, scheme: str, base: str) -> dict[str, str]:
     }
     out = {"sites/wedding-zones": (HERE / "wedding-zones.template").read_text(encoding="utf-8"),
            "snippets/wedding-portal-ip-check.conf": (HERE / "portal-ip-check.inc").read_text(encoding="utf-8"),
-           "snippets/wedding-login-proxy.conf": LOGIN_PROXY}
+           "snippets/wedding-login-proxy.conf": LOGIN_PROXY,
+           "snippets/wedding-api-errors.conf": (HERE / "api-errors.inc").read_text(encoding="utf-8")}
     guard = (HERE / "portal-guard.inc.template").read_text(encoding="utf-8")
     portals = ""
     for site, (prefix, app, label, who, body) in SITES.items():

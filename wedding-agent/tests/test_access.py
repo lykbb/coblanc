@@ -75,6 +75,9 @@ def test_portal_ip_allowlist_follows_site_devices(gated, monkeypatch):
     assert check("5.6.7.8") == 403
     (s.state_dir / "portal-extra-ips.txt").write_text("9.9.9.9  # 手工补充\n")
     assert check("9.9.9.9") == 204
+    # fail2ban ignorecommand 用的同一份白名单：团队 IP 204（不封），其他 404
+    team_ip = lambda ip: gated.get(f"/internal/team-ip/{ip}").status_code
+    assert team_ip("9.9.9.9") == 204 and team_ip("127.0.0.1") == 204 and team_ip("5.6.7.8") == 404
 
 
 def test_public_holder_never_unlocks_portals(gated, monkeypatch):
@@ -87,4 +90,6 @@ def test_public_holder_never_unlocks_portals(gated, monkeypatch):
     assert gated.post("/api/access/redeem", json={"code": code}, headers={"X-Real-IP": "7.7.7.7"}).status_code == 200
     assert gated.get("/internal/gate/team", headers={"X-Original-IP": "7.7.7.7"}).status_code == 403
     outsider = TestClient(app, headers={"X-Portal-CSRF": "1", "X-Real-IP": "7.7.7.7"})
-    assert outsider.get("/api/gallery/refs").status_code == 403 and outsider.get("/api/admin/tasks").status_code == 403
+    for path in ("/api/gallery/refs", "/api/admin/tasks"):
+        r = outsider.get(path)
+        assert r.status_code == 403 and r.json()["error"]["code"] == "IP_NOT_ALLOWED"

@@ -1,0 +1,31 @@
+# deploy.sh 同步代码到服务器 ~/ai-wedding 的规则（rsync --delete --filter='merge deploy/rsync.rules'）。
+# 「-」不传也不删（服务器上的数据、密钥、依赖、构建产物）；「P」服务器上独有、本地没有也不删。
+# 服务器上的 git 仓库不动：部署只同步工作区文件，不传 .git。
+
+# 不传，服务器上的也不删
+- .git/
+- .env
+- .venv/
+- node_modules/
+- __pycache__/
+- .DS_Store
+- runs/
+- ubuntu@*
+- /wedding-agent/state/
+- /wedding-agent/storage/
+- /wedding-agent/reference_library/
+- /wedding-agent/logs/
+- /wedding-agent/*/dist/
+
+# 服务器上独有的文件（2026-10-19 有人直接在服务器上建的；是否保留由负责人决定，确定后从这里删掉对应行）
+P /SillyTavern/
+P /coblanc-landing/
+P /coblanc-landing.tar.gz
+P /deploy/nginx/portal-common.inc.template
+P /wedding-agent/web/src/components/PayStep.vue
+P /wedding-agent/web/src/components/PreviewStep.vue
+P /wedding-agent/web/src/components/ProgressStep.vue
+P /wedding-agent/web/src/components/QuestionStep.vue
+P /wedding-agent/web/src/components/ReferenceWall.vue
+P /wedding-agent/web/src/components/RevealStep.vue
+P /wedding-agent/web/src/components/UploadStep.vue

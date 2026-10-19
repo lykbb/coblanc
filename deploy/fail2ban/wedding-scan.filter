@@ -1,0 +1,5 @@
+# 扫描器：找 .env、.git、shell 脚本、PHP / WordPress、模型接口这类本站根本没有的路径（含被转到 /login?next=... 后跟进的那一跳）。
+[Definition]
+failregex = ^<HOST> \S+ \S+ \[[^\]]+\] "[A-Z]+ [^" ]*(?:/\.env|/\.git/|/\.aws/|/\.ssh/|\.sh\b|\.php|/wp-|/v1/models|/phpmyadmin|/cgi-bin/|/actuator|/vendor/phpunit|%%2[Ee]env)[^" ]* HTTP/[0-9.]+" \d{3} 
+ignoreregex =
+datepattern = {^LN-BEG}%%d/%%b/%%Y:%%H:%%M:%%S %%z

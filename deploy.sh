@@ -28,12 +28,14 @@ if [[ "$1" == "--nginx" ]]; then
     for f in .htpasswd .htpasswd-admin; do [ -f /etc/nginx/$f ] || echo "提醒：还没有 /etc/nginx/$f（登录页账号密码，sudo htpasswd -c /etc/nginx/$f 用户名）"; done
     if sudo nginx -t; then sudo systemctl reload nginx && echo "nginx 已更新（备份 $BK）"; else
       echo "nginx -t 失败，整体还原"; sudo rm -rf /etc/nginx/sites-available /etc/nginx/sites-enabled /etc/nginx/snippets; sudo tar xzf $BK -C /etc; sudo nginx -t; exit 1; fi
-    # fail2ban：登录页输错密码按 access.log 里登录 POST 的 401 计数（取代原来针对浏览器弹窗的 nginx-http-auth）
+    # fail2ban（deploy/fail2ban）：登录输错密码、扫描敏感路径、频繁 429；团队白名单 IP 不封（见 wedding.jail）
     if command -v fail2ban-client >/dev/null; then
-      sudo install -m 644 wedding-login.filter /etc/fail2ban/filter.d/wedding-login.conf
-      sudo install -m 644 wedding-login.jail /etc/fail2ban/jail.d/wedding-login.local
-      sudo rm -f /etc/fail2ban/jail.d/nginx-http-auth.local
-      sudo fail2ban-client reload && echo "fail2ban 已更新"; fi
+      FB=/etc/fail2ban/backup-$(date +%Y%m%d%H%M%S).tgz; sudo tar czf $FB -C /etc fail2ban/jail.d fail2ban/filter.d
+      for f in *.filter; do sudo install -m 644 $f /etc/fail2ban/filter.d/${f%.filter}.conf; done
+      sudo rm -f /etc/fail2ban/jail.d/nginx-http-auth.local /etc/fail2ban/jail.d/wedding-login.local
+      sudo install -m 644 wedding.jail /etc/fail2ban/jail.d/wedding.local
+      if sudo fail2ban-client -t >/dev/null 2>&1; then sudo fail2ban-client reload && echo "fail2ban 已更新（备份 $FB）"; else
+        echo "fail2ban 配置检查失败，还原"; sudo rm -f /etc/fail2ban/jail.d/wedding.local; sudo tar xzf $FB -C /etc; fi; fi
     rm -rf /tmp/wedding-nginx'
   exit 0
 fi
@@ -44,8 +46,8 @@ for APP in admin gallery; do (cd wedding-agent/$APP && { [ -d node_modules ] || 
 # 后端代码指纹：只有它变了（或 --env / --restart）才重启后端，避免无谓重启打断正在跑的任务
 SUM='cd ~/ai-wedding 2>/dev/null && find wedding-agent/app wedding-agent/pyproject.toml wedding-agent/uv.lock pi-wedding -path pi-wedding/node_modules -prune -o -type f ! -name "*.pyc" -print0 2>/dev/null | sort -z | xargs -0 md5sum | md5sum'
 BEFORE=$($SSH $H "$SUM" || true)
-rsync -az -e "${SSH[*]}" --exclude node_modules --exclude .venv --exclude runs/ --exclude 'wedding-agent/state/' --exclude 'wedding-agent/reference_library/' \
-  --exclude 'wedding-agent/storage/*/*' --exclude .DS_Store --exclude __pycache__ --exclude .env --exclude "ubuntu@*" ./ ${H}:ai-wedding/
+# 代码：--delete 让服务器不留本地已删的旧文件；数据、密钥、依赖、服务器独有文件和 .git 按 deploy/rsync.rules 不传不删
+rsync -az --delete --filter='merge deploy/rsync.rules' -e "${SSH[*]}" ./ ${H}:ai-wedding/
 rsync -az --delete -e "${SSH[*]}" wedding-agent/web/dist/ ${H}:ai-wedding/wedding-agent/web/dist/
 for APP in admin gallery; do rsync -az --delete -e "${SSH[*]}" wedding-agent/$APP/dist/ ${H}:ai-wedding/wedding-agent/$APP/dist/; done
 [[ "$1" == "--env" ]] && scp -q -i $KEY -o IdentitiesOnly=yes wedding-agent/.env ${H}:ai-wedding/wedding-agent/.env

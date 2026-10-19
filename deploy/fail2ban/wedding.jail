@@ -1,3 +1,6 @@
+# 本项目的 fail2ban 规则（都读 nginx access.log）。团队永远不封：本机 + 服务器自身 IP 写死在 ignoreip；
+# 团队白名单 IP（后台 / 图墙用的那份，见 app/access.py portal_ips）由 ignorecommand 问后端 /internal/team-ip/<ip>，204 = 团队，不封。
+
 # 登录页输错密码：10 分钟内错 10 次封 1 小时（偶尔打错几次不会被封；后端同一 IP 错 10 次也会先锁 10 分钟）
 [wedding-login]
 enabled = true
@@ -8,3 +11,31 @@ logpath = /var/log/nginx/access.log
 maxretry = 10
 findtime = 10m
 bantime = 1h
+ignoreip = 127.0.0.1/8 ::1 43.142.59.166
+ignorecommand = /usr/bin/curl -sf -o /dev/null -m 3 http://127.0.0.1:8000/internal/team-ip/<ip>
+
+# 扫描敏感路径：1 小时内 3 次封 1 天
+[wedding-scan]
+enabled = true
+port = http,https
+filter = wedding-scan
+backend = auto
+logpath = /var/log/nginx/access.log
+maxretry = 3
+findtime = 1h
+bantime = 1d
+ignoreip = 127.0.0.1/8 ::1 43.142.59.166
+ignorecommand = /usr/bin/curl -sf -o /dev/null -m 3 http://127.0.0.1:8000/internal/team-ip/<ip>
+
+# 频繁触发限流：10 分钟内 30 次 429 封 1 小时（正常用不会连续撞限流）
+[wedding-ratelimit]
+enabled = true
+port = http,https
+filter = wedding-ratelimit
+backend = auto
+logpath = /var/log/nginx/access.log
+maxretry = 30
+findtime = 10m
+bantime = 1h
+ignoreip = 127.0.0.1/8 ::1 43.142.59.166
+ignorecommand = /usr/bin/curl -sf -o /dev/null -m 3 http://127.0.0.1:8000/internal/team-ip/<ip>

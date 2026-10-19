@@ -1,4 +1,4 @@
-// 内部站点（后台、图墙）的请求封装：全部带 CSRF 头；后台会话失效时回登录页。
+// 内部站点（后台、图墙）的请求封装：全部带 CSRF 头；401 由 http.js 统一刷新回登录页，IP 不在白名单时刷新显示 403。
 // 站点接口根是 <站点前缀>api（path 模式 /gallery/api，子域名模式 /api），nginx 转到后端 /api/<站点>/。
 import { request } from './http.js'
 
@@ -11,7 +11,7 @@ export function makePortal() {
     try {
       return await request(prefix + path, { ...options, headers: { ...CSRF, ...(options.headers || {}) } })
     } catch (e) {
-      if (e.code === 'PORTAL_UNAUTHORIZED' || e.code === 'PORTAL_FORBIDDEN') location.reload() // nginx 会转到登录页或拒绝
+      if (e.code === 'IP_NOT_ALLOWED') location.reload() // 网络换了、不在白名单：刷新后 nginx 显示 403
       throw e
     }
   }

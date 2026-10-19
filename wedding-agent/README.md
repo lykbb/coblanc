@@ -81,7 +81,7 @@ npm run dev
 
 - Vue 版前端：http://localhost:5173/
 - COBLANC 原型（已接真实接口）：http://localhost:5173/coblanc-film/
-- 后端接口说明页：http://127.0.0.1:8000/docs
+- 后端接口说明页：`.env` 设 `API_DOCS=1` 后 http://127.0.0.1:8000/docs（线上默认关闭）
 
 ### 5. 不花钱的测试模式
 

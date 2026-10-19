@@ -9,10 +9,11 @@ server {
   root /home/ubuntu/ai-wedding/wedding-agent/gallery/dist;
   include /etc/nginx/snippets/wedding-portal-gallery.conf;
   include /etc/nginx/snippets/wedding-portal-ip-check.conf;
+  include /etc/nginx/snippets/wedding-api-errors.conf;
 
   location ^~ /.well-known/acme-challenge/ { auth_request off; root /var/www/certbot; }
   location = /robots.txt { default_type text/plain; return 200 "User-agent: *\nDisallow: /\n"; }
-  location ^~ /api/ { limit_req zone=gallery_api burst=60 nodelay; proxy_buffering off; proxy_pass http://127.0.0.1:8000/api/gallery/; }
+  location ^~ /api/ { error_page 401 = @api_401; error_page 403 = @api_403; limit_req zone=gallery_api burst=60 nodelay; proxy_buffering off; proxy_pass http://127.0.0.1:8000/api/gallery/; }
 
   location / {
     expires -1;

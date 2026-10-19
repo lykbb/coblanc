@@ -26,12 +26,21 @@ server {
     proxy_set_header X-Original-Host $host;
   }
   location @front_login { return 302 /login?next=$uri; }
+  include /etc/nginx/snippets/wedding-api-errors.conf;
   location = /login { auth_request off; limit_req zone=front_login burst=6 nodelay; limit_req_status 429; include /etc/nginx/snippets/wedding-login-proxy.conf; proxy_pass http://127.0.0.1:8000/auth/front/login; }
   location = /logout { auth_request off; include /etc/nginx/snippets/wedding-login-proxy.conf; proxy_pass http://127.0.0.1:8000/auth/front/logout; }
   location = /robots.txt { auth_request off; default_type text/plain; return 200 "User-agent: *\nDisallow: /\n"; }
 __PORTALS__  location = /coblanc-film { return 301 /coblanc-film/; }
   location /coblanc-film/ { try_files $uri $uri/ /coblanc-film/index.html; }
-  location ~ ^/(api|files|templates|docs|openapi.json|redoc)(/|$) {
+  location ^~ /api/ {
+    error_page 401 = @api_401;  # 没登录：JSON 401，不跳登录页
+    proxy_pass http://127.0.0.1:8000;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_read_timeout 600s; proxy_send_timeout 600s; proxy_buffering off;
+  }
+  location ~ ^/(files|templates)(/|$) {
     proxy_pass http://127.0.0.1:8000;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;

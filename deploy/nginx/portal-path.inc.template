@@ -8,6 +8,6 @@ location ^~ __PREFIX__ {
   try_files $uri __PREFIX__index.html;
   location ^~ __PREFIX__assets/ { alias /home/ubuntu/ai-wedding/wedding-agent/__APP__/dist/assets/; expires 1y; }
   location = __PREFIX__robots.txt { default_type text/plain; return 200 "User-agent: *\nDisallow: /\n"; }
-  location ^~ __PREFIX__api/ { limit_req zone=__SITE___api burst=60 nodelay; proxy_buffering off; proxy_pass http://127.0.0.1:8000/api/__SITE__/; }
+  location ^~ __PREFIX__api/ { error_page 401 = @api_401; error_page 403 = @api_403; limit_req zone=__SITE___api burst=60 nodelay; proxy_buffering off; proxy_pass http://127.0.0.1:8000/api/__SITE__/; }
 __FILES____LOGIN__}
 __NAMED__

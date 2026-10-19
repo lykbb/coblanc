@@ -204,3 +204,9 @@ def gate(name: str, request: Request):
         return Response(status_code=404)
     audit_feed.on_gate(request, name, ip, status, holder)
     return Response(status_code=status)
+
+
+@router.get("/internal/team-ip/{ip}")
+def team_ip(ip: str):
+    """fail2ban ignorecommand（只在服务器本机调用）：团队白名单 IP 返回 204（不封），否则 404。"""
+    return Response(status_code=204 if ip in access.portal_ips() else 404)
