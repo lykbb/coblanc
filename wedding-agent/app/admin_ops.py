@@ -91,7 +91,8 @@ def usage_summary(period: str = "7d"):
     balance.viewed()
     if period not in PERIODS:
         raise PortalError("FILE_INVALID", "时间范围不对")
-    data = summarize(usage.read(_since(period)))
+    entries = usage.read(_since(period))  # 只读窗口内的月份文件
+    data = summarize(entries)
     rows = []
     seen = set()
     for item in usage.catalog():  # 已接入的全部模型都列出来，没用量的显示 0
@@ -114,7 +115,7 @@ def usage_summary(period: str = "7d"):
         "tasks": [{"task_id": t, **v} for t, v in sorted(data["tasks"].items(), key=lambda x: (-x[1]["cost"], -x[1]["total"]))][:200],
         "days": [{"day": d, **v} for d, v in sorted(data["days"].items())],
         "daily_models": [{"day": d, "model": m, **v} for (d, m), v in sorted(data["daily_models"].items())],
-        "imports": sorted({usage._beijing_day(e["at"]) for e in usage.read() if e.get("source") == "deepseek_export"}),
+        "imports": sorted({usage._beijing_day(e["at"]) for e in entries if e.get("source") == "deepseek_export"}),
     }
 
 

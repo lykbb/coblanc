@@ -1,4 +1,4 @@
-"""模型用量与费用（框架维护）：只记真实 API 响应里返回的用量，写 state_dir/usage.jsonl；单价见同目录 prices.json。
+"""模型用量与费用（框架维护）：只记真实 API 响应里返回的用量，写 state_dir/usage.jsonl（按月归档到 state_dir/archive/，见 monthly_log）；单价见同目录 prices.json。
 
 每条记录：at、task_id、step（流水线步骤 = graph 节点名）、provider、model、kind（agent/cheap/vision/image）、
 input（含缓存命中）、cached（缓存命中的输入）、output、total、images；回填的旧任务带 backfilled。
@@ -10,7 +10,6 @@ input（含缓存命中）、cached（缓存命中的输入）、output、total�
 from __future__ import annotations
 
 import json
-import threading
 import time
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
@@ -20,9 +19,9 @@ from langchain_core.callbacks import BaseCallbackHandler
 
 from app.common import trace
 from app.common.config import settings
-from app.common.log import current_step, current_task
+from app.common.log import current_step, current_task, get_logger
+from app.common.monthly_log import MonthlyLog
 
-_lock = threading.Lock()
 PRICES_FILE = Path(__file__).with_name("prices.json")
 BEIJING = timezone(timedelta(hours=8))
 
@@ -40,8 +39,8 @@ def step_label(step: str | None) -> str:
     return STEPS.get(step, step)
 
 
-def _path():
-    return settings.state_dir / "usage.jsonl"
+log = get_logger("usage")
+LOG = MonthlyLog("usage")  # 当月 state_dir/usage.jsonl，往月在 state_dir/archive/usage-YYYY-MM.jsonl
 
 
 def record(provider: str, model: str, kind: str, input_tokens: int = 0, output_tokens: int = 0,
@@ -58,56 +57,24 @@ def record(provider: str, model: str, kind: str, input_tokens: int = 0, output_t
              "images": int(images or 0), **({"backfilled": True} if backfilled else {}),
              **{k: v for k, v in extra.items() if k in EXTRA and v is not None}}
     try:
-        with _lock:
-            path = _path()
-            path.parent.mkdir(parents=True, exist_ok=True)
-            with path.open("a", encoding="utf-8") as f:
-                f.write(json.dumps(entry, ensure_ascii=False) + "\n")
-    except OSError:
-        pass  # 记账失败不影响业务
+        LOG.append([entry])
+    except OSError as error:  # 记账失败不影响业务
+        log.warning("用量记账写盘失败：%s", type(error).__name__)
 
 
 EXTRA = {"source", "request_id", "requests", "billed"}
 
 
 def rewrite(keep, add: list[dict]) -> int:
-    """改写用量文件（回填、导入用）：保留 keep(entry) 为真的条目，追加 add；先备份为 usage.jsonl.bak-<时间>。返回去掉的条数。"""
-    with _lock:
-        path = _path()
-        lines = path.read_text(encoding="utf-8").splitlines() if path.exists() else []
-        if lines:
-            path.with_name(f"usage.jsonl.bak-{time.strftime('%Y%m%d-%H%M%S')}").write_text("\n".join(lines) + "\n", encoding="utf-8")
-        kept, dropped = [], 0
-        for line in lines:
-            try:
-                entry = json.loads(line)
-            except ValueError:
-                kept.append(line)
-                continue
-            if keep(entry):
-                kept.append(line)
-            else:
-                dropped += 1
-        kept += [json.dumps(e, ensure_ascii=False) for e in add]
-        path.parent.mkdir(parents=True, exist_ok=True)
-        tmp = path.with_suffix(".tmp")
-        tmp.write_text("\n".join(kept) + ("\n" if kept else ""), encoding="utf-8")
-        tmp.replace(path)
-    return dropped
+    """改写用量记录（回填、导入用，当月和归档都算）：保留 keep(entry) 为真的条目，追加 add；改过的文件先备份。返回去掉的条数。"""
+    return LOG.rewrite(keep, add)
 
 
 def read(since: float = 0, task_id: str | None = None) -> list[dict]:
-    try:
-        lines = _path().read_text(encoding="utf-8").splitlines()
-    except FileNotFoundError:
-        return []
+    """since 之后的用量；只打开窗口内的月份文件。"""
     items = []
-    for line in lines:
-        try:
-            entry = json.loads(line)
-        except ValueError:
-            continue
-        if entry.get("at", 0) >= since and (task_id is None or entry.get("task_id") == task_id):
+    for entry in LOG.read(since):
+        if task_id is None or entry.get("task_id") == task_id:
             entry.setdefault("cached", 0)
             if not entry.get("step"):
                 entry["step"] = "generate" if entry.get("kind") == "image" else None  # 生图只发生在生图步骤

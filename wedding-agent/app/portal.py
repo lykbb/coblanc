@@ -7,15 +7,13 @@
   nginx 把站点的 <前缀>api/ 转到后端 /api/<站点>/，并用 X-Forwarded-Prefix 告诉后端站点前缀。
 - CSRF：改动类请求必须带 X-Portal-CSRF: 1（跨站表单发不了自定义头），Origin 若存在须与 Host 一致；
   path 模式下 Referer 还必须来自本站前缀（站点页面 Referrer-Policy: same-origin），同 IP 下的其他页面发不了。
-- 审计：登录成败、越权、拦截、所有改动和导出都写 state_dir/portal_audit.jsonl（带站点名、UA），后台可查看；
+- 审计：登录成败、越权、拦截、所有改动和导出都写 state_dir/portal_audit.jsonl（按月归档到 state_dir/archive/；带站点名、UA），后台可查看；
   页面访问、nginx 层的拒绝 / 限流 / 封禁见 app/audit_feed.py。
 """
 
 from __future__ import annotations
 
 import ipaddress
-import json
-import threading
 import time
 from dataclasses import dataclass
 import re
@@ -26,10 +24,10 @@ from fastapi import APIRouter, Request
 from app import access
 from app.common.config import settings
 from app.common.errors import ModuleError
+from app.common.monthly_log import MonthlyLog
 
 CSRF_HEADER = "x-portal-csrf"
 SAFE_METHODS = {"GET", "HEAD", "OPTIONS"}
-_audit_lock = threading.Lock()
 
 
 class PortalError(ModuleError):
@@ -70,18 +68,11 @@ def member_of(request: Request, ip: str | None = None) -> tuple[str | None, str 
     return (member, "ip") if member else (None, None)
 
 
-def _audit_path():
-    return settings.state_dir / "portal_audit.jsonl"
+AUDIT = MonthlyLog("portal_audit", mode=0o600)  # 当月 state_dir/portal_audit.jsonl，往月归档到 state_dir/archive/
 
 
 def append_audit(entries: list[dict]) -> None:
-    path = _audit_path()
-    with _audit_lock:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        with path.open("a", encoding="utf-8") as f:
-            for entry in entries:
-                f.write(json.dumps(entry, ensure_ascii=False) + "\n")
-        path.chmod(0o600)
+    AUDIT.append(entries)
 
 
 def write_audit(request: Request, site: str, holder: str | None, action: str, detail: dict | None = None,
@@ -94,13 +85,8 @@ def write_audit(request: Request, site: str, holder: str | None, action: str, de
 
 
 def read_audit(limit: int) -> list[dict]:
-    """最新在前。回填的记录是后追加的，所以按时间排序后再取。"""
-    path = _audit_path()
-    if not path.exists():
-        return []
-    items = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
-    items.sort(key=lambda item: item.get("at", 0), reverse=True)
-    items = items[:limit]
+    """最新在前（回填的记录是后追加的，按时间取最新 limit 条）；只读到够数为止，不翻全部归档。"""
+    items = AUDIT.newest(limit)
     for item in items:  # 旧记录没有 user：按 IP 推断
         if "user" not in item:
             item["user"] = access.member_for_ip(item.get("ip", ""))
@@ -156,7 +142,7 @@ class Portal:
         """接口依赖：返回访问人。IP 不在白名单 403（记审计），后台未登录 401，CSRF 不对 403。"""
         if client_ip(request) not in access.portal_ips():
             self.audit(request, None, "forbidden", {"path": request.url.path})
-            raise PortalError("PORTAL_FORBIDDEN", "没有权限")
+            raise PortalError("IP_NOT_ALLOWED", "这个网络不在团队白名单里")
         holder = self.current(request)
         if holder is None:
             raise PortalError("PORTAL_UNAUTHORIZED", "请先登录")

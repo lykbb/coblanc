@@ -12,7 +12,9 @@ import threading
 import time
 
 from app.common.config import settings
-from app.common.log import current_step, current_task
+from app.common.log import current_step, current_task, get_logger
+
+log = get_logger("trace")
 
 _lock = threading.Lock()
 _SECRET_KEY = re.compile(r"(?i)(api[_-]?key|secret|password|passwd|authorization|cookie|^token$|access[_-]?token|bearer)")
@@ -52,8 +54,8 @@ def add(kind: str, data: dict, task_id: str | None = None) -> None:
             path.parent.mkdir(parents=True, exist_ok=True)
             with path.open("a", encoding="utf-8") as f:
                 f.write(json.dumps(entry, ensure_ascii=False, default=str) + "\n")
-    except OSError:
-        pass
+    except OSError as error:  # 记录失败不影响业务
+        log.warning("过程记录写盘失败：%s", type(error).__name__)
 
 
 def read(task_id: str) -> list[dict]:

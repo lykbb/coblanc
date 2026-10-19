@@ -2,7 +2,7 @@
 用已配置的对话模型 Key（进程内读配置，不落盘、不打印）。
 
 - 轮询：后台概览 / Token 用量页开着（2 分钟内看过）或最近 10 分钟有模型调用 → 每 60 秒；否则每 15 分钟。
-- 快照写 state/balance.jsonl（时间、可用、币种、总额 / 赠金 / 充值）；余额没变时最多 15 分钟写一条。出错只记日志和最近错误。
+- 快照写 state/balance.jsonl（按月归档到 state/archive/；时间、可用、币种、总额 / 赠金 / 充值）；余额没变时最多 15 分钟写一条。出错只记日志和最近错误。
 - 今日实际花费 = 今天余额每次下降之和（上涨视为充值，不计）；与我们按单价算的 DeepSeek 费用对照。
 火山方舟（Seedream）余额不在这里：方舟没有可用 API Key 直接查的余额接口（要走火山引擎账号 AK/SK 的计费 OpenAPI）。
 """
@@ -18,6 +18,7 @@ from urllib.parse import urlsplit
 from app.common import usage
 from app.common.config import settings
 from app.common.log import get_logger
+from app.common.monthly_log import MonthlyLog
 
 log = get_logger("balance")
 FAST, SLOW, VIEW_WINDOW, ACTIVE_WINDOW, KEEP_EVERY = 60, 15 * 60, 120, 600, 15 * 60
@@ -25,8 +26,7 @@ _state = {"viewed": 0.0, "last_poll": 0.0, "error": "", "last": None}
 _lock = threading.Lock()
 
 
-def _path():
-    return settings.state_dir / "balance.jsonl"
+LOG = MonthlyLog("balance")  # 当月 state_dir/balance.jsonl，往月归档到 state_dir/archive/
 
 
 def enabled() -> bool:
@@ -46,18 +46,7 @@ def fetch() -> dict:
 
 
 def read(since: float = 0) -> list[dict]:
-    path = _path()
-    if not path.exists():
-        return []
-    out = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        try:
-            item = json.loads(line)
-        except ValueError:
-            continue
-        if item["at"] >= since:
-            out.append(item)
-    return out
+    return LOG.read(since)
 
 
 def poll() -> dict | None:
@@ -68,12 +57,9 @@ def poll() -> dict | None:
         log.warning("查询 DeepSeek 余额失败：%s", _state["error"])
         return None
     with _lock:
-        last = _state["last"] or (read()[-1:] or [None])[0]
+        last = _state["last"] or (read(time.time() - 86400)[-1:] or [None])[0]
         if not last or last["total"] != snap["total"] or snap["at"] - last["at"] >= KEEP_EVERY:
-            path = _path()
-            path.parent.mkdir(parents=True, exist_ok=True)
-            with path.open("a", encoding="utf-8") as f:
-                f.write(json.dumps(snap) + "\n")
+            LOG.append([snap])
             _state["last"] = snap
         _state["error"] = ""
         _state["current"] = snap
@@ -83,7 +69,7 @@ def poll() -> dict | None:
 def interval() -> int:
     now = time.time()
     try:
-        recent_call = now - usage._path().stat().st_mtime < ACTIVE_WINDOW
+        recent_call = now - usage.LOG.path.stat().st_mtime < ACTIVE_WINDOW
     except OSError:
         recent_call = False
     return FAST if now - _state["viewed"] < VIEW_WINDOW or recent_call else SLOW

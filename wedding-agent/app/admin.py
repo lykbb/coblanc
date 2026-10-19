@@ -10,9 +10,11 @@ from pydantic import BaseModel, Field
 
 from app import access, audit_feed, reference_wall
 from app.common.config import settings
+from app.common.log import get_logger
 from app.common.progress import store
 from app.portal import PortalError, admin, read_audit
 
+log = get_logger("admin")
 status_router = admin.status_router()
 router = APIRouter(prefix="/api/admin", dependencies=[Depends(admin.require)])
 
@@ -144,8 +146,8 @@ def _questions(task_id: str) -> dict:
         for snapshot in runner.graph.get_state_history(runner._config(task_id), limit=400):
             for question in snapshot.values.get("questions") or []:
                 found.setdefault(question.get("question_id"), question)
-    except Exception:
-        pass
+    except Exception as error:
+        log.warning("读任务 %s 的问答历史失败：%s", task_id, type(error).__name__)
     return found
 
 

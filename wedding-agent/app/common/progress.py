@@ -8,6 +8,10 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from app.common.log import get_logger
+
+log = get_logger("progress")
+
 STEP_TEXT = {
     "intake": "小囍正在看你们的照片",
     "styling": "妆造师在设计造型",
@@ -43,17 +47,28 @@ class TaskStore:
     def __init__(self, directory: Path | None = None, ttl_days: int | None = None) -> None:
         self._tasks: dict[str, TaskInfo] = {}
         self._guard = threading.Lock()
-        self._dir = directory
-        self._ttl_days = ttl_days
+        self._fixed_dir = directory
+        self._fixed_ttl = ttl_days
 
     def _directory(self) -> Path | None:
-        if self._dir is None:
-            try:
-                from app.common.config import settings
-                self._dir, self._ttl_days = settings.state_dir / "tasks", settings.retention_days
-            except Exception:
-                return None
-        return self._dir
+        """没传目录就每次按当前配置取（不缓存），配置换了 state_dir 也跟着走。"""
+        if self._fixed_dir is not None:
+            return self._fixed_dir
+        try:
+            from app.common.config import settings
+        except Exception:
+            return None
+        return settings.state_dir / "tasks"
+
+    @property
+    def _ttl_days(self) -> int | None:
+        if self._fixed_dir is not None:
+            return self._fixed_ttl
+        try:
+            from app.common.config import settings
+        except Exception:
+            return None
+        return settings.retention_days
 
     def _path(self, task_id: str) -> Path | None:
         directory = self._directory()
@@ -70,8 +85,8 @@ class TaskStore:
             tmp = path.with_suffix(".tmp")
             tmp.write_text(json.dumps({key: getattr(info, key) for key in PERSIST_FIELDS}, ensure_ascii=False), encoding="utf-8")
             tmp.replace(path)
-        except Exception:
-            pass
+        except Exception as error:
+            log.warning("任务进度写盘失败 %s：%s", task_id, type(error).__name__)
 
     def _load(self, task_id: str) -> TaskInfo | None:
         path = self._path(task_id)

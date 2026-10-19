@@ -25,8 +25,8 @@ def _describe(error: Exception) -> str:
         try:
             return type(error).__name__ + " " + "; ".join(
                 f"{'.'.join(str(part) for part in item.get('loc', ()))}:{item.get('type')}" for item in errors()[:5])
-        except Exception:
-            pass
+        except Exception as inner:
+            log.warning("校验错误摘要取不到（%s），改用通用描述", type(inner).__name__)
     import re
     text = re.sub(r"(sk-|Bearer\s+)[A-Za-z0-9._-]+", r"\1***", str(error))
     return f"{type(error).__name__}: {text[:200]}"
