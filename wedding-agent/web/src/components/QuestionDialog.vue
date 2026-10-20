@@ -115,7 +115,8 @@ async function submit(useRecommended = false) {
         >
           <img loading="lazy" decoding="async" v-if="optionImage(q, option)" :src="optionImage(q, option)" alt="" />
           <span v-else-if="hasImages(q)" class="q-noimg" aria-hidden="true">暂无示意图</span>
-          <span>{{ option.label }}</span>
+          <span class="q-title">{{ option.label }}</span>
+          <span v-if="option.description" class="q-desc">{{ option.description }}</span>
           <span v-if="q.recommended === option.value" class="rec">推荐</span>
         </button>
       </div>

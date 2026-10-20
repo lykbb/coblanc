@@ -151,6 +151,14 @@ def _questions(task_id: str) -> dict:
     return found
 
 
+def _answer_label(question: dict | None, value):
+    """把选项值换成用户看到的中文标题；文字题或找不到选项时原样返回。"""
+    labels = {o.get("value"): o.get("label") for o in (question or {}).get("options") or []}
+    if isinstance(value, list):
+        return "、".join(str(labels.get(v, v)) for v in value)
+    return labels.get(value, value)
+
+
 @router.get("/tasks/{task_id}")
 def task_detail(task_id: str):
     from app import admin_ops, runner
@@ -162,7 +170,8 @@ def task_detail(task_id: str):
     values = runner.values(task_id)
     questions = _questions(task_id)
     chat = [{"asker": a.get("asker"), "round": a.get("round"), "question": (questions.get(a.get("question_id")) or {}).get("title"),
-             "question_id": a.get("question_id"), "answer": a.get("value"), "skipped": a.get("skipped")}
+             "question_id": a.get("question_id"), "answer": a.get("value"),
+             "answer_label": _answer_label(questions.get(a.get("question_id")), a.get("value")), "skipped": a.get("skipped")}
             for a in values.get("answers") or []]
     entries = usage.read(task_id=task_id)
     summary = admin_ops.summarize(entries)

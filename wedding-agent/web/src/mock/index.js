@@ -12,7 +12,7 @@ const STEP_TEXT = {
 }
 const MAX_REDO = 2
 
-const option = (value, label) => ({ value, label, image: null })
+const option = (value, label, description = null) => ({ value, label, image: null, description })
 
 // 小囍（两轮：先确认授权和资料，再要求补传一张照片）、妆造师、摄影师依次提问
 const ROUNDS = [
@@ -35,18 +35,17 @@ const ROUNDS = [
   },
   {
     step: 'styling',
-    speech: '我是妆造师，按你们选的风格挑了几款妆容和婚纱，选一个最喜欢的吧。',
+    speech: '我是妆造师，按这个风格挑了几个妆容方向和几套婚纱西装，各选一个吧。',
     questions: [
-      { question_id: 'q_makeup', type: 'single_choice', title: '想要什么样的妆容？', options: [option('natural', '自然淡妆'), option('korean', '清透韩妆'), option('retro', '复古红唇')], recommended: 'natural', placeholder: null, allow_skip: true },
-      { question_id: 'q_outfit', type: 'single_choice', title: '婚纱想要哪种款式？', options: [option('satin', '缎面抹胸婚纱'), option('lace', '蕾丝长袖婚纱'), option('mermaid', '鱼尾拖尾婚纱')], recommended: 'satin', placeholder: null, allow_skip: true },
+      { question_id: 'q_makeup', type: 'single_choice', title: '选一个妆容方向', options: [option('makeup_korean_dewy', '韩式水光', '新娘韩式水光妆，新郎韩式柔和妆'), option('makeup_soft_matte', '低饱和柔雾', '新娘低饱和柔雾妆，新郎清爽柔雾妆'), option('makeup_mood', '氛围感', '新娘氛围感妆，新郎时尚冷感妆')], recommended: 'makeup_korean_dewy', placeholder: null, allow_skip: true },
+      { question_id: 'q_outfit', type: 'single_choice', title: '选一套婚纱和西装', options: [option('outfit_korean_studio_satin', '缎面简约', '婚纱：缎面抹胸婚纱；西装：黑色修身西装'), option('outfit_korean_studio_lace', '蕾丝温柔', '婚纱：蕾丝长袖婚纱；西装：米白西装')], recommended: 'outfit_korean_studio_satin', placeholder: null, allow_skip: true },
     ],
   },
   {
     step: 'framing',
-    speech: '我是摄影师，想再了解一下你们平时怎么相处，喜欢什么样的光线。',
+    speech: '我是摄影师，按你们的风格挑了几个场景，选一个吧。',
     questions: [
-      { question_id: 'q_interaction', type: 'single_choice', title: '你们平时相处更像哪种状态？', options: [option('gaze', '牵手对视'), option('hug', '相拥微笑'), option('side', '并肩看镜头')], recommended: 'gaze', placeholder: null, allow_skip: true },
-      { question_id: 'q_light', type: 'single_choice', title: '喜欢什么样的光线？', options: [option('soft', '柔和自然光'), option('warm', '温暖的室内灯光'), option('backlight', '傍晚逆光')], recommended: 'soft', placeholder: null, allow_skip: true },
+      { question_id: 'q_scene', type: 'single_choice', title: '想在哪种场景拍？', options: [option('white_studio', '白色影棚', '纯白背景，清透简约'), option('cream_studio', '奶油色影棚', '暖白纱帘，温柔慵懒'), option('floral_studio', '花艺影棚', '鲜花布景，浪漫甜美'), option('keep_original', '保留原图场景', '沿用原照片的地点和背景')], recommended: 'white_studio', placeholder: null, allow_skip: true },
     ],
   },
 ]
@@ -180,10 +179,6 @@ export async function getTask(taskId) {
 
 // 按每轮回答拼出 plan（和后端 GET 返回的 plan 结构一致）
 const SHOT_FRAMINGS = [['全身', '两人并肩看镜头'], ['半身', '侧身额头相抵'], ['特写', '新娘回眸微笑'], ['全身', '牵手走向镜头'], ['半身', '新郎从背后环抱'], ['远景', '背影牵手'], ['半身', '两人对视微笑'], ['特写', '十指相扣'], ['全身', '新郎抱起新娘']]
-function labelOf(question, answer) {
-  const value = answer && !answer.skipped ? answer.value : question.recommended
-  return question.options.find((o) => o.value === value)?.label || ''
-}
 function updatePlan(task, step, answers) {
   const byId = Object.fromEntries(answers.map((a) => [a.question_id, a]))
   const find = (id) => task.questions.find((q) => q.question_id === id)
@@ -194,15 +189,23 @@ function updatePlan(task, step, answers) {
     task.plan.brief = { heights_cm: nums.length >= 2 ? [Number(nums[0]), Number(nums[1])] : [], materials, invitation: {}, keep_features: [], beautify: 'none' }
   }
   if (step === 'styling') {
-    task.plan.look = {
-      text: `新娘：${labelOf(find('q_makeup'), byId.q_makeup)}，低盘发，${labelOf(find('q_outfit'), byId.q_outfit)}，珍珠耳饰；新郎：利落短发，黑色修身西装，白衬衫，自然控油修饰`,
-      style: 'korean_studio',
-      references: [],
+    const makeup = find('q_makeup').options.find((o) => o.value === (byId.q_makeup?.value || 'makeup_korean_dewy')) || find('q_makeup').options[0]
+    const outfit = find('q_outfit').options.find((o) => o.value === (byId.q_outfit?.value || 'outfit_korean_studio_satin')) || find('q_outfit').options[0]
+    const [bride, groom] = outfit.description.split('；').map((t) => t.split('：')[1])
+    const [mb, mg] = makeup.description.split('，').map((t) => t.slice(2))
+    task.plan.look = { text: `新娘：${mb}，低盘发，${bride}；新郎：${mg}，利落短发，${groom}`, style: 'korean_studio', references: [] }
+    task.plan.choices = {
+      style: { label: '韩式影棚', description: '干净棚拍，清透柔和' },
+      makeup: { label: makeup.label, bride: mb, groom: mg },
+      outfit: { label: outfit.label, image: null, description: outfit.description, bride, groom },
+      scene: null,
     }
   }
   if (step === 'framing') {
-    task.plan.shot = { text: `简洁影棚，${labelOf(find('q_light'), byId.q_light)}，两人${labelOf(find('q_interaction'), byId.q_interaction)}`, pose: 'keep_original', references: [] }
-    task.plan.shots = SHOT_FRAMINGS.map(([framing, text], slot) => ({ slot, pose: 'keep_original', framing, scene: '简洁影棚', text: `${framing}构图，${text}` }))
+    const scene = find('q_scene').options.find((o) => o.value === (byId.q_scene?.value || 'white_studio')) || find('q_scene').options[0]
+    task.plan.shot = { text: `${scene.label}（${scene.description}），柔和棚拍光，两人相拥微笑`, pose: 'keep_original', references: [] }
+    task.plan.shots = SHOT_FRAMINGS.map(([framing, text], slot) => ({ slot, pose: 'keep_original', framing, scene: scene.label, text: `${framing}构图，${text}` }))
+    task.plan.choices = { ...task.plan.choices, scene: { label: scene.label, description: scene.description } }
   }
 }
 

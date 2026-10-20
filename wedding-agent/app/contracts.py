@@ -97,6 +97,7 @@ class Option(_Strict):
     value: str
     label: str
     image: str | None = None
+    description: str | None = None  # 卡片上的一句话说明
 
 
 class Question(_Strict):

@@ -39,7 +39,7 @@ async function view(item) {
 }
 const GROUPS = [['photos', '用户照片'], ['candidates', '生图候选'], ['previews', '样片 / 预览'], ['deliverables', '交付']]
 const fmt = (v) => (typeof v === 'string' ? v : JSON.stringify(v, null, 2))
-const answer = (a) => (a.skipped ? '（跳过）' : Array.isArray(a.answer) ? a.answer.join('、') : fmt(a.answer ?? '—'))
+const answer = (a) => (a.skipped ? '（跳过）' : Array.isArray(a.answer_label ?? a.answer) ? (a.answer_label ?? a.answer).join('、') : fmt(a.answer_label ?? a.answer ?? '—'))
 const clock = (at) => new Date(at * 1000).toLocaleString('zh-CN', { hour12: false })
 function title(t) {
   if (t.kind === 'image') return `${t.engine} · ${t.model} · ${t.status}${t.error_code ? ' · ' + t.error_code : ''} · ${t.seconds}s`

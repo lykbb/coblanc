@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import StageCard from './StageCard.vue'
 import JourneyBar from './JourneyBar.vue'
 import { STYLE_ART } from '../agents.js'
-import { framingCounts, heights, short, splitLook, styleLabel } from '../plan.js'
+import { framingCounts, heights, short, styleLabel } from '../plan.js'
 import { MAX_REDO, STAGES, openRedo, phase, review, stageStatus, state } from '../store.js'
 
 const task = computed(() => state.task)
@@ -15,7 +15,16 @@ const allPhotos = computed(() => (photos.value.all.length ? photos.value.all : s
 const look = computed(() => plan.value.look)
 const shot = computed(() => plan.value.shot)
 const shots = computed(() => plan.value.shots || [])
-const parts = computed(() => splitLook(look.value?.text))
+const choices = computed(() => plan.value.choices || null)
+// 女生/男生造型卡：妆容和衣服各一行，直接用方案里已选的选项
+const sideLines = (key) => {
+  const c = choices.value
+  if (!c) return []
+  return [
+    c.makeup?.[key] && `妆容：${c.makeup[key]}`,
+    `衣服：${c.outfit?.[key] || c.outfit?.label || ''}`,
+  ].filter((line) => line && !line.endsWith('：'))
+}
 const tall = computed(() => heights(plan.value.brief))
 const counts = computed(() => framingCounts(shots.value))
 const previews = computed(() => task.value?.previews || [])
@@ -34,9 +43,9 @@ const subtitle = computed(() => {
 const subtitles = computed(() => [
   allPhotos.value.length ? `${allPhotos.value.length} 张照片${sorted.value ? ' · 已分组' : ''}` : '',
   look.value ? styleLabel(look.value.style) : '',
-  look.value ? styleLabel(look.value.style) : '',
-  look.value ? styleLabel(look.value.style) : '',
-  shot.value ? short(shot.value.text, 14) : '',
+  choices.value?.makeup?.label || '',
+  choices.value?.outfit?.label || '',
+  choices.value?.scene?.label || '',
   phase.value === 'sample_review' ? '等你确认' : state.sampleUrl ? '已出样片' : '',
   phase.value === 'set_review' ? '9 张已完成，等你确认' : phase.value === 'set_gen' ? '正在拍 9 张' : finalPhotos.value.length > 1 ? '9 张已交付' : '',
 ])
@@ -87,6 +96,8 @@ const zoom = (url) => { state.lightbox = url }
             <span class="tag">{{ styleLabel(look?.style) }}</span>
           </button>
           <div v-else-if="look" class="placeholder">{{ styleLabel(look.style) }}</div>
+          <p v-if="choices?.style?.description" class="look-text clamp1">{{ choices.style.description }}</p>
+          <p v-if="choices?.style?.description" class="look-text clamp1">{{ choices.style.description }}</p>
           <div v-if="tall" class="height-chips">
             <span class="pill">女生 {{ tall.bride }} cm</span>
             <span class="pill">男生 {{ tall.groom }} cm</span>
@@ -111,14 +122,17 @@ const zoom = (url) => { state.lightbox = url }
               <span class="tag">{{ item.role === 'makeup' ? '妆容' : '服装' }}</span>
             </button>
           </div>
-          <p v-if="parts[side.key]" class="look-text clamp2" :title="parts[side.key]">{{ parts[side.key] }}</p>
+          <p v-for="line in sideLines(side.key)" :key="line" class="look-text clamp1" :title="line">{{ line }}</p>
         </div>
       </StageCard>
 
       <!-- 5 摄影场景 -->
       <StageCard :index="4" :title="STAGES[4].title" :subtitle="subtitles[4]" :status="stageStatus(4)">
         <div class="scene-body">
-          <p v-if="shot" class="look-text">{{ short(shot.text, 90) || '摄影师已经定好场景和机位' }}</p>
+          <template v-if="choices?.scene">
+            <p class="look-text"><b>{{ choices.scene.label }}</b></p>
+            <p class="look-text clamp1">{{ choices.scene.description }}</p>
+          </template>
           <div v-if="counts.length" class="height-chips">
             <span v-for="c in counts" :key="c.name" class="pill">{{ c.name }} {{ c.count }}</span>
           </div>
@@ -197,4 +211,5 @@ const zoom = (url) => { state.lightbox = url }
 .look-art { display: block; width: 100%; aspect-ratio: 16 / 9; margin-bottom: 8px; }
 .look-art img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
 .clamp2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.clamp1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 </style>

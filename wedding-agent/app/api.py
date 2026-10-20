@@ -310,6 +310,31 @@ def _plan(values: dict) -> dict:
         "look": values.get("look"),
         "shot": values.get("shot"),
         "shots": list(values.get("shots") or []),
+        "choices": _choices(values),
+    }
+
+
+def _choices(values: dict) -> dict | None:
+    """画布卡片用的已选风格、妆容、衣服、场景（没答的按推荐）；和妆造师、摄影师用同一套选项逻辑。"""
+    look = values.get("look")
+    if not look:
+        return None
+    from app.modules.framing.node import _scene
+    from app.modules.styling.node import selections
+
+    try:
+        picked = selections(values)
+        scene = _scene(values) if values.get("shot") else None
+    except Exception as error:
+        log.warning("整理已选方案失败：%s", type(error).__name__)
+        return None
+    makeup, outfit = picked["makeup"], picked["outfit"]
+    return {
+        "style": {"label": picked["style_choice"]["label"], "description": picked["style_choice"].get("description")},
+        "makeup": {"label": makeup["label"], "bride": makeup["bride"], "groom": makeup["groom"]},
+        "outfit": {"label": outfit["label"], "image": outfit.get("image"), "description": outfit.get("description"),
+                   "bride": outfit.get("bride"), "groom": outfit.get("groom")},
+        "scene": {"label": scene["label"], "description": scene["description"]} if scene else None,
     }
 
 

@@ -11,8 +11,8 @@ export const AMIE = {
 // 每个步骤由谁出面说话；key 对应接口里的 step
 export const SPEAKERS = {
   intake: { name: 'Amie', role: '主理人', initial: 'A', color: '#D9775E' },
-  styling: { name: '妆造师', role: '妆容、发型、服装', initial: '妆', color: '#B9667A' },
-  framing: { name: '摄影师', role: '场景、镜头、灯光', initial: '摄', color: '#55789E' },
+  styling: { name: '妆造师', role: '风格、妆容、衣服', initial: '妆', color: '#B9667A' },
+  framing: { name: '摄影师', role: '场景', initial: '摄', color: '#55789E' },
   composing: { name: 'Amie', role: '整理拍摄指令', initial: 'A', color: '#D9775E' },
   generating: { name: '生图师', role: '按方案出片', initial: '生', color: '#7466B0' },
   checking: { name: '修图师', role: '逐张质检', initial: '修', color: '#4C8C72' },

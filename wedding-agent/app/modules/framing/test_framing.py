@@ -7,20 +7,35 @@ def answered(state, **choices):
     return state
 
 
-def test_first_call_asks_user_and_gives_draft(load_state):
+def test_first_call_asks_only_scene_and_gives_draft(load_state):
     update = frame(load_state("after_intake"))
-    assert [q["question_id"] for q in update["questions"]] == ["q_interaction", "q_scene", "q_season", "q_light"]
+    assert [q["question_id"] for q in update["questions"]] == ["q_scene"]
+    options = update["questions"][0]["options"]
+    assert len(options) == 4 and options[-1]["value"] == "keep_original"
+    assert all(o["description"] for o in options)
+    assert update["questions"][0]["recommended"] == options[0]["value"]
     assert update["shot"]["pose"] == "keep_original"
     assert update["step_text"].startswith("我是摄影师")
 
 
-def test_answers_shape_the_shot_and_stop_asking(load_state):
+def test_scene_follows_style_and_is_written_into_shots(load_state):
+    state = load_state("after_intake")
+    state["look"] = {**(state.get("look") or {}), "style": "forest", "text": "新娘…；新郎…", "references": []}
+    assert [o["value"] for o in frame(state)["questions"][0]["options"]] == ["forest_path", "lawn", "lakeside", "keep_original"]
+    update = frame(answered(state, q_scene="lakeside"))
+    assert "questions" not in update
+    assert "湖边" in update["shot"]["text"] and "清晨柔光" in update["shot"]["text"]
+    assert {s["scene"] for s in update["shots"]} == {"湖边"}
+
+
+def test_old_answers_shape_the_shot_and_stop_asking(load_state):
     update = frame(answered(load_state("after_intake"), q_interaction="hug", q_scene="garden", q_season="autumn", q_light="backlight"))
     assert "questions" not in update
     shot = update["shot"]
-    assert "相拥微笑" in shot["text"] and "自然花园草地" in shot["text"] and "秋日暖色" in shot["text"] and "傍晚逆光" in shot["text"]
+    assert "相拥微笑" in shot["text"] and "花园草地" in shot["text"] and "秋日暖色" in shot["text"] and "傍晚逆光" in shot["text"]
     assert "175cm" in shot["text"] and "162cm" in shot["text"]
     assert shot["references"] == []
+    assert frame(answered(load_state("after_intake"), q_scene="city"))["shots"][0]["scene"] == "城市夜景"
 
 
 def test_height_bands():
