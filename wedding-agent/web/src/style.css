@@ -309,7 +309,7 @@ body.is-col-resizing * { cursor: col-resize !important; }
 .btn-primary:disabled, .btn-ghost:disabled, .chip:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; transform: none; }
 .icon-btn { width: 36px; height: 36px; border-radius: 50%; border: 0; background: transparent; display: grid; place-items: center; cursor: pointer; flex: none; }
 .icon-btn:hover { background: #efede6; }
-.topbar-logout { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); margin: 0; }
+header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 12px); transform: translateY(-50%); margin: 0; }
 .link-btn { border: 0; background: none; padding: 0; color: var(--peach-ink); font-size: 12.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; text-decoration: none; }
 .link-btn:hover { text-decoration: underline; }
 .chip { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 13px; font-size: 12.5px; line-height: 1.5; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease; }
@@ -1293,7 +1293,7 @@ body.is-col-resizing * { cursor: col-resize !important; }
   .relay-amie img { width: 32px; height: 32px; }
   .relay-dot { width: 30px; height: 30px; }
   .relay-label { font-size: 11.5px; }
-  .topbar-logout { position: static; transform: none; margin-left: 4px; flex: none; align-self: flex-start; }
+  header.topbar .topbar-logout { position: static; transform: none; margin-left: 4px; flex: none; align-self: flex-start; }
   .topbar .acct-label { display: none; }
   .topbar .acct-name { padding: 2px; }
 
