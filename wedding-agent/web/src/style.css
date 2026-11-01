@@ -281,12 +281,12 @@ body.is-col-resizing * { cursor: col-resize !important; }
 }
 
 /* ---------- 顶部专家接力 ---------- */
-.topbar { position: relative; background: var(--panel); border-radius: 24px; min-height: 86px; padding: 10px 24px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); }
+.topbar { position: relative; background: var(--panel); border-radius: 20px; min-height: 62px; padding: 6px 24px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); }
 .relay { list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start; }
-.relay li { position: relative; width: 92px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.relay li + li::before { content: ''; position: absolute; top: 20px; right: calc(50% + 26px); width: calc(100% - 52px); border-top: 1px dashed var(--dash); }
-.relay-amie img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: center 15%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--gold); }
-.relay-dot { width: 40px; height: 40px; border-radius: 50%; background: #ecebe4; color: #8f8c80; display: grid; place-items: center; }
+.relay li { position: relative; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.relay li + li::before { content: ''; position: absolute; top: 15px; right: calc(50% + 21px); width: calc(100% - 42px); border-top: 1px dashed var(--dash); }
+.relay-amie img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: center 15%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--gold); }
+.relay-dot { width: 30px; height: 30px; border-radius: 50%; background: #ecebe4; color: #8f8c80; display: grid; place-items: center; }
 .relay-step.done .relay-dot { background: var(--mint-tint); color: var(--mint); }
 .relay-step.active .relay-dot { background: var(--peach-tint); box-shadow: 0 0 0 2px var(--peach-line); }
 .relay-pulse { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); animation: pulse 1.4s ease-in-out infinite; }
@@ -309,7 +309,7 @@ body.is-col-resizing * { cursor: col-resize !important; }
 .btn-primary:disabled, .btn-ghost:disabled, .chip:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; transform: none; }
 .icon-btn { width: 36px; height: 36px; border-radius: 50%; border: 0; background: transparent; display: grid; place-items: center; cursor: pointer; flex: none; }
 .icon-btn:hover { background: #efede6; }
-header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 12px); transform: translateY(-50%); margin: 0; }
+header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 11px); transform: translateY(-50%); margin: 0; }
 .link-btn { border: 0; background: none; padding: 0; color: var(--peach-ink); font-size: 12.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; text-decoration: none; }
 .link-btn:hover { text-decoration: underline; }
 .chip { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 13px; font-size: 12.5px; line-height: 1.5; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease; }
@@ -1376,7 +1376,6 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
 .focus-label { margin: 0; display: flex; align-items: baseline; gap: 6px; font-family: var(--serif); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; }
 .focus-label b { font-family: var(--brand); font-weight: 400; font-size: 18px; }
 .focus-label span { color: var(--muted); font-size: 12px; font-weight: 400; }
-.focus-return { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; padding: 8px 8px 8px 14px; border: 1px solid var(--amber-line); border-radius: 999px; background: #fbf6ea; font-size: 12.5px; color: var(--amber-ink); }
 .focus-stage { position: relative; margin-top: 10px; }
 .stage-grid.focus-mode { display: block; max-width: 780px; margin: 0 auto; }
 .stage-grid.focus-mode > .stage-card { min-height: 0; padding: 14px; gap: 12px; }
@@ -1405,6 +1404,10 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
   .focus-dots li + li::before { width: 4px; margin-right: 3px; }
   .focus-dot { width: 24px; height: 24px; font-size: 10px; }
   .focus-label { flex-basis: 100%; }
-  .focus-return { border-radius: 14px; flex-wrap: wrap; }
   .stage-grid.focus-mode > .stage-card { padding: 10px; }
 }
+
+/* 回看时的轻量返回入口 */
+.focus-jump { margin-left: 10px; border: 0; background: none; padding: 2px 4px; font: inherit; font-size: 12.5px; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.focus-jump:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.focus-jump.ready { color: var(--coral); }

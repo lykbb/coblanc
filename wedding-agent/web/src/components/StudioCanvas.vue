@@ -128,11 +128,8 @@ watch(phase, async (now, before) => {
         </li>
       </ol>
       <p class="focus-label"><b>{{ String(view + 1).padStart(2, '0') }}</b><span>/ 07</span>{{ STAGES[view].title }}</p>
+      <button v-if="browsing" type="button" class="focus-jump" :class="{ ready: nextReady }" @click="goTo(current)">回到当前 →</button>
     </nav>
-    <div v-if="browsing" class="focus-return" role="status">
-      <span>{{ nextReady ? `新的一步「${STAGES[current].title}」已经好了` : `正在查看第 ${view + 1} 步` }}</span>
-      <button type="button" class="btn-primary small" @click="goTo(current)">回到当前步骤</button>
-    </div>
 
     <div class="focus-stage">
     <Transition :name="`focus-${dir}`" mode="out-in">
