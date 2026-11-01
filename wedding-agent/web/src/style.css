@@ -1455,7 +1455,7 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
   .stage-grid.focus-mode .look-thumbs .thumb-btn { aspect-ratio: auto; height: 100%; }
   .stage-grid.focus-mode .set-body { container-type: size; }
   .stage-grid.focus-mode .set-grid { flex: none; align-self: center; height: calc(100cqh - 62px); width: min(100%, calc((100cqh - 62px) * 0.75)); aspect-ratio: auto; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .stage-grid.focus-mode .set-grid .set-cell { aspect-ratio: auto; min-height: 0; height: 100%; }
+  .stage-grid.focus-mode .stage-card .set-grid.photo-set .set-cell, .stage-grid.focus-mode .set-grid .set-cell { aspect-ratio: auto; min-height: 0; height: 100%; }
   .stage-grid.focus-mode .set-grid .set-cell .set-zoom { height: 100%; width: 100%; }
 }
 @media (max-width: 1180px) {
@@ -1486,3 +1486,14 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
 .amie-log summary::after { content: ' ▸'; }
 .amie-log[open] summary::after { content: ' ▾'; }
 .amie-log[open] ol { margin-top: 8px; }
+
+/* 少放小字：步骤卡副标题、状态标签、Amie 简介默认不显示；选主视觉按钮悬停才出现 */
+.stage-grid.focus-mode .stage-titles p,
+.stage-grid.focus-mode .stage-status { display: none; }
+.stage-grid.focus-mode .stage-head { align-items: center; }
+.amie-intro p { display: none; }
+.amie-intro img { width: 56px; height: 64px; }
+@media (hover: hover) {
+  .set-grid.photo-set .set-cell:not(.picked) .set-pick { opacity: 0; transition: opacity 0.15s ease; }
+  .set-grid.photo-set .set-cell:hover .set-pick, .set-grid.photo-set .set-pick:focus-visible { opacity: 1; }
+}

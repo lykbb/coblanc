@@ -268,7 +268,6 @@ const placeholder = computed(() => {
           {{ state.uploading ? '照片上传中…' : state.busy ? '正在提交…' : canStart ? `用这 ${draftPhotos.filter((p) => p.file_id).length} 张照片开始创作` : '先添加你们的照片' }}
         </button>
       </div>
-      <p v-else-if="reviewing" class="hint">满意的话，在画布的{{ phase === 'set_review' ? '「九张成片」' : '「样片确认」' }}卡片里确认。</p>
       <div v-else-if="asking || phase === 'pay' || phase === 'done' || phase === 'failed'" class="amie-actions">
         <template v-if="asking">
           <button type="button" class="btn-primary" @click="state.dialog = 'questions'">回答问题</button>
