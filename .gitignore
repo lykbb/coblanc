@@ -1,2 +1,3 @@
 wedding-agent/logs/
 .DS_Store
+deploy/server.env

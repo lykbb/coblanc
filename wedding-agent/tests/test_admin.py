@@ -118,7 +118,7 @@ def test_portal_responses_noindex(admin_client):
 
 def test_path_mode_login_cookie_scoped_and_referer_checked(portal_env):
     """path 模式：nginx 传 X-Forwarded-Prefix；Cookie Path 限定前缀；改动请求的 Referer 必须来自本站前缀。"""
-    host = "43.142.59.166"
+    host = "203.0.113.10"
     ip = portal_login("gallery", "lyk").headers["x-real-ip"]
     base = {"Host": host, "X-Forwarded-Prefix": "/abordadmin/", "X-Portal-CSRF": "1", "Origin": f"http://{host}", "X-Real-IP": ip}
     client = TestClient(app, headers=base)

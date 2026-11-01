@@ -1,5 +1,5 @@
 #!/bin/zsh
-# 一键重新部署到 43.142.59.166（不传 .env；要更新 .env 用：./deploy.sh --env）
+# 一键重新部署到服务器（服务器地址写在 deploy/server.env：SERVER_IP=...，不进 git；不传 .env；要更新 .env 用：./deploy.sh --env）
 # 三个站点：前台（裸 IP / 以后主域名）；图墙、后台管理按 SITE_MODE 部署：
 #   path（默认）：http://IP/gallery/、http://IP/abordadmin/（不需要域名、不开新端口）
 #   subdomain：gallery.$BASE、abordadmin.$BASE（需要已备案域名）
@@ -7,16 +7,18 @@
 set -e
 export PATH=/opt/homebrew/bin:$PATH
 cd "$(dirname "$0")"
-KEY=~/.ssh/wedding_server.pem; H=ubuntu@43.142.59.166
+[[ -f deploy/server.env ]] && source deploy/server.env
+: ${SERVER_IP:?请在 deploy/server.env 写 SERVER_IP=服务器IP（或 SERVER_IP=... ./deploy.sh）}
+KEY=${SERVER_KEY:-~/.ssh/wedding_server.pem}; H=${SERVER_USER:-ubuntu}@$SERVER_IP
 SSH=(ssh -i $KEY -o IdentitiesOnly=yes)
 SITE_MODE=${SITE_MODE:-path}; export SITE_MODE  # 前端构建（vite base）和 nginx 渲染都用它
-BASE=${BASE:-43.142.59.166.nip.io}  # subdomain 模式的根域名；以后换真实域名
+BASE=${BASE:-$SERVER_IP.nip.io}  # subdomain 模式的根域名；以后换真实域名
 
 if [[ "$1" == "--nginx" ]]; then
   # 渲染 deploy/nginx 模板 → 上传 → 整体备份 /etc/nginx → 安装 → nginx -t 通过才 reload，失败整体还原
   SCHEME=http; [[ "$2" == "--https" ]] && SCHEME=https
   OUT=$(mktemp -d); python3 deploy/nginx/render.py $SITE_MODE $SCHEME "$BASE" "$OUT"
-  cp deploy/fail2ban/* "$OUT/"
+  cp deploy/fail2ban/* "$OUT/"; sed -i '' "s/__SERVER_IP__/$SERVER_IP/g" "$OUT/wedding.jail"
   rsync -a --delete -e "${SSH[*]}" "$OUT/" ${H}:/tmp/wedding-nginx/ && rm -rf "$OUT"
   $SSH $H 'set -e; cd /tmp/wedding-nginx; BK=/etc/nginx/backup-$(date +%Y%m%d%H%M%S).tgz
     sudo tar czf $BK -C /etc nginx/sites-available nginx/sites-enabled nginx/snippets $(cd /etc && ls nginx/wedding-allow-ips.conf 2>/dev/null)

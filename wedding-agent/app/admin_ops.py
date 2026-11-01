@@ -222,7 +222,7 @@ IMAGE_TYPES = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
 
 
 def blocked(path: Path) -> bool:
-    return any(_BLOCKED.search(part) or part in (".git", "ubuntu@43.142.59.166") for part in path.relative_to(PROJECT_ROOT).parts)
+    return any(_BLOCKED.search(part) or part == ".git" or part.startswith("ubuntu@") for part in path.relative_to(PROJECT_ROOT).parts)
 
 
 def _resolve(rel: str) -> Path:
