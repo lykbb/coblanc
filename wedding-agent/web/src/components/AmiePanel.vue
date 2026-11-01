@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import Icon from './Icon.vue'
 import { AMIE, speakerOf } from '../agents.js'
 import { framingCounts } from '../plan.js'
@@ -17,6 +17,20 @@ const failure = computed(() => task.value?.error || state.error || null)
 const reviewing = computed(() => phase.value === 'sample_review' || phase.value === 'set_review')
 const redoLeft = computed(() => Math.max(0, MAX_REDO - state.redoUsed))
 const note = ref('')
+// 手机上输入框固定在屏幕底部：把它的高度告诉页面，好给内容留出位置
+const composer = ref(null)
+let observer = null
+onMounted(() => {
+  if (!composer.value || typeof ResizeObserver === 'undefined') return
+  observer = new ResizeObserver(([entry]) => {
+    document.documentElement.style.setProperty('--composer-h', `${Math.ceil(entry.target.getBoundingClientRect().height)}px`)
+  })
+  observer.observe(composer.value)
+})
+onBeforeUnmount(() => {
+  observer?.disconnect()
+  document.documentElement.style.removeProperty('--composer-h')
+})
 const dragging = ref(false)
 let dragDepth = 0
 
@@ -160,8 +174,11 @@ const placeholder = computed(() => {
   if (reviewing.value) return redoLeft.value ? '哪里要改？说给 Amie 听' : '重做次数用完了，可以联系人工'
   if (photoFix.value) return '补传照片，或告诉 Amie（如：小狗要一起入镜）'
   if (asking.value) return '请在弹出的问题卡片里回答'
+  if (phase.value === 'done') return '作品已经完成啦'
+  if (phase.value === 'pay') return '解锁后就能下载高清图和物料'
+  if (phase.value === 'failed') return '可以重试，或者重新开始'
   // 处理中 / LLM 忙碌 / 出图中
-  return '正在为您生成中'
+  return 'Amie 正在处理，稍等一下'
 })
 
 </script>
@@ -230,7 +247,7 @@ const placeholder = computed(() => {
 
     </div>
 
-    <div class="amie-composer">
+    <div ref="composer" class="amie-composer" :class="{ quiet: !canAttach && !reviewing && !asking && !['start', 'pay', 'done', 'failed'].includes(phase) }">
       <div v-if="canAttach && draftPhotos.length" class="composer-thumbs">
         <figure v-for="(photo, i) in draftPhotos" :key="photo.key" class="composer-thumb" :class="{ failed: photo.failed, pending: !photo.file_id && !photo.failed }">
           <img loading="lazy" decoding="async" :src="photo.preview" :alt="`照片 ${i + 1}`" />
@@ -241,11 +258,11 @@ const placeholder = computed(() => {
         <span class="composer-count">{{ draftPhotos.length }}/10</span>
       </div>
 
-      <form class="amie-input" @submit.prevent="send">
-        <label v-if="canAttach && draftPhotos.length < 10" class="attach-btn" title="添加附件">
+      <form class="amie-input" :class="{ idle: !canAttach && !reviewing }" @submit.prevent="send">
+        <label v-if="canAttach && draftPhotos.length < 10" class="attach-btn" title="添加照片">
           <input type="file" accept="image/jpeg,image/png" multiple class="sr-only" @change="pick" />
           <Icon name="paperclip" :size="18" />
-          <span class="sr-only">添加附件</span>
+          <span class="sr-only">添加照片</span>
         </label>
         <label class="sr-only" for="amie-input">给 Amie 留言</label>
         <input
@@ -268,7 +285,12 @@ const placeholder = computed(() => {
         <button v-else type="submit" class="send-btn" aria-label="发送" :disabled="photoFix ? (state.busy || (!note.trim() && !draftPhotos.some((p) => p.file_id))) : (!reviewing || !note.trim())"><Icon name="send" :size="18" /></button>
       </form>
 
-      <p v-if="reviewing" class="hint">满意的话，在画布的{{ phase === 'set_review' ? '「九张成片」' : '「样片确认」' }}卡片里确认。</p>
+      <div v-if="phase === 'start'" class="amie-actions">
+        <button type="button" class="btn-primary" :disabled="!canStart" @click="startTask">
+          {{ state.uploading ? '照片上传中…' : state.busy ? '正在提交…' : canStart ? `用这 ${draftPhotos.filter((p) => p.file_id).length} 张照片开始创作` : '先添加你们的照片' }}
+        </button>
+      </div>
+      <p v-else-if="reviewing" class="hint">满意的话，在画布的{{ phase === 'set_review' ? '「九张成片」' : '「样片确认」' }}卡片里确认。</p>
       <div v-else-if="asking || phase === 'pay' || phase === 'done' || phase === 'failed'" class="amie-actions">
         <template v-if="asking">
           <button type="button" class="btn-primary" @click="state.dialog = 'questions'">回答问题</button>

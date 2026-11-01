@@ -1,10 +1,11 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
+import Icon from './Icon.vue'
 import StageCard from './StageCard.vue'
 import JourneyBar from './JourneyBar.vue'
 import { STYLE_ART } from '../agents.js'
 import { framingCounts, heights, short, styleLabel } from '../plan.js'
-import { MAX_REDO, STAGES, openRedo, phase, review, stageStatus, state } from '../store.js'
+import { MAX_REDO, STAGES, addPhotos, openRedo, phase, review, stageStatus, state } from '../store.js'
 
 const task = computed(() => state.task)
 const plan = computed(() => task.value?.plan || {})
@@ -33,10 +34,25 @@ const styleArt = computed(() => look.value?.references?.find((r) => r.role === '
 const lookRefs = (roles) => (look.value?.references || []).filter((r) => roles.includes(r.role)).slice(0, 2)
 const redoLeft = computed(() => Math.max(0, MAX_REDO - state.redoUsed))
 
+// 开始前：第一张卡就是上传入口，点选或把照片拖进来（和 Amie 对话框里的回形针是同一个上传）
+const canPick = computed(() => phase.value === 'start' && state.draft.photos.length < 10)
+const over = ref(false)
+const shown = computed(() => (canPick.value ? 3 : 4)) // 留一格给「添加」
+function pick(event) {
+  addPhotos([...event.target.files])
+  event.target.value = ''
+}
+function drop(event) {
+  over.value = false
+  const files = [...(event.dataTransfer?.files || [])].filter((f) => f.type.startsWith('image/'))
+  if (files.length) addPhotos(files)
+}
+
 const subtitle = computed(() => {
-  if (phase.value === 'start') return '在右边把照片发给 Amie，她会请妆造师、摄影师和修图师一起为你们出方案'
+  if (phase.value === 'start') return '把你们的照片交给 Amie，她会请妆造师、摄影师和修图师一起为你们出方案'
   if (phase.value === 'done') return '这组婚纱照已经完成，可以去「成片交付」下载高清图和婚礼物料'
-  if (phase.value === 'failed') return state.task?.error?.category === 'user_input' ? '上传的照片不符合要求，看看右边 Amie 的说明' : '系统出了点问题，可以在右边点「重试」继续'
+  if (phase.value === 'loading') return '正在打开你们的项目…'
+  if (phase.value === 'failed') return state.task?.error?.category === 'user_input' ? '上传的照片不符合要求，看看 Amie 的说明' : '系统出了点问题，可以在 Amie 对话框里点「重试」继续'
   return 'Amie 正在协调各领域的专业团队，为你们生成专属的婚纱照方案'
 })
 
@@ -52,10 +68,18 @@ const subtitles = computed(() => [
 
 const sample = computed(() => (phase.value === 'sample_review' ? previews.value[0] : null))
 const zoom = (url) => { state.lightbox = url }
+
+// 样片、九张出来时把那张卡片滚到眼前，确认按钮不用自己找
+const root = ref(null)
+watch(phase, async (now, before) => {
+  if (now === before || !['sample_review', 'set_review'].includes(now)) return
+  await nextTick()
+  root.value?.querySelector('.photo-stage.active')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+})
 </script>
 
 <template>
-  <div class="canvas">
+  <div ref="root" class="canvas">
     <div class="canvas-scroll">
     <div class="canvas-head">
       <h1>创作画布</h1>
@@ -68,11 +92,29 @@ const zoom = (url) => { state.lightbox = url }
         <div v-if="!sorted" class="all-photos">
           <div class="mini-head"><span>你们的照片</span><span>{{ allPhotos.length }}/10</span></div>
           <div class="mini-thumbs four">
-            <button v-for="(url, i) in allPhotos.slice(0, 4)" :key="url" type="button" class="thumb-btn" :aria-label="`放大照片 ${i + 1}`" @click="zoom(url)">
+            <button v-for="(url, i) in allPhotos.slice(0, shown)" :key="url" type="button" class="thumb-btn" :aria-label="`放大照片 ${i + 1}`" @click="zoom(url)">
               <img loading="lazy" decoding="async" :src="url" :alt="`照片 ${i + 1}`" />
-              <span v-if="i === 3 && allPhotos.length > 4" class="more">+{{ allPhotos.length - 4 }}</span>
+              <span v-if="i === shown - 1 && allPhotos.length > shown" class="more">+{{ allPhotos.length - shown }}</span>
             </button>
-            <span v-if="!allPhotos.length" class="thumb-empty">等待上传</span>
+            <label v-if="canPick && allPhotos.length" class="upload-add" title="继续添加照片">
+              <input type="file" accept="image/jpeg,image/png" multiple class="sr-only" @change="pick" />
+              <Icon name="plus" :size="20" />
+              <span>添加</span>
+            </label>
+            <label
+              v-if="canPick && !allPhotos.length"
+              class="drop-zone"
+              :class="{ over }"
+              @dragover.prevent="over = true"
+              @dragleave="over = false"
+              @drop.prevent="drop"
+            >
+              <input type="file" accept="image/jpeg,image/png" multiple class="sr-only" @change="pick" />
+              <span class="drop-icon"><Icon name="plus" :size="20" /></span>
+              <strong>添加你们的照片</strong>
+              <small>点击选择，或把照片拖进来<br />2～10 张 · jpg / png<br />单张不超过 10 MB</small>
+            </label>
+            <span v-else-if="!allPhotos.length" class="thumb-empty">{{ phase === 'loading' ? '正在加载…' : '等待上传' }}</span>
           </div>
         </div>
         <div v-else class="pair-photos">
@@ -96,7 +138,6 @@ const zoom = (url) => { state.lightbox = url }
             <span class="tag">{{ styleLabel(look?.style) }}</span>
           </button>
           <div v-else-if="look" class="placeholder">{{ styleLabel(look.style) }}</div>
-          <p v-if="choices?.style?.description" class="look-text clamp1">{{ choices.style.description }}</p>
           <p v-if="choices?.style?.description" class="look-text clamp1">{{ choices.style.description }}</p>
           <div v-if="tall" class="height-chips">
             <span class="pill">女生 {{ tall.bride }} cm</span>

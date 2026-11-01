@@ -17,8 +17,10 @@ const materials = computed(() => Object.entries(d.value || {}).filter(([key, val
     </div>
 
     <div v-if="!d" class="empty-state">
-      <p>作品完成后会出现在这里。</p>
-      <button type="button" class="btn-primary" @click="state.view = 'studio'">回到创作画布</button>
+      <span class="empty-mark" aria-hidden="true">C.</span>
+      <p class="empty-title">{{ state.taskId ? '作品还在路上' : '这里还空着' }}</p>
+      <p>{{ state.taskId ? '确认样片和九张成片、解锁高清后，高清图和婚礼物料都会出现在这里。' : '完成一组婚纱照后，高清图和婚礼物料都会出现在这里。' }}</p>
+      <button type="button" class="btn-primary" @click="state.view = 'studio'">{{ state.taskId ? '回到创作画布' : '开始创作' }}</button>
     </div>
 
     <template v-else>
@@ -37,7 +39,7 @@ const materials = computed(() => Object.entries(d.value || {}).filter(([key, val
             <button type="button" class="thumb-btn" :aria-label="`放大第 ${i + 1} 张`" @click="state.lightbox = url">
               <img loading="lazy" decoding="async" :src="url" :alt="`高清图 ${i + 1}`" />
             </button>
-            <a :href="url" target="_blank" rel="noopener" class="link-btn"><Icon name="download" :size="14" />第 {{ i + 1 }} 张</a>
+            <a :href="url" target="_blank" rel="noopener" class="link-btn" :aria-label="`下载第 ${i + 1} 张`"><Icon name="download" :size="14" />下载第 {{ i + 1 }} 张</a>
           </div>
         </div>
       </div>

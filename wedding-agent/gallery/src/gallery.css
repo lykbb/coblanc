@@ -119,6 +119,12 @@ a.pin-title:hover { text-decoration: underline; }
   .side-cat.on .side-cat-btn { background: var(--panel); }
   .side-tags-wrap { order: 99; flex-basis: 100%; }
   .side-tags { padding-left: 4px; }
+  /* 窄屏：标题和计数一行，搜索框占满下一行，按钮不再被挤成竖排 */
+  .refwall-head { flex-wrap: wrap; row-gap: 10px; }
+  .refwall-head h1 { white-space: nowrap; }
+  .refwall-search { order: 3; flex: 1 1 100%; width: auto; margin-left: 0; height: 38px; }
+  .refwall-actions { margin-left: auto; }
+  .refwall-actions .ghost-btn, .refwall-actions .primary-btn { white-space: nowrap; }
 }
 
 /* 卡片「⋯」菜单 */

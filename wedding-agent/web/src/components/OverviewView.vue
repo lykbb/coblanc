@@ -5,7 +5,6 @@ import { openProject, phase, restart, state } from '../store.js'
 
 const ASSET = '/coblanc-film/assets/'
 const HERO = ASSET + 'coblanc-film-hero.webp'
-const COUPLE = ASSET + 'coblanc-film-couple.webp'
 
 const STATUS = {
   running: '进行中',
@@ -73,16 +72,16 @@ function continueCurrent() {
 <template>
   <section class="page-view overview-home" aria-label="总览首页">
     <div class="home-hero">
+      <div class="home-hero-media" aria-hidden="true" :style="{ backgroundImage: `url(${HERO})` }"></div>
       <div class="home-hero-copy">
         <p class="home-eyebrow">COBLANC · 共白</p>
         <h1>为你们，留下<br />刚刚好的那一张。</h1>
         <p class="home-lead">
-          Amie 艾蜜协调妆造、摄影与修图，从你们的照片开始，完成九张成片与婚礼物料。
-          安静、克制，也足够隆重。
+          Amie 艾蜜协调妆造、摄影与修图，从你们的照片开始，完成九张成片与婚礼物料。安静、克制，也足够隆重。
         </p>
         <div class="home-cta">
           <button type="button" class="btn-primary home-cta-primary" @click="hasWork ? continueCurrent() : startFresh()">
-            {{ hasWork ? '继续创作' : '开始我们的创作' }}
+            {{ hasWork ? '继续创作' : '开始我们的创作' }}<span class="arrow" aria-hidden="true">→</span>
           </button>
           <button v-if="hasWork" type="button" class="btn-ghost" @click="startFresh">新建一组</button>
           <button v-else type="button" class="btn-ghost" @click="goProjects">查看我的项目</button>
@@ -94,23 +93,13 @@ function continueCurrent() {
           <li>审片</li>
         </ul>
       </div>
-
-      <div class="home-hero-visual" aria-hidden="true">
-        <div class="home-glow"></div>
-        <figure class="home-frame home-frame-main">
-          <img :src="HERO" fetchpriority="high" decoding="async" alt="" />
-        </figure>
-        <figure class="home-frame home-frame-side">
-          <img loading="lazy" decoding="async" :src="COUPLE" alt="" />
-        </figure>
-        <figure class="home-amie">
-          <img loading="lazy" decoding="async" :src="AMIE.avatar" alt="" />
-          <figcaption>
-            <strong>{{ AMIE.title }}</strong>
-            <span>你的创意伙伴</span>
-          </figcaption>
-        </figure>
-      </div>
+      <figure class="home-amie" aria-hidden="true">
+        <img loading="lazy" decoding="async" :src="AMIE.avatar" alt="" />
+        <figcaption>
+          <strong>{{ AMIE.title }}</strong>
+          <span><i class="online-dot"></i>你的创意伙伴 · 在线</span>
+        </figcaption>
+      </figure>
     </div>
 
     <div class="home-panels">
@@ -122,10 +111,16 @@ function continueCurrent() {
           </div>
           <span class="home-badge" :class="{ idle: !hasWork }">{{ hasWork ? statusText : '欢迎到来' }}</span>
         </header>
-        <p v-if="hasWork" class="home-panel-text">
-          {{ current ? `项目 ${current.task_id}` : '当前任务' }}
-          <template v-if="current?.created_at"> · {{ when(current.created_at) }}</template>
-        </p>
+        <div v-if="hasWork" class="home-current">
+          <div class="home-recent-cover">
+            <img v-if="current?.cover" loading="lazy" decoding="async" :src="current.cover" alt="" />
+            <span v-else>COBLANC</span>
+          </div>
+          <p class="home-panel-text">
+            {{ current?.created_at ? `${when(current.created_at)} 开始` : '当前这一组' }}<br />
+            <small>回到画布就能接着上次的进度。</small>
+          </p>
+        </div>
         <p v-else class="home-panel-text">上传 2～10 张照片，新郎新娘都要有，合照单人照都行。想让宠物一起入镜，也记得说一声。</p>
         <div class="home-panel-actions">
           <button type="button" class="btn-primary small" @click="hasWork ? continueCurrent() : startFresh()">
@@ -135,27 +130,23 @@ function continueCurrent() {
         </div>
       </article>
 
-      <article class="home-panel home-panel-entries">
-        <p class="home-kicker">工作室入口</p>
-        <h2>继续你们的故事</h2>
-        <div class="home-entry-grid">
-          <button type="button" class="home-entry" @click="goStudio">
-            <span class="home-entry-label">婚纱照创作</span>
-            <span class="home-entry-desc">画布与专家接力</span>
-          </button>
-          <button type="button" class="home-entry" @click="goProjects">
-            <span class="home-entry-label">我的项目</span>
-            <span class="home-entry-desc">{{ state.projects.length }} 组记录</span>
-          </button>
-          <button type="button" class="home-entry" @click="state.view = 'library'">
-            <span class="home-entry-label">素材库</span>
-            <span class="home-entry-desc">已上传的照片</span>
-          </button>
-          <button type="button" class="home-entry" @click="state.view = 'delivery'">
-            <span class="home-entry-label">成片交付</span>
-            <span class="home-entry-desc">高清图与物料</span>
-          </button>
-        </div>
+      <article class="home-panel home-panel-steps">
+        <p class="home-kicker">怎么拍</p>
+        <h2>三步，交给 Amie</h2>
+        <ol class="home-steps">
+          <li>
+            <span class="home-step-num">01</span>
+            <div><strong>发几张照片</strong><p>合照、单人照都可以，越清晰越像你们。</p></div>
+          </li>
+          <li>
+            <span class="home-step-num">02</span>
+            <div><strong>选风格，看样片</strong><p>妆造师、摄影师各问几个问题，先出 1 张样片给你们确认。</p></div>
+          </li>
+          <li>
+            <span class="home-step-num">03</span>
+            <div><strong>九张成片与物料</strong><p>方向对了再拍全套，附请柬、迎宾海报和婚礼大屏。</p></div>
+          </li>
+        </ol>
       </article>
     </div>
 
@@ -175,8 +166,8 @@ function continueCurrent() {
               <span v-else>COBLANC</span>
             </div>
             <div class="home-recent-meta">
-              <strong>婚纱照 · {{ p.task_id }}</strong>
-              <span>{{ when(p.created_at) }} · {{ STATUS[p.status] || p.status }}</span>
+              <strong>{{ when(p.created_at) || '婚纱照' }}</strong>
+              <span>{{ STATUS[p.status] || p.status }}</span>
             </div>
           </button>
         </li>

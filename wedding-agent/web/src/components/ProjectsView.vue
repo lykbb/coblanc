@@ -16,6 +16,11 @@ const when = (iso) => new Date(iso).toLocaleString('zh-CN', { month: 'numeric', 
 function newProject() {
   restart()
 }
+
+// 只是从这台电脑的列表里移除，先确认一下，避免误点
+function remove(p) {
+  if (window.confirm('从「我的项目」里移除这一组？移除后在这台电脑上就找不到它了。')) removeProject(p.task_id)
+}
 </script>
 
 <template>
@@ -29,7 +34,10 @@ function newProject() {
     </div>
 
     <div v-if="!state.projects.length" class="empty-state">
-      <p>还没有项目，去创作画布上传照片开始吧。</p>
+      <span class="empty-mark" aria-hidden="true">C.</span>
+      <p class="empty-title">还没有项目</p>
+      <p>上传你们的照片，Amie 会带着妆造师、摄影师一起开始。</p>
+      <button type="button" class="btn-primary" @click="newProject">开始创作</button>
     </div>
 
     <ul v-else class="project-list">
@@ -39,12 +47,13 @@ function newProject() {
           <span v-else>COBLANC</span>
         </div>
         <div class="project-info">
-          <strong>婚纱照创作 · {{ p.task_id }}</strong>
-          <span>{{ when(p.created_at) }} 创建 · {{ STATUS[p.status] || p.status }}</span>
+          <strong>婚纱照 · {{ when(p.created_at) }}</strong>
+          <span><i class="status-dot" :class="p.status" aria-hidden="true"></i>{{ STATUS[p.status] || p.status }}</span>
+          <small class="project-id">{{ p.task_id }}</small>
         </div>
         <div class="project-actions">
           <button type="button" class="btn-ghost small" @click="openProject(p.task_id)">{{ p.task_id === state.taskId ? '回到画布' : '打开' }}</button>
-          <button type="button" class="link-btn" @click="removeProject(p.task_id)">移除</button>
+          <button type="button" class="link-btn muted-link" @click="remove(p)">移除</button>
         </div>
       </li>
     </ul>
