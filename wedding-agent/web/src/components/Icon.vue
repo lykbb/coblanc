@@ -6,6 +6,9 @@ defineProps({ name: { type: String, required: true }, size: { type: [Number, Str
 <template>
   <svg :width="size" :height="size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <template v-if="name === 'home'"><path d="M4 11.5 12 5l8 6.5" /><path d="M6 10v9h12v-9" /></template>
+    <template v-else-if="name === 'grid9'"><rect x="4" y="4" width="4.5" height="4.5" rx="1" /><rect x="9.75" y="4" width="4.5" height="4.5" rx="1" /><rect x="15.5" y="4" width="4.5" height="4.5" rx="1" /><rect x="4" y="9.75" width="4.5" height="4.5" rx="1" /><rect x="9.75" y="9.75" width="4.5" height="4.5" rx="1" /><rect x="15.5" y="9.75" width="4.5" height="4.5" rx="1" /><rect x="4" y="15.5" width="4.5" height="4.5" rx="1" /><rect x="9.75" y="15.5" width="4.5" height="4.5" rx="1" /><rect x="15.5" y="15.5" width="4.5" height="4.5" rx="1" /></template>
+    <template v-else-if="name === 'image'"><rect x="4" y="5" width="16" height="14" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="m5 17 4.5-4.5 3 3 2.5-2.5L19 17" /></template>
+    <template v-else-if="name === 'unlock'"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8.5 11V8a3.5 3.5 0 0 1 6.8-1.2" /><path d="M12 14.5v2" /></template>
     <template v-else-if="name === 'spark'"><circle cx="12" cy="12" r="7.5" /><circle cx="12" cy="12" r="3" /></template>
     <template v-else-if="name === 'folder'"><rect x="4" y="5" width="16" height="14" rx="2" /></template>
     <template v-else-if="name === 'library'"><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M4 9h16M4 14h16M9 4v16M14 4v16" /></template>

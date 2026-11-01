@@ -1429,3 +1429,46 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
   .stage-grid.focus-mode .sample-body .photo-preview { aspect-ratio: auto; max-height: none; }
   .stage-grid.focus-mode .sample-img.photo-preview img { max-height: 70vh; }
 }
+
+/* 单节点模式：整张卡收进一屏，不用上下滑 */
+@media (min-width: 1181px) {
+  .canvas:has(.focus-stage) .canvas-head { display: none; }
+  .canvas-scroll:has(.focus-stage) { display: flex; flex-direction: column; }
+  .canvas-scroll:has(.focus-stage) .focus-steps { margin-top: 0; flex: none; }
+  .focus-stage { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+  .stage-grid.focus-mode { flex: 1 1 0; min-height: 0; width: 100%; display: flex; flex-direction: column; }
+  .stage-grid.focus-mode > .stage-card { flex: 1 1 0; min-height: 0; }
+  .stage-grid.focus-mode .stage-body { flex: 1 1 0; min-height: 0; overflow: hidden; }
+  .stage-grid.focus-mode .sample-body,
+  .stage-grid.focus-mode .set-body,
+  .stage-grid.focus-mode .style-body,
+  .stage-grid.focus-mode .look-body,
+  .stage-grid.focus-mode .scene-body { flex: 1 1 0; min-height: 0; }
+  .stage-grid.focus-mode .card-actions,
+  .stage-grid.focus-mode .look-text,
+  .stage-grid.focus-mode .height-chips { flex: none; }
+  .stage-grid.focus-mode .sample-img.photo-preview { flex: 1 1 0; min-height: 0; max-height: none; }
+  .stage-grid.focus-mode .sample-img.photo-preview img { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: contain; border-radius: 0; }
+  .stage-grid.focus-mode .style-art,
+  .stage-grid.focus-mode .look-art { flex: 1 1 0; min-height: 120px; max-height: none; aspect-ratio: auto; }
+  .stage-grid.focus-mode .look-thumbs { flex: none; height: clamp(90px, 22vh, 180px); max-width: none; grid-auto-columns: auto; }
+  .stage-grid.focus-mode .look-thumbs .thumb-btn { aspect-ratio: auto; height: 100%; }
+  .stage-grid.focus-mode .set-body { container-type: size; }
+  .stage-grid.focus-mode .set-grid { flex: none; align-self: center; height: calc(100cqh - 48px); width: min(100%, calc((100cqh - 48px) * 0.75)); aspect-ratio: auto; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .stage-grid.focus-mode .set-grid .set-cell { aspect-ratio: auto; min-height: 0; height: 100%; }
+  .stage-grid.focus-mode .set-grid .set-cell .set-zoom { height: 100%; width: 100%; }
+}
+@media (max-width: 1180px) {
+  .stage-grid.focus-mode .sample-img.photo-preview img { max-height: 56svh; }
+}
+
+/* 样片 / 成片操作：居中的图标按钮，悬停显示文字 */
+.card-actions.icon-actions { justify-content: center; gap: 14px; padding: 4px 0 2px; }
+.icon-act { position: relative; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease; }
+.icon-act:hover:not(:disabled) { transform: translateY(-1px); border-color: #cfcabb; }
+.icon-act.primary { background: var(--ink); color: #fff; border-color: var(--ink); width: 52px; height: 52px; }
+.icon-act:disabled { opacity: 0.45; cursor: not-allowed; }
+.icon-act:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+.icon-count { position: absolute; top: -3px; right: -3px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); font-size: 10.5px; line-height: 15px; color: var(--muted); font-family: var(--brand); }
+.icon-act[data-tip]::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translate(-50%, 4px); white-space: nowrap; font-size: 12px; padding: 5px 10px; border-radius: 8px; background: rgba(28, 27, 23, 0.88); color: #fff; pointer-events: none; opacity: 0; transition: opacity 0.15s ease, transform 0.15s ease; z-index: 5; }
+.icon-act[data-tip]:hover::after, .icon-act[data-tip]:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }

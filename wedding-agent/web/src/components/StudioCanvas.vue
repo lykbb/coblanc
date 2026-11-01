@@ -234,16 +234,14 @@ watch(phase, async (now, before) => {
         <div class="sample-body">
           <button v-if="sample || state.sampleUrl" type="button" class="thumb-btn sample-img photo-preview" aria-label="放大样片" @click="zoom(sample?.url || state.sampleUrl)">
             <img loading="lazy" decoding="async" :src="sample?.url || state.sampleUrl" alt="样片（带水印）" />
-            <span class="tag">{{ sample ? '样片 · 带水印' : '已确认的样片' }}</span>
-            <span class="zoom-hint">点击看大图</span>
           </button>
           <div v-else class="placeholder" :class="{ shimmer: phase === 'composing' || phase === 'sample_gen' }">
             {{ phase === 'composing' ? 'Amie 正在写拍摄指令…' : phase === 'sample_gen' ? '正在拍 1 张样片…' : '' }}
           </div>
-          <div v-if="sample" class="card-actions">
-            <button type="button" class="btn-primary small" :disabled="state.busy" @click="review('confirm', sample.image_id)">方向对了，拍 9 张</button>
-            <button type="button" class="btn-ghost small" :disabled="state.busy" @click="review('sample_only', sample.image_id)">只要这一张</button>
-            <button type="button" class="btn-ghost small" :disabled="state.busy || !redoLeft" @click="openRedo()">重做（还剩 {{ redoLeft }} 次）</button>
+          <div v-if="sample" class="card-actions icon-actions">
+            <button type="button" class="icon-act primary" data-tip="方向对了，拍 9 张" aria-label="方向对了，拍 9 张" :disabled="state.busy" @click="review('confirm', sample.image_id)"><Icon name="grid9" :size="20" /></button>
+            <button type="button" class="icon-act" data-tip="只要这一张" aria-label="只要这一张" :disabled="state.busy" @click="review('sample_only', sample.image_id)"><Icon name="image" :size="20" /></button>
+            <button type="button" class="icon-act" :data-tip="`重做（还剩 ${redoLeft} 次）`" :aria-label="`重做，还剩 ${redoLeft} 次`" :disabled="state.busy || !redoLeft" @click="openRedo()"><Icon name="refresh" :size="20" /><span class="icon-count">{{ redoLeft }}</span></button>
           </div>
         </div>
       </StageCard>
@@ -276,7 +274,6 @@ watch(phase, async (now, before) => {
             <button v-for="(url, i) in finalPhotos" :key="url" type="button" class="set-cell set-zoom-only" :aria-label="`放大第 ${i + 1} 张`" @click="zoom(url)">
               <img loading="lazy" decoding="async" :src="url" :alt="`成片 ${i + 1}`" />
               <span class="num">{{ String(i + 1).padStart(2, '0') }}</span>
-              <span class="zoom-hint">点击看大图</span>
             </button>
           </div>
           <div v-else class="set-grid">
@@ -285,9 +282,9 @@ watch(phase, async (now, before) => {
               <span class="slot-label">{{ shots[n - 1]?.framing || '' }}</span>
             </div>
           </div>
-          <div v-if="phase === 'set_review'" class="card-actions">
-            <button type="button" class="btn-primary small" :disabled="state.busy" @click="review('confirm', state.picked)">就选这组，去解锁高清</button>
-            <button type="button" class="btn-ghost small" :disabled="state.busy || !redoLeft" @click="openRedo()">重做（还剩 {{ redoLeft }} 次）</button>
+          <div v-if="phase === 'set_review'" class="card-actions icon-actions">
+            <button type="button" class="icon-act primary" data-tip="就选这组，去解锁高清" aria-label="就选这组，去解锁高清" :disabled="state.busy" @click="review('confirm', state.picked)"><Icon name="unlock" :size="20" /></button>
+            <button type="button" class="icon-act" :data-tip="`重做（还剩 ${redoLeft} 次）`" :aria-label="`重做，还剩 ${redoLeft} 次`" :disabled="state.busy || !redoLeft" @click="openRedo()"><Icon name="refresh" :size="20" /><span class="icon-count">{{ redoLeft }}</span></button>
           </div>
         </div>
       </StageCard>
