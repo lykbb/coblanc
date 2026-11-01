@@ -1411,3 +1411,21 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
 .focus-jump { margin-left: 10px; border: 0; background: none; padding: 2px 4px; font: inherit; font-size: 12.5px; color: var(--muted); cursor: pointer; white-space: nowrap; }
 .focus-jump:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .focus-jump.ready { color: var(--coral); }
+
+/* 单节点模式：照片一律完整显示，不裁切 */
+.stage-grid.focus-mode .sample-img.photo-preview,
+.stage-grid.focus-mode .sample-body .photo-preview {
+  aspect-ratio: auto; height: auto; max-height: none; min-height: 0;
+  display: flex; justify-content: center; align-items: center;
+}
+.stage-grid.focus-mode .sample-img.photo-preview img {
+  width: auto; height: auto; max-width: 100%; max-height: max(280px, min(calc(100vh - 340px), 760px));
+  object-fit: contain; border-radius: 10px;
+}
+.stage-grid.focus-mode .thumb-btn img,
+.stage-grid.focus-mode .set-cell img { object-fit: contain; background: var(--tile); }
+@media (max-width: 1180px) {
+  .stage-grid.focus-mode .sample-img.photo-preview,
+  .stage-grid.focus-mode .sample-body .photo-preview { aspect-ratio: auto; max-height: none; }
+  .stage-grid.focus-mode .sample-img.photo-preview img { max-height: 70vh; }
+}
