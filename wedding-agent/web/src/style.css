@@ -1268,7 +1268,7 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
   .amie-composer.quiet { display: none; }
   /* 头像已在顶栏；素材和动态在画布、素材库里都看得到，窄屏只留 Amie 的话和当前任务 */
   .amie-intro { display: none; }
-  .amie-scroll > .amie-card:not(.amie-intro):not(:nth-child(3)) { display: none; }
+  .amie-log { display: none; }
 }
 @media (max-width: 900px) {
   .home-panels { grid-template-columns: minmax(0, 1fr); }
@@ -1454,7 +1454,7 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
   .stage-grid.focus-mode .look-thumbs { flex: none; height: clamp(90px, 22vh, 180px); max-width: none; grid-auto-columns: auto; }
   .stage-grid.focus-mode .look-thumbs .thumb-btn { aspect-ratio: auto; height: 100%; }
   .stage-grid.focus-mode .set-body { container-type: size; }
-  .stage-grid.focus-mode .set-grid { flex: none; align-self: center; height: calc(100cqh - 48px); width: min(100%, calc((100cqh - 48px) * 0.75)); aspect-ratio: auto; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .stage-grid.focus-mode .set-grid { flex: none; align-self: center; height: calc(100cqh - 62px); width: min(100%, calc((100cqh - 62px) * 0.75)); aspect-ratio: auto; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .stage-grid.focus-mode .set-grid .set-cell { aspect-ratio: auto; min-height: 0; height: 100%; }
   .stage-grid.focus-mode .set-grid .set-cell .set-zoom { height: 100%; width: 100%; }
 }
@@ -1472,3 +1472,17 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
 .icon-count { position: absolute; top: -3px; right: -3px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); font-size: 10.5px; line-height: 15px; color: var(--muted); font-family: var(--brand); }
 .icon-act[data-tip]::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translate(-50%, 4px); white-space: nowrap; font-size: 12px; padding: 5px 10px; border-radius: 8px; background: rgba(28, 27, 23, 0.88); color: #fff; pointer-events: none; opacity: 0; transition: opacity 0.15s ease, transform 0.15s ease; z-index: 5; }
 .icon-act[data-tip]:hover::after, .icon-act[data-tip]:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
+
+/* 操作图标统一大小和颜色；操作栏压矮 */
+.stage-grid.focus-mode .card-actions.icon-actions { padding: 0; gap: 10px; }
+.icon-act, .icon-act.primary { width: 38px; height: 38px; background: #fff; color: var(--ink); border-color: var(--line); }
+.icon-act:hover:not(:disabled) { background: var(--ink); color: #fff; border-color: var(--ink); }
+.icon-count { top: -4px; right: -4px; }
+
+/* 右侧面板：只留 Amie、她的话、建议和输入框；动态默认收起 */
+.amie-log { border: 0; background: none; padding: 0 2px; }
+.amie-log summary { list-style: none; cursor: pointer; font-size: 12px; color: var(--muted); padding: 2px 0; user-select: none; }
+.amie-log summary::-webkit-details-marker { display: none; }
+.amie-log summary::after { content: ' ▸'; }
+.amie-log[open] summary::after { content: ' ▾'; }
+.amie-log[open] ol { margin-top: 8px; }

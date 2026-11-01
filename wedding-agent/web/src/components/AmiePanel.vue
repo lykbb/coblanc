@@ -207,36 +207,14 @@ const placeholder = computed(() => {
       <p>{{ bubble.text }}</p>
     </section>
 
-    <section class="amie-card">
-      <h3>当前任务</h3>
-      <div class="current">
-        <button v-if="currentThumb" type="button" class="current-thumb" aria-label="放大图片" @click="state.lightbox = currentThumb">
-          <img loading="lazy" decoding="async" :src="currentThumb" alt="" />
-        </button>
-        <div>
-          <strong>{{ current.title }}</strong>
-          <span>{{ current.detail }}</span>
-        </div>
-      </div>
-    </section>
-
-    <section v-if="phase !== 'start' && materials.length" class="amie-card">
-      <div class="card-row"><h3>已上传的素材</h3><button type="button" class="link-btn" @click="state.view = 'library'">查看全部</button></div>
-      <div class="material-row">
-        <button v-for="(url, i) in materials.slice(0, 4)" :key="url" type="button" class="thumb-btn" :aria-label="`放大素材 ${i + 1}`" @click="state.lightbox = url">
-          <img loading="lazy" decoding="async" :src="url" :alt="`素材 ${i + 1}`" />
-        </button>
-      </div>
-    </section>
-
-    <section v-if="state.log.length" class="amie-card amie-log">
-      <h3>动态</h3>
+    <details v-if="state.log.length" class="amie-log">
+      <summary>动态 · {{ state.log.length }}</summary>
       <ol>
         <li v-for="(item, i) in state.log.slice(-5)" :key="i" :class="{ mine: item.mine }">
           <time>{{ item.at }}</time><b>{{ item.who }}</b>{{ item.text }}
         </li>
       </ol>
-    </section>
+    </details>
 
     <section v-if="chips.length" class="amie-say">
       <h3>你可以这样说</h3>
