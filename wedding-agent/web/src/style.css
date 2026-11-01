@@ -1359,3 +1359,52 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ===== 创作画布：单节点聚焦 ===== */
+.focus-steps { display: flex; align-items: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+.focus-back { display: inline-flex; align-items: center; gap: 2px; height: 30px; padding: 0 12px 0 8px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); font-size: 12.5px; cursor: pointer; }
+.focus-back:disabled { opacity: 0.4; cursor: default; }
+.focus-dots { list-style: none; display: flex; align-items: center; gap: 6px; margin: 0; padding: 0; }
+.focus-dots li { display: flex; align-items: center; }
+.focus-dots li + li::before { content: ''; width: 10px; border-top: 1px dashed #d6d2c4; margin-right: 6px; }
+.focus-dot { width: 26px; height: 26px; border-radius: 50%; border: 1px solid transparent; display: grid; place-items: center; padding: 0; font-family: var(--brand); font-size: 11px; background: #efede6; color: #a9a597; cursor: pointer; transition: background 0.18s ease, transform 0.18s ease; }
+.focus-dot:disabled { cursor: default; }
+.focus-dot.done { background: var(--mint-tint); color: var(--mint); }
+.focus-dot.active { background: var(--amber-tint); color: var(--amber-ink); border-color: var(--amber-line); }
+.focus-dot.failed { background: #f8eae6; color: #a8402c; }
+.focus-dot.viewing { background: var(--ink); color: #fff; border-color: var(--ink); transform: scale(1.08); }
+.focus-label { margin: 0; display: flex; align-items: baseline; gap: 6px; font-family: var(--serif); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; }
+.focus-label b { font-family: var(--brand); font-weight: 400; font-size: 18px; }
+.focus-label span { color: var(--muted); font-size: 12px; font-weight: 400; }
+.focus-return { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; padding: 8px 8px 8px 14px; border: 1px solid var(--amber-line); border-radius: 999px; background: #fbf6ea; font-size: 12.5px; color: var(--amber-ink); }
+.focus-stage { position: relative; margin-top: 10px; }
+.stage-grid.focus-mode { display: block; max-width: 780px; margin: 0 auto; }
+.stage-grid.focus-mode > .stage-card { min-height: 0; padding: 14px; gap: 12px; }
+.stage-grid.focus-mode > .stage-card::after { display: none; }
+.stage-grid.focus-mode .stage-titles h2 { font-size: 18px; }
+.stage-grid.focus-mode .stage-badge { width: 32px; height: 32px; font-size: 13px; }
+.stage-grid.focus-mode .stage-body { padding: 10px; gap: 10px; }
+.stage-grid.focus-mode .style-art, .stage-grid.focus-mode .look-art { max-height: 380px; }
+.stage-grid.focus-mode .look-thumbs { max-width: 520px; }
+.stage-grid.focus-mode .look-text { font-size: 13.5px; }
+.stage-grid.focus-mode .drop-zone { min-height: 240px; }
+.focus-next-enter-active, .focus-next-leave-active, .focus-prev-enter-active, .focus-prev-leave-active { transition: opacity 0.26s ease, transform 0.26s ease; }
+.focus-next-enter-from { opacity: 0; transform: translateX(28px); }
+.focus-next-leave-to { opacity: 0; transform: translateX(-28px); }
+.focus-prev-enter-from { opacity: 0; transform: translateX(-28px); }
+.focus-prev-leave-to { opacity: 0; transform: translateX(28px); }
+@media (prefers-reduced-motion: reduce) {
+  .focus-next-enter-active, .focus-next-leave-active, .focus-prev-enter-active, .focus-prev-leave-active { transition: opacity 0.12s linear; transform: none !important; }
+  .focus-dot { transition: none; }
+}
+@media (max-width: 760px) {
+  .focus-steps { gap: 8px; }
+  .focus-back span { display: none; }
+  .focus-back { padding: 0 8px; }
+  .focus-dots { gap: 3px; }
+  .focus-dots li + li::before { width: 4px; margin-right: 3px; }
+  .focus-dot { width: 24px; height: 24px; font-size: 10px; }
+  .focus-label { flex-basis: 100%; }
+  .focus-return { border-radius: 14px; flex-wrap: wrap; }
+  .stage-grid.focus-mode > .stage-card { padding: 10px; }
+}

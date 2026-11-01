@@ -5,7 +5,7 @@ import StageCard from './StageCard.vue'
 import JourneyBar from './JourneyBar.vue'
 import { STYLE_ART } from '../agents.js'
 import { framingCounts, heights, short, styleLabel } from '../plan.js'
-import { MAX_REDO, STAGES, addPhotos, openRedo, phase, review, stageStatus, state } from '../store.js'
+import { MAX_REDO, STAGES, activeStage, addPhotos, openRedo, phase, review, stageStatus, state } from '../store.js'
 
 const task = computed(() => state.task)
 const plan = computed(() => task.value?.plan || {})
@@ -69,6 +69,29 @@ const subtitles = computed(() => [
 const sample = computed(() => (phase.value === 'sample_review' ? previews.value[0] : null))
 const zoom = (url) => { state.lightbox = url }
 
+// 单节点聚焦：画布中间只放一个节点，完成后自动换到下一个；可以回看之前的
+const current = computed(() => Math.min(Math.max(activeStage.value, 0), STAGES.length - 1))
+const view = ref(current.value)
+const dir = ref('next')
+const nextReady = ref(false)
+const viewable = (i) => i <= current.value || stageStatus(i) !== 'todo'
+function goTo(i) {
+  if (i < 0 || i >= STAGES.length || i === view.value || !viewable(i)) return
+  dir.value = i > view.value ? 'next' : 'prev'
+  view.value = i
+  if (i >= current.value) nextReady.value = false
+}
+watch(current, (now, before) => {
+  if (view.value === before || view.value > now) {
+    dir.value = now >= view.value ? 'next' : 'prev'
+    view.value = now
+    nextReady.value = false
+  } else if (now !== before) {
+    nextReady.value = true
+  }
+})
+const browsing = computed(() => view.value < current.value)
+
 // 样片、九张出来时把那张卡片滚到眼前，确认按钮不用自己找
 const root = ref(null)
 watch(phase, async (now, before) => {
@@ -86,9 +109,36 @@ watch(phase, async (now, before) => {
       <p>{{ subtitle }}</p>
     </div>
 
-    <div class="stage-grid">
+    <nav class="focus-steps" aria-label="创作步骤">
+      <button type="button" class="focus-back" :disabled="view === 0" aria-label="回到上一步" @click="goTo(view - 1)">
+        <Icon name="chevron-left" :size="16" /><span>上一步</span>
+      </button>
+      <ol class="focus-dots">
+        <li v-for="(s, i) in STAGES" :key="s.key">
+          <button
+            type="button"
+            class="focus-dot"
+            :class="[stageStatus(i), { viewing: i === view }]"
+            :disabled="!viewable(i)"
+            :aria-current="i === view ? 'step' : undefined"
+            :aria-label="`${String(i + 1).padStart(2, '0')} ${s.title}`"
+            :title="s.title"
+            @click="goTo(i)"
+          ><span>{{ String(i + 1).padStart(2, '0') }}</span></button>
+        </li>
+      </ol>
+      <p class="focus-label"><b>{{ String(view + 1).padStart(2, '0') }}</b><span>/ 07</span>{{ STAGES[view].title }}</p>
+    </nav>
+    <div v-if="browsing" class="focus-return" role="status">
+      <span>{{ nextReady ? `新的一步「${STAGES[current].title}」已经好了` : `正在查看第 ${view + 1} 步` }}</span>
+      <button type="button" class="btn-primary small" @click="goTo(current)">回到当前步骤</button>
+    </div>
+
+    <div class="focus-stage">
+    <Transition :name="`focus-${dir}`" mode="out-in">
+    <div :key="view" class="stage-grid focus-mode">
       <!-- 1 双方照片 -->
-      <StageCard :index="0" :title="STAGES[0].title" :subtitle="subtitles[0]" :status="stageStatus(0)">
+      <StageCard v-if="view === 0" :index="0" :title="STAGES[0].title" :subtitle="subtitles[0]" :status="stageStatus(0)">
         <div v-if="!sorted" class="all-photos">
           <div class="mini-head"><span>你们的照片</span><span>{{ allPhotos.length }}/10</span></div>
           <div class="mini-thumbs four">
@@ -131,7 +181,7 @@ watch(phase, async (now, before) => {
       </StageCard>
 
       <!-- 2 风格方案 -->
-      <StageCard :index="1" :title="STAGES[1].title" :subtitle="subtitles[1]" :status="stageStatus(1)">
+      <StageCard v-if="view === 1" :index="1" :title="STAGES[1].title" :subtitle="subtitles[1]" :status="stageStatus(1)">
         <div class="style-body">
           <button v-if="styleArt" type="button" class="thumb-btn style-art" :aria-label="`放大${styleLabel(look?.style)}风格图`" @click="zoom(styleArt)">
             <img loading="lazy" decoding="async" :src="styleArt" :alt="styleLabel(look?.style)" />
@@ -147,7 +197,8 @@ watch(phase, async (now, before) => {
       </StageCard>
 
       <!-- 3 女生造型 / 4 男生造型 -->
-      <StageCard v-for="side in [{ i: 2, key: 'bride', who: '新娘' }, { i: 3, key: 'groom', who: '新郎' }]" :key="side.key" :index="side.i" :title="STAGES[side.i].title" :subtitle="subtitles[side.i]" :status="stageStatus(side.i)">
+      <template v-for="side in [{ i: 2, key: 'bride', who: '新娘' }, { i: 3, key: 'groom', who: '新郎' }]" :key="side.key">
+      <StageCard v-if="view === side.i" :index="side.i" :title="STAGES[side.i].title" :subtitle="subtitles[side.i]" :status="stageStatus(side.i)">
         <div class="look-body">
           <button v-if="styleArt" type="button" class="thumb-btn look-art" :aria-label="`放大${styleLabel(look?.style)}风格图`" @click="zoom(styleArt)">
             <img loading="lazy" decoding="async" :src="styleArt" :alt="styleLabel(look?.style)" />
@@ -166,9 +217,10 @@ watch(phase, async (now, before) => {
           <p v-for="line in sideLines(side.key)" :key="line" class="look-text clamp1" :title="line">{{ line }}</p>
         </div>
       </StageCard>
+      </template>
 
       <!-- 5 摄影场景 -->
-      <StageCard :index="4" :title="STAGES[4].title" :subtitle="subtitles[4]" :status="stageStatus(4)">
+      <StageCard v-if="view === 4" :index="4" :title="STAGES[4].title" :subtitle="subtitles[4]" :status="stageStatus(4)">
         <div class="scene-body">
           <template v-if="choices?.scene">
             <p class="look-text"><b>{{ choices.scene.label }}</b></p>
@@ -181,7 +233,7 @@ watch(phase, async (now, before) => {
       </StageCard>
 
       <!-- 6 样片确认 -->
-      <StageCard class="photo-stage" :index="5" :title="STAGES[5].title" :subtitle="subtitles[5]" :status="stageStatus(5)">
+      <StageCard v-if="view === 5" class="photo-stage" :index="5" :title="STAGES[5].title" :subtitle="subtitles[5]" :status="stageStatus(5)">
         <div class="sample-body">
           <button v-if="sample || state.sampleUrl" type="button" class="thumb-btn sample-img photo-preview" aria-label="放大样片" @click="zoom(sample?.url || state.sampleUrl)">
             <img loading="lazy" decoding="async" :src="sample?.url || state.sampleUrl" alt="样片（带水印）" />
@@ -200,7 +252,7 @@ watch(phase, async (now, before) => {
       </StageCard>
 
       <!-- 7 九张成片 -->
-      <StageCard class="photo-stage" :index="6" :title="STAGES[6].title" :subtitle="subtitles[6]" :status="stageStatus(6)">
+      <StageCard v-if="view === 6" class="photo-stage" :index="6" :title="STAGES[6].title" :subtitle="subtitles[6]" :status="stageStatus(6)">
         <div class="set-body">
           <div v-if="phase === 'set_review'" class="set-grid photo-set" role="radiogroup" aria-label="选一张做主视觉">
             <div
@@ -242,6 +294,8 @@ watch(phase, async (now, before) => {
           </div>
         </div>
       </StageCard>
+    </div>
+    </Transition>
     </div>
     </div>
     <JourneyBar />
