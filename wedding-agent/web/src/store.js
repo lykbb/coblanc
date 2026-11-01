@@ -392,7 +392,7 @@ export async function pay() {
   const ok = await act(() => api.pay(state.taskId, 'mock'))
   if (ok) {
     state.dialog = null
-    addLog('你', '完成了模拟支付', true)
+    addLog('你', '完成了解锁', true)
   }
 }
 

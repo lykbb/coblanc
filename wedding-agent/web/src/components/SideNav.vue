@@ -40,10 +40,10 @@ const NAV = [
       </button>
     </nav>
 
-    <div class="side-user" :title="collapsed ? '演示账号' : undefined">
+    <div class="side-user" :title="collapsed ? '我的账号' : undefined">
       <span class="user-dot" aria-hidden="true"><Icon name="user" :size="18" /></span>
       <div class="side-user-text">
-        <strong>演示账号</strong>
+        <strong>我的账号</strong>
         <small>{{ usingMock ? '假数据模式' : '已连接后端' }}</small>
       </div>
     </div>

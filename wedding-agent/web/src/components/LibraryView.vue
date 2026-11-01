@@ -75,7 +75,7 @@ const sections = computed(() => {
     { key: 'refs', title: '专家参考', hint: '妆造与摄影选用的参考图', items: take(refItems.value), empty: '方案确认后，参考图会出现在这里。' },
     { key: 'brand', title: '品牌视觉', hint: 'COBLANC 示意资产，每张各用一次', items: take(BRAND) },
     { key: 'style', title: '风格板', hint: '东方、韩式、法式与电影感等方向', items: take(STYLE_TILES) },
-    { key: 'mood', title: '色与光', hint: '柔和氛围板，演示填充用', items: take(MOODS) },
+    { key: 'mood', title: '色与光', hint: '柔和氛围参考', items: take(MOODS) },
   ]
 })
 

@@ -62,7 +62,7 @@ const current = computed(() => {
   if (p === 'sample_review') return { title: '确认样片方向', detail: '确认、只要这一张，或者重做' }
   if (p === 'set_gen') return { title: '批量出片', detail: counts || '9 张不同镜头' }
   if (p === 'set_review') return { title: '挑主视觉，确认 9 张', detail: counts }
-  if (p === 'pay') return { title: '解锁高清图和物料', detail: '演示版，不会真实扣款' }
+  if (p === 'pay') return { title: '解锁高清图和物料', detail: '解锁后可下载高清图' }
   if (p === 'delivering') return { title: '制作婚礼物料', detail: '请柬、迎宾海报、婚礼大屏' }
   if (p === 'done') return { title: '作品已完成', detail: '去「成片交付」下载' }
   if (p === 'failed') {
