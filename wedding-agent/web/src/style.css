@@ -57,7 +57,7 @@ button, input, textarea { font: inherit; color: inherit; }
 }
 @property --amie-w {
   syntax: '<length>';
-  inherits: false;
+  inherits: true;
   initial-value: 300px;
 }
 
@@ -1528,3 +1528,17 @@ button.side-user:hover .user-dot { background: #ece9e0; }
 .side-user-btn.danger { background: #c9533d; color: #fff; }
 @media (min-width: 1181px) { .topbar .topbar-logout { display: none; } }
 @media (max-width: 1180px) { .side-user-wrap { display: none; } }
+
+
+/* ---------- 右侧 Amie 可折叠 ---------- */
+.workspace.with-amie { transition: grid-template-columns 0.28s ease; }
+.app.is-resizing .workspace.with-amie { transition: none; }
+.workspace.amie-collapsed > .amie { opacity: 0; pointer-events: none; overflow: hidden; padding-left: 0; padding-right: 0; border-width: 0; }
+.workspace > .amie { transition: opacity 0.2s ease; min-width: 0; }
+.amie-toggle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 22px; height: 44px; border-radius: 999px; border: 1px solid var(--line); background: #fff; box-shadow: var(--shadow); padding: 0; display: grid; place-items: center; cursor: pointer !important; opacity: 0; transition: opacity 0.18s ease; z-index: 4; }
+.split-amie:hover .amie-toggle, .amie-toggle:focus-visible { opacity: 1; }
+.amie-toggle-chev { width: 7px; height: 7px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); transform: rotate(-45deg); margin-left: -3px; }
+.amie-collapsed .amie-toggle { opacity: 1; width: 36px; height: 36px; left: auto; right: 0; transform: translate(0, -50%); overflow: hidden; }
+.amie-collapsed .amie-toggle img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; }
+.amie-collapsed .split-amie { width: 40px; margin-left: -30px; }
+@media (max-width: 1180px) { .amie-toggle { display: none; } }

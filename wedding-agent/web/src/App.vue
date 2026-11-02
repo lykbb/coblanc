@@ -15,6 +15,7 @@ import LibraryView from './components/LibraryView.vue'
 import DebugPanel from './components/DebugPanel.vue'
 import Icon from './components/Icon.vue'
 import { usingMock } from './api.js'
+import { AMIE } from './agents.js'
 import { clearError, refresh, restart, resumeLastTask, state } from './store.js'
 
 const SIDE_COLLAPSED_W = 76
@@ -28,6 +29,8 @@ const CENTER_MIN = 360
 const KEY_SIDE = 'coblanc.layout.sideW'
 const KEY_AMIE = 'coblanc.layout.amieW'
 const KEY_COLLAPSED = 'coblanc.layout.sideCollapsed'
+const KEY_AMIE_COLLAPSED = 'coblanc.layout.amieCollapsed'
+const AMIE_COLLAPSE_AT = 200
 
 const debug = new URLSearchParams(location.search).has('debug')
 const questionsKey = computed(() => (state.task ? state.task.step + (state.task.questions || []).map((q) => q.question_id).join() : ''))
@@ -36,6 +39,7 @@ const inStudio = computed(() => state.view === 'studio')
 const sideW = ref(228)
 const amieW = ref(300)
 const sideCollapsed = ref(false)
+const amieCollapsed = ref(false)
 const resizing = ref(false)
 const resizingKind = ref(null)
 
@@ -53,6 +57,7 @@ function persist() {
     localStorage.setItem(KEY_SIDE, String(sideCollapsed.value ? SIDE_COLLAPSED_W : sideW.value))
     localStorage.setItem(KEY_AMIE, String(amieW.value))
     localStorage.setItem(KEY_COLLAPSED, sideCollapsed.value ? '1' : '0')
+    localStorage.setItem(KEY_AMIE_COLLAPSED, amieCollapsed.value ? '1' : '0')
     localStorage.removeItem('coblanc.sideCollapsed')
   } catch {
     /* ignore */
@@ -65,7 +70,7 @@ function clamp(n, min, max) {
 
 const layoutStyle = computed(() => ({
   '--side-w': `${sideW.value}px`,
-  '--amie-w': `${amieW.value}px`,
+  '--amie-w': amieCollapsed.value ? '0px' : `${amieW.value}px`,
 }))
 
 let drag = null
@@ -82,8 +87,15 @@ function onPointerMove(event) {
     // splitter 在 Amie 左侧：右拖变窄
     const sideNow = sideW.value
     const maxByCenter = window.innerWidth - 32 - 16 - sideNow - 20 - CENTER_MIN
-    const next = clamp(drag.startW - dx, AMIE_MIN, Math.min(AMIE_MAX, Math.max(AMIE_MIN, maxByCenter)))
-    amieW.value = next
+    const next = clamp(drag.startW - dx, 0, Math.min(AMIE_MAX, Math.max(AMIE_MIN, maxByCenter)))
+    // 拖到很窄就折叠，再往左拖又展开
+    if (next < AMIE_COLLAPSE_AT) {
+      amieCollapsed.value = true
+      if (drag.startW >= AMIE_MIN) amieW.value = drag.startW
+    } else {
+      amieCollapsed.value = false
+      amieW.value = Math.max(AMIE_MIN, next)
+    }
   }
 }
 
@@ -112,6 +124,11 @@ function onPointerUp() {
   persist()
 }
 
+function toggleAmie() {
+  amieCollapsed.value = !amieCollapsed.value
+  persist()
+}
+
 function startDrag(kind, event) {
   event.preventDefault()
   resizing.value = true
@@ -120,7 +137,7 @@ function startDrag(kind, event) {
   drag = {
     kind,
     startX: event.clientX,
-    startW: kind === 'side' ? sideW.value : amieW.value,
+    startW: kind === 'side' ? sideW.value : (amieCollapsed.value ? 0 : amieW.value),
   }
   window.addEventListener('pointermove', onPointerMove)
   window.addEventListener('pointerup', onPointerUp)
@@ -143,6 +160,7 @@ onMounted(() => {
   // 旧默认 360 偏宽，演示期软迁到 300
   const savedAmie = readNum(KEY_AMIE, 300)
   amieW.value = clamp(savedAmie >= 350 ? 300 : savedAmie, AMIE_MIN, AMIE_MAX)
+  try { amieCollapsed.value = localStorage.getItem(KEY_AMIE_COLLAPSED) === '1' } catch { /* ignore */ }
   resumeLastTask()
 })
 
@@ -175,7 +193,7 @@ onBeforeUnmount(() => {
         <span>{{ state.notice }}</span>
         <button type="button" class="icon-btn" aria-label="关闭提示" @click="state.notice = null"><Icon name="close" :size="16" /></button>
       </div>
-      <div class="workspace" :class="{ 'with-amie': inStudio }">
+      <div class="workspace" :class="{ 'with-amie': inStudio, 'amie-collapsed': inStudio && amieCollapsed }">
         <main class="workspace-main">
           <OverviewView v-if="state.view === 'overview'" />
           <StudioCanvas v-else-if="state.view === 'studio'" />
@@ -190,9 +208,16 @@ onBeforeUnmount(() => {
           aria-orientation="vertical"
           aria-label="调整 Amie 面板宽度"
           tabindex="0"
+          title="拖动调整宽度，双击收起或展开"
           @pointerdown="startDrag('amie', $event)"
-        ></div>
-        <AmiePanel v-if="inStudio" />
+          @dblclick="toggleAmie"
+        >
+          <button type="button" class="amie-toggle" :aria-label="amieCollapsed ? '展开 Amie' : '收起 Amie'" :data-tip="amieCollapsed ? '展开' : '收起'" @pointerdown.stop @click="toggleAmie">
+            <img v-if="amieCollapsed" :src="AMIE.avatar" alt="" />
+            <span v-else class="amie-toggle-chev" aria-hidden="true"></span>
+          </button>
+        </div>
+        <AmiePanel v-if="inStudio" :inert="amieCollapsed || undefined" />
       </div>
     </div>
 
