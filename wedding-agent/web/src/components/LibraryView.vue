@@ -24,15 +24,27 @@ const STYLE_TILES = [
   { url: ASSET + 'style-minimal.webp', label: '极简清透' },
 ]
 
-const MOOD_LABELS = [
-  '晨光', '薄雾', '暖桃', '丁香', '奶油', '松青',
-  '腮红', '雾蓝', '香槟', '灰紫', '鼠尾草', '绯红',
-  '浅芋', '亚麻', '湖光', '蜜杏', '鸢尾', '青瓷',
-]
-const MOODS = MOOD_LABELS.map((label, i) => ({
-  url: `${LIB}mood-${String(i + 1).padStart(2, '0')}.webp`,
-  label,
-}))
+const MOODS = [
+  { label: '晨光', colors: ['#F3E3CF', '#E6C29E', '#FBF6EE'] },
+  { label: '薄雾', colors: ['#E6E8EB', '#C3CBD4', '#F6F6F4'] },
+  { label: '暖桃', colors: ['#F3D6C7', '#DFA287', '#FBF0E9'] },
+  { label: '丁香', colors: ['#E5DCEB', '#BBA8CE', '#F6F2F7'] },
+  { label: '奶油', colors: ['#F6EEDC', '#E4D2AC', '#FCFAF3'] },
+  { label: '松青', colors: ['#D2DDD5', '#8CA595', '#EFF3EE'] },
+  { label: '腮红', colors: ['#F1D7D6', '#D99FA2', '#FAEFEE'] },
+  { label: '雾蓝', colors: ['#D8E0E8', '#9AAEC1', '#F0F3F6'] },
+  { label: '香槟', colors: ['#EEE4CF', '#CFB88C', '#F9F5EB'] },
+  { label: '灰紫', colors: ['#DED8E0', '#A79CAE', '#F3F0F3'] },
+  { label: '鼠尾草', colors: ['#DCE2D3', '#A2B193', '#F3F5EE'] },
+  { label: '绯红', colors: ['#EDCDC7', '#C47B72', '#F8ECE9'] },
+  { label: '浅芋', colors: ['#E8DFEA', '#C2AFC9', '#F6F2F6'] },
+  { label: '亚麻', colors: ['#ECE5D8', '#C9BA9E', '#F7F3EC'] },
+  { label: '湖光', colors: ['#D5E5E5', '#8DB6B7', '#EEF5F4'] },
+  { label: '蜜杏', colors: ['#F4E0CB', '#DDAA77', '#FBF3EA'] },
+  { label: '鸢尾', colors: ['#DEDAEC', '#A19AC8', '#F3F2F8'] },
+  { label: '青瓷', colors: ['#D6E4DD', '#97BCAD', '#EEF4F1'] },
+].map((m) => ({ ...m, url: `mood:${m.label}` }))
+const moodBg = (c) => `radial-gradient(120% 75% at 28% 18%, ${c[2]} 0%, transparent 62%), radial-gradient(90% 70% at 85% 95%, ${c[1]} 0%, transparent 70%), linear-gradient(165deg, ${c[0]} 0%, ${c[1]} 120%)`
 
 const userItems = computed(() => {
   const photos = state.task?.plan?.photos
@@ -101,17 +113,21 @@ const total = computed(() => sections.value.reduce((n, s) => n + s.items.length,
 
       <p v-if="!sec.items.length" class="library-empty">{{ sec.empty || '暂时还没有' }}</p>
       <div v-else class="library-grid">
-        <button
-          v-for="(item, i) in sec.items"
-          :key="item.url"
-          type="button"
-          class="library-tile"
-          :aria-label="`放大 ${item.label || sec.title} ${i + 1}`"
-          @click="state.lightbox = item.url"
-        >
-          <img :src="item.url" :alt="item.label || `${sec.title} ${i + 1}`" loading="lazy" decoding="async" />
-          <span v-if="item.label" class="library-tag">{{ item.label }}</span>
-        </button>
+        <template v-for="(item, i) in sec.items" :key="item.url">
+          <div v-if="item.colors" class="library-tile mood-tile" :style="{ background: moodBg(item.colors) }" :title="item.colors.join('  ')">
+            <span class="mood-name">{{ item.label }}</span>
+          </div>
+          <button
+            v-else
+            type="button"
+            class="library-tile"
+            :aria-label="`放大 ${item.label || sec.title} ${i + 1}`"
+            @click="state.lightbox = item.url"
+          >
+            <img :src="item.url" :alt="item.label || `${sec.title} ${i + 1}`" loading="lazy" decoding="async" />
+            <span v-if="item.label" class="library-tag">{{ item.label }}</span>
+          </button>
+        </template>
       </div>
     </section>
   </section>

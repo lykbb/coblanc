@@ -2,11 +2,22 @@
 import Icon from './Icon.vue'
 import { state } from '../store.js'
 import { usingMock } from '../api.js'
-import { ref } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 
+const USER_AVATAR = `${import.meta.env.BASE_URL}user-avatar.jpg`
 const menu = ref(false)
 const confirming = ref(false)
 function toggleMenu() { menu.value = !menu.value; confirming.value = false }
+// 菜单打开时，点外面任意处或按 Esc 就收起
+const wrap = ref(null)
+function onDocDown(e) { if (wrap.value && !wrap.value.contains(e.target)) menu.value = false }
+function onEsc(e) { if (e.key === 'Escape') menu.value = false }
+watch(menu, (open) => {
+  const fn = open ? 'addEventListener' : 'removeEventListener'
+  document[fn]('pointerdown', onDocDown, true)
+  document[fn]('keydown', onEsc)
+})
+onBeforeUnmount(() => { menu.value = false; document.removeEventListener('pointerdown', onDocDown, true); document.removeEventListener('keydown', onEsc) })
 
 defineProps({
   collapsed: { type: Boolean, default: false },
@@ -45,9 +56,9 @@ const NAV = [
       </button>
     </nav>
 
-    <div class="side-user-wrap">
+    <div ref="wrap" class="side-user-wrap">
       <button type="button" class="side-user" :title="collapsed ? '我的账号' : undefined" :aria-expanded="menu" aria-haspopup="menu" @click="toggleMenu">
-        <span class="user-dot" aria-hidden="true"><Icon name="user" :size="18" /></span>
+        <span class="user-dot has-img" aria-hidden="true"><img :src="USER_AVATAR" alt="" /></span>
         <span class="side-user-text">
           <strong>我的账号</strong>
           <small>{{ usingMock ? '假数据模式' : '已连接后端' }}</small>

@@ -1542,3 +1542,41 @@ button.side-user:hover .user-dot { background: #ece9e0; }
 .amie-collapsed .amie-toggle img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; }
 .amie-collapsed .split-amie { width: 40px; margin-left: -30px; }
 @media (max-width: 1180px) { .amie-toggle { display: none; } }
+
+
+/* ---------- 步骤条对齐、卡片拉宽、对话气泡、头像 ---------- */
+.focus-steps { padding: 4px 2px; row-gap: 8px; }
+.focus-dot { letter-spacing: 0; line-height: 1; font-variant-numeric: tabular-nums; box-shadow: none; }
+.focus-dot span { display: block; transform: translateY(0.5px); }
+.focus-dot.viewing { transform: none; }
+.focus-dot:focus { outline: none; }
+.focus-dot:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+.focus-label { align-items: center; letter-spacing: 0; line-height: 1; gap: 6px; font-size: 14px; }
+.focus-label b { font-size: 14px; font-weight: 700; letter-spacing: 0; }
+.focus-label span { font-size: 13px; line-height: 1; }
+.focus-jump { line-height: 1; letter-spacing: 0; }
+.focus-back { letter-spacing: 0; }
+.amie-intro h2 { letter-spacing: 0.04em; }
+@media (min-width: 1181px) {
+  .stage-grid.focus-mode { max-width: none; }
+}
+.amie-bubble { border-left: 0; border-radius: 16px; background: var(--lav); }
+.user-dot.has-img { overflow: hidden; padding: 0; }
+.user-dot.has-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+
+/* ---------- 色与光：用柔和色卡代替旧图 ---------- */
+.mood-tile { position: relative; display: flex; align-items: flex-end; cursor: default; border: 1px solid rgba(40, 36, 24, 0.06); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+.mood-tile::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, transparent 55%, rgba(28, 27, 23, 0.10)); pointer-events: none; }
+.mood-name { position: relative; z-index: 1; margin: 0 0 12px 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; color: rgba(28, 27, 23, 0.72); }
+
+
+/* ---------- 首页主视觉：整张照片完整显示（不再裁掉男主的头），左侧用同图柔化铺底 ---------- */
+.home-hero { isolation: isolate; overflow: hidden; }
+.home-hero-media { background: none !important; transform: none; overflow: hidden; }
+.home-hero-media::before { content: ''; position: absolute; inset: -48px; background: var(--hero) center / cover no-repeat; filter: blur(30px) saturate(0.95) brightness(0.92); }
+.home-hero-photo { position: absolute; top: 0; right: 0; bottom: 0; aspect-ratio: 3 / 2; max-width: 100%; background: var(--hero) center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%); mask-image: linear-gradient(90deg, transparent 0%, #000 18%); }
+@media (max-width: 760px) {
+  .home-hero-photo { left: 0; aspect-ratio: auto; background-position: 70% top; -webkit-mask-image: none; mask-image: none; }
+}

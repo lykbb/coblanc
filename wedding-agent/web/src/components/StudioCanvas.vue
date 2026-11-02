@@ -1,5 +1,5 @@
 <script setup>
-import { computed, nextTick, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import Icon from './Icon.vue'
 import StageCard from './StageCard.vue'
 import JourneyBar from './JourneyBar.vue'
@@ -91,6 +91,19 @@ watch(current, (now, before) => {
   }
 })
 const browsing = computed(() => view.value < current.value)
+
+// 键盘左右键切换阶段（输入框里打字时不抢按键，弹窗开着时也不动）
+function onKey(e) {
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+  if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return
+  const t = e.target
+  if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return
+  if (state.dialog || state.lightbox) return
+  e.preventDefault()
+  goTo(view.value + (e.key === 'ArrowRight' ? 1 : -1))
+}
+onMounted(() => window.addEventListener('keydown', onKey))
+onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
 // 样片、九张出来时把那张卡片滚到眼前，确认按钮不用自己找
 const root = ref(null)

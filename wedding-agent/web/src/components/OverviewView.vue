@@ -72,7 +72,7 @@ function continueCurrent() {
 <template>
   <section class="page-view overview-home" aria-label="总览首页">
     <div class="home-hero">
-      <div class="home-hero-media" aria-hidden="true" :style="{ backgroundImage: `url(${HERO})` }"></div>
+      <div class="home-hero-media" aria-hidden="true" :style="{ '--hero': `url(${HERO})` }"><i class="home-hero-photo"></i></div>
       <div class="home-hero-copy">
         <p class="home-eyebrow">COBLANC · 共白</p>
         <h1>为你们，留下<br />刚刚好的那一张。</h1>
@@ -93,13 +93,6 @@ function continueCurrent() {
           <li>审片</li>
         </ul>
       </div>
-      <figure class="home-amie" aria-hidden="true">
-        <img loading="lazy" decoding="async" :src="AMIE.avatar" alt="" />
-        <figcaption>
-          <strong>{{ AMIE.title }}</strong>
-          <span><i class="online-dot"></i>你的创意伙伴 · 在线</span>
-        </figcaption>
-      </figure>
     </div>
 
     <div class="home-panels">
