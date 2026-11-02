@@ -44,7 +44,7 @@ async function submit() {
 .gate-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14, 24, 24, 0.55), rgba(14, 24, 24, 0.25)), linear-gradient(0deg, rgba(14, 24, 24, 0.4), transparent 50%); }
 .gate-card { width: min(380px, 100%); display: flex; flex-direction: column; align-items: stretch; gap: 12px; padding: 34px 30px 22px; border-radius: 24px; background: rgba(251, 247, 238, 0.86); border: 1px solid rgba(255, 255, 255, 0.7); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 30px 80px rgba(0, 0, 0, 0.25); backdrop-filter: blur(24px) saturate(140%); color: var(--ink); }
 .gate-brand { display: flex; align-items: baseline; justify-content: center; gap: 10px; }
-.gate-brand strong { font-family: var(--brand); font-weight: 400; font-size: 22px; letter-spacing: 0.24em; }
+.gate-brand strong { font-family: var(--logo, var(--brand)); font-weight: 400; font-size: 22px; letter-spacing: 0.24em; }
 .gate-brand span { font-family: var(--serif); font-size: 12px; letter-spacing: 0.35em; color: var(--muted); }
 .gate-title { margin: 14px 0 0; text-align: center; font-family: var(--serif); font-weight: 500; font-size: 24px; letter-spacing: 0.08em; }
 .gate-lead { margin: 0 0 10px; text-align: center; font-size: 13px; line-height: 1.8; color: var(--muted); }

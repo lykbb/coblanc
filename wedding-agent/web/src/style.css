@@ -29,9 +29,11 @@
   --grad-bar: linear-gradient(90deg, #c9a66b 0%, #8ea07a 50%, #4c7d92 100%);
   --grad-btn: #1c1b17;
   --btn-ink: #fbf7ee;
-  --brand: Georgia, 'Times New Roman', serif;
-  --serif: 'Songti SC', 'STSong', 'Noto Serif SC', 'Source Han Serif SC', Georgia, serif;
+  /* 字体统一：全站只用一套无衬线（苹方），衬线只留给 COBLANC 字标 */
   --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --logo: 'Didot', 'Bodoni 72', Georgia, 'Times New Roman', serif;
+  --brand: var(--sans);
+  --serif: var(--sans);
   --shadow: 0 10px 30px rgba(40, 36, 24, 0.06);
   --composer-h: 0px;
 }
@@ -1497,3 +1499,18 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
   .set-grid.photo-set .set-cell:not(.picked) .set-pick { opacity: 0; transition: opacity 0.15s ease; }
   .set-grid.photo-set .set-cell:hover .set-pick, .set-grid.photo-set .set-pick:focus-visible { opacity: 1; }
 }
+
+
+/* ---------- 字体统一 ---------- */
+.brand-mark { font-family: var(--logo); }
+body { font-variant-numeric: tabular-nums; }
+.stage-titles h2, .focus-label, .drop-zone strong, .modal-head h2, .section-title,
+.project-info strong, .home-steps strong, .home-recent-meta strong { font-weight: 600; letter-spacing: 0.02em; }
+.focus-label { font-size: 14px; }
+.focus-label b { font-weight: 600; font-size: 15px; }
+.focus-dot, .stage-badge { font-size: 11px; font-weight: 500; }
+.amie-intro h2 { font-size: 17px; font-weight: 600; letter-spacing: 0.12em; }
+.home-hero-copy h1, .library-hero h1 { font-weight: 600; letter-spacing: 0.02em; }
+.home-panel h2, .home-section-head h2, .library-section-head h2 { font-weight: 600; letter-spacing: 0.02em; }
+.home-step-num, .empty-state .empty-mark { font-style: normal; font-weight: 600; }
+.brand-cn { letter-spacing: 0.24em; }
