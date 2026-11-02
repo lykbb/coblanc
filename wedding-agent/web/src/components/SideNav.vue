@@ -2,6 +2,11 @@
 import Icon from './Icon.vue'
 import { state } from '../store.js'
 import { usingMock } from '../api.js'
+import { ref } from 'vue'
+
+const menu = ref(false)
+const confirming = ref(false)
+function toggleMenu() { menu.value = !menu.value; confirming.value = false }
 
 defineProps({
   collapsed: { type: Boolean, default: false },
@@ -40,11 +45,20 @@ const NAV = [
       </button>
     </nav>
 
-    <div class="side-user" :title="collapsed ? '我的账号' : undefined">
-      <span class="user-dot" aria-hidden="true"><Icon name="user" :size="18" /></span>
-      <div class="side-user-text">
-        <strong>我的账号</strong>
-        <small>{{ usingMock ? '假数据模式' : '已连接后端' }}</small>
+    <div class="side-user-wrap">
+      <button type="button" class="side-user" :title="collapsed ? '我的账号' : undefined" :aria-expanded="menu" aria-haspopup="menu" @click="toggleMenu">
+        <span class="user-dot" aria-hidden="true"><Icon name="user" :size="18" /></span>
+        <span class="side-user-text">
+          <strong>我的账号</strong>
+          <small>{{ usingMock ? '假数据模式' : '已连接后端' }}</small>
+        </span>
+      </button>
+      <div v-if="menu" class="side-user-menu" role="menu">
+        <button v-if="!confirming" type="button" role="menuitem" class="side-user-item" @click="confirming = true">退出登录</button>
+        <form v-else method="post" action="/logout" class="side-user-confirm">
+          <button type="button" class="side-user-btn" @click="menu = false">取消</button>
+          <button type="submit" class="side-user-btn danger">退出</button>
+        </form>
       </div>
     </div>
   </aside>

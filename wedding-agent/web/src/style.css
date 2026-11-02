@@ -1514,3 +1514,17 @@ body { font-variant-numeric: tabular-nums; }
 .home-panel h2, .home-section-head h2, .library-section-head h2 { font-weight: 600; letter-spacing: 0.02em; }
 .home-step-num, .empty-state .empty-mark { font-style: normal; font-weight: 600; }
 .brand-cn { letter-spacing: 0.24em; }
+
+
+/* ---------- 账号入口收进左下角 ---------- */
+.side-user-wrap { margin-top: auto; position: relative; }
+button.side-user { margin-top: 0; width: 100%; border: 0; border-top: 1px solid var(--line); background: transparent; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+button.side-user:hover .user-dot { background: #ece9e0; }
+.side-user-menu { position: absolute; left: 0; bottom: calc(100% + 8px); min-width: 160px; padding: 6px; background: #fff; border-radius: 12px; box-shadow: 0 8px 28px rgba(30, 20, 40, .14), 0 0 0 1px rgba(0, 0, 0, .05); z-index: 50; }
+.side-user-item { width: 100%; text-align: left; border: 0; background: transparent; padding: 8px 10px; border-radius: 8px; cursor: pointer; font: inherit; font-size: 13px; color: inherit; }
+.side-user-item:hover { background: var(--soft); }
+.side-user-confirm { margin: 0; padding: 4px; display: flex; gap: 6px; justify-content: flex-end; }
+.side-user-btn { border: 0; border-radius: 8px; padding: 6px 12px; font: inherit; font-size: 12px; cursor: pointer; background: var(--soft); color: inherit; }
+.side-user-btn.danger { background: #c9533d; color: #fff; }
+@media (min-width: 1181px) { .topbar .topbar-logout { display: none; } }
+@media (max-width: 1180px) { .side-user-wrap { display: none; } }
