@@ -332,7 +332,7 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
 
 /* ---------- 创作画布 ---------- */
 .canvas, .page-view { background: var(--canvas); border: 1px solid var(--line); border-radius: 20px; padding: 16px 14px 10px; box-shadow: var(--shadow); min-height: 0; }
-.canvas { display: flex; flex-direction: column; height: 100%; overflow: hidden; padding: 8px 8px 8px; }
+.canvas { display: flex; flex-direction: column; height: 100%; overflow: hidden; padding: 0; background: transparent; border: 0; box-shadow: none; border-radius: 0; }
 .canvas-scroll { flex: 1 1 auto; min-height: 0; overflow: auto; overscroll-behavior: contain; padding-bottom: 4px; }
 .page-view { display: flex; flex-direction: column; gap: 18px; min-height: 60vh; padding: 28px 32px 36px; }
 .canvas-head { padding: 2px 4px 0; }
