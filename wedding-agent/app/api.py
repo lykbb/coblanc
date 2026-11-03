@@ -335,7 +335,8 @@ def _choices(values: dict) -> dict | None:
         "makeup": {"label": makeup["label"], "bride": makeup["bride"], "groom": makeup["groom"]},
         "outfit": {"label": outfit["label"], "image": outfit.get("image"), "description": outfit.get("description"),
                    "bride": outfit.get("bride"), "groom": outfit.get("groom")},
-        "scene": {"id": scene["value"], "label": scene["label"], "description": scene["description"]} if scene else None,
+        "scene": {"id": scene["value"], "label": scene["label"], "description": scene["description"],
+                  "light": scene["light"], "season": scene["season"]} if scene else None,
     }
 
 

@@ -1609,3 +1609,33 @@ button.side-user:hover .user-dot { background: #ece9e0; }
 @media (max-width: 760px) {
   .home-hero-photo { left: 0; aspect-ratio: auto; background-position: 70% top; -webkit-mask-image: none; mask-image: none; }
 }
+
+
+/* ---------- 摄影场景卡：左边场景图（完整显示），右边 9 格分镜小样 ---------- */
+.scene-board { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px; min-height: 0; }
+.scene-board.solo { grid-template-columns: minmax(0, 1fr); }
+.scene-main { display: flex; flex-direction: column; gap: 8px; min-width: 0; min-height: 0; }
+.scene-frame { min-height: 0; }
+.scene-art { aspect-ratio: 3 / 2; }
+.scene-art img { object-fit: contain; background: var(--tile); }
+.shot-board { min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.shot-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; width: 100%; }
+.shot-cell { position: relative; aspect-ratio: 3 / 4; border-radius: 10px; overflow: hidden; background: linear-gradient(180deg, #fbfaf6 0%, var(--tile) 100%); border: 1px solid rgba(229, 226, 216, 0.9); }
+.shot-cell svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.shot-cell .shot-ground { stroke: var(--dash); stroke-width: 0.6; }
+.shot-cell .shot-bride path, .shot-cell .shot-bride circle { fill: #fffdf8; stroke: #cfc9b9; stroke-width: 0.7; }
+.shot-cell .shot-groom path, .shot-cell .shot-groom circle { fill: #5f5d55; }
+.shot-cell .num { position: absolute; left: 5px; top: 5px; font-family: var(--brand); font-size: 10.5px; line-height: 1.5; color: var(--muted); }
+.shot-cell .shot-frame { position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%); font-size: 11.5px; padding: 1px 8px; border-radius: 999px; background: rgba(28, 27, 23, 0.74); color: #fff; letter-spacing: 0.04em; white-space: nowrap; }
+.shot-cell:first-child { border-color: var(--peach-line); }
+@media (min-width: 1181px) {
+  .stage-grid.focus-mode .scene-board { flex: 1 1 0; height: 100%; }
+  .stage-grid.focus-mode .scene-frame { flex: 1 1 0; min-height: 120px; container-type: size; display: flex; align-items: center; justify-content: center; }
+  .stage-grid.focus-mode .scene-art { width: min(100cqw, 100cqh * 1.5); height: auto; aspect-ratio: 3 / 2; }
+  .stage-grid.focus-mode .shot-board { container-type: size; }
+  .stage-grid.focus-mode .shot-grid { width: min(100%, calc((100cqh - 12px) * 0.75)); }
+}
+@media (max-width: 760px) {
+  .scene-board { grid-template-columns: minmax(0, 1fr); }
+  .shot-grid { max-width: 260px; margin: 0 auto; }
+}

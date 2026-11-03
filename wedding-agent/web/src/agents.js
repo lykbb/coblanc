@@ -45,6 +45,21 @@ export const STYLE_ART = {
   keep_original: ASSET + 'style-minimal.webp',
 }
 
+// 摄影场景示意图：场景编号 → 图。还没有专门的场景图时先用同风格的风格板；
+// 资产库里有背景参考图时优先用它（见 StudioCanvas 的 sceneArt）
+const SCENE_GROUPS = {
+  chinese_red_gold: ['courtyard', 'palace', 'red_studio'],
+  korean_studio: ['white_studio', 'cream_studio', 'floral_studio'],
+  french_editorial: ['paris_street', 'palace_hall', 'editorial_studio'],
+  forest: ['forest_path', 'lawn', 'lakeside', 'garden'],
+  retro: ['old_villa', 'retro_street', 'film_studio'],
+  cinematic: ['city_night', 'castle', 'seaside_dusk'],
+  keep_original: ['studio'],
+}
+export const SCENE_ART = Object.fromEntries(
+  Object.entries(SCENE_GROUPS).flatMap(([style, ids]) => ids.map((id) => [id, STYLE_ART[style]])),
+)
+
 export const MATERIAL_LABELS = {
   photo: '主视觉高清图',
   invitation: '请柬主视觉 4:5',

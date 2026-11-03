@@ -3,8 +3,8 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import Icon from './Icon.vue'
 import StageCard from './StageCard.vue'
 import JourneyBar from './JourneyBar.vue'
-import { STYLE_ART } from '../agents.js'
-import { framingCounts, heights, short, styleLabel } from '../plan.js'
+import { SCENE_ART, STYLE_ART } from '../agents.js'
+import { heights, short, styleLabel } from '../plan.js'
 import { MAX_REDO, STAGES, activeStage, addPhotos, isImageFile, openRedo, phase, review, stageStatus, state } from '../store.js'
 
 const task = computed(() => state.task)
@@ -27,7 +27,6 @@ const sideLines = (key) => {
   ].filter((line) => line && !line.endsWith('：'))
 }
 const tall = computed(() => heights(plan.value.brief))
-const counts = computed(() => framingCounts(shots.value))
 const previews = computed(() => task.value?.previews || [])
 const finalPhotos = computed(() => task.value?.deliverables?.photos || (task.value?.deliverables?.photo ? [task.value.deliverables.photo] : []))
 // 风格以用户选定的为准（choices.style.id），没有再退回妆造师方案里的 look.style；
@@ -37,6 +36,29 @@ const styleArt = computed(() => {
   const ref = look.value?.style === styleId.value ? look.value?.references?.find((r) => r.role === 'style')?.url : null
   return ref || STYLE_ART[styleId.value] || null
 })
+// 摄影场景卡：背景参考图 > 场景示意图 > 风格板；保留原图场景时直接用两人的照片
+const scene = computed(() => choices.value?.scene || null)
+const sceneArt = computed(() => {
+  const bg = (shot.value?.references || []).find((r) => r.role === 'background')?.url
+  if (bg) return bg
+  if (scene.value?.id === 'keep_original' && allPhotos.value[0]) return allPhotos.value[0]
+  return SCENE_ART[scene.value?.id] || styleArt.value
+})
+// 分镜小样：按景别画两人的剪影（女生在左、男生在右），9 格对应 9 张
+// 每个人：[头 cx, cy, r, 肩宽一半, 底宽一半, 肩 y, 底 y]
+const FIGURES = {
+  远景: { horizon: 60, people: [[27, 45, 1.7, 2.3, 3.8, 48, 60], [33, 44, 1.8, 2.5, 2.1, 47, 60]] },
+  全身: { horizon: 72, people: [[24, 19, 3.4, 5, 10, 24.5, 72], [36.5, 16, 3.7, 5.6, 4.6, 21.5, 72]] },
+  半身: { people: [[21, 31, 7, 11, 15, 41, 82], [40, 27, 7.6, 12.5, 11.5, 37, 82]] },
+  特写: { people: [[19, 42, 14, 21, 23, 60, 82], [42, 35, 15, 22, 21, 54, 82]] },
+}
+const body = ([cx, , , w, w2, s, b]) => {
+  const k = Math.min(w * 0.8, b - s)
+  return `M${cx - w2} ${b}L${cx - w} ${s + k}Q${cx - w} ${s} ${cx} ${s}Q${cx + w} ${s} ${cx + w} ${s + k}L${cx + w2} ${b}Z`
+}
+const board = computed(() => shots.value.slice(0, 9).map((item) => ({
+  ...item, fig: FIGURES[item.framing] || FIGURES['全身'],
+})))
 const lookRefs = (roles) => (look.value?.references || []).filter((r) => roles.includes(r.role)).slice(0, 2)
 const redoLeft = computed(() => Math.max(0, MAX_REDO - state.redoUsed))
 
@@ -217,13 +239,38 @@ watch(phase, async (now, before) => {
       <!-- 5 摄影场景 -->
       <StageCard v-if="view === 4" :index="4" :title="STAGES[4].title" :subtitle="subtitles[4]" :status="stageStatus(4)">
         <div class="scene-body">
-          <template v-if="choices?.scene">
-            <p class="look-text"><b>{{ choices.scene.label }}</b></p>
-            <p class="look-text clamp1">{{ choices.scene.description }}</p>
-          </template>
-          <div v-if="counts.length" class="height-chips">
-            <span v-for="c in counts" :key="c.name" class="pill">{{ c.name }} {{ c.count }}</span>
+          <div v-if="scene" class="scene-board" :class="{ solo: !board.length }">
+            <div class="scene-main">
+              <div v-if="sceneArt" class="scene-frame">
+                <button type="button" class="thumb-btn scene-art" :aria-label="`放大${scene.label}场景图`" @click="zoom(sceneArt)">
+                  <img loading="lazy" decoding="async" :src="sceneArt" :alt="scene.label" />
+                  <span class="tag">{{ scene.label }}</span>
+                </button>
+              </div>
+              <div v-else class="placeholder">{{ scene.label }}</div>
+              <p class="look-text clamp1">{{ scene.description }}</p>
+              <div v-if="scene.light || scene.season" class="height-chips">
+                <span v-if="scene.light" class="pill">{{ scene.light }}</span>
+                <span v-if="scene.season" class="pill">{{ scene.season }}</span>
+              </div>
+            </div>
+            <div v-if="board.length" class="shot-board">
+              <ol class="shot-grid" :aria-label="`${board.length} 个镜头`">
+                <li v-for="item in board" :key="item.slot" class="shot-cell" :title="item.text">
+                  <svg viewBox="0 0 60 80" aria-hidden="true">
+                    <line v-if="item.fig.horizon" x1="0" x2="60" :y1="item.fig.horizon" :y2="item.fig.horizon" class="shot-ground" />
+                    <g v-for="(p, n) in item.fig.people" :key="n" :class="n ? 'shot-groom' : 'shot-bride'">
+                      <path :d="body(p)" />
+                      <circle :cx="p[0]" :cy="p[1]" :r="p[2]" />
+                    </g>
+                  </svg>
+                  <span class="num">{{ String(item.slot + 1).padStart(2, '0') }}</span>
+                  <span class="shot-frame">{{ item.framing }}</span>
+                </li>
+              </ol>
+            </div>
           </div>
+          <div v-else class="placeholder" :class="{ shimmer: stageStatus(4) === 'active' }"></div>
         </div>
       </StageCard>
 
