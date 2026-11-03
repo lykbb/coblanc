@@ -2,6 +2,9 @@
 import { computed } from 'vue'
 import { STAGES, progress, stageStatus, state } from '../store.js'
 
+// 进度条兼做阶段切换：点圆点看对应阶段，当前看的那个下面写阶段名
+const props = defineProps({ view: { type: Number, default: 0 }, canView: { type: Function, default: () => false } })
+const emit = defineEmits(['go'])
 const pct = computed(() => Math.min(100, Math.max(0, Number(progress.value) || 0)))
 // 任务未开始 / 空闲：静止；流水线 busy（进度推进中）才跑跳
 const isMoving = computed(() => Boolean(state.busy) && pct.value < 100)
@@ -11,20 +14,30 @@ const laneStyle = computed(() => ({ '--tip': `${pct.value}%` }))
 </script>
 
 <template>
-  <div class="journey" role="status" :aria-label="`整体进度 ${pct}%`">
+  <nav class="journey" :aria-label="`创作步骤，整体进度 ${pct}%`">
     <div class="journey-scene">
       <div class="journey-road">
-        <div class="journey-lane" aria-hidden="true" :style="laneStyle">
+        <div class="journey-lane" :style="laneStyle">
           <div class="journey-rail">
             <div class="journey-fill" :style="{ width: fillWidth }"></div>
           </div>
           <ol class="journey-dots">
-            <li v-for="(stage, i) in STAGES" :key="stage.key" :class="stageStatus(i)">
-              <span class="journey-dot"></span>
+            <li v-for="(stage, i) in STAGES" :key="stage.key" :class="[stageStatus(i), { viewing: i === props.view }]">
+              <button
+                type="button"
+                class="journey-hit"
+                :disabled="!props.canView(i)"
+                :aria-current="i === props.view ? 'step' : undefined"
+                :aria-label="`${String(i + 1).padStart(2, '0')} ${stage.title}`"
+                :title="stage.title"
+                @click="emit('go', i)"
+              ><span class="journey-dot"></span></button>
+              <span v-if="i === props.view" class="journey-name">{{ stage.title }}</span>
             </li>
           </ol>
           <div
             class="journey-runner"
+            aria-hidden="true"
             :class="{ 'is-moving': isMoving, settled: pct >= 100 }"
           >
             <svg class="journey-couple" viewBox="0 0 64 40" width="52" height="32" fill="none" overflow="visible">
@@ -63,5 +76,5 @@ const laneStyle = computed(() => ({ '--tip': `${pct.value}%` }))
         <span class="journey-pct-tiny">{{ pct }}%</span>
       </div>
     </div>
-  </div>
+  </nav>
 </template>

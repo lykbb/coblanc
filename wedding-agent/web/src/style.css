@@ -332,7 +332,7 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
 
 /* ---------- 创作画布 ---------- */
 .canvas, .page-view { background: var(--canvas); border: 1px solid var(--line); border-radius: 20px; padding: 16px 14px 10px; box-shadow: var(--shadow); min-height: 0; }
-.canvas { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+.canvas { display: flex; flex-direction: column; height: 100%; overflow: hidden; padding: 8px 8px 8px; }
 .canvas-scroll { flex: 1 1 auto; min-height: 0; overflow: auto; overscroll-behavior: contain; padding-bottom: 4px; }
 .page-view { display: flex; flex-direction: column; gap: 18px; min-height: 60vh; padding: 28px 32px 36px; }
 .canvas-head { padding: 2px 4px 0; }
@@ -590,7 +590,7 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
   position: relative;
   flex: 1;
   min-width: 0;
-  height: 48px;
+  height: 62px;
   overflow: visible; /* 头部 / 头纱不被裁切；水平由 lane 内边距约束 */
 }
 /* 左右各留半个新人宽度，0%/100% 时 translateX(-50%) 仍在盒子内 */
@@ -606,7 +606,7 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 8px;
+  bottom: 22px;
   height: 3px;
   border-radius: 999px;
   background: #e9e6dc;
@@ -625,12 +625,41 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 5.5px;
+  bottom: 0;
+  height: 47px;
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   pointer-events: none;
 }
-.journey-dots li { display: flex; justify-content: center; }
+.journey-dots li { position: relative; display: flex; justify-content: center; }
+.journey-hit {
+  position: absolute;
+  bottom: 12px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.journey-hit:disabled { cursor: default; }
+.journey-hit:not(:disabled):hover .journey-dot { transform: scale(1.35); }
+.journey-hit:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+.journey-dot { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.journey-dots li.viewing .journey-dot { width: 9px; height: 9px; background: var(--ink); box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--ink); }
+.journey-name {
+  position: absolute;
+  bottom: 0;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+}
 .journey-dot {
   width: 6px;
   height: 6px;
@@ -646,7 +675,7 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
 /* 情侣站在进度末端，与 fill 同一 left% */
 .journey-runner {
   position: absolute;
-  bottom: 10px;
+  bottom: 24px;
   /* 与 fill 末端对齐，并夹在 lane 内，避免左侧探出进度盒 */
   left: clamp(0px, var(--tip, 0%), 100%);
   transform: translateX(-50%);
@@ -1354,7 +1383,7 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
   .library-page { padding: 18px 12px 28px; gap: 16px; }
   .library-section { padding: 16px 12px; }
   .library-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-  .journey-road { height: 50px; }
+  .journey-road { height: 62px; }
   .journey-couple { width: 48px; height: 30px; }
   .mock-badge { font-size: 11px; }
 }
@@ -1378,7 +1407,7 @@ header.topbar .topbar-logout { position: absolute; right: 16px; top: calc(50% - 
 .focus-label { margin: 0; display: flex; align-items: baseline; gap: 6px; font-family: var(--serif); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; }
 .focus-label b { font-family: var(--brand); font-weight: 400; font-size: 18px; }
 .focus-label span { color: var(--muted); font-size: 12px; font-weight: 400; }
-.focus-stage { position: relative; margin-top: 10px; }
+.focus-stage { position: relative; margin-top: 0; }
 .stage-grid.focus-mode { display: block; max-width: 780px; margin: 0 auto; }
 .stage-grid.focus-mode > .stage-card { min-height: 0; padding: 14px; gap: 12px; }
 .stage-grid.focus-mode > .stage-card::after { display: none; }

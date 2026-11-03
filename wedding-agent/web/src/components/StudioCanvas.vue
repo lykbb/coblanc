@@ -122,27 +122,6 @@ watch(phase, async (now, before) => {
       <p>{{ subtitle }}</p>
     </div>
 
-    <nav class="focus-steps" aria-label="创作步骤">
-      <button type="button" class="focus-back" :disabled="view === 0" aria-label="回到上一步" @click="goTo(view - 1)">
-        <Icon name="chevron-left" :size="16" /><span>上一步</span>
-      </button>
-      <ol class="focus-dots">
-        <li v-for="(s, i) in STAGES" :key="s.key">
-          <button
-            type="button"
-            class="focus-dot"
-            :class="[stageStatus(i), { viewing: i === view }]"
-            :disabled="!viewable(i)"
-            :aria-current="i === view ? 'step' : undefined"
-            :aria-label="`${String(i + 1).padStart(2, '0')} ${s.title}`"
-            :title="s.title"
-            @click="goTo(i)"
-          ><span>{{ String(i + 1).padStart(2, '0') }}</span></button>
-        </li>
-      </ol>
-      <p class="focus-label"><b>{{ String(view + 1).padStart(2, '0') }}</b><span>/ 07</span>{{ STAGES[view].title }}</p>
-      <button v-if="browsing" type="button" class="focus-jump" :class="{ ready: nextReady }" @click="goTo(current)">回到当前 →</button>
-    </nav>
 
     <div class="focus-stage">
     <Transition :name="`focus-${dir}`" mode="out-in">
@@ -305,7 +284,7 @@ watch(phase, async (now, before) => {
     </Transition>
     </div>
     </div>
-    <JourneyBar />
+    <JourneyBar :view="view" :can-view="viewable" @go="goTo" />
   </div>
 </template>
 
