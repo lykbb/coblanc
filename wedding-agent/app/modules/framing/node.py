@@ -36,15 +36,15 @@ BACKGROUNDS = {
 
 # 分镜表模板：9 个镜头的景别和动作各不相同，避免套图 9 张一个样。slot 0 同时用于样片。
 SHOT_PLANS = [
-    ("全身", "牵手并肩走向镜头"),
-    ("半身", "相拥对视微笑"),
-    ("特写", "额头相抵，闭眼微笑"),
-    ("全身", "新郎单膝跪地牵起新娘的手"),
-    ("半身", "新娘挽着新郎手臂，一起看镜头"),
-    ("远景", "两人背影，并肩望向远方"),
-    ("半身", "新郎从身后环抱新娘"),
-    ("特写", "两人十指相扣的手和戒指"),
-    ("全身", "新郎抱起新娘转圈，裙摆飞扬"),
+    ("全身", "牵手并肩走向镜头", "边走边相视而笑，步伐轻松"),
+    ("半身", "相拥对视微笑", "眼里带笑地看着对方，新娘轻轻靠近"),
+    ("特写", "额头相抵，闭眼微笑", "嘴角自然上扬，神情安静幸福"),
+    ("全身", "新郎单膝跪地牵起新娘的手", "新郎抬头深情望着新娘，新娘惊喜地笑出来"),
+    ("半身", "新娘挽着新郎手臂，一起看镜头", "两人放松地笑着看向镜头，像被逗笑的一瞬"),
+    ("远景", "两人背影，并肩望向远方", "身体微微靠在一起，姿态松弛"),
+    ("半身", "新郎从身后环抱新娘", "新娘侧头笑着回看新郎，新郎下巴轻靠她肩头"),
+    ("特写", "两人十指相扣的手和戒指", "手指自然交握，指尖放松"),
+    ("全身", "新郎抱起新娘转圈，裙摆飞扬", "新娘开怀大笑，新郎笑着看她"),
 ]
 
 
@@ -53,11 +53,11 @@ def plan_shots(shot: dict, scene: str) -> list[dict]:
     count = max(settings.set_candidates, 1)
     shots = []
     for slot in range(count):
-        framing, action = SHOT_PLANS[slot % len(SHOT_PLANS)]
+        framing, action, mood = SHOT_PLANS[slot % len(SHOT_PLANS)]
         shots.append({
             "slot": slot, "pose": shot["pose"],
             "framing": framing, "scene": scene,
-            "text": f"{framing}构图，{action}",
+            "text": f"{framing}构图，{action}，{mood}",
         })
     return shots
 
@@ -152,10 +152,12 @@ def frame(state: WeddingState) -> dict:
         if scene["label"] not in shot["text"]:
             shot["text"] = f"场景：{scene['label']}（{scene['description']}），{scene['light']}，{scene['season']}；" + shot["text"]
         shot["text"] = _height_text(brief) + "；" + shot["text"]
+        if scene["interaction"] not in shot["text"]:
+            shot["text"] += f"神情与互动：{scene['interaction']}，笑意自然。"
         if retouching and plan.get("patch"):
             shot["text"] += f"调整：{plan['patch']}。"
         if expected_pose == KEEP_ORIGINAL:
-            shot["text"] += "沿用原图姿势，不因互动偏好改变肢体位置。"
+            shot["text"] += "站位和身高关系参考原图，表情、视线和头部角度按每张镜头自然重拍。"
         if brief.keep_features:
             shot["text"] += f"保留：{'、'.join(brief.keep_features)}。"
         if context["look"].get("text"):
@@ -220,7 +222,7 @@ def _rule_shot(state: WeddingState) -> dict:
         height = f"两人身高 {brief.heights_cm[0]}cm 和 {brief.heights_cm[1]}cm，保持这个身高差"
     else:
         height = "保持原图里两人的身高差和体型"
-    pose_text = "沿用原图的姿势" if pose == KEEP_ORIGINAL else "按参考图的姿势站立"
+    pose_text = "参考原图的站位" if pose == KEEP_ORIGINAL else "按参考图的姿势站立"
 
     template = (PROMPTS / "shot.md").read_text(encoding="utf-8").strip()
     text = template.format(
@@ -233,7 +235,7 @@ def _rule_shot(state: WeddingState) -> dict:
         light=scene["light"],
     )
     if pose == KEEP_ORIGINAL:
-        text += "互动仅作为氛围参考，沿用原图肢体位置。"
+        text += "站位和身高关系参考原图，表情、视线和头部角度按每张镜头自然重拍。"
     if plan.get("target") == "shot" and plan.get("patch"):
         text += f"调整：{plan['patch']}。"
 
