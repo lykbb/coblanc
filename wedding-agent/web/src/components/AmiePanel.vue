@@ -3,7 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import Icon from './Icon.vue'
 import { AMIE, speakerOf } from '../agents.js'
 import { framingCounts } from '../plan.js'
-import { MAX_REDO, addPhotos, failureText, openRedo, phase, removePhoto, restart, retryTask, startTask, state, submitPhotoFix } from '../store.js'
+import { MAX_REDO, addPhotos, failureText, isImageFile, openRedo, phase, removePhoto, restart, retryTask, startTask, state, submitPhotoFix } from '../store.js'
 
 const task = computed(() => state.task)
 const speaker = computed(() => speakerOf(task.value?.step))
@@ -149,7 +149,7 @@ function onDrop(event) {
   event.preventDefault()
   dragDepth = 0
   dragging.value = false
-  const files = [...(event.dataTransfer.files || [])].filter((f) => f.type.startsWith('image/'))
+  const files = [...(event.dataTransfer.files || [])].filter(isImageFile)
   if (files.length) addPhotos(files)
 }
 
@@ -238,7 +238,7 @@ const placeholder = computed(() => {
 
       <form class="amie-input" :class="{ idle: !canAttach && !reviewing }" @submit.prevent="send">
         <label v-if="canAttach && draftPhotos.length < 10" class="attach-btn" title="添加照片">
-          <input type="file" accept="image/jpeg,image/png" multiple class="sr-only" @change="pick" />
+          <input type="file" accept="image/*,.heic,.heif" multiple class="sr-only" @change="pick" />
           <Icon name="paperclip" :size="18" />
           <span class="sr-only">添加照片</span>
         </label>

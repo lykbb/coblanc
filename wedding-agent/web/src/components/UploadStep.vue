@@ -2,6 +2,7 @@
 import { reactive, ref } from 'vue'
 import { showToast } from 'vant'
 import { api } from '../api.js'
+import { isImageFile } from '../store.js'
 
 defineProps({ busy: Boolean })
 const emit = defineEmits(['start'])
@@ -14,8 +15,8 @@ const description = ref('')
 
 function beforeRead(file) {
   for (const item of Array.isArray(file) ? file : [file]) {
-    if (!['image/jpeg', 'image/png'].includes(item.type)) {
-      showToast('只支持 jpg 和 png 图片')
+    if (!isImageFile(item)) {
+      showToast('只能上传图片')
       return false
     }
     if (item.size > MAX_BYTES) {
@@ -59,7 +60,7 @@ function start() {
 <template>
   <section class="card">
     <h2>上传你们俩的照片</h2>
-    <p class="hint">新郎、新娘分开传，各 1～10 张。正脸、清晰，多几个角度会更像。只支持 jpg / png，每张不超过 10 MB。</p>
+    <p class="hint">新郎、新娘分开传，各 1～10 张。正脸、清晰，多几个角度会更像。每张不超过 10 MB。</p>
 
     <h3>新郎照片（已传 {{ ids(groups.groom).length }} / {{ MAX_COUNT }}）</h3>
     <van-uploader
@@ -68,7 +69,7 @@ function start() {
       :max-count="MAX_COUNT"
       :before-read="beforeRead"
       :after-read="afterRead"
-      accept="image/jpeg,image/png"
+      accept="image/*,.heic,.heif"
       preview-size="80"
     />
 
@@ -79,7 +80,7 @@ function start() {
       :max-count="MAX_COUNT"
       :before-read="beforeRead"
       :after-read="afterRead"
-      accept="image/jpeg,image/png"
+      accept="image/*,.heic,.heif"
       preview-size="80"
     />
 

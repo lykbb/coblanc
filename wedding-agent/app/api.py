@@ -22,7 +22,7 @@ from app.common.config import settings
 from app.common.errors import ModuleError
 from app.common.log import get_logger
 from app.common.progress import store
-from app.modules.assets import purge_expired, save_image
+from app.modules.assets import normalize_upload, purge_expired, save_image
 from app.modules.assets.node import TEMPLATES_DIR
 from app.state import Consent
 
@@ -209,9 +209,9 @@ async def upload_image(file: UploadFile = File(...)):
     if len(data) > MAX_UPLOAD_BYTES:
         raise ApiError("FILE_INVALID", "图片不能超过 10 MB")
     try:
-        url = save_image(data, "upload")
+        url = save_image(normalize_upload(data), "upload")
     except ValueError:
-        raise ApiError("FILE_INVALID", "只支持 jpg 和 png 图片")
+        raise ApiError("FILE_INVALID", "这张图片打不开，换一张试试")
     file_id = "f_" + url.rsplit("/", 1)[1].split(".")[0]
     uploads[file_id] = url
     return {"file_id": file_id, "url": url}

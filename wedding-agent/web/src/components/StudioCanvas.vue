@@ -5,7 +5,7 @@ import StageCard from './StageCard.vue'
 import JourneyBar from './JourneyBar.vue'
 import { STYLE_ART } from '../agents.js'
 import { framingCounts, heights, short, styleLabel } from '../plan.js'
-import { MAX_REDO, STAGES, activeStage, addPhotos, openRedo, phase, review, stageStatus, state } from '../store.js'
+import { MAX_REDO, STAGES, activeStage, addPhotos, isImageFile, openRedo, phase, review, stageStatus, state } from '../store.js'
 
 const task = computed(() => state.task)
 const plan = computed(() => task.value?.plan || {})
@@ -44,7 +44,7 @@ function pick(event) {
 }
 function drop(event) {
   over.value = false
-  const files = [...(event.dataTransfer?.files || [])].filter((f) => f.type.startsWith('image/'))
+  const files = [...(event.dataTransfer?.files || [])].filter(isImageFile)
   if (files.length) addPhotos(files)
 }
 
@@ -157,7 +157,7 @@ watch(phase, async (now, before) => {
               <span v-if="i === shown - 1 && allPhotos.length > shown" class="more">+{{ allPhotos.length - shown }}</span>
             </button>
             <label v-if="canPick && allPhotos.length" class="upload-add" title="继续添加照片">
-              <input type="file" accept="image/jpeg,image/png" multiple class="sr-only" @change="pick" />
+              <input type="file" accept="image/*,.heic,.heif" multiple class="sr-only" @change="pick" />
               <Icon name="plus" :size="20" />
               <span>添加</span>
             </label>
@@ -169,10 +169,10 @@ watch(phase, async (now, before) => {
               @dragleave="over = false"
               @drop.prevent="drop"
             >
-              <input type="file" accept="image/jpeg,image/png" multiple class="sr-only" @change="pick" />
+              <input type="file" accept="image/*,.heic,.heif" multiple class="sr-only" @change="pick" />
               <span class="drop-icon"><Icon name="plus" :size="20" /></span>
               <strong>添加你们的照片</strong>
-              <small>点击选择，或把照片拖进来<br />2～10 张 · jpg / png<br />单张不超过 10 MB</small>
+              <small>点击选择，或把照片拖进来<br />2～10 张<br />单张不超过 10 MB</small>
             </label>
             <span v-else-if="!allPhotos.length" class="thumb-empty">{{ phase === 'loading' ? '正在加载…' : '等待上传' }}</span>
           </div>

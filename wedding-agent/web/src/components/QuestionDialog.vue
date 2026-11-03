@@ -4,7 +4,7 @@ import Modal from './Modal.vue'
 import Icon from './Icon.vue'
 import { AMIE, STYLE_ART, speakerOf } from '../agents.js'
 import { api } from '../api.js'
-import { state, submitAnswers } from '../store.js'
+import { needsServerPreview, state, submitAnswers } from '../store.js'
 
 const task = computed(() => state.task)
 const questions = computed(() => task.value?.questions || [])
@@ -42,6 +42,7 @@ async function addUpload(q, event) {
     try {
       const res = await api.uploadImage(file)
       values[q.question_id].push(res.file_id)
+      if (needsServerPreview(file) && res.url) item.preview = res.url
       item.done = true
     } catch (error) {
       item.failed = true
@@ -144,7 +145,7 @@ async function submit(useRecommended = false) {
           <figcaption v-else-if="!item.done">上传中…</figcaption>
         </figure>
         <label class="upload-add">
-          <input type="file" accept="image/jpeg,image/png" multiple class="sr-only" @change="addUpload(q, $event)" />
+          <input type="file" accept="image/*,.heic,.heif" multiple class="sr-only" @change="addUpload(q, $event)" />
           <Icon name="plus" :size="22" />
           <span>补传照片</span>
         </label>

@@ -263,6 +263,16 @@ async function act(action) {
 
 // ---------- 用户操作 ----------
 
+// 苹果的 HEIC 在部分浏览器里 file.type 是空的，所以也看扩展名
+const IMAGE_EXT = /\.(jpe?g|png|webp|heic|heif|avif|gif|bmp|tiff?)$/i
+export function isImageFile(file) {
+  return file.type.startsWith('image/') || IMAGE_EXT.test(file.name)
+}
+// HEIC 大多数浏览器显示不了，上传后换成服务器转好的 jpg
+export function needsServerPreview(file) {
+  return /\.(heic|heif)$/i.test(file.name) || /heic|heif/i.test(file.type)
+}
+
 export async function addPhotos(files) {
   const list = state.draft.photos
   for (const file of files) {
@@ -270,8 +280,8 @@ export async function addPhotos(files) {
       state.notice = `最多 ${MAX_PHOTOS} 张，挑最清晰的几张就好`
       break
     }
-    if (!['image/jpeg', 'image/png'].includes(file.type)) {
-      state.notice = '只支持 jpg 和 png 图片'
+    if (!isImageFile(file)) {
+      state.notice = '只能上传图片'
       continue
     }
     if (file.size > MAX_BYTES) {
@@ -284,6 +294,7 @@ export async function addPhotos(files) {
     try {
       const res = await api.uploadImage(file)
       item.file_id = res.file_id
+      if (needsServerPreview(file) && res.url) item.preview = res.url
     } catch (error) {
       item.failed = true
       showError(error)

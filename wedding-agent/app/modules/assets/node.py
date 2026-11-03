@@ -32,6 +32,39 @@ def _ext(data: bytes) -> str:
     raise ValueError("只支持 jpg 和 png 图片")
 
 
+def normalize_upload(data: bytes) -> bytes:
+    """把用户上传的图统一成 jpg 或 png，后面生图、识别、发给模型都只认这两种。
+
+    jpg、png 原样保留；webp、heic/heif、avif、gif、bmp、tiff 等按 EXIF 摆正后转码：
+    有透明通道的转 png，其余转高质量 jpg。读不出来的抛 ValueError。
+    """
+    try:
+        _ext(data)
+        return data
+    except ValueError:
+        pass
+    import io
+    from PIL import Image, ImageOps
+    try:
+        import pillow_heif
+        pillow_heif.register_heif_opener()
+    except ImportError:
+        pass
+    try:
+        with Image.open(io.BytesIO(data)) as image:
+            image.seek(0)  # 动图只取第一帧
+            image = ImageOps.exif_transpose(image)
+            has_alpha = image.mode in ("RGBA", "LA", "PA") or (image.mode == "P" and "transparency" in image.info)
+            buffer = io.BytesIO()
+            if has_alpha:
+                image.convert("RGBA").save(buffer, "PNG")
+            else:
+                image.convert("RGB").save(buffer, "JPEG", quality=95)
+            return buffer.getvalue()
+    except Exception as error:
+        raise ValueError("读不出这张图片") from error
+
+
 def save_image(data: bytes, kind: str) -> str:
     """保存一张图片，返回可以访问的地址。kind：upload / candidate / preview / deliverable。"""
     if kind not in KINDS:

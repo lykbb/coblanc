@@ -90,7 +90,7 @@ function submit(useRecommended) {
           v-model="uploadLists[q.question_id]"
           multiple
           :max-count="10"
-          accept="image/jpeg,image/png"
+          accept="image/*,.heic,.heif"
           :after-read="(items) => onUpload(items, q)"
           :after-delete="() => syncUpload(q)"
           preview-size="80"
