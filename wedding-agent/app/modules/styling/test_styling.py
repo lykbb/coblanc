@@ -133,3 +133,16 @@ def test_plan_choices_follow_look_and_answers():
     assert picked["style"]["label"] == node.choices.STYLES["forest"][0]
     assert picked["makeup"]["label"] == "氛围感" and picked["scene"]["label"] == "草坪"
     assert picked["outfit"]["bride"] and picked["outfit"]["groom"]
+
+
+def test_plan_choices_style_id_follows_answer_not_stale_look():
+    """妆造师先按默认风格写了 look，用户后来选了法式：卡片要用选定风格的编号。"""
+    from app.api import _choices
+
+    values = {"look": {"style": "chinese_red_gold", "text": "x"}, "shot": {"text": "y"},
+              "answers": [{"asker": "styling", "question_id": "q_style", "value": "french_editorial"},
+                          {"asker": "framing", "question_id": "q_scene", "value": "editorial_studio"}]}
+    picked = _choices(values)
+    assert picked["style"]["id"] == "french_editorial"
+    assert picked["style"]["label"] == node.choices.STYLES["french_editorial"][0]
+    assert picked["scene"]["id"] == "editorial_studio"

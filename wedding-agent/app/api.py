@@ -330,11 +330,12 @@ def _choices(values: dict) -> dict | None:
         return None
     makeup, outfit = picked["makeup"], picked["outfit"]
     return {
-        "style": {"label": picked["style_choice"]["label"], "description": picked["style_choice"].get("description")},
+        "style": {"id": picked["style_id"], "label": picked["style_choice"]["label"],
+                  "description": picked["style_choice"].get("description")},
         "makeup": {"label": makeup["label"], "bride": makeup["bride"], "groom": makeup["groom"]},
         "outfit": {"label": outfit["label"], "image": outfit.get("image"), "description": outfit.get("description"),
                    "bride": outfit.get("bride"), "groom": outfit.get("groom")},
-        "scene": {"label": scene["label"], "description": scene["description"]} if scene else None,
+        "scene": {"id": scene["value"], "label": scene["label"], "description": scene["description"]} if scene else None,
     }
 
 

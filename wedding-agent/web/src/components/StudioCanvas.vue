@@ -30,7 +30,13 @@ const tall = computed(() => heights(plan.value.brief))
 const counts = computed(() => framingCounts(shots.value))
 const previews = computed(() => task.value?.previews || [])
 const finalPhotos = computed(() => task.value?.deliverables?.photos || (task.value?.deliverables?.photo ? [task.value.deliverables.photo] : []))
-const styleArt = computed(() => look.value?.references?.find((r) => r.role === 'style')?.url || STYLE_ART[look.value?.style] || null)
+// 风格以用户选定的为准（choices.style.id），没有再退回妆造师方案里的 look.style；
+// 方案里的风格参考图只在和选定风格一致时才用
+const styleId = computed(() => choices.value?.style?.id || look.value?.style || '')
+const styleArt = computed(() => {
+  const ref = look.value?.style === styleId.value ? look.value?.references?.find((r) => r.role === 'style')?.url : null
+  return ref || STYLE_ART[styleId.value] || null
+})
 const lookRefs = (roles) => (look.value?.references || []).filter((r) => roles.includes(r.role)).slice(0, 2)
 const redoLeft = computed(() => Math.max(0, MAX_REDO - state.redoUsed))
 
@@ -58,7 +64,7 @@ const subtitle = computed(() => {
 
 const subtitles = computed(() => [
   allPhotos.value.length ? `${allPhotos.value.length} 张照片${sorted.value ? ' · 已分组' : ''}` : '',
-  look.value ? styleLabel(look.value.style) : '',
+  look.value ? styleLabel(styleId.value) : '',
   choices.value?.makeup?.label || '',
   choices.value?.outfit?.label || '',
   choices.value?.scene?.label || '',
@@ -172,11 +178,11 @@ watch(phase, async (now, before) => {
       <!-- 2 风格方案 -->
       <StageCard v-if="view === 1" :index="1" :title="STAGES[1].title" :subtitle="subtitles[1]" :status="stageStatus(1)">
         <div class="style-body">
-          <button v-if="styleArt" type="button" class="thumb-btn style-art" :aria-label="`放大${styleLabel(look?.style)}风格图`" @click="zoom(styleArt)">
-            <img loading="lazy" decoding="async" :src="styleArt" :alt="styleLabel(look?.style)" />
-            <span class="tag">{{ styleLabel(look?.style) }}</span>
+          <button v-if="styleArt" type="button" class="thumb-btn style-art" :aria-label="`放大${styleLabel(styleId)}风格图`" @click="zoom(styleArt)">
+            <img loading="lazy" decoding="async" :src="styleArt" :alt="styleLabel(styleId)" />
+            <span class="tag">{{ styleLabel(styleId) }}</span>
           </button>
-          <div v-else-if="look" class="placeholder">{{ styleLabel(look.style) }}</div>
+          <div v-else-if="look" class="placeholder">{{ styleLabel(styleId) }}</div>
           <p v-if="choices?.style?.description" class="look-text clamp1">{{ choices.style.description }}</p>
           <div v-if="tall" class="height-chips">
             <span class="pill">女生 {{ tall.bride }} cm</span>
@@ -189,9 +195,9 @@ watch(phase, async (now, before) => {
       <template v-for="side in [{ i: 2, key: 'bride', who: '新娘' }, { i: 3, key: 'groom', who: '新郎' }]" :key="side.key">
       <StageCard v-if="view === side.i" :index="side.i" :title="STAGES[side.i].title" :subtitle="subtitles[side.i]" :status="stageStatus(side.i)">
         <div class="look-body">
-          <button v-if="styleArt" type="button" class="thumb-btn look-art" :aria-label="`放大${styleLabel(look?.style)}风格图`" @click="zoom(styleArt)">
-            <img loading="lazy" decoding="async" :src="styleArt" :alt="styleLabel(look?.style)" />
-            <span class="tag">{{ styleLabel(look?.style) }}</span>
+          <button v-if="styleArt" type="button" class="thumb-btn look-art" :aria-label="`放大${styleLabel(styleId)}风格图`" @click="zoom(styleArt)">
+            <img loading="lazy" decoding="async" :src="styleArt" :alt="styleLabel(styleId)" />
+            <span class="tag">{{ styleLabel(styleId) }}</span>
           </button>
           <div class="look-thumbs">
             <button v-if="photos[side.key][0]" type="button" class="thumb-btn" :aria-label="`放大${side.who}照片`" @click="zoom(photos[side.key][0])">
